@@ -11,8 +11,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{7CDA11
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{4BF62DF5-0761-45B2-857F-5AEF4B2D6E27}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Uximagine.Magicurve.Web", "Src\UI\Uximagine.Magicurve.Web\Uximagine.Magicurve.Web.csproj", "{F5036C7D-8FF4-4A95-8CF1-F51724744B48}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Uximagine.Magicurve.Image.Processing", "Src\ImageProcessing\Uximagine.Magicurve.Image.Processing\Uximagine.Magicurve.Image.Processing.csproj", "{DA122933-7BBA-4036-9377-6F15B1FB7F63}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Uximagine.Magicurve.DataAccess", "Src\Domain\Uximagine.Magicurve.DataAccess\Uximagine.Magicurve.DataAccess.csproj", "{50001CC6-AA08-4A10-95DA-1431BF2BC29F}"
@@ -23,9 +21,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Uximagine.Magicurve.Service
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Uximagine.Magicurve.Neuro.Processing", "Src\NeuroNetworks\Uximagine.Magicurve.Neuro.Processing\Uximagine.Magicurve.Neuro.Processing.csproj", "{442ACB2B-A562-4257-8187-11C42F9AFBFF}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{5F75948E-DF74-4F4F-97FC-48D5BA565E50}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Uximagine.Magicurve.UI.Web", "Src\UI\Uximagine.Magicurve.UI.Web\Uximagine.Magicurve.UI.Web.csproj", "{A8A7DCA9-0EF8-4AE5-ACB7-EACB0AAF2422}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Uximagine.Magicurve.Services.Test", "Test\Uximagine.Magicurve.Services.Test\Uximagine.Magicurve.Services.Test.csproj", "{6E2191CB-A9A6-49DE-AC2A-B312F22E6E9D}"
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 6
+		SccNumberOfProjects = 7
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://uximagine.visualstudio.com/defaultcollection
 		SccLocalPath0 = .
@@ -45,20 +49,20 @@ Global
 		SccProjectTopLevelParentUniqueName4 = Uximagine.Magicurve.sln
 		SccProjectName4 = Src/Services/Uximagine.Magicurve.Services
 		SccLocalPath4 = Src\\Services\\Uximagine.Magicurve.Services
-		SccProjectUniqueName5 = Src\\UI\\Uximagine.Magicurve.Web\\Uximagine.Magicurve.Web.csproj
+		SccProjectUniqueName5 = Src\\UI\\Uximagine.Magicurve.UI.Web\\Uximagine.Magicurve.UI.Web.csproj
 		SccProjectTopLevelParentUniqueName5 = Uximagine.Magicurve.sln
-		SccProjectName5 = Src/UI/Uximagine.Magicurve.Web
-		SccLocalPath5 = Src\\UI\\Uximagine.Magicurve.Web
+		SccProjectName5 = Src/UI/Uximagine.Magicurve.UI.Web
+		SccLocalPath5 = Src\\UI\\Uximagine.Magicurve.UI.Web
+		SccProjectUniqueName6 = Test\\Uximagine.Magicurve.Services.Test\\Uximagine.Magicurve.Services.Test.csproj
+		SccProjectTopLevelParentUniqueName6 = Uximagine.Magicurve.sln
+		SccProjectName6 = Test/Uximagine.Magicurve.Services.Test
+		SccLocalPath6 = Test\\Uximagine.Magicurve.Services.Test
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{F5036C7D-8FF4-4A95-8CF1-F51724744B48}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F5036C7D-8FF4-4A95-8CF1-F51724744B48}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F5036C7D-8FF4-4A95-8CF1-F51724744B48}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F5036C7D-8FF4-4A95-8CF1-F51724744B48}.Release|Any CPU.Build.0 = Release|Any CPU
 		{DA122933-7BBA-4036-9377-6F15B1FB7F63}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{DA122933-7BBA-4036-9377-6F15B1FB7F63}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DA122933-7BBA-4036-9377-6F15B1FB7F63}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -75,15 +79,24 @@ Global
 		{442ACB2B-A562-4257-8187-11C42F9AFBFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{442ACB2B-A562-4257-8187-11C42F9AFBFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{442ACB2B-A562-4257-8187-11C42F9AFBFF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A8A7DCA9-0EF8-4AE5-ACB7-EACB0AAF2422}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8A7DCA9-0EF8-4AE5-ACB7-EACB0AAF2422}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8A7DCA9-0EF8-4AE5-ACB7-EACB0AAF2422}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A8A7DCA9-0EF8-4AE5-ACB7-EACB0AAF2422}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E2191CB-A9A6-49DE-AC2A-B312F22E6E9D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E2191CB-A9A6-49DE-AC2A-B312F22E6E9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E2191CB-A9A6-49DE-AC2A-B312F22E6E9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E2191CB-A9A6-49DE-AC2A-B312F22E6E9D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{F5036C7D-8FF4-4A95-8CF1-F51724744B48} = {4BF62DF5-0761-45B2-857F-5AEF4B2D6E27}
 		{DA122933-7BBA-4036-9377-6F15B1FB7F63} = {E224EB81-D16B-46F8-A0A4-6D9192C8FAA9}
 		{50001CC6-AA08-4A10-95DA-1431BF2BC29F} = {7CDA112E-EA5A-4951-A7C1-20FDEA195CAF}
 		{E3A0D046-35FD-49D9-A211-A5B9BEB25E6D} = {F97330D6-0BAD-4589-8463-5BBA13B28D42}
 		{442ACB2B-A562-4257-8187-11C42F9AFBFF} = {1C160C39-9202-4B7E-A165-C46D94EEA655}
+		{A8A7DCA9-0EF8-4AE5-ACB7-EACB0AAF2422} = {4BF62DF5-0761-45B2-857F-5AEF4B2D6E27}
+		{6E2191CB-A9A6-49DE-AC2A-B312F22E6E9D} = {5F75948E-DF74-4F4F-97FC-48D5BA565E50}
 	EndGlobalSection
 EndGlobal
