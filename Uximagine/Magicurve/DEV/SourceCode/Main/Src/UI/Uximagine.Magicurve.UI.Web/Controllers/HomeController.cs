@@ -14,5 +14,10 @@ namespace Uximagine.Magicurve.UI.Web.Controllers
 
             return View();
         }
+
+        public ActionResult Sample()
+        {
+            return View();
+        }
     }
 }

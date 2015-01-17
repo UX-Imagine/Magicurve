@@ -15,3 +15,8 @@ select,
 textarea {
     max-width: 280px;
 }
+
+footer{
+    bottom:0px;
+    text-align:center;
+}

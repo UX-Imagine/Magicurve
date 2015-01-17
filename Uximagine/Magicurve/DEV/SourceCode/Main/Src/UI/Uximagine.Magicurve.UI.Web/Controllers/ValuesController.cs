@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Web.Hosting;
 using System.Web.Http;
+using Uximagine.Magicurve.Image.Processing;
 
 namespace Uximagine.Magicurve.UI.Web.Controllers
 {
@@ -18,7 +21,10 @@ namespace Uximagine.Magicurve.UI.Web.Controllers
         // GET api/values/5
         public string Get(int id)
         {
-            return "value";
+            Bitmap img = Processor.ProcessImage(
+                new System.Drawing.Bitmap(HostingEnvironment.MapPath("~/Content/images/test.png")));
+            img.Save(HostingEnvironment.MapPath("~/Content/images/test2.png"));
+            return "/Content/images/test2.png";
         }
 
         // POST api/values
