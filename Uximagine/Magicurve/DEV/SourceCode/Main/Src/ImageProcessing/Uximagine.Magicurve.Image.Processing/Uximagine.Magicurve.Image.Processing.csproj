@@ -34,8 +34,21 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AForge">
+      <HintPath>..\..\..\Ext\In\AForge.dll</HintPath>
+    </Reference>
+    <Reference Include="AForge.Imaging">
+      <HintPath>..\..\..\Ext\In\AForge.Imaging.dll</HintPath>
+    </Reference>
+    <Reference Include="AForge.Imaging.Formats">
+      <HintPath>..\..\..\Ext\In\AForge.Imaging.Formats.dll</HintPath>
+    </Reference>
+    <Reference Include="AForge.Math">
+      <HintPath>..\..\..\Ext\In\AForge.Math.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -43,7 +56,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="Processor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
