@@ -23,6 +23,10 @@ namespace Uximagine.Magicurve.UI.Web.Controllers
 
             switch (id)
             {
+                case 1:
+                    imgPath = HostingEnvironment.MapPath(
+                       "~/Content/Images/Capture/capture.jpg");
+                    break;
                 case 2:
                     imgPath = HostingEnvironment.MapPath(
                         "~/Content/images/tri.png");
@@ -32,10 +36,24 @@ namespace Uximagine.Magicurve.UI.Web.Controllers
                         "~/Content/images/test.png");
                     break;
             }
-            Bitmap img = processor.ProcessImage(new Bitmap(imgPath));
-                
 
-            img.Save(HostingEnvironment.MapPath("~/Content/images/test2.png"));
+            Bitmap load = new Bitmap(imgPath);
+            
+            try
+            {
+                Bitmap img = processor.ProcessImage(load);
+                img.Save(HostingEnvironment.MapPath("~/Content/images/test2.png"));
+                img.Dispose(); 
+            }
+            catch (System.Exception)
+            {
+                
+                throw;
+            }
+           
+
+            load.Dispose();
+              
 
             IControl shape = processor.Shape;
 

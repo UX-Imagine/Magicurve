@@ -1,11 +1,24 @@
-﻿using System;
+﻿#region Imports
+using System;
 using System.IO;
-using System.Web.Mvc;
+using System.Web.Mvc; 
+#endregion
 
 namespace Uximagine.Magicurve.UI.Web.Controllers
 {
+    /// <summary>
+    /// The Default controller for the web application.
+    /// </summary>
     public class HomeController : Controller
     {
+        #region Methods - Instance Member - Public Members
+
+        /// <summary>
+        /// The Index page of the Web Application.
+        /// </summary>
+        /// <returns>
+        /// The View.
+        /// </returns>
         public ActionResult Index()
         {
             ViewBag.Title = "Home Page";
@@ -13,11 +26,18 @@ namespace Uximagine.Magicurve.UI.Web.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Samples this instance.
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Sample()
         {
             return View();
         }
 
+        /// <summary>
+        /// Captures this instance.
+        /// </summary>
         public void Capture()
         {
             var stream = Request.InputStream;
@@ -30,9 +50,31 @@ namespace Uximagine.Magicurve.UI.Web.Controllers
 
             var path = Server.MapPath("~/Content/Images/Capture/capture.jpg");
 
-            System.IO.File.WriteAllBytes(path, String_To_Bytes2(dump));
-        }
+            try
+            {
+                System.IO.File.WriteAllBytes(path, String_To_Bytes2(dump));
+            }
+            catch (Exception)
+            {
+                
+                throw;
+            }
+            
+        } 
 
+        #endregion
+        
+        #region Methods - Instance Member - (helpers)
+
+        /// <summary>
+        /// String_s the to_ bytes2.
+        /// </summary>
+        /// <param name="strInput">
+        /// The string input.
+        /// </param>
+        /// <returns>
+        /// The Byte Array.
+        /// </returns>
         private byte[] String_To_Bytes2(string strInput)
         {
             int numBytes = (strInput.Length) / 2;
@@ -44,6 +86,8 @@ namespace Uximagine.Magicurve.UI.Web.Controllers
             }
 
             return bytes;
-        }
+        } 
+
+        #endregion
     }
 }
