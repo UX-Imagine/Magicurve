@@ -7,13 +7,39 @@ using AForge.Imaging.Filters;
 using AForge.Math.Geometry;
 using System.Collections.Generic;
 using System.Drawing.Imaging;
+using Uximagine.Magicurve.Core.Models;
+using Uximagine.Magicurve.Core.Shapes;
 
 #endregion
 namespace Uximagine.Magicurve.Image.Processing
 {
     public class Processor
     {
-        public static Bitmap ProcessImage(Bitmap bitmap)
+        /// <summary>
+        /// Gets or sets the shape.
+        /// </summary>
+        /// <value>
+        /// The shape.
+        /// </value>
+        public ControlType Type 
+        { 
+            get; 
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the shape.
+        /// </summary>
+        /// <value>
+        /// The shape.
+        /// </value>
+        public IControl Shape
+        { 
+            get; 
+            set; 
+        }
+
+        public Bitmap ProcessImage(Bitmap bitmap)
         {
             //Invert filter = new Invert();
             // apply the filter
@@ -76,7 +102,7 @@ namespace Uximagine.Magicurve.Image.Processing
 
                     // is triangle or quadrilateral
                     if (shapeChecker.IsConvexPolygon(edgePoints, out corners))
-                    {
+                    {                       
                         // get sub-type
                         PolygonSubType subType = shapeChecker.CheckPolygonSubType(corners);
 
@@ -103,11 +129,8 @@ namespace Uximagine.Magicurve.Image.Processing
             brownPen.Dispose();
             g.Dispose();
 
-
             return bitmap;
           
-
-         
         }
 
         // Convert list of AForge.NET's points to array of .NET points
