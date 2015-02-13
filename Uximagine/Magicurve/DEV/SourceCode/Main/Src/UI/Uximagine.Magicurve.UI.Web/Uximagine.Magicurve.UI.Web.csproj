@@ -118,7 +118,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
-    <Folder Include="Scripts\FX\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -165,6 +164,8 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Images\test.png" />
+    <Content Include="Content\swf\jscam.swf" />
+    <Content Include="Content\swf\jscam_canvas_only.swf" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -190,7 +191,9 @@
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\CollectionModelDescription.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
+    <Content Include="Content\Site.less" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\FX\webcam\jquery.webcam.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
@@ -215,6 +218,10 @@
     <Content Include="Views\Home\Sample.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Common\Uximagine.Magicurve.Core\Uximagine.Magicurve.Core.csproj">
+      <Project>{0e3b890e-d113-4b87-9e39-19ac065e00c7}</Project>
+      <Name>Uximagine.Magicurve.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\ImageProcessing\Uximagine.Magicurve.Image.Processing\Uximagine.Magicurve.Image.Processing.csproj">
       <Project>{da122933-7bba-4036-9377-6f15b1fb7f63}</Project>
       <Name>Uximagine.Magicurve.Image.Processing</Name>

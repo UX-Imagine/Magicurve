@@ -1,13 +1,19 @@
 ﻿@{
     ViewBag.Title = "Sample";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 @section Scripts{
     <script src="~/Scripts/app/views/home/home.index.js"></script>
+    <script src="~/Scripts/FX/webcam/jquery.webcam.js"></script>
 }
 
 <h2>Sample</h2>
 <button onclick="loadImage()">Show shapes</button>
 <img id="img" src="/Content/images/test.png" height="200" width="200" />
-<div class="row"><img id="img_blob" src="#" height="400" width="400" /></div>
+<div class="row">
+    <img id="img_blob" src="#" height="400" width="400" />
+</div>
+<input type="button" value="Shoot!" id="shoot" />
+<div id="Camera"></div>
 
