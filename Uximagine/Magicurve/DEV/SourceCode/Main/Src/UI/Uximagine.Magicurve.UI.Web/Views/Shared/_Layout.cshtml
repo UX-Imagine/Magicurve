@@ -7,62 +7,299 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
-<body>
-    <!-- Navigation -->
-    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-        <div class="collapse navbar-collapse navbar-left" id="bs-example-navbar-collapse-1">
-
-            <ul class="nav navbar-nav navbar-right">
-                <li>
-                    <a href="#"><span class="glyphicon glyphicon-folder-open"></span> </a>
-                </li>
-                <li>
-                    <a href="#"><span class="glyphicon glyphicon-floppy-save"></span> </a>
-                </li>
-                <li>
-                    <a href="#"><span class="glyphicon glyphicon-zoom-in"></span> </a>
-                </li>
-                <li>
-                    <a href="#"><span class="glyphicon glyphicon-zoom-out"></span> </a>
-                </li>
-            </ul>
-        </div>
-
-        @*<div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+<body dir="ltr">
+    <!--  navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container container-full">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
 
-            </div>*@
-        <!-- /.container -->
-        <div class="collapse navbar-collapse navbar-right navbar-btn" id="bs-example-navbar-collapse-1">
+
+            </div>
+
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
 
 
-            <button type="button" class="btn btn-info" onclick="loadImage()">
-                <span class="glyphicon glyphicon-circle-arrow-up"></span> Import
-            </button>
 
 
-            <button type="button" class="btn btn-info">
-                <span class="glyphicon glyphicon-circle-arrow-down"></span> Export
-            </button>
+
+                <!-- left part -->
+                <div class="collapse navbar-collapse navbar-left" id="bs-example-navbar-collapse-1">
+
+                    <!--  	   <ul class="nav navbar-nav navbar-right">
+                            <li>
+                                <a href="#"><span class="glyphicon glyphicon-folder-open"></span> </a>
+                            </li>
+                            <li>
+                                <a href="#"><span class="glyphicon glyphicon-floppy-save"></span> </a>
+                            </li>
+                            <li>
+                                <a href="#"><span class="glyphicon glyphicon-zoom-in"></span> </a>
+                            </li>
+                            <li>
+                                <a href="#"><span class="glyphicon glyphicon-zoom-out"></span> </a>
+                            </li>
+                        </ul> -->
+
+                    <div class="collapse navbar-collapse navbar-right navbar-btn" id="bs-example-navbar-collapse-1">
 
 
-            <button type="button" class="btn btn-success">
-                <span class="glyphicon glyphicon-share-alt"></span> Share
-            </button>
+                        <button type="button" class="btn btn-info" onclick="loadImage()">
+                            <span class="glyphicon glyphicon-circle-arrow-up"></span> Import
+                        </button>
+
+
+                        <button type="button" class="btn btn-info">
+                            <span class="glyphicon glyphicon-circle-arrow-down"></span> Export
+                        </button>
+
+
+                        <button type="button" class="btn btn-success">
+                            <span class="glyphicon glyphicon-share-alt"></span> Share
+                        </button>
+
+
+                    </div>
+                </div>
+                <!-- /left part -->
+                <!-- right part -->
+
+                <div class="collapse navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">
+
+
+                    <ul class="nav navbar-nav navbar-right">
+
+
+
+
+
+                        <li class="nav-divider"></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-hover="dropdown"> Dismika Harishchandra<b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#"><i class="glyphicon glyphicon-user"></i> My Profile</a></li>
+                                <li><a href="#"><i class="glyphicon glyphicon-cog"></i> Change Password</a></li>
+                                <li class="nav-divider"></li>
+                                <li><a href="#"><i class="glyphicon glyphicon-cog"></i> Settings</a></li>
+                                <li class="nav-divider"></li>
+                                <li><a href="#"><i class="glyphicon glyphicon-log-out"></i> Sign Out</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                    <!-- /right part -->
+                </div>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container -->
+    </nav>
+    <div id="page-wrapper">
+
+
+
+        <!-- Main content -->
+        <div class="container container-full">
+            <div class="row">
+                <!-- secondary menu -->
+                <div class="col-md-2">
+                    <div id="secondary-menu">
+                        <div id="secondary-menu-toggle-top">
+                            <!-- this will show only on devices with lower resolutions -->
+                            <i class="fa fa-bars"></i> Collapse Menu
+                        </div>
+
+                        <!-- secondary-menu-items -->
+                        <div class="panel-group" id="accordion">
+                            <div class="panel panel-primary ">
+                                <div class="panel-heading">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                                        <h4 class="panel-title">
+                                            <span class="glyphicon glyphicon-th">
+                                            </span>oval
+                                        </h4>
+                                    </a>
+                                </div>
+                                <div id="collapseOne" class="panel-collapse collapse in">
+                                    <div class="panel-body">
+                                        <ul class="nav nav-stacked nav-pills">
+                                            <li>
+                                                <a href="#"></a>
+                                            </li>
+
+                                            <li>
+                                                <a href="#"></a>
+                                            </li>
+
+                                            <li>
+                                                <a href="#"></a>
+                                            </li>
+
+
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                                        <h4 class="panel-title">
+                                            <span class="glyphicon glyphicon-th">
+                                            </span>rectangle
+                                        </h4>
+                                    </a>
+                                </div>
+                                <div id="collapseTwo" class="panel-collapse collapse">
+                                    <div class="panel-body">
+                                        <ul class="nav nav-stacked nav-pills">
+                                            <li><a href="#"></a></li>
+                                            <li><a href="#"></a></li>
+                                            <li><a href="#"></a></li>
+                                            <li><a href="#"></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+                                        <h4 class="panel-title">
+                                            <span class="glyphicon glyphicon-th">
+                                            </span>shape
+                                        </h4>
+                                    </a>
+                                </div>
+                                <div id="collapseThree" class="panel-collapse collapse">
+                                    <div class="panel-body">
+                                        <ul class="nav nav-stacked nav-pills">
+                                            <li><a href="#"></a></li>
+                                            <li><a href="#"></a> </li>
+                                            <li><a href="#"></a></li>
+                                            <li><a href="#"></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
+                                        <h4 class="panel-title">
+                                            <span class="glyphicon glyphicon-th">
+                                            </span>shape
+                                        </h4>
+                                    </a>
+                                </div>
+                                <div id="collapseFour" class="panel-collapse collapse">
+                                    <div class="panel-body">
+                                        <ul class="nav nav-stacked nav-pills">
+                                            <li><a href="#"></a></li>
+                                            <li><a href="#"></a></li>
+                                            <li><a href="#"></a></li>
+                                            <li><a href="#"></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseFive">
+                                        <h4 class="panel-title">
+                                            <span class="glyphicon glyphicon-th">
+                                            </span>shape
+                                        </h4>
+                                    </a>
+                                </div>
+                                <div id="collapseFive" class="panel-collapse collapse">
+                                    <div class="panel-body">
+                                        <ul class="nav nav-stacked nav-pills">
+                                            <li><a href="#"></a></li>
+                                            <li><a href="#"></a></li>
+                                            <li><a href="#"></a></li>
+
+
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <!-- content -->
+                <div class="col-md-7">
+                    <div id="breadcrumb-table">
+                        <div id="breadcrumb-row">
+                            <!-- this will show only on lower resolutions -->
+                            <div id="open-left-bar" class="menu-icon btn btn-default">
+                                <i class="fa fa-bars"></i>
+                            </div>
+                            <div id="breadcrumb">
+                                <ol class="breadcrumb">
+                                    <li>Design</li>
+
+                                </ol>
+                            </div>
+                            <!-- this will show only on lower resolutions -->
+                            <div id="open-right-bar" class="menu-icon btn btn-default">
+                                <i class="fa fa-bars"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <!-- heading to be added -->
+                        <div id="body-content">
+
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- right side property bar -->
+                <div class="col-md-3">
+                    <aside>
+                        <div id="propertybar-menu-toggle-top">
+                            <!-- this will show only on devices with lower resolutions -->
+                            <i class="fa fa-bars"></i> Collapse Property Bar
+                        </div>
+                        <div id="propertybar-well">
+                            <ul class="nav nav-tabs">
+                                <li class="active">
+                                    <a href="#tab1" data-toggle="tab">Tab 1</a>
+                                </li>
+                                <li>
+                                    <a href="#tab2" data-toggle="tab">Tab 2</a>
+                                </li>
+                            </ul>
+                            <div id="tab-content" class="tab-content">
+                                <div class="tab-pane tab-styling active in" id="tab1">
+                                </div>
+                                <div class="tab-pane tab-styling fade" id="tab2">
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </aside>
+                </div>
+            </div>
 
         </div>
-    </nav>
+    </div> <!-- / #page-wrapper -->
+    <div style="clear:both"></div>
 
     <div class="container body-content">
 
         @RenderBody()
     </div>
-
     <!-- Footer -->
     <footer>
         <div class="container">
@@ -73,8 +310,8 @@
             </div>
         </div>
     </footer>
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/bootstrap")
+@RenderSection("scripts", required: false)
 </body>
 </html>
