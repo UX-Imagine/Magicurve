@@ -6,7 +6,15 @@ html,body{font-family: 'Istok Web', sans-serif;}
 .page-header{margin:5px 0 20px 0;}
 
 /*set full width to container*/
-.container-full {width: 100%!Important;}
+.container-full { 
+
+             max-width: 1570px;
+             max-height:900px;
+             
+
+
+
+}
 
 /* fixed body content */
 #body-content{
