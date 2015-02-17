@@ -16,10 +16,10 @@ namespace Uximagine.Magicurve.UI.Web.Areas.HelpPage.Models
         /// </summary>
         public HelpPageApiModel()
         {
-            UriParameters = new Collection<ParameterDescription>();
-            SampleRequests = new Dictionary<MediaTypeHeaderValue, object>();
-            SampleResponses = new Dictionary<MediaTypeHeaderValue, object>();
-            ErrorMessages = new Collection<string>();
+            this.UriParameters = new Collection<ParameterDescription>();
+            this.SampleRequests = new Dictionary<MediaTypeHeaderValue, object>();
+            this.SampleResponses = new Dictionary<MediaTypeHeaderValue, object>();
+            this.ErrorMessages = new Collection<string>();
         }
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace Uximagine.Magicurve.UI.Web.Areas.HelpPage.Models
         public ApiDescription ApiDescription { get; set; }
 
         /// <summary>
-        /// Gets or sets the <see cref="ParameterDescription"/> collection that describes the URI parameters for the API.
+        /// Gets the <see cref="ParameterDescription"/> collection that describes the URI parameters for the API.
         /// </summary>
         public Collection<ParameterDescription> UriParameters { get; private set; }
 
@@ -49,7 +49,7 @@ namespace Uximagine.Magicurve.UI.Web.Areas.HelpPage.Models
         {
             get
             {
-                return GetParameterDescriptions(RequestModelDescription);
+                return GetParameterDescriptions(this.RequestModelDescription);
             }
         }
 
@@ -65,7 +65,7 @@ namespace Uximagine.Magicurve.UI.Web.Areas.HelpPage.Models
         {
             get
             {
-                return GetParameterDescriptions(ResourceDescription);
+                return GetParameterDescriptions(this.ResourceDescription);
             }
         }
 
@@ -84,6 +84,13 @@ namespace Uximagine.Magicurve.UI.Web.Areas.HelpPage.Models
         /// </summary>
         public Collection<string> ErrorMessages { get; private set; }
 
+        /// <summary>
+        /// Gets the parameter descriptions.
+        /// </summary>
+        /// <param name="modelDescription">The model description.</param>
+        /// <returns>
+        /// The parameter descriptions.
+        /// </returns>
         private static IList<ParameterDescription> GetParameterDescriptions(ModelDescription modelDescription)
         {
             ComplexTypeModelDescription complexTypeModelDescription = modelDescription as ComplexTypeModelDescription;

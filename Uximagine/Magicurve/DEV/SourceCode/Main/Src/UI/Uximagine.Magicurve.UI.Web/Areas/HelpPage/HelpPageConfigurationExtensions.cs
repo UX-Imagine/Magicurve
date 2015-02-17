@@ -16,8 +16,14 @@ using Uximagine.Magicurve.UI.Web.Areas.HelpPage.Models;
 
 namespace Uximagine.Magicurve.UI.Web.Areas.HelpPage
 {
+    /// <summary>
+    /// The Help page configuration extensions.
+    /// </summary>
     public static class HelpPageConfigurationExtensions
     {
+        /// <summary>
+        /// The API model prefix.
+        /// </summary>
         private const string ApiModelPrefix = "MS_HelpPageApiModel_";
 
         /// <summary>
@@ -223,7 +229,7 @@ namespace Uximagine.Magicurve.UI.Web.Areas.HelpPage
             if (!config.Properties.TryGetValue(modelId, out model))
             {
                 Collection<ApiDescription> apiDescriptions = config.Services.GetApiExplorer().ApiDescriptions;
-                ApiDescription apiDescription = apiDescriptions.FirstOrDefault(api => String.Equals(api.GetFriendlyId(), apiDescriptionId, StringComparison.OrdinalIgnoreCase));
+                ApiDescription apiDescription = apiDescriptions.FirstOrDefault(api => string.Equals(api.GetFriendlyId(), apiDescriptionId, StringComparison.OrdinalIgnoreCase));
                 if (apiDescription != null)
                 {
                     model = GenerateApiModel(apiDescription, config);
@@ -234,6 +240,18 @@ namespace Uximagine.Magicurve.UI.Web.Areas.HelpPage
             return (HelpPageApiModel)model;
         }
 
+        /// <summary>
+        /// Generates the API model.
+        /// </summary>
+        /// <param name="apiDescription">
+        /// The API description.
+        /// </param>
+        /// <param name="config">
+        /// The configuration.
+        /// </param>
+        /// <returns>
+        /// The Model.
+        /// </returns>
         private static HelpPageApiModel GenerateApiModel(ApiDescription apiDescription, HttpConfiguration config)
         {
             HelpPageApiModel apiModel = new HelpPageApiModel()
@@ -251,6 +269,11 @@ namespace Uximagine.Magicurve.UI.Web.Areas.HelpPage
             return apiModel;
         }
 
+        /// <summary>
+        /// Generates the URI parameters.
+        /// </summary>
+        /// <param name="apiModel">The API model.</param>
+        /// <param name="modelGenerator">The model generator.</param>
         private static void GenerateUriParameters(HelpPageApiModel apiModel, ModelDescriptionGenerator modelGenerator)
         {
             ApiDescription apiDescription = apiModel.ApiDescription;
@@ -315,7 +338,8 @@ namespace Uximagine.Magicurve.UI.Web.Areas.HelpPage
                     }
                     else
                     {
-                        Debug.Assert(parameterDescriptor == null);
+                        Debug.Assert(parameterDescriptor == null, 
+                            "Whether the description is null");
 
                         // If parameterDescriptor is null, this is an undeclared route parameter which only occurs
                         // when source is FromUri. Ignored in request model and among resource parameters but listed
@@ -327,6 +351,13 @@ namespace Uximagine.Magicurve.UI.Web.Areas.HelpPage
             }
         }
 
+        /// <summary>
+        /// Determines whether [is bind able with type converter] [the specified parameter type].
+        /// </summary>
+        /// <param name="parameterType">Type of the parameter.</param>
+        /// <returns>
+        /// <c>True </c> if can bind with converter else <c>False</c> 
+        /// </returns>
         private static bool IsBindableWithTypeConverter(Type parameterType)
         {
             if (parameterType == null)
@@ -337,6 +368,21 @@ namespace Uximagine.Magicurve.UI.Web.Areas.HelpPage
             return TypeDescriptor.GetConverter(parameterType).CanConvertFrom(typeof(string));
         }
 
+        /// <summary>
+        /// Adds the parameter description.
+        /// </summary>
+        /// <param name="apiModel">
+        /// The API model.
+        /// </param>
+        /// <param name="apiParameter">
+        /// The API parameter.
+        /// </param>
+        /// <param name="typeDescription">
+        /// The type description.
+        /// </param>
+        /// <returns>
+        /// The parameter description.
+        /// </returns>
         private static ParameterDescription AddParameterDescription(HelpPageApiModel apiModel,
             ApiParameterDescription apiParameter, ModelDescription typeDescription)
         {
@@ -351,6 +397,18 @@ namespace Uximagine.Magicurve.UI.Web.Areas.HelpPage
             return parameterDescription;
         }
 
+        /// <summary>
+        /// Generates the request model description.
+        /// </summary>
+        /// <param name="apiModel">
+        /// The API model.
+        /// </param>
+        /// <param name="modelGenerator">
+        /// The model generator.
+        /// </param>
+        /// <param name="sampleGenerator">
+        /// The sample generator.
+        /// </param>
         private static void GenerateRequestModelDescription(HelpPageApiModel apiModel, ModelDescriptionGenerator modelGenerator, HelpPageSampleGenerator sampleGenerator)
         {
             ApiDescription apiDescription = apiModel.ApiDescription;
@@ -375,6 +433,11 @@ namespace Uximagine.Magicurve.UI.Web.Areas.HelpPage
             }
         }
 
+        /// <summary>
+        /// Generates the resource description.
+        /// </summary>
+        /// <param name="apiModel">The API model.</param>
+        /// <param name="modelGenerator">The model generator.</param>
         private static void GenerateResourceDescription(HelpPageApiModel apiModel, ModelDescriptionGenerator modelGenerator)
         {
             ResponseDescription response = apiModel.ApiDescription.ResponseDescription;
@@ -385,6 +448,11 @@ namespace Uximagine.Magicurve.UI.Web.Areas.HelpPage
             }
         }
 
+        /// <summary>
+        /// Generates the samples.
+        /// </summary>
+        /// <param name="apiModel">The API model.</param>
+        /// <param name="sampleGenerator">The sample generator.</param>
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "The exception is recorded as ErrorMessages.")]
         private static void GenerateSamples(HelpPageApiModel apiModel, HelpPageSampleGenerator sampleGenerator)
         {
@@ -401,15 +469,35 @@ namespace Uximagine.Magicurve.UI.Web.Areas.HelpPage
                     apiModel.SampleResponses.Add(item.Key, item.Value);
                     LogInvalidSampleAsError(apiModel, item.Value);
                 }
+
             }
             catch (Exception e)
             {
-                apiModel.ErrorMessages.Add(String.Format(CultureInfo.CurrentCulture,
+                apiModel.ErrorMessages.Add(string.Format(CultureInfo.CurrentCulture,
                     "An exception has occurred while generating the sample. Exception message: {0}",
                     HelpPageSampleGenerator.UnwrapException(e).Message));
             }
+
         }
 
+        /// <summary>
+        /// Tries the get resource parameter.
+        /// </summary>
+        /// <param name="apiDescription">
+        /// The API description.
+        /// </param>
+        /// <param name="config">
+        /// The configuration.
+        /// </param>
+        /// <param name="parameterDescription">
+        /// The parameter description.
+        /// </param>
+        /// <param name="resourceType">
+        /// Type of the resource.
+        /// </param>
+        /// <returns>
+        /// The Success.
+        /// </returns>
         private static bool TryGetResourceParameter(ApiDescription apiDescription, HttpConfiguration config, out ApiParameterDescription parameterDescription, out Type resourceType)
         {
             parameterDescription = apiDescription.ParameterDescriptions.FirstOrDefault(
@@ -439,10 +527,16 @@ namespace Uximagine.Magicurve.UI.Web.Areas.HelpPage
             return true;
         }
 
+        /// <summary>
+        /// Initializes the model description generator.
+        /// </summary>
+        /// <param name="config">The configuration.</param>
+        /// <returns> Model Description Generator.</returns>
         private static ModelDescriptionGenerator InitializeModelDescriptionGenerator(HttpConfiguration config)
         {
             ModelDescriptionGenerator modelGenerator = new ModelDescriptionGenerator(config);
             Collection<ApiDescription> apis = config.Services.GetApiExplorer().ApiDescriptions;
+
             foreach (ApiDescription api in apis)
             {
                 ApiParameterDescription parameterDescription;
@@ -451,10 +545,21 @@ namespace Uximagine.Magicurve.UI.Web.Areas.HelpPage
                 {
                     modelGenerator.GetOrCreateModelDescription(parameterType);
                 }
+
             }
+
             return modelGenerator;
         }
 
+        /// <summary>
+        /// Logs the invalid sample as error.
+        /// </summary>
+        /// <param name="apiModel">
+        /// The API model.
+        /// </param>
+        /// <param name="sample">
+        /// The sample.
+        /// </param>
         private static void LogInvalidSampleAsError(HelpPageApiModel apiModel, object sample)
         {
             InvalidSample invalidSample = sample as InvalidSample;

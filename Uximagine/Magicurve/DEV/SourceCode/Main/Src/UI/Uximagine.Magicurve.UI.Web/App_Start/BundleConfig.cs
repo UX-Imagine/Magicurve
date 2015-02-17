@@ -1,11 +1,20 @@
-﻿using System.Web;
-using System.Web.Optimization;
+﻿using System.Web.Optimization;
 
 namespace Uximagine.Magicurve.UI.Web
 {
+    /// <summary>
+    /// The bundle configuration file.
+    /// </summary>
     public class BundleConfig
     {
-        // For more information on bundling, visit http://go.microsoft.com/fwlink/?LinkId=301862
+        //// For more information on bundling, visit http://go.microsoft.com/fwlink/?LinkId=301862
+
+        /// <summary>
+        /// Registers the bundles.
+        /// </summary>
+        /// <param name="bundles">
+        /// The bundles.
+        /// </param>
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
@@ -15,7 +24,6 @@ namespace Uximagine.Magicurve.UI.Web
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
-
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",

@@ -2,15 +2,8 @@
 // package to your project.
 ////#define Handle_PageResultOfT
 
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using System.Net.Http.Headers;
-using System.Reflection;
-using System.Web;
 using System.Web.Http;
 #if Handle_PageResultOfT
 using System.Web.Http.OData;
@@ -25,6 +18,12 @@ namespace Uximagine.Magicurve.UI.Web.Areas.HelpPage
     /// </summary>
     public static class HelpPageConfig
     {
+        /// <summary>
+        /// Registers the specified configuration.
+        /// </summary>
+        /// <param name="config">
+        /// The configuration.
+        /// </param>
         [SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters",
             MessageId = "Uximagine.Magicurve.UI.Web.Areas.HelpPage.TextSample.#ctor(System.String)",
             Justification = "End users may choose to merge this string with existing localized resources.")]
@@ -33,33 +32,33 @@ namespace Uximagine.Magicurve.UI.Web.Areas.HelpPage
             Justification = "Part of a URI.")]
         public static void Register(HttpConfiguration config)
         {
-            //// Uncomment the following to use the documentation from XML documentation file.
-            //config.SetDocumentationProvider(new XmlDocumentationProvider(HttpContext.Current.Server.MapPath("~/App_Data/XmlDocument.xml")));
+            /* //Uncomment the following to use the documentation from XML documentation file.
+            config.SetDocumentationProvider(new XmlDocumentationProvider(HttpContext.Current.Server.MapPath("~/App_Data/XmlDocument.xml")));
 
-            //// Uncomment the following to use "sample string" as the sample for all actions that have string as the body parameter or return type.
-            //// Also, the string arrays will be used for IEnumerable<string>. The sample objects will be serialized into different media type 
-            //// formats by the available formatters.
-            //config.SetSampleObjects(new Dictionary<Type, object>
-            //{
-            //    {typeof(string), "sample string"},
-            //    {typeof(IEnumerable<string>), new string[]{"sample 1", "sample 2"}}
-            //});
+             //Uncomment the following to use "sample string" as the sample for all actions that have string as the body parameter or return type.
+             //Also, the string arrays will be used for IEnumerable<string>. The sample objects will be serialized into different media type 
+             formats by the available formatters.
+            config.SetSampleObjects(new Dictionary<Type, object>
+            {
+               {typeof(string), "sample string"},
+                {typeof(IEnumerable<string>), new string[]{"sample 1", "sample 2"}}
+            });
 
             // Extend the following to provide factories for types not handled automatically (those lacking parameterless
             // constructors) or for which you prefer to use non-default property values. Line below provides a fallback
-            // since automatic handling will fail and GeneratePageResult handles only a single type.
+            // since automatic handling will fail and GeneratePageResult handles only a single type.*/
 #if Handle_PageResultOfT
             config.GetHelpPageSampleGenerator().SampleObjectFactories.Add(GeneratePageResult);
 #endif
 
-            // Extend the following to use a preset object directly as the sample for all actions that support a media
+            /* Extend the following to use a preset object directly as the sample for all actions that support a media
             // type, regardless of the body parameter or return type. The lines below avoid display of binary content.
-            // The BsonMediaTypeFormatter (if available) is not used to serialize the TextSample object.
+            // The BsonMediaTypeFormatter (if available) is not used to serialize the TextSample object.*/
             config.SetSampleForMediaType(
                 new TextSample("Binary JSON content. See http://bsonspec.org for details."),
                 new MediaTypeHeaderValue("application/bson"));
 
-            //// Uncomment the following to use "[0]=foo&[1]=bar" directly as the sample for all actions that support form URL encoded format
+            /*/// Uncomment the following to use "[0]=foo&[1]=bar" directly as the sample for all actions that support form URL encoded format
             //// and have IEnumerable<string> as the body parameter or return type.
             //config.SetSampleForType("[0]=foo&[1]=bar", new MediaTypeHeaderValue("application/x-www-form-urlencoded"), typeof(IEnumerable<string>));
 
@@ -77,7 +76,7 @@ namespace Uximagine.Magicurve.UI.Web.Areas.HelpPage
 
             //// Uncomment the following to correct the sample response when the action returns an HttpResponseMessage with ObjectContent<string>.
             //// The sample will be generated as if the controller named "Values" and action named "Post" were returning a string.
-            //config.SetActualResponseType(typeof(string), "Values", "Post");
+            //config.SetActualResponseType(typeof(string), "Values", "Post");*/
         }
 
 #if Handle_PageResultOfT

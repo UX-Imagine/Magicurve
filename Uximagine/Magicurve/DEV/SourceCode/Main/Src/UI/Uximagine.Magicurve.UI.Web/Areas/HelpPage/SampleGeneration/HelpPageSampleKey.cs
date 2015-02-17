@@ -11,9 +11,10 @@ namespace Uximagine.Magicurve.UI.Web.Areas.HelpPage
     public class HelpPageSampleKey
     {
         /// <summary>
-        /// Creates a new <see cref="HelpPageSampleKey"/> based on media type.
+        /// Initializes a new instance of the <see cref="HelpPageSampleKey"/> class.
         /// </summary>
-        /// <param name="mediaType">The media type.</param>
+        /// <param name="mediaType">Type of the media.</param>
+        /// <exception cref="System.ArgumentNullException">mediaType</exception>
         public HelpPageSampleKey(MediaTypeHeaderValue mediaType)
         {
             if (mediaType == null)
@@ -28,10 +29,11 @@ namespace Uximagine.Magicurve.UI.Web.Areas.HelpPage
         }
 
         /// <summary>
-        /// Creates a new <see cref="HelpPageSampleKey"/> based on media type and CLR type.
+        /// Initializes a new instance of the <see cref="HelpPageSampleKey"/> class.
         /// </summary>
-        /// <param name="mediaType">The media type.</param>
-        /// <param name="type">The CLR type.</param>
+        /// <param name="mediaType">Type of the media.</param>
+        /// <param name="type">The type.</param>
+        /// <exception cref="System.ArgumentNullException">type</exception>
         public HelpPageSampleKey(MediaTypeHeaderValue mediaType, Type type)
             : this(mediaType)
         {
@@ -44,12 +46,20 @@ namespace Uximagine.Magicurve.UI.Web.Areas.HelpPage
         }
 
         /// <summary>
-        /// Creates a new <see cref="HelpPageSampleKey"/> based on <see cref="SampleDirection"/>, controller name, action name and parameter names.
+        /// Initializes a new instance of the <see cref="HelpPageSampleKey"/> class.
         /// </summary>
-        /// <param name="sampleDirection">The <see cref="SampleDirection"/>.</param>
+        /// <param name="sampleDirection">The sample direction.</param>
         /// <param name="controllerName">Name of the controller.</param>
         /// <param name="actionName">Name of the action.</param>
         /// <param name="parameterNames">The parameter names.</param>
+        /// <exception cref="System.ComponentModel.InvalidEnumArgumentException">sampleDirection</exception>
+        /// <exception cref="System.ArgumentNullException">
+        /// controllerName
+        /// or
+        /// actionName
+        /// or
+        /// parameterNames
+        /// </exception>
         public HelpPageSampleKey(SampleDirection sampleDirection, string controllerName, string actionName, IEnumerable<string> parameterNames)
         {
             if (!Enum.IsDefined(typeof(SampleDirection), sampleDirection))
@@ -76,13 +86,14 @@ namespace Uximagine.Magicurve.UI.Web.Areas.HelpPage
         }
 
         /// <summary>
-        /// Creates a new <see cref="HelpPageSampleKey"/> based on media type, <see cref="SampleDirection"/>, controller name, action name and parameter names.
+        /// Initializes a new instance of the <see cref="HelpPageSampleKey"/> class.
         /// </summary>
-        /// <param name="mediaType">The media type.</param>
-        /// <param name="sampleDirection">The <see cref="SampleDirection"/>.</param>
+        /// <param name="mediaType">Type of the media.</param>
+        /// <param name="sampleDirection">The sample direction.</param>
         /// <param name="controllerName">Name of the controller.</param>
         /// <param name="actionName">Name of the action.</param>
         /// <param name="parameterNames">The parameter names.</param>
+        /// <exception cref="System.ArgumentNullException">mediaType</exception>
         public HelpPageSampleKey(MediaTypeHeaderValue mediaType, SampleDirection sampleDirection, string controllerName, string actionName, IEnumerable<string> parameterNames)
             : this(sampleDirection, controllerName, actionName, parameterNames)
         {
@@ -123,6 +134,12 @@ namespace Uximagine.Magicurve.UI.Web.Areas.HelpPage
         /// </summary>
         public HashSet<string> ParameterNames { get; private set; }
 
+        /// <summary>
+        /// Gets the type of the parameter.
+        /// </summary>
+        /// <value>
+        /// The type of the parameter.
+        /// </value>
         public Type ParameterType { get; private set; }
 
         /// <summary>
@@ -130,6 +147,13 @@ namespace Uximagine.Magicurve.UI.Web.Areas.HelpPage
         /// </summary>
         public SampleDirection? SampleDirection { get; private set; }
 
+        /// <summary>
+        /// Determines whether the specified <see cref="System.Object" />, is equal to this instance.
+        /// </summary>
+        /// <param name="obj">The <see cref="System.Object" /> to compare with this instance.</param>
+        /// <returns>
+        ///   <c>true</c> if the specified <see cref="System.Object" /> is equal to this instance; otherwise, <c>false</c>.
+        /// </returns>
         public override bool Equals(object obj)
         {
             HelpPageSampleKey otherKey = obj as HelpPageSampleKey;
@@ -138,14 +162,20 @@ namespace Uximagine.Magicurve.UI.Web.Areas.HelpPage
                 return false;
             }
 
-            return String.Equals(ControllerName, otherKey.ControllerName, StringComparison.OrdinalIgnoreCase) &&
-                String.Equals(ActionName, otherKey.ActionName, StringComparison.OrdinalIgnoreCase) &&
+            return string.Equals(ControllerName, otherKey.ControllerName, StringComparison.OrdinalIgnoreCase) &&
+                string.Equals(ActionName, otherKey.ActionName, StringComparison.OrdinalIgnoreCase) &&
                 (MediaType == otherKey.MediaType || (MediaType != null && MediaType.Equals(otherKey.MediaType))) &&
                 ParameterType == otherKey.ParameterType &&
                 SampleDirection == otherKey.SampleDirection &&
                 ParameterNames.SetEquals(otherKey.ParameterNames);
         }
 
+        /// <summary>
+        /// Returns a hash code for this instance.
+        /// </summary>
+        /// <returns>
+        /// A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table. 
+        /// </returns>
         public override int GetHashCode()
         {
             int hashCode = ControllerName.ToUpperInvariant().GetHashCode() ^ ActionName.ToUpperInvariant().GetHashCode();

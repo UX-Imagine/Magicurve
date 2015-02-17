@@ -1,3 +1,5 @@
+#region Imports
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -10,8 +12,8 @@ using System.Net.Http;
 using System.Net.Http.Formatting;
 using System.Net.Http.Headers;
 using System.Web.Http.Description;
-using System.Xml.Linq;
-using Newtonsoft.Json;
+using System.Xml.Linq; 
+#endregion
 
 namespace Uximagine.Magicurve.UI.Web.Areas.HelpPage
 {
@@ -25,12 +27,12 @@ namespace Uximagine.Magicurve.UI.Web.Areas.HelpPage
         /// </summary>
         public HelpPageSampleGenerator()
         {
-            ActualHttpMessageTypes = new Dictionary<HelpPageSampleKey, Type>();
-            ActionSamples = new Dictionary<HelpPageSampleKey, object>();
-            SampleObjects = new Dictionary<Type, object>();
-            SampleObjectFactories = new List<Func<HelpPageSampleGenerator, Type, object>>
+            this.ActualHttpMessageTypes = new Dictionary<HelpPageSampleKey, Type>();
+            this.ActionSamples = new Dictionary<HelpPageSampleKey, object>();
+            this.SampleObjects = new Dictionary<Type, object>();
+            this.SampleObjectFactories = new List<Func<HelpPageSampleGenerator, Type, object>>
             {
-                DefaultSampleObjectFactory,
+                HelpPageSampleGenerator.DefaultSampleObjectFactory
             };
         }
 
@@ -68,7 +70,7 @@ namespace Uximagine.Magicurve.UI.Web.Areas.HelpPage
         /// <returns>The samples keyed by media type.</returns>
         public IDictionary<MediaTypeHeaderValue, object> GetSampleRequests(ApiDescription api)
         {
-            return GetSample(api, SampleDirection.Request);
+            return this.GetSample(api, SampleDirection.Request);
         }
 
         /// <summary>
@@ -78,7 +80,7 @@ namespace Uximagine.Magicurve.UI.Web.Areas.HelpPage
         /// <returns>The samples keyed by media type.</returns>
         public IDictionary<MediaTypeHeaderValue, object> GetSampleResponses(ApiDescription api)
         {
-            return GetSample(api, SampleDirection.Response);
+            return this.GetSample(api, SampleDirection.Response);
         }
 
         /// <summary>
@@ -93,15 +95,16 @@ namespace Uximagine.Magicurve.UI.Web.Areas.HelpPage
             {
                 throw new ArgumentNullException("api");
             }
+
             string controllerName = api.ActionDescriptor.ControllerDescriptor.ControllerName;
             string actionName = api.ActionDescriptor.ActionName;
             IEnumerable<string> parameterNames = api.ParameterDescriptions.Select(p => p.Name);
             Collection<MediaTypeFormatter> formatters;
-            Type type = ResolveType(api, controllerName, actionName, parameterNames, sampleDirection, out formatters);
+            Type type = this.ResolveType(api, controllerName, actionName, parameterNames, sampleDirection, out formatters);
             var samples = new Dictionary<MediaTypeHeaderValue, object>();
 
-            // Use the samples provided directly for actions
-            var actionSamples = GetAllActionSamples(controllerName, actionName, parameterNames, sampleDirection);
+            //// Use the samples provided directly for actions
+            var actionSamples = this.GetAllActionSamples(controllerName, actionName, parameterNames, sampleDirection);
             foreach (var actionSample in actionSamples)
             {
                 samples.Add(actionSample.Key.MediaType, WrapSampleIfString(actionSample.Value));
@@ -111,22 +114,22 @@ namespace Uximagine.Magicurve.UI.Web.Areas.HelpPage
             // Here we cannot rely on formatters because we don't know what's in the HttpResponseMessage, it might not even use formatters.
             if (type != null && !typeof(HttpResponseMessage).IsAssignableFrom(type))
             {
-                object sampleObject = GetSampleObject(type);
+                object sampleObject = this.GetSampleObject(type);
                 foreach (var formatter in formatters)
                 {
                     foreach (MediaTypeHeaderValue mediaType in formatter.SupportedMediaTypes)
                     {
                         if (!samples.ContainsKey(mediaType))
                         {
-                            object sample = GetActionSample(controllerName, actionName, parameterNames, type, formatter, mediaType, sampleDirection);
+                            object sample = this.GetActionSample(controllerName, actionName, parameterNames, type, formatter, mediaType, sampleDirection);
 
                             // If no sample found, try generate sample using formatter and sample object
                             if (sample == null && sampleObject != null)
                             {
-                                sample = WriteSampleObjectUsingFormatter(formatter, sampleObject, type, mediaType);
+                                sample = this.WriteSampleObjectUsingFormatter(formatter, sampleObject, type, mediaType);
                             }
 
-                            samples.Add(mediaType, WrapSampleIfString(sample));
+                            samples.Add(mediaType, HelpPageSampleGenerator.WrapSampleIfString(sample));
                         }
                     }
                 }
@@ -154,10 +157,10 @@ namespace Uximagine.Magicurve.UI.Web.Areas.HelpPage
             // If not found, try to get the sample provided for the specified mediaType, sampleDirection, controllerName and actionName regardless of the parameterNames.
             // If still not found, try to get the sample provided for the specified mediaType and type.
             // Finally, try to get the sample provided for the specified mediaType.
-            if (ActionSamples.TryGetValue(new HelpPageSampleKey(mediaType, sampleDirection, controllerName, actionName, parameterNames), out sample) ||
-                ActionSamples.TryGetValue(new HelpPageSampleKey(mediaType, sampleDirection, controllerName, actionName, new[] { "*" }), out sample) ||
-                ActionSamples.TryGetValue(new HelpPageSampleKey(mediaType, type), out sample) ||
-                ActionSamples.TryGetValue(new HelpPageSampleKey(mediaType), out sample))
+            if (this.ActionSamples.TryGetValue(new HelpPageSampleKey(mediaType, sampleDirection, controllerName, actionName, parameterNames), out sample) ||
+                this.ActionSamples.TryGetValue(new HelpPageSampleKey(mediaType, sampleDirection, controllerName, actionName, new[] { "*" }), out sample) ||
+                this.ActionSamples.TryGetValue(new HelpPageSampleKey(mediaType, type), out sample) ||
+                this.ActionSamples.TryGetValue(new HelpPageSampleKey(mediaType), out sample))
             {
                 return sample;
             }
@@ -179,10 +182,10 @@ namespace Uximagine.Magicurve.UI.Web.Areas.HelpPage
         {
             object sampleObject;
 
-            if (!SampleObjects.TryGetValue(type, out sampleObject))
+            if (!this.SampleObjects.TryGetValue(type, out sampleObject))
             {
                 // No specific object available, try our factories.
-                foreach (Func<HelpPageSampleGenerator, Type, object> factory in SampleObjectFactories)
+                foreach (Func<HelpPageSampleGenerator, Type, object> factory in this.SampleObjectFactories)
                 {
                     if (factory == null)
                     {
@@ -218,18 +221,37 @@ namespace Uximagine.Magicurve.UI.Web.Areas.HelpPage
             string actionName = api.ActionDescriptor.ActionName;
             IEnumerable<string> parameterNames = api.ParameterDescriptions.Select(p => p.Name);
             Collection<MediaTypeFormatter> formatters;
-            return ResolveType(api, controllerName, actionName, parameterNames, SampleDirection.Request, out formatters);
+            return this.ResolveType(api, controllerName, actionName, parameterNames, SampleDirection.Request, out formatters);
         }
 
         /// <summary>
-        /// Resolves the type of the action parameter or return value when <see cref="HttpRequestMessage"/> or <see cref="HttpResponseMessage"/> is used.
+        /// Resolves the type.
         /// </summary>
-        /// <param name="api">The <see cref="ApiDescription"/>.</param>
-        /// <param name="controllerName">Name of the controller.</param>
-        /// <param name="actionName">Name of the action.</param>
-        /// <param name="parameterNames">The parameter names.</param>
-        /// <param name="sampleDirection">The value indicating whether the sample is for a request or a response.</param>
-        /// <param name="formatters">The formatters.</param>
+        /// <param name="api">The API.</param>
+        /// <param name="controllerName">
+        /// Name of the controller.
+        /// </param>
+        /// <param name="actionName">
+        /// Name of the action.
+        /// </param>
+        /// <param name="parameterNames">
+        /// The parameter names.
+        /// </param>
+        /// <param name="sampleDirection">
+        /// The sample direction.
+        /// </param>
+        /// <param name="formatters">
+        /// The formatters.
+        /// </param>
+        /// <returns>
+        /// The type.
+        /// </returns>
+        /// <exception cref="System.ComponentModel.InvalidEnumArgumentException">
+        /// Sample Direction.
+        /// </exception>
+        /// <exception cref="System.ArgumentNullException">
+        /// The API.
+        /// </exception>
         [SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters", Justification = "This is only used in advanced scenarios.")]
         public virtual Type ResolveType(ApiDescription api, string controllerName, string actionName, IEnumerable<string> parameterNames, SampleDirection sampleDirection, out Collection<MediaTypeFormatter> formatters)
         {
@@ -237,13 +259,15 @@ namespace Uximagine.Magicurve.UI.Web.Areas.HelpPage
             {
                 throw new InvalidEnumArgumentException("sampleDirection", (int)sampleDirection, typeof(SampleDirection));
             }
+
             if (api == null)
             {
                 throw new ArgumentNullException("api");
             }
+
             Type type;
-            if (ActualHttpMessageTypes.TryGetValue(new HelpPageSampleKey(sampleDirection, controllerName, actionName, parameterNames), out type) ||
-                ActualHttpMessageTypes.TryGetValue(new HelpPageSampleKey(sampleDirection, controllerName, actionName, new[] { "*" }), out type))
+            if (this.ActualHttpMessageTypes.TryGetValue(new HelpPageSampleKey(sampleDirection, controllerName, actionName, parameterNames), out type) ||
+                this.ActualHttpMessageTypes.TryGetValue(new HelpPageSampleKey(sampleDirection, controllerName, actionName, new[] { "*" }), out type))
             {
                 // Re-compute the supported formatters based on type
                 Collection<MediaTypeFormatter> newFormatters = new Collection<MediaTypeFormatter>();
@@ -254,6 +278,7 @@ namespace Uximagine.Magicurve.UI.Web.Areas.HelpPage
                         newFormatters.Add(formatter);
                     }
                 }
+
                 formatters = newFormatters;
             }
             else
@@ -283,7 +308,7 @@ namespace Uximagine.Magicurve.UI.Web.Areas.HelpPage
         /// <param name="value">The value.</param>
         /// <param name="type">The type.</param>
         /// <param name="mediaType">Type of the media.</param>
-        /// <returns></returns>
+        /// <returns>The sample objects.</returns>
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "The exception is recorded as InvalidSample.")]
         public virtual object WriteSampleObjectUsingFormatter(MediaTypeFormatter formatter, object value, Type type, MediaTypeHeaderValue mediaType)
         {
@@ -291,12 +316,13 @@ namespace Uximagine.Magicurve.UI.Web.Areas.HelpPage
             {
                 throw new ArgumentNullException("formatter");
             }
+
             if (mediaType == null)
             {
                 throw new ArgumentNullException("mediaType");
             }
 
-            object sample = String.Empty;
+            object sample = string.Empty;
             MemoryStream ms = null;
             HttpContent content = null;
             try
@@ -322,7 +348,7 @@ namespace Uximagine.Magicurve.UI.Web.Areas.HelpPage
                 }
                 else
                 {
-                    sample = new InvalidSample(String.Format(
+                    sample = new InvalidSample(string.Format(
                         CultureInfo.CurrentCulture,
                         "Failed to generate the sample for media type '{0}'. Cannot use formatter '{1}' to write type '{2}'.",
                         mediaType,
@@ -332,7 +358,7 @@ namespace Uximagine.Magicurve.UI.Web.Areas.HelpPage
             }
             catch (Exception e)
             {
-                sample = new InvalidSample(String.Format(
+                sample = new InvalidSample(string.Format(
                     CultureInfo.CurrentCulture,
                     "An exception has occurred while using the formatter '{0}' to generate sample for media type '{1}'. Exception message: {2}",
                     formatter.GetType().Name,
@@ -345,6 +371,7 @@ namespace Uximagine.Magicurve.UI.Web.Areas.HelpPage
                 {
                     ms.Dispose();
                 }
+
                 if (content != null)
                 {
                     content.Dispose();
@@ -354,6 +381,15 @@ namespace Uximagine.Magicurve.UI.Web.Areas.HelpPage
             return sample;
         }
 
+        /// <summary>
+        /// Unwraps the exception.
+        /// </summary>
+        /// <param name="exception">
+        /// The exception.
+        /// </param>
+        /// <returns>
+        /// The unwrapped exception.
+        /// </returns>
         internal static Exception UnwrapException(Exception exception)
         {
             AggregateException aggregateException = exception as AggregateException;
@@ -361,10 +397,16 @@ namespace Uximagine.Magicurve.UI.Web.Areas.HelpPage
             {
                 return aggregateException.Flatten().InnerException;
             }
+
             return exception;
         }
 
-        // Default factory for sample objects
+        /// <summary>
+        /// Default factory for sample objects
+        /// </summary>
+        /// <param name="sampleGenerator">The sample generator.</param>
+        /// <param name="type">The type.</param>
+        /// <returns>The factory.</returns>
         private static object DefaultSampleObjectFactory(HelpPageSampleGenerator sampleGenerator, Type type)
         {
             // Try to create a default sample object
@@ -372,6 +414,11 @@ namespace Uximagine.Magicurve.UI.Web.Areas.HelpPage
             return objectGenerator.GenerateObject(type);
         }
 
+        /// <summary>
+        /// Tries to format JSON.
+        /// </summary>
+        /// <param name="str">The string.</param>
+        /// <returns>The JSON string.</returns>
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Handling the failure by returning the original string.")]
         private static string TryFormatJson(string str)
         {
@@ -382,11 +429,20 @@ namespace Uximagine.Magicurve.UI.Web.Areas.HelpPage
             }
             catch
             {
-                // can't parse JSON, return the original string
+                //// can't parse JSON, return the original string
                 return str;
             }
         }
 
+        /// <summary>
+        /// Tries to format XML.
+        /// </summary>
+        /// <param name="str">
+        /// The string.
+        /// </param>
+        /// <returns>
+        /// The XML.
+        /// </returns>
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Handling the failure by returning the original string.")]
         private static string TryFormatXml(string str)
         {
@@ -402,6 +458,13 @@ namespace Uximagine.Magicurve.UI.Web.Areas.HelpPage
             }
         }
 
+        /// <summary>
+        /// Determines whether [is format supported] [the specified sample direction].
+        /// </summary>
+        /// <param name="sampleDirection">The sample direction.</param>
+        /// <param name="formatter">The formatter.</param>
+        /// <param name="type">The type.</param>
+        /// <returns>True or False.</returns>
         private static bool IsFormatSupported(SampleDirection sampleDirection, MediaTypeFormatter formatter, Type type)
         {
             switch (sampleDirection)
@@ -411,28 +474,21 @@ namespace Uximagine.Magicurve.UI.Web.Areas.HelpPage
                 case SampleDirection.Response:
                     return formatter.CanWriteType(type);
             }
+
             return false;
         }
 
-        private IEnumerable<KeyValuePair<HelpPageSampleKey, object>> GetAllActionSamples(string controllerName, string actionName, IEnumerable<string> parameterNames, SampleDirection sampleDirection)
-        {
-            HashSet<string> parameterNamesSet = new HashSet<string>(parameterNames, StringComparer.OrdinalIgnoreCase);
-            foreach (var sample in ActionSamples)
-            {
-                HelpPageSampleKey sampleKey = sample.Key;
-                if (String.Equals(controllerName, sampleKey.ControllerName, StringComparison.OrdinalIgnoreCase) &&
-                    String.Equals(actionName, sampleKey.ActionName, StringComparison.OrdinalIgnoreCase) &&
-                    (sampleKey.ParameterNames.SetEquals(new[] { "*" }) || parameterNamesSet.SetEquals(sampleKey.ParameterNames)) &&
-                    sampleDirection == sampleKey.SampleDirection)
-                {
-                    yield return sample;
-                }
-            }
-        }
-
+         /// <summary>
+        /// Wraps the sample if string.
+        /// </summary>
+        /// <param name="sample">The sample.</param>
+        /// <returns>
+        /// <c>True</c> or <c>False</c> .
+        /// </returns>
         private static object WrapSampleIfString(object sample)
         {
             string stringSample = sample as string;
+
             if (stringSample != null)
             {
                 return new TextSample(stringSample);
@@ -440,5 +496,31 @@ namespace Uximagine.Magicurve.UI.Web.Areas.HelpPage
 
             return sample;
         }
+
+        /// <summary>
+        /// Gets all action samples.
+        /// </summary>
+        /// <param name="controllerName">Name of the controller.</param>
+        /// <param name="actionName">Name of the action.</param>
+        /// <param name="parameterNames">The parameter names.</param>
+        /// <param name="sampleDirection">The sample direction.</param>
+        /// <returns> The Sample Actions.</returns>
+        private IEnumerable<KeyValuePair<HelpPageSampleKey, object>> GetAllActionSamples(string controllerName, string actionName, IEnumerable<string> parameterNames, SampleDirection sampleDirection)
+        {
+            HashSet<string> parameterNamesSet = new HashSet<string>(parameterNames, StringComparer.OrdinalIgnoreCase);
+            foreach (var sample in this.ActionSamples)
+            {
+                HelpPageSampleKey sampleKey = sample.Key;
+                if (string.Equals(controllerName, sampleKey.ControllerName, StringComparison.OrdinalIgnoreCase) &&
+                    string.Equals(actionName, sampleKey.ActionName, StringComparison.OrdinalIgnoreCase) &&
+                    (sampleKey.ParameterNames.SetEquals(new[] { "*" }) || parameterNamesSet.SetEquals(sampleKey.ParameterNames)) &&
+                    sampleDirection == sampleKey.SampleDirection)
+                {
+                    yield return sample;
+                }
+
+            }
+        }
+
     }
 }
