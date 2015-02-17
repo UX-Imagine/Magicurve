@@ -37,6 +37,11 @@ namespace Uximagine.Magicurve.UI.Web.Controllers
             return this.View();
         }
 
+        public ActionResult Canvas()
+        {
+            return this.View();
+        }
+
         /// <summary>
         /// Captures this instance.
         /// </summary>
