@@ -37,6 +37,12 @@ namespace Uximagine.Magicurve.UI.Web.Controllers
             return this.View();
         }
 
+        /// <summary>
+        /// Loading  Canvas Page.
+        /// </summary>
+        /// <returns>
+        /// The View.
+        /// </returns>
         public ActionResult Canvas()
         {
             return this.View();
