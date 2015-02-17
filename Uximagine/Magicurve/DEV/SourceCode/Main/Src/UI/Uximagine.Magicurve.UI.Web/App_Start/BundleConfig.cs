@@ -20,8 +20,8 @@ namespace Uximagine.Magicurve.UI.Web
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js"));
 
-            // Use the development version of Modernizr to develop with and learn from. Then, when you're
-            // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
+            //// Use the development version of Modernizer to develop with and learn from. Then, when you're
+            //// ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
 
@@ -33,8 +33,8 @@ namespace Uximagine.Magicurve.UI.Web
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
 
-            // Set EnableOptimizations to false for debugging. For more information,
-            // visit http://go.microsoft.com/fwlink/?LinkId=301862
+            //// Set EnableOptimizations to false for debugging. For more information,
+            //// visit http://go.microsoft.com/fwlink/?LinkId=301862
             BundleTable.EnableOptimizations = true;
         }
     }

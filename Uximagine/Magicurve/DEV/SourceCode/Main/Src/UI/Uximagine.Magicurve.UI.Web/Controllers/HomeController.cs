@@ -23,16 +23,18 @@ namespace Uximagine.Magicurve.UI.Web.Controllers
         {
             ViewBag.Title = "Home Page";
 
-            return View();
+            return this.View();
         }
 
         /// <summary>
         /// Samples this instance.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>
+        /// The View.
+        /// </returns>
         public ActionResult Sample()
         {
-            return View();
+            return this.View();
         }
 
         /// <summary>
@@ -48,11 +50,11 @@ namespace Uximagine.Magicurve.UI.Web.Controllers
                 dump = reader.ReadToEnd();
             }
 
-            var path = Server.MapPath("~/Content/Images/Capture/capture.jpg");
+            var path = this.Server.MapPath("~/Content/Images/Capture/capture.jpg");
 
             try
             {
-                System.IO.File.WriteAllBytes(path, String_To_Bytes2(dump));
+                System.IO.File.WriteAllBytes(path, this.String_To_Bytes2(dump));
             }
             catch (Exception)
             {

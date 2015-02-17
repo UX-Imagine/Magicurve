@@ -1,21 +1,39 @@
-﻿using System.Collections.Generic;
+﻿#region Imports
+using System.Collections.Generic;
 using System.Drawing;
 using System.Web.Hosting;
 using System.Web.Http;
 using Uximagine.Magicurve.Core.Models;
 using Uximagine.Magicurve.Image.Processing;
 
+#endregion
 namespace Uximagine.Magicurve.UI.Web.Controllers
 {
+    /// <summary>
+    /// The API controller.
+    /// </summary>
     public class ValuesController : ApiController
     {
-        // GET api/values
+        /// <summary>
+        /// GET API/values
+        /// </summary>
+        /// <returns>
+        /// The list.
+        /// </returns>
         public IEnumerable<string> Get()
         {
             return new string[] { "value1", "value2" };
         }
 
-        // GET api/values/5
+        /// <summary>
+        /// Gets the specified identifier.
+        /// </summary>
+        /// <param name="id">
+        /// The identifier.
+        /// </param>
+        /// <returns> 
+        /// Get API/values/5   
+        /// </returns>
         public string Get(int id)
         {
             Processor processor = new Processor();
@@ -51,10 +69,8 @@ namespace Uximagine.Magicurve.UI.Web.Controllers
                 throw;
             }
            
-
             load.Dispose();
               
-
             IControl shape = processor.Shape;
 
             if (id.Equals(2))
@@ -64,20 +80,35 @@ namespace Uximagine.Magicurve.UI.Web.Controllers
 
             return "/Content/images/test2.png";
 
-            
         }
 
-        // POST api/values
+        /// <summary>
+        /// Posts the specified value.
+        /// </summary>
+        /// <param name="value">
+        /// The value.
+        /// </param>
         public void Post([FromBody]string value)
         {
         }
 
-        // PUT api/values/5
+        /// <summary>
+        /// Puts the specified identifier.
+        /// API/values/5
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="value">The value.</param>
         public void Put(int id, [FromBody]string value)
         {
         }
-
-        // DELETE api/values/5
+                    
+        /// <summary>
+        /// Deletes the specified identifier.
+        /// // DELETE API/values/5    
+        /// </summary>
+        /// <param name="id">
+        /// The identifier.
+        /// </param>
         public void Delete(int id)
         {
         }
