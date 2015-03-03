@@ -1,6 +1,4 @@
-﻿using AForge;
-using System.Collections.Generic;
-using Uximagine.Magicurve.Core.Models;
+﻿using Uximagine.Magicurve.Core.Models;
 
 namespace Uximagine.Magicurve.Core.Shapes
 

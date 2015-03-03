@@ -148,6 +148,10 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Content\Site.less" />
+    <None Include="Properties\PublishProfiles\chan4lkazuretest2 - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\chan4lkazuretest2 - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\chan4lkTest - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\chan4lkTest - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\FX\webcam\jquery.webcam.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -181,6 +185,10 @@
     <ProjectReference Include="..\..\ImageProcessing\Uximagine.Magicurve.Image.Processing\Uximagine.Magicurve.Image.Processing.csproj">
       <Project>{da122933-7bba-4036-9377-6f15b1fb7f63}</Project>
       <Name>Uximagine.Magicurve.Image.Processing</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Services\Uximagine.Magicurve.Services\Uximagine.Magicurve.Services.csproj">
+      <Project>{E3A0D046-35FD-49D9-A211-A5B9BEB25E6D}</Project>
+      <Name>Uximagine.Magicurve.Services</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

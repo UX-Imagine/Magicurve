@@ -55,11 +55,9 @@ namespace Uximagine.Magicurve.UI.Web.Controllers
                     break;
             }
 
-            Bitmap load = new Bitmap(imgPath);
-            
             try
             {
-                Bitmap img = processor.ProcessImage(load);
+                Bitmap img = processor.ProcessImage(imgPath);
                 img.Save(HostingEnvironment.MapPath("~/Content/images/test2.png"));
                 img.Dispose(); 
             }
@@ -69,8 +67,6 @@ namespace Uximagine.Magicurve.UI.Web.Controllers
                 throw;
             }
            
-            load.Dispose();
-              
             IControl shape = processor.Shape;
 
             if (id.Equals(2))

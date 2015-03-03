@@ -1,4 +1,7 @@
-﻿using System.Web.Http;
+﻿using Newtonsoft.Json;
+using System;
+using System.Web;
+using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
@@ -21,5 +24,34 @@ namespace Uximagine.Magicurve.UI.Web
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
+
+        /// <summary>
+        /// Handles the Error event of the Application control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        protected void Application_Error(object sender, EventArgs e)
+        {
+            Exception ex = HttpContext.Current.Server.GetLastError();
+
+            Exception actualException = null;
+
+            if (ex != null)
+            {
+                if (ex.InnerException != null)
+                {
+                    actualException = ex.InnerException;
+                }
+                else
+                {
+                    actualException = ex;
+                }
+            }
+
+            string errorDetails = JsonConvert.SerializeObject(actualException);
+
+            HttpContext.Current.Response.Write(errorDetails);
+        }
+
     }
 }

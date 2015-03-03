@@ -1,18 +1,19 @@
 ﻿#region Imports
-using System.Drawing;
-using System.Drawing;
 using AForge;
 using AForge.Imaging;
 using AForge.Imaging.Filters;
 using AForge.Math.Geometry;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Drawing.Imaging;
 using Uximagine.Magicurve.Core.Models;
-using Uximagine.Magicurve.Core.Shapes;
-
 #endregion
+
 namespace Uximagine.Magicurve.Image.Processing
 {
+    /// <summary>
+    /// The class which handle processing of the image.
+    /// </summary>
     public class Processor
     {
         /// <summary>
@@ -39,9 +40,23 @@ namespace Uximagine.Magicurve.Image.Processing
             set; 
         }
 
-        public Bitmap ProcessImage(Bitmap bitmap)
+        /// <summary>
+        /// Processes the image.
+        /// </summary>
+        /// <param name="bitmap">
+        /// The bitmap.
+        /// </param>
+        /// <returns>
+        /// The Processed output.
+        /// </returns>
+        public Bitmap ProcessImage(string path)
         {
+            Bitmap bitmap = new Bitmap(path);
+
+            Bitmap orginalImage = (Bitmap)bitmap.Clone();
+
             Invert invertFilter = new Invert();
+
             invertFilter.ApplyInPlace(bitmap);  
            
             Threshold threshold = new Threshold(38);
@@ -51,13 +66,15 @@ namespace Uximagine.Magicurve.Image.Processing
             AForge.Imaging.Filters.BrightnessCorrection Brightness = new BrightnessCorrection(-12);
 
             Grayscale grayScaleFilter = new Grayscale( 0.2125, 0.7154, 0.0721 );
-            invertFilter.ApplyInPlace(bitmap);
-            Contrast.ApplyInPlace(bitmap);
-            Brightness.ApplyInPlace(bitmap);
-            //bitmap = grayScaleFilter.Apply(bitmap);
-            //threshold.ApplyInPlace(bitmap);
 
- /*
+
+            ///invertFilter.ApplyInPlace(bitmap);
+            //Contrast.ApplyInPlace(bitmap);
+            //Brightness.ApplyInPlace(bitmap);
+            bitmap = grayScaleFilter.Apply(bitmap);
+            threshold.ApplyInPlace(bitmap);
+
+            /*
             // apply the filters
             AForge.Imaging.UnmanagedImage UnManagedImg = AForge.Imaging.UnmanagedImage.FromManagedImage((Bitmap)bitmap);
 
@@ -83,7 +100,7 @@ namespace Uximagine.Magicurve.Image.Processing
             colorFilter.Blue = new IntRange(0, 64);
             colorFilter.FillOutsideRange = false;
 
-            colorFilter.ApplyInPlace(bitmapData);
+            //colorFilter.ApplyInPlace(bitmapData);
 
             // step 2 - locating objects
             BlobCounter blobCounter = new BlobCounter();
@@ -96,15 +113,15 @@ namespace Uximagine.Magicurve.Image.Processing
             Blob[] blobs = blobCounter.GetObjectsInformation();
             bitmap.UnlockBits(bitmapData);
 
-            // step 3 - check objects' type and highlight
+            //// step 3 - check objects' type and highlight
             SimpleShapeChecker shapeChecker = new SimpleShapeChecker();
 
-            Graphics g = Graphics.FromImage(bitmap);
-            Pen yellowPen = new Pen(Color.Yellow, 2); // circles
-            Pen redPen = new Pen(Color.Red, 2);       // quadrilateral
-            Pen brownPen = new Pen(Color.Brown, 2);   // quadrilateral with known sub-type
-            Pen greenPen = new Pen(Color.Green, 2);   // known triangle
-            Pen bluePen = new Pen(Color.Blue, 2);     // triangle
+            Graphics g = Graphics.FromImage(orginalImage);
+            Pen yellowPen = new Pen(Color.Yellow, 2); //// circles
+            Pen redPen = new Pen(Color.Red, 2);       //// quadrilateral
+            Pen brownPen = new Pen(Color.Brown, 2);   //// quadrilateral with known sub-type
+            Pen greenPen = new Pen(Color.Green, 2);   //// known triangle
+            Pen bluePen = new Pen(Color.Blue, 2);     //// triangle
 
             for (int i = 0, n = blobs.Length; i < n; i++)
             {
@@ -113,7 +130,7 @@ namespace Uximagine.Magicurve.Image.Processing
                 AForge.Point center;
                 float radius;
 
-                // is circle ?
+                //// is circle ?
                 if (shapeChecker.IsCircle(edgePoints, out center, out radius))
                 {
                     g.DrawEllipse(yellowPen,
@@ -124,10 +141,10 @@ namespace Uximagine.Magicurve.Image.Processing
                 {
                     List<IntPoint> corners;
 
-                    // is triangle or quadrilateral
+                    //// is triangle or quadrilateral
                     if (shapeChecker.IsConvexPolygon(edgePoints, out corners))
                     {                       
-                        // get sub-type
+                        //// get sub-type
                         PolygonSubType subType = shapeChecker.CheckPolygonSubType(corners);
 
                         Pen pen;
@@ -153,11 +170,19 @@ namespace Uximagine.Magicurve.Image.Processing
             brownPen.Dispose();
             g.Dispose();
 
-            return bitmap;
+            return orginalImage;
           
         }
 
-        // Convert list of AForge.NET's points to array of .NET points
+        /// <summary>
+        /// Convert list of AForge.NET's points to array of .NET points        
+        /// </summary>
+        /// <param name="points">
+        /// The points.
+        /// </param>
+        /// <returns>
+        /// System Drawing Points. 
+        /// </returns>
         private static System.Drawing.Point[] ToPointsArray(List<IntPoint> points)
         {
             System.Drawing.Point[] array = new System.Drawing.Point[points.Count];

@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="Uximagine.Magicurve.Services.Service1" CodeBehind="ProcessingService.svc.cs" %>
