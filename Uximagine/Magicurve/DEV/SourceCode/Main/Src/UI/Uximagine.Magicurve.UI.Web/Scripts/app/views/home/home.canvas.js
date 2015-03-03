@@ -1,20 +1,22 @@
 ﻿
-
-function draw_rect(x, y, width, height) {
+// Rectangle with color
+function draw_filled_rect(x, y, width, height,color) {
     var canvas = document.getElementById("myCanvas");
     var context = canvas.getContext("2d");
-    context.fillStyle = "green";
+    context.fillStyle = color;
     context.fillRect(x, y, width, height); //Draws a filled rectangle
-
-    /*context.fillStyle = "red";
-      context.fillRect(25, 125, width, height);
-	  context.clearRect(45, 145, width-40, height-40);//Clears the specified rectangular area, making it fully transparent
-			
-	  context.strokeRect(x+200, y, width, height); //Draws a rectangular outline
-			*/
-
 }
 
+// Rectangle without color - transparent
+function draw_trans_rect(x, y, width, height) {
+    var canvas = document.getElementById("myCanvas");
+    var context = canvas.getContext("2d");
+    context.fillRect(x, y, width, height);//Draws a filled rectangle
+    context.clearRect(x, y, width, height);//Clears the specified rectangular area, making it fully transparent
+    context.strokeRect(x, y, width, height); //Draws a rectangular outline
+}
+
+// Circule
 function draw_circle(left, top, size, curve) {
     var canvas = document.getElementById("myCanvas");
     var context = canvas.getContext("2d");
@@ -62,7 +64,8 @@ function draw_filled_trangle(moveX, moveY, lineX1, lineY1, lineX2, lineY2) {
 
 
 window.onclick = function () {
-    draw_rect(10, 10, 100, 100);
+    draw_filled_rect(10, 10, 100, 100, "red");
+    draw_trans_rect(210, 10, 100, 100);
     draw_circle(300, 200, 50, 0);
     //form();
     draw_blank_triangle(325, 50, 350, 75, 350, 25);
