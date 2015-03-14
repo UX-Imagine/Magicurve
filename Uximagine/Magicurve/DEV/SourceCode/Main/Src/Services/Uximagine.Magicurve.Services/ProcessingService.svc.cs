@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Web.Hosting;
 using Uximagine.Magicurve.DataTransfer.Requests;
+using Uximagine.Magicurve.DataTransfer.Responses;
 using Uximagine.Magicurve.Image.Processing;
 
 namespace Uximagine.Magicurve.Services
@@ -26,31 +27,6 @@ namespace Uximagine.Magicurve.Services
         }
 
         /// <summary>
-        /// Gets the data using data contract.
-        /// </summary>
-        /// <param name="composite">
-        /// The composite.
-        /// </param>
-        /// <returns>
-        /// The composite type.
-        /// </returns>
-        /// <exception cref="System.ArgumentNullException">
-        /// composite exception.
-        /// </exception>
-        public CompositeType GetDataUsingDataContract(CompositeType composite)
-        {
-            if (composite == null)
-            {
-                throw new ArgumentNullException("composite");
-            }
-            if (composite.BoolValue)
-            {
-                composite.StringValue += "Suffix";
-            }
-            return composite;
-        }
-
-        /// <summary>
         /// Gets the processed image URL.
         /// </summary>
         /// <param name="request">
@@ -67,9 +43,9 @@ namespace Uximagine.Magicurve.Services
             Processor processor = new Processor();   
             try
             {
-                Bitmap img = processor.ProcessImage(request.ImagePath);
-                img.Save(HostingEnvironment.MapPath("~/Content/images/test2.png"));
-                img.Dispose();
+                ProcessResponseDto dto = processor.ProcessImage(request.ImagePath);
+                dto.Image.Save(HostingEnvironment.MapPath("~/Content/images/test2.png"));
+                dto.Image.Dispose();
 
                 response = "~/Content/images/test2.png"; 
             }

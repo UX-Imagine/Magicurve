@@ -54,8 +54,14 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="UnitTest1.cs" />
+    <Compile Include="ValuesControllerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Src\ImageProcessing\Uximagine.Magicurve.Image.Processing\Uximagine.Magicurve.Image.Processing.csproj">
+      <Project>{da122933-7bba-4036-9377-6f15b1fb7f63}</Project>
+      <Name>Uximagine.Magicurve.Image.Processing</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

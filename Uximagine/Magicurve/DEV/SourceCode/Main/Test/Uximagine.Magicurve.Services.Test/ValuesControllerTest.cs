@@ -3,11 +3,12 @@
 namespace Uximagine.Magicurve.Services.Test
 {
     [TestClass]
-    public class UnitTest1
+    public class ValuesControllerTest
     {
         [TestMethod]
-        public void TestMethod1()
+        public void TestEdges()
         {
+            
             Assert.IsTrue(true);
         }
     }

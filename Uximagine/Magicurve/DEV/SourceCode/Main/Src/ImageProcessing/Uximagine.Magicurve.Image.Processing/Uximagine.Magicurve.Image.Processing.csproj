@@ -56,6 +56,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Detectors\BlobDetector.cs" />
+    <Compile Include="Detectors\EdgeDetector.cs" />
+    <Compile Include="Detectors\IDetector.cs" />
+    <Compile Include="Helpers\DrawingHelper.cs" />
     <Compile Include="Processor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -63,6 +67,10 @@
     <ProjectReference Include="..\..\Common\Uximagine.Magicurve.Core\Uximagine.Magicurve.Core.csproj">
       <Project>{0e3b890e-d113-4b87-9e39-19ac065e00c7}</Project>
       <Name>Uximagine.Magicurve.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Domain\Uximagine.Magicurve.DataTransfer\Uximagine.Magicurve.DataTransfer.csproj">
+      <Project>{1419cbe2-f970-4a01-b8dc-5bec2ada2902}</Project>
+      <Name>Uximagine.Magicurve.DataTransfer</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

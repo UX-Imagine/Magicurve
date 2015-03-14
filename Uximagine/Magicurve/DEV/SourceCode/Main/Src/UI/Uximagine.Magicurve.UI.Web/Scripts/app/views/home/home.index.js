@@ -31,7 +31,7 @@ function loadImage() {
             type: "GET"
         }).done(function (data)
         {
-            $("#img_blob").attr("src", data);
+            $("#img_blob").attr("src", data + '?' + new Date().getTime());
             console.log(data);
         }).fail(function (error)
         {

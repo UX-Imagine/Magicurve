@@ -182,6 +182,10 @@
       <Project>{0e3b890e-d113-4b87-9e39-19ac065e00c7}</Project>
       <Name>Uximagine.Magicurve.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Domain\Uximagine.Magicurve.DataTransfer\Uximagine.Magicurve.DataTransfer.csproj">
+      <Project>{1419cbe2-f970-4a01-b8dc-5bec2ada2902}</Project>
+      <Name>Uximagine.Magicurve.DataTransfer</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\ImageProcessing\Uximagine.Magicurve.Image.Processing\Uximagine.Magicurve.Image.Processing.csproj">
       <Project>{da122933-7bba-4036-9377-6f15b1fb7f63}</Project>
       <Name>Uximagine.Magicurve.Image.Processing</Name>

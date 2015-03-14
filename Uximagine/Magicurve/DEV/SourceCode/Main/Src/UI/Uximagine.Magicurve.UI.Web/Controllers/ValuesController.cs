@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Web.Hosting;
 using System.Web.Http;
 using Uximagine.Magicurve.Core.Models;
+using Uximagine.Magicurve.DataTransfer.Responses;
 using Uximagine.Magicurve.Image.Processing;
 
 #endregion
@@ -57,9 +58,9 @@ namespace Uximagine.Magicurve.UI.Web.Controllers
 
             try
             {
-                Bitmap img = processor.ProcessImage(imgPath);
-                img.Save(HostingEnvironment.MapPath("~/Content/images/test2.png"));
-                img.Dispose(); 
+                ProcessResponseDto response = processor.ProcessImage(imgPath);
+                response.Image.Save(HostingEnvironment.MapPath("~/Content/images/test2.png"));
+                response.Image.Dispose(); 
             }
             catch (System.Exception)
             {
