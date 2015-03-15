@@ -22,8 +22,13 @@ namespace Uximagine.Magicurve.Image.Processing.Detectors
             Bitmap result = null;
 
             Bitmap gsImage = Grayscale.CommonAlgorithms.BT709.Apply(originalImage);
-            CannyEdgeDetector filter = new CannyEdgeDetector();
-            result = filter.Apply(gsImage);
+            
+            ContrastStretch filter = new ContrastStretch();            
+            filter.ApplyInPlace(gsImage);
+
+            CannyEdgeDetector edgeFilter = new CannyEdgeDetector();
+            result = edgeFilter.Apply(gsImage);
+
             gsImage.Dispose();
             
             return result;

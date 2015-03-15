@@ -62,18 +62,40 @@ function draw_filled_trangle(moveX, moveY, lineX1, lineY1, lineX2, lineY2) {
 
 }
 
+zebra.ready(function () {
+    // import all classes, functions, constants
+    // from zebra.ui, zebra.layout packages
+    eval(zebra.Import("ui", "layout"));
+
+    // create canvas
+    var root = (new zCanvas(400, 400)).root;
+    root.properties({
+        layout: new BorderLayout(8, 8),
+        border: new Border(),
+        padding: 8,
+        kids: {
+            CENTER: new TextField("Hi ...\n", true),
+            BOTTOM: new Button("Clear").properties({
+                canHaveFocus: false
+            })
+        }
+    });
+
+    root.find("//zebra.ui.Button").bind(function () {
+        root.find("//zebra.ui.TextField").setValue("");
+    });
+});
 
 window.onclick = function () {
-    draw_filled_rect(10, 10, 100, 100, "red");
-    draw_trans_rect(210, 10, 100, 100);
-    draw_circle(300, 200, 50, 0);
-    //form();
-    draw_blank_triangle(325, 50, 350, 75, 350, 25);
-    draw_filled_trangle(375, 100, 400, 125, 400, 75);
+    //draw_filled_rect(10, 10, 100, 100, "red");
+    //draw_trans_rect(210, 10, 100, 100);
+    //draw_circle(300, 200, 50, 0);
+    ////form();
+    //draw_blank_triangle(325, 50, 350, 75, 350, 25);
+    //draw_filled_trangle(375, 100, 400, 125, 400, 75);
     /*createButton(elemId, "b1", 10, 10, 100, 30, "Google Search", "#0000FF", 12, 
 						  "12pt Ariel", 5, highestDepth, 1, 0, null, null, "#bee6fd", "#a7d9f5", 
 						  "#eaf6fd", "#d9f0fc", "#3c7fb1", null, 1, "http://www.google.com");*/
-
 
 
 }
