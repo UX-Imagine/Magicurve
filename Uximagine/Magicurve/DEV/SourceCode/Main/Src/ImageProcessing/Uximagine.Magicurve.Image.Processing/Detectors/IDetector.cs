@@ -10,7 +10,7 @@ namespace Uximagine.Magicurve.Image.Processing.Detectors
     /// <summary>
     /// The detector interface.
     /// </summary>
-    internal interface IDetector
+    public interface IDetector
     {
         /// <summary>
         /// Detects the specified original image.

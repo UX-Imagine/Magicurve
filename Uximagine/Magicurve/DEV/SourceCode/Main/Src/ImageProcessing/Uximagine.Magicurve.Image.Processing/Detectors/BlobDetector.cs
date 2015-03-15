@@ -2,13 +2,9 @@
 using AForge.Imaging;
 using AForge.Imaging.Filters;
 using AForge.Math.Geometry;
-using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Uximagine.Magicurve.Image.Processing.Helpers;
 
 namespace Uximagine.Magicurve.Image.Processing.Detectors
@@ -16,7 +12,7 @@ namespace Uximagine.Magicurve.Image.Processing.Detectors
     /// <summary>
     /// The blob detector.
     /// </summary>
-    internal class BlobDetector : IDetector
+    public class BlobDetector : IDetector
     {
         /// <summary>
         /// Detects the specified original image.

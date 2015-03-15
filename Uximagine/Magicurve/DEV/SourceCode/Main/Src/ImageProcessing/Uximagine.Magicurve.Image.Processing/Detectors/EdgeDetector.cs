@@ -6,7 +6,7 @@ namespace Uximagine.Magicurve.Image.Processing.Detectors
     /// <summary>
     /// The detector for edges.
     /// </summary>
-    internal class EdgeDetector : IDetector
+    public class EdgeDetector : IDetector
     {
         /// <summary>
         /// Detects the specified original image.
