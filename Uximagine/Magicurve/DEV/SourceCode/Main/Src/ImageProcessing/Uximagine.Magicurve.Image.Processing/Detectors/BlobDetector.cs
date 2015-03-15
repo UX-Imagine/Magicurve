@@ -27,37 +27,6 @@ namespace Uximagine.Magicurve.Image.Processing.Detectors
         /// </returns>
         public Bitmap Detect(Bitmap bitmap)
         {
-            //Invert invertFilter = new Invert();
-
-            //invertFilter.ApplyInPlace(bitmap);
-
-            //Threshold threshold = new Threshold(38);
-
-
-            //AForge.Imaging.Filters.ContrastCorrection Contrast = new ContrastCorrection(10);
-            //AForge.Imaging.Filters.BrightnessCorrection Brightness = new BrightnessCorrection(-12);
-
-            //Grayscale grayScaleFilter = new Grayscale(0.2125, 0.7154, 0.0721);
-
-
-            ///invertFilter.ApplyInPlace(bitmap);
-            //Contrast.ApplyInPlace(bitmap);
-            //Brightness.ApplyInPlace(bitmap);
-            //bitmap = grayScaleFilter.Apply(bitmap);
-            //threshold.ApplyInPlace(bitmap);
-
-            /*
-            // apply the filters
-            AForge.Imaging.UnmanagedImage UnManagedImg = AForge.Imaging.UnmanagedImage.FromManagedImage((Bitmap)bitmap);
-
-            invertFilter.ApplyInPlace(UnManagedImg);  
-            Contrast.ApplyInPlace(UnManagedImg);
-            Brightness.ApplyInPlace(UnManagedImg);
-            UnManagedImg = grayScaleFilter.Apply(UnManagedImg);
-            threshold.ApplyInPlace(UnManagedImg);
-
-            bitmap = UnManagedImg.ToManagedImage();*/
-
             // lock image
             BitmapData bitmapData = bitmap.LockBits(
                 new Rectangle(0, 0, bitmap.Width, bitmap.Height),
