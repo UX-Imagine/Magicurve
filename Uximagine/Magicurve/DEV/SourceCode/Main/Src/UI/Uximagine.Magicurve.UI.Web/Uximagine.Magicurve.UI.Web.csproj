@@ -145,6 +145,7 @@
     <Content Include="Global.asax" />
     <Content Include="Scripts\app\views\home\home.canvas.js" />
     <Content Include="Scripts\app\views\home\home.index.js" />
+    <Content Include="Scripts\app\views\home\home.zebra.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Content\Site.less" />
@@ -180,6 +181,7 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Home\Sample.cshtml" />
     <Content Include="Views\Home\Canvas.cshtml" />
+    <Content Include="Views\Home\Zebra.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Common\Uximagine.Magicurve.Core\Uximagine.Magicurve.Core.csproj">
