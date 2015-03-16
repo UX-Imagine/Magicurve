@@ -59,7 +59,9 @@
     <Compile Include="Detectors\BlobDetector.cs" />
     <Compile Include="Detectors\EdgeDetector.cs" />
     <Compile Include="Detectors\IDetector.cs" />
-    <Compile Include="Detectors\TemplateDetector.cs" />
+    <Compile Include="Matchers\BlockMatcher.cs" />
+    <Compile Include="Matchers\IMatcher.cs" />
+    <Compile Include="Matchers\TemplateMatcher.cs" />
     <Compile Include="Helpers\DrawingHelper.cs" />
     <Compile Include="Processor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

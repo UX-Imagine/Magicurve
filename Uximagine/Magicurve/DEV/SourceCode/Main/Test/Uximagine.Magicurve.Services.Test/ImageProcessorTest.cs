@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Uximagine.Magicurve.Image.Processing.Detectors;
 using System.Drawing;
+using Uximagine.Magicurve.Image.Processing.Matchers;
 
 namespace Uximagine.Magicurve.Services.Test
 {
@@ -9,7 +10,7 @@ namespace Uximagine.Magicurve.Services.Test
     public class ImageProcessorTest
     {
         [TestMethod]
-        public void TestTemplateDetector()
+        public void TestTemplateMatcher()
         {
             Bitmap template =  new Bitmap("template.jpg");
             Bitmap source =  new Bitmap("capture.jpg");
@@ -19,11 +20,26 @@ namespace Uximagine.Magicurve.Services.Test
             Bitmap edgedTemplate = edgeDetect.Detect(template);
             Bitmap edgedSource = edgeDetect.Detect(source);
 
-            TemplateDetector detector = new TemplateDetector();
+            TemplateMatcher detector = new TemplateMatcher();
 
-            detector.TemplateImage = edgedTemplate;
+            detector.Template = edgedTemplate;
 
-            Bitmap image = detector.Detect(edgedSource);
+            Bitmap image = detector.Match(edgedSource);
+
+            Assert.IsNotNull(image);
+        }
+
+        /// <summary>
+        /// Tests the block matcher.
+        /// </summary>
+        [TestMethod]
+        public void TestBlockMatcher()
+        {
+            Bitmap template = new Bitmap("template.jpg");
+            Bitmap source = new Bitmap("capture.jpg");
+
+            BlockMatcher matcher = new BlockMatcher() { Template = template };
+            Bitmap image = matcher.Match(source);
 
             Assert.IsNotNull(image);
         }

@@ -2,12 +2,12 @@
 using System.Drawing;
 using System.Drawing.Imaging;
 
-namespace Uximagine.Magicurve.Image.Processing.Detectors
+namespace Uximagine.Magicurve.Image.Processing.Matchers
 {
     /// <summary>
     /// The template detector.
     /// </summary>
-    public class TemplateDetector : IDetector
+    public class TemplateMatcher : IMatcher
     {
         /// <summary>
         /// Gets or sets the template image.
@@ -15,7 +15,7 @@ namespace Uximagine.Magicurve.Image.Processing.Detectors
         /// <value>
         /// The template image.
         /// </value>
-        public Bitmap TemplateImage { get; set; }
+        public Bitmap Template { get; set; }
 
         /// <summary>
         /// Detects the specified source image.
@@ -26,12 +26,12 @@ namespace Uximagine.Magicurve.Image.Processing.Detectors
         /// <returns>
         /// The detected templates.
         /// </returns>
-        public Bitmap Detect(Bitmap sourceImage)
+        public Bitmap Match(Bitmap sourceImage)
         {
             // create template matching algorithm's instance
             ExhaustiveTemplateMatching tm = new ExhaustiveTemplateMatching(0.9f);
             // find all matchings with specified above similarity
-            TemplateMatch[] matchings = tm.ProcessImage(sourceImage, TemplateImage);
+            TemplateMatch[] matchings = tm.ProcessImage(sourceImage, Template);
             // highlight found matchings
             BitmapData data = sourceImage.LockBits(
                 new Rectangle(0, 0, sourceImage.Width, sourceImage.Height),
