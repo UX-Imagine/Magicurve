@@ -15,16 +15,16 @@ namespace Uximagine.Magicurve.Services.Test
             Bitmap template =  new Bitmap("template.jpg");
             Bitmap source =  new Bitmap("capture.jpg");
 
-            EdgeDetector edgeDetect = new EdgeDetector();
+            IDetector edgeDetect = DetectorFactory.GetEdgeDetector();
 
             Bitmap edgedTemplate = edgeDetect.Detect(template);
             Bitmap edgedSource = edgeDetect.Detect(source);
 
-            TemplateMatcher detector = new TemplateMatcher();
+            IMatcher matcher = MatcherFactory.GetTemplateMatcher();
 
-            detector.Template = edgedTemplate;
+            matcher.Template = edgedTemplate;
 
-            Bitmap image = detector.Match(edgedSource);
+            Bitmap image = matcher.Match(edgedSource);
 
             Assert.IsNotNull(image);
         }
@@ -38,7 +38,8 @@ namespace Uximagine.Magicurve.Services.Test
             Bitmap template = new Bitmap("template.jpg");
             Bitmap source = new Bitmap("capture.jpg");
 
-            BlockMatcher matcher = new BlockMatcher() { Template = template };
+            IMatcher matcher = MatcherFactory.GetBlockMatcher();
+            matcher.Template = template ;
             Bitmap image = matcher.Match(source);
 
             Assert.IsNotNull(image);

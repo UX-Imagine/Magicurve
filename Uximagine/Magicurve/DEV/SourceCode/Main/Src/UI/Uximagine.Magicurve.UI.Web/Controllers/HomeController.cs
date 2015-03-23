@@ -38,6 +38,17 @@ namespace Uximagine.Magicurve.UI.Web.Controllers
         }
 
         /// <summary>
+        /// Templates the matching.
+        /// </summary>
+        /// <returns>
+        /// The view.
+        /// </returns>
+        public ActionResult TemplateMatching()
+        {
+            return this.View();
+        }
+
+        /// <summary>
         /// Loading  Canvas Page.
         /// </summary>
         /// <returns>
@@ -69,10 +80,33 @@ namespace Uximagine.Magicurve.UI.Web.Controllers
             }
             catch (Exception)
             {
-                
                 throw;
             }
-            
+        }
+
+        /// <summary>
+        /// Captures the template.
+        /// </summary>
+        public void CaptureTemplate()
+        {
+            var stream = Request.InputStream;
+            string dump;
+
+            using (var reader = new StreamReader(stream))
+            {
+                dump = reader.ReadToEnd();
+            }
+
+            var path = this.Server.MapPath("~/Content/Images/Capture/template.jpg");
+
+            try
+            {
+                System.IO.File.WriteAllBytes(path, this.String_To_Bytes2(dump));
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         } 
 
         #endregion

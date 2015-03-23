@@ -59,11 +59,11 @@ namespace Uximagine.Magicurve.Image.Processing
             using (Bitmap bitmap = new Bitmap(path))
             {
 
-                IDetector edgeDetector = new EdgeDetector();
+                IDetector edgeDetector = DetectorFactory.GetEdgeDetector();
 
                 Bitmap edgeResult = edgeDetector.Detect(bitmap);
 
-                IDetector blobDetector = new BlobDetector();
+                IDetector blobDetector = DetectorFactory.GetBlobDetector();
 
                 Bitmap correctFormatImage = edgeResult.ConvertToFormat(PixelFormat.Format24bppRgb);
 
