@@ -107,12 +107,27 @@ namespace Uximagine.Magicurve.UI.Web.Controllers
             {
                 throw;
             }
+        }
+
+        /// <summary>
+        /// return the navigation
+        /// </summary>
+        /// <returns> the view </returns>
+        public ActionResult _NavBar()
+        {
+            return this.View("_NavBar");
         } 
 
+        /// <summary>
+        /// return the menu bar
+        /// </summary>
+        /// <returns> the view </returns>
+        public ActionResult _MenuBar() 
+        {
+            return this.View("_MenuBar");
+        }
         #endregion
-        
         #region Methods - Instance Member - (helpers)
-
         /// <summary>
         /// String_s the to_ bytes2.
         /// </summary>

@@ -182,7 +182,12 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Home\Sample.cshtml" />
     <Content Include="Views\Home\Canvas.cshtml" />
-    <Content Include="Views\Home\TemplateMatching.cshtml" />
+    <Content Include="Views\Home\_navBar.cshtml" />
+    <Content Include="Views\Shared\_MenuBar.cshtml" />
+    <Content Include="Views\Shared\_NavBar.cshtml" />
+    <Content Include="Views\Shared\_Footer.cshtml" />
+    <Content Include="Views\Home\_MenuBar.cshtml" />
+    <Content Include="Views\Home\_Footer.cshtml" />
     <Content Include="Views\Home\Zebra.cshtml" />
   </ItemGroup>
   <ItemGroup>
