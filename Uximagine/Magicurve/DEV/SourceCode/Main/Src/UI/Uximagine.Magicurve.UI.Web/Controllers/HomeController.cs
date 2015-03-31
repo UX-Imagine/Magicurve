@@ -38,6 +38,17 @@ namespace Uximagine.Magicurve.UI.Web.Controllers
         }
 
         /// <summary>
+        /// Zebras this instance.
+        /// </summary>
+        /// <returns>
+        /// The View.
+        /// </returns>
+        public ActionResult Zebra()
+        {
+            return this.View();
+        }
+
+        /// <summary>
         /// Templates the matching.
         /// </summary>
         /// <returns>
