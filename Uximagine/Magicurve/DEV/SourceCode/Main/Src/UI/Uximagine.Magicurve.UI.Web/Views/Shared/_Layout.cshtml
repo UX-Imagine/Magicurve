@@ -3,28 +3,29 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>UX Imaging</title>
+    <title>UX Imagine</title>
 
     @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/less")
     @Scripts.Render("~/bundles/modernizr")
-    @RenderSection("styles", false);
+    @RenderSection("styles", false)
 
 </head>
 <body dir="ltr" id="body">
 
-   
+
         <div class="row" id="menu-bar">
             <div class="col-md-12">
                 @Html.Partial("_MenuBar", null)
 
-   
+
 </div></div>
 
-        
+
 
 
     <div class="row" id="nav-bar">
-        <div class="col-md-12"> 
+        <div class="col-md-12">
 
 
             @Html.Partial("_NavBar",null)
@@ -38,7 +39,7 @@
             @RenderBody()
 
             </div>
-            
+
         </div>
     <div class="row" id="footer">
         <div class="col-md-12">@Html.Partial("_Footer", null)</div>

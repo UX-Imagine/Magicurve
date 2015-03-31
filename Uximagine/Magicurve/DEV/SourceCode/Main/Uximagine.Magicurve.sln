@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30723.0
+VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ImageProcessing", "ImageProcessing", "{E224EB81-D16B-46F8-A0A4-6D9192C8FAA9}"
 EndProject
@@ -36,6 +36,11 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Uximagine.Magicurve.Services.Client", "Src\Services\Uximagine.Magicurve.Services.Client\Uximagine.Magicurve.Services.Client.csproj", "{2B063674-DC45-4750-8816-EC77601B00F0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Uximagine.Magicurve.Services.BusinessServices", "Src\Services\Uximagine.Magicurve.Services.BusinessServices\Uximagine.Magicurve.Services.BusinessServices.csproj", "{B01199E0-CC8C-4F1E-B550-959543314908}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{450E389E-5ADC-497D-8D2D-12C50A5E36C8}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\packages.config = .nuget\packages.config
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution

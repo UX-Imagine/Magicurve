@@ -1,7 +1,7 @@
 ﻿#region Imports
 using System;
 using System.IO;
-using System.Web.Mvc; 
+using System.Web.Mvc;
 #endregion
 
 namespace Uximagine.Magicurve.UI.Web.Controllers
@@ -43,7 +43,7 @@ namespace Uximagine.Magicurve.UI.Web.Controllers
         /// <returns>
         /// The view.
         /// </returns>
-        public ActionResult TemplateMatching()
+        public ActionResult Template()
         {
             return this.View();
         }
@@ -116,13 +116,13 @@ namespace Uximagine.Magicurve.UI.Web.Controllers
         public ActionResult _NavBar()
         {
             return this.View("_NavBar");
-        } 
+        }
 
         /// <summary>
         /// return the menu bar
         /// </summary>
         /// <returns> the view </returns>
-        public ActionResult _MenuBar() 
+        public ActionResult _MenuBar()
         {
             return this.View("_MenuBar");
         }
@@ -148,7 +148,7 @@ namespace Uximagine.Magicurve.UI.Web.Controllers
             }
 
             return bytes;
-        } 
+        }
 
         #endregion
     }

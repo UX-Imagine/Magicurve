@@ -53,12 +53,12 @@ function setImageType(type) {
 function loadImage() {
     $.ajax(
         {
-            url: root + "/api/values/2",
+            url: root + "/api/values/1",
             type: "GET"
         }).done(function (data) {
             $("#img_blob").attr("src", root + data + '?' + new Date().getTime());
             $("#or_img_blob").attr("src", root + "/Content/Images/Capture/capture.jpg" + '?' + new Date().getTime());
-            $("#or_img_blob").attr("src", root + "/Content/Images/Capture/template.jpg" + '?' + new Date().getTime());
+            $("#temp_img_blob").attr("src", root + "/Content/Images/Capture/template.jpg" + '?' + new Date().getTime());
             console.log(data);
         }).fail(function (error) {
             $("#image_place_holder").html(error);

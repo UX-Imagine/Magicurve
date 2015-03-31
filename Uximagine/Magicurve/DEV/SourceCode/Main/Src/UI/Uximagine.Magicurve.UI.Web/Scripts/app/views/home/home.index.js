@@ -8,6 +8,7 @@ $(document).ready(function () {
         swffile: root + "/Content/swf/jscam.swf",
         onTick: function () { },
         onSave: function () {
+            loadImage();
         },
         onCapture: function () {
             webcam.save( root + "/Home/Capture");
@@ -34,7 +35,7 @@ function loadImage() {
         }).done(function (data)
         {
             $("#img_blob").attr("src", root + data + '?' + new Date().getTime());
-            $("#or_img_blob").attr("src", root + "/Content/Images/Capture/capture.jpg" + '?' + new Date().getTime());
+            $("#img").attr("src", root + "/Content/Images/Capture/capture.jpg" + '?' + new Date().getTime());
             console.log(data);
         }).fail(function (error)
         {
