@@ -26,7 +26,9 @@ namespace Uximagine.Magicurve.Image.Processing.Matchers
         /// <summary>
         /// Matches the specified source.
         /// </summary>
-        /// <param name="source">The source.</param>
+        /// <param name="source">
+        /// The source.
+        /// </param>
         /// <returns>
         /// Matched results.
         /// </returns>
@@ -38,6 +40,7 @@ namespace Uximagine.Magicurve.Image.Processing.Matchers
 
             // create block matching algorithm's instance
             ExhaustiveBlockMatching bm = new ExhaustiveBlockMatching(8, 12);
+
             // process images searching for block matchings
             List<BlockMatch> matches = bm.ProcessImage(sourceImage, points, this.Template);
 
@@ -52,6 +55,7 @@ namespace Uximagine.Magicurve.Image.Processing.Matchers
                 Drawing.FillRectangle(data,
                     new Rectangle(match.SourcePoint.X - 1, match.SourcePoint.Y - 1, 3, 3),
                     Color.Yellow);
+
                 // draw line to the point in search image
                 Drawing.Line(data, match.SourcePoint, match.MatchPoint, Color.Red);
 

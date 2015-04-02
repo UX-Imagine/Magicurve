@@ -1,15 +1,18 @@
 ﻿#region Imports
 using System.Collections.Generic;
-using System.Drawing;
 using System.Web.Hosting;
 using System.Web.Http;
 using Uximagine.Magicurve.Core.Models;
 using Uximagine.Magicurve.DataTransfer.Responses;
-using Uximagine.Magicurve.Image.Processing;
-
 #endregion
 namespace Uximagine.Magicurve.UI.Web.Controllers
 {
+    using System.Drawing;
+
+    using Uximagine.Magicurve.DataTransfer.Requests;
+    using Uximagine.Magicurve.Services;
+    using Uximagine.Magicurve.Services.Client;
+
     /// <summary>
     /// The API controller.
     /// </summary>
@@ -23,7 +26,36 @@ namespace Uximagine.Magicurve.UI.Web.Controllers
         /// </returns>
         public IEnumerable<string> Get()
         {
-            return new string[] { "value1", "value2" };
+            return new[] { "value1", "value2" };
+        }
+
+        /// <summary>
+        /// Gets the edges.
+        /// </summary>
+        /// <returns>
+        /// The edge image.
+        /// </returns>
+        public string GetEdges()
+        {
+
+            const string SavedPath = "/Content/images/test2.png";
+
+             string imgPath = HostingEnvironment.MapPath(
+                    "~/Content/Images/Capture/capture.jpg");
+
+            IProcessingService service = new ProcessigService();
+            ProcessRequestDto request = new ProcessRequestDto { ImagePath = imgPath };
+            ProcessResponseDto response = service.GetEdgeProcessedImageUrl(request);
+
+            if (response == null || response.Image == null)
+            {
+                return SavedPath;
+            }
+
+            response.Image.Save(HostingEnvironment.MapPath("~/Content/images/test2.png"));
+            response.Image.Dispose();
+
+            return SavedPath;
         }
 
         /// <summary>
@@ -37,7 +69,6 @@ namespace Uximagine.Magicurve.UI.Web.Controllers
         /// </returns>
         public string Get(int id)
         {
-            Processor processor = new Processor();
             string imgPath;
 
             switch (id)
@@ -58,25 +89,27 @@ namespace Uximagine.Magicurve.UI.Web.Controllers
 
             try
             {
-                ProcessResponseDto response = processor.ProcessImage(imgPath);
-                response.Image.Save(HostingEnvironment.MapPath("~/Content/images/test2.png"));
-                response.Image.Dispose(); 
+                if (imgPath != null)
+                {
+                    IProcessingService service = new ProcessigService();
+                    ProcessRequestDto request = new ProcessRequestDto();
+                    request.ImagePath = imgPath;
+                    ProcessResponseDto response = service.GetEdgeProcessedImageUrl(request);
+                    if (response != null && response.Image != null)
+                    {
+                        response.Image.Save(HostingEnvironment.MapPath("~/Content/images/test2.png"));
+                        response.Image.Dispose();
+                    }
+
+                }
+
             }
             catch (System.Exception)
             {
-                
-                throw;
-            }
-           
-            IControl shape = processor.Shape;
 
-            if (id.Equals(2))
-            {
-                return shape.Type.ToString();
             }
 
             return "/Content/images/test2.png";
-
         }
 
         /// <summary>
@@ -98,7 +131,7 @@ namespace Uximagine.Magicurve.UI.Web.Controllers
         public void Put(int id, [FromBody]string value)
         {
         }
-                    
+
         /// <summary>
         /// Deletes the specified identifier.
         /// // DELETE API/values/5    

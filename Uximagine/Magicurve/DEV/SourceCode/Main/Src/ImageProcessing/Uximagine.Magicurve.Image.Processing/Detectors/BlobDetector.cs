@@ -17,7 +17,7 @@ namespace Uximagine.Magicurve.Image.Processing.Detectors
         /// <summary>
         /// Detects the specified original image.
         /// </summary>
-        /// <param name="originalImage">The original image.</param>
+        /// <param name="bitmap">The original image.</param>
         /// <returns>
         /// The detected image.
         /// </returns>
@@ -29,7 +29,7 @@ namespace Uximagine.Magicurve.Image.Processing.Detectors
                 ImageLockMode.ReadWrite, bitmap.PixelFormat);
 
 
-            //step 1 - turn background to black
+            // step 1 - turn background to black
             ColorFiltering colorFilter = new ColorFiltering();
 
             colorFilter.Red = new IntRange(0, 64);

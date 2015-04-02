@@ -46,6 +46,7 @@ namespace Uximagine.Magicurve.Image.Processing.Helpers
             {
                 gr.DrawImage(image, new Rectangle(0, 0, copy.Width, copy.Height));
             }
+
             return copy;
         }
     }

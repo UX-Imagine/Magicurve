@@ -30,8 +30,10 @@ namespace Uximagine.Magicurve.Image.Processing.Matchers
         {
             // create template matching algorithm's instance
             ExhaustiveTemplateMatching tm = new ExhaustiveTemplateMatching(0.9f);
+
             // find all matchings with specified above similarity
-            TemplateMatch[] matchings = tm.ProcessImage(sourceImage, Template);
+            TemplateMatch[] matchings = tm.ProcessImage(sourceImage, this.Template);
+
             // highlight found matchings
             BitmapData data = sourceImage.LockBits(
                 new Rectangle(0, 0, sourceImage.Width, sourceImage.Height),
@@ -39,6 +41,7 @@ namespace Uximagine.Magicurve.Image.Processing.Matchers
             foreach (TemplateMatch m in matchings)
             {
                 Drawing.Rectangle(data, m.Rectangle, Color.White);
+
                 // do something else with matching
             }
             sourceImage.UnlockBits(data);

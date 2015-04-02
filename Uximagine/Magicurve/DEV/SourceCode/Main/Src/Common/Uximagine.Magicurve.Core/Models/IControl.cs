@@ -1,9 +1,11 @@
-﻿
-using AForge;
+﻿using AForge;
 using System.Collections.Generic;
 
 namespace Uximagine.Magicurve.Core.Models
 {
+    /// <summary>
+    /// The control interface.
+    /// </summary>
     public interface IControl
     {
         /// <summary>

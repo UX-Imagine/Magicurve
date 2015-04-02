@@ -18,7 +18,9 @@ namespace Uximagine.Magicurve.Image.Processing.Matchers
         /// <summary>
         /// Matches the specified source.
         /// </summary>
-        /// <param name="source">The source.</param>
+        /// <param name="source">
+        /// The source.
+        /// </param>
         /// <returns>
         /// Matched results.
         /// </returns>

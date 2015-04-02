@@ -1,25 +1,15 @@
 ﻿using System;
-using System.Drawing;
 using System.Runtime.Serialization;
 
-namespace Uximagine.Magicurve.DataTransfer.Responses
+namespace Uximagine.Magicurve.DataTransfer.Requests
 {
     /// <summary>
-    /// The processed image response.
+    /// The request (DTO) for process image.
     /// </summary>
     [DataContract]
     [Serializable]
-    public class ProcessResponseDto
+    public class ProcessRequestDto
     {
-        /// <summary>
-        /// Gets or sets the image.
-        /// </summary>
-        /// <value>
-        /// The image.
-        /// </value>
-        [DataMember]
-        public Bitmap Image { get; set; }
-
         /// <summary>
         /// Gets or sets the image path.
         /// </summary>
@@ -29,5 +19,13 @@ namespace Uximagine.Magicurve.DataTransfer.Responses
         [DataMember]
         public string ImagePath { get; set; }
 
+        /// <summary>
+        /// Gets or sets the server path.
+        /// </summary>
+        /// <value>
+        /// The server path.
+        /// </value>
+        [DataMember]
+        public string ServerPath { get; set; }
     }
 }

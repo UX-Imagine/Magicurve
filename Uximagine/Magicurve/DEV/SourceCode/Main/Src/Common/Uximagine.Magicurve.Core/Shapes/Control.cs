@@ -4,6 +4,9 @@ using Uximagine.Magicurve.Core.Models;
 
 namespace Uximagine.Magicurve.Core.Shapes
 {
+    /// <summary>
+    /// The control function.
+    /// </summary>
     public class Control : IControl
     {
         /// <summary>
@@ -29,6 +32,5 @@ namespace Uximagine.Magicurve.Core.Shapes
             get;
             set;
         }
-
     }
 }

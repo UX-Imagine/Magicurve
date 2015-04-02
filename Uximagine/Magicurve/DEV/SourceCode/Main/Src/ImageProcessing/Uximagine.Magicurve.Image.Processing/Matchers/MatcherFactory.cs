@@ -16,7 +16,6 @@
             return new BlockMatcher();
         }
 
-
         /// <summary>
         /// Gets the template matcher.
         /// </summary>

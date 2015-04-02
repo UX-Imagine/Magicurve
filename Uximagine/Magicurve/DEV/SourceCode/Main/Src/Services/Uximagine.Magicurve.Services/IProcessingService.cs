@@ -3,14 +3,22 @@ using Uximagine.Magicurve.DataTransfer.Requests;
 
 namespace Uximagine.Magicurve.Services
 {
-    // NOTE: You can use the "Rename" command on the "Refactor" menu to change the interface name "IService1" in both code and config file together.
-    [ServiceContract]
+    using Uximagine.Magicurve.DataTransfer.Responses;
+
+    /// <summary>
+    /// The processing service.
+    /// </summary>
+    [ServiceContract(Namespace = "http://ux-imagine.com")]
     public interface IProcessingService
     {
+        /// <summary>
+        /// Gets the processed image URL.
+        /// </summary>
+        /// <param name="requestDto">The requestDto.</param>
+        /// <returns>
+        /// The URL.
+        /// </returns>
         [OperationContract]
-        string GetData(int value);
-
-        [OperationContract]
-        string GetProcessedImageUrl(ProcessImageRequest request);
+        ProcessResponseDto GetEdgeProcessedImageUrl(ProcessRequestDto requestDto);
     }
 }
