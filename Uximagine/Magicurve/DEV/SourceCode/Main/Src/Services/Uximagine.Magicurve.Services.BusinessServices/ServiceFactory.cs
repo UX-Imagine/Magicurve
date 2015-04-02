@@ -1,15 +1,10 @@
-﻿namespace Uximagine.Magicurve.Services
+﻿namespace Uximagine.Magicurve.Services.BusinessServices
 {
     /// <summary>
     /// Get the service instance.
     /// </summary>
     public class ServiceFactory
     {
-        /// <summary>
-        /// The service.
-        /// </summary>
-        private IProcessingService service;
-
         /// <summary>
         /// Gets the processing service.
         /// </summary>
@@ -18,12 +13,7 @@
         /// </returns>
         public IProcessingService GetProcessingService()
         {
-            if (this.service == null)
-            {
-                this.service = new ProcessingService();
-            }
-
-            return this.service;
+            return new ProcessingService();
         }
     }
 }

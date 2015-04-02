@@ -51,6 +51,10 @@
       <Project>{1419cbe2-f970-4a01-b8dc-5bec2ada2902}</Project>
       <Name>Uximagine.Magicurve.DataTransfer</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Uximagine.Magicurve.Services.BusinessServices\Uximagine.Magicurve.Services.BusinessServices.csproj">
+      <Project>{b01199e0-cc8c-4f1e-b550-959543314908}</Project>
+      <Name>Uximagine.Magicurve.Services.BusinessServices</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Uximagine.Magicurve.Services\Uximagine.Magicurve.Services.csproj">
       <Project>{e3a0d046-35fd-49d9-a211-a5b9beb25e6d}</Project>
       <Name>Uximagine.Magicurve.Services</Name>

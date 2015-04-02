@@ -4016,7 +4016,7 @@ pkg.getRequest = function() {
             r.send = function(data) {
                 // !!! FF can throw NS_ERROR_FAILURE exception instead of
                 // !!! returning 404 File Not Found HTTP error code
-                // !!! No request status, statusText are defined in this case
+                // !!! No requestDto status, statusText are defined in this case
                 try { return this.__send(data); }
                 catch(e) {
                     if (!e.message || e.message.toUpperCase().indexOf("NS_ERROR_FAILURE") < 0) {
@@ -4040,7 +4040,7 @@ pkg.getRequest = function() {
 };
 
 /**
- * HTTP request class. This class provides API to generate different
+ * HTTP requestDto class. This class provides API to generate different
  * (GET, POST, etc) HTTP requests in sync and async modes
  * @class zebra.io.HTTP
  * @constructor
@@ -4053,14 +4053,14 @@ pkg.HTTP = Class([
     },
 
     /**
-     * Perform HTTP GET request synchronously or asynchronously with the given
+     * Perform HTTP GET requestDto synchronously or asynchronously with the given
      * query parameters.
      * @param {Object} [q] a dictionary of query parameters
      * @param {Function} [f] a callback function that is called when the HTTP GET
-     * request is done. The method gets a request object as its only argument
+     * requestDto is done. The method gets a requestDto object as its only argument
      * and is called in context of the HTTP class instance.
 
-        // synchronous HTTP GET request with the number of
+        // synchronous HTTP GET requestDto with the number of
         // query parameters
         var result = zebra.io.HTTP("google.com").GET({
             param1: "var1",
@@ -4069,10 +4069,10 @@ pkg.HTTP = Class([
         });
 
         // asynchronouse GET requests
-        zebra.io.HTTP("google.com").GET(function(request) {
+        zebra.io.HTTP("google.com").GET(function(requestDto) {
             // handle HTTP GET response
-            if (request.status == 200) {
-                request.responseText
+            if (requestDto.status == 200) {
+                requestDto.responseText
             }
             else {
                 // handle error
@@ -4093,20 +4093,20 @@ pkg.HTTP = Class([
     },
 
     /**
-     * Perform HTTP POST request synchronously or asynchronously with the given
+     * Perform HTTP POST requestDto synchronously or asynchronously with the given
      * data to be sent.
-     * @param {String|Object} d a data to be sent by HTTP POST request.  It can be
+     * @param {String|Object} d a data to be sent by HTTP POST requestDto.  It can be
      * either a parameters set or a string.
      * @param {Function} [f] a callback function that is called when HTTP POST
-     * request is done. The method gets a request as its only  argument
+     * requestDto is done. The method gets a requestDto as its only  argument
      * and called in context of appropriate HTTP class instance. If the argument
-     * is null the POST request will be done synchronously.
+     * is null the POST requestDto will be done synchronously.
 
        // asynchronously send POST
-       zebra.io.HTTP("google.com").POST(function(request) {
+       zebra.io.HTTP("google.com").POST(function(requestDto) {
            // handle HTTP GET response
-           if (request.status == 200) {
-               request.responseText
+           if (requestDto.status == 200) {
+               requestDto.responseText
            }
            else {
                // handle error
@@ -4115,9 +4115,9 @@ pkg.HTTP = Class([
        });
 
     * Or you can pass a number of parameters to be sent synchronously by
-    * HTTP POST request:
+    * HTTP POST requestDto:
 
-       // send parameters synchronously by HTTP POST request
+       // send parameters synchronously by HTTP POST requestDto
        zebra.io.HTTP("google.com").POST({
            param1: "val1",
            param2: "val3",
@@ -4145,14 +4145,14 @@ pkg.HTTP = Class([
     },
 
     /**
-     * Universal HTTP request method that can be used to generate
-     * a HTTP request with any HTTP method to the given URL with
+     * Universal HTTP requestDto method that can be used to generate
+     * a HTTP requestDto with any HTTP method to the given URL with
      * the given data to be sent asynchronously or synchronously
      * @param {String}   method   an HTTP method (GET,POST,DELETE,PUT, etc)
      * @param {String}   url      an URL
      * @param {String}   data     a data to be sent to the given URL
      * @param {Function} [callback] a callback method to be defined
-     * if the HTTP request has to be sent asynchronously.
+     * if the HTTP requestDto has to be sent asynchronously.
      * @method SEND
      */
     function SEND(method, url, data, callback) {
@@ -4213,10 +4213,10 @@ pkg.HTTP = Class([
         var res = zebra.io.GET("http://test.com");
 
         // asynchronous HTTP GET call
-        zebra.io.GET("http://test.com", function(request) {
+        zebra.io.GET("http://test.com", function(requestDto) {
             // handle result
-            if (request.status == 200) {
-                request.responseText
+            if (requestDto.status == 200) {
+                requestDto.responseText
             }
             else {
                 // handle error
@@ -4234,7 +4234,7 @@ pkg.HTTP = Class([
  * @param {String} url an URL
  * @param {Object} [parameters] a dictionary of query parameters
  * @param {Funcion} [callback] a callback function that is called
- * when the GET request is completed. Pass it  to perform request
+ * when the GET requestDto is completed. Pass it  to perform requestDto
  * asynchronously
  * @api  zebra.io.GET()
  * @method GET
@@ -4263,9 +4263,9 @@ pkg.GET = function(url) {
         var res = zebra.io.POST("http://test.com");
 
         // asynchronous HTTP POST call
-        zebra.io.POST("http://test.com", function(request) {
+        zebra.io.POST("http://test.com", function(requestDto) {
             // handle result
-            if (request.status == 200) {
+            if (requestDto.status == 200) {
 
             }
             else {
@@ -4286,9 +4286,9 @@ pkg.GET = function(url) {
         var res = zebra.io.POST("http://test.com", "data");
 
         // asynchronous HTTP POST call with data
-        zebra.io.POST("http://test.com", "request", function(request) {
+        zebra.io.POST("http://test.com", "requestDto", function(requestDto) {
             // handle result
-            if (request.status == 200) {
+            if (requestDto.status == 200) {
 
             }
             else {
@@ -4300,7 +4300,7 @@ pkg.GET = function(url) {
  * @param {String} url an URL
  * @param {Object} [parameters] a dictionary of query parameters
  * @param {Function} [callback] a callback function that is called
- * when the GET request is completed. Pass it if to perform request
+ * when the GET requestDto is completed. Pass it if to perform requestDto
  * asynchronously
  * @method  POST
  * @api  zebra.io.POST()
@@ -22653,7 +22653,7 @@ pkg.Menu = Class(pkg.CompList, [
                 }                
             }
 
-            // request fire selection if the menu is shown and position has moved to new place
+            // requestDto fire selection if the menu is shown and position has moved to new place
             if (this.parent != null && off != this.selectedIndex && this.isItemSelectable(off)) {
                 if (this.triggerSelectionByPos(off)) rs = off;  
             }

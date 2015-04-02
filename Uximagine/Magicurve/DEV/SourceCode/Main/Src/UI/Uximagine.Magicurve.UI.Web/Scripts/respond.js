@@ -105,7 +105,7 @@ window.matchMedia = window.matchMedia || (function(doc, undefined){
 			makeRequests();
 		},
 		
-		//recurse through request queue, get css text
+		//recurse through requestDto queue, get css text
 		makeRequests	= function(){
 			if( requestQueue.length ){
 				var thisRequest = requestQueue.shift();
