@@ -29,8 +29,21 @@ namespace Uximagine.Magicurve.UI.Web
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/angular").Include(
+                "~/Scripts/fx/angular/angular.js",
+                "~/Scripts/fx/angular/angular-route.js",
+                "~/Scripts/fx/angular-ui/ui-bootstrap.js",
+                "~/Scripts/fx/angular/angular-ui-router.js",
+                "~/Scripts/fx/angular/angular-animate.js",
+                "~/Scripts/toaster.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/magicurveApp").Include(
+                "~/Scripts/app/views/home/magicurve.app.js",
+                "~/Scripts/app/views/home/magicurve.app.controller.home.js"));
+
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
+                      "~/Content/toaster.css",
                       "~/Content/site.css"));
 
             bundles.Add(new LessBundle("~/Content/less").Include("~/Content/*.less"));

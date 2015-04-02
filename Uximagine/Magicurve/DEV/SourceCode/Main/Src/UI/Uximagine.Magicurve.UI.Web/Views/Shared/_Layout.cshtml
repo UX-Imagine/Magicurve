@@ -8,19 +8,18 @@
     @Styles.Render("~/Content/css")
     @Styles.Render("~/Content/less")
     @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/angular")
     @RenderSection("styles", false)
 
 </head>
-<body dir="ltr" id="body">
+<body dir="ltr" id="body" data-ng-app="magicurveApp">
 
 
         <div class="row" id="menu-bar">
             <div class="col-md-12">
                 @Html.Partial("_MenuBar", null)
-
-
-</div></div>
-
+        </div>
+    </div>
 
     <nav class="navbar navbar-inverse" id="nav-bar">
 
@@ -39,18 +38,18 @@
             <div class="col-md-2 " id="tool-bar">tool bar</div>
             <div class="col-md-10" id="content">
                 content
-                @RenderBody()
+            @RenderBody()
 
             </div>
 
         </div>
-        <div class="row" id="footer">
-            <div class="col-md-12">@Html.Partial("_Footer", null)</div>
+    <div class="row" id="footer">
+        <div class="col-md-12">@Html.Partial("_Footer", null)</div>
 
-        </div>
+    </div>
 
-        @Scripts.Render("~/bundles/jquery")
-        @Scripts.Render("~/bundles/bootstrap")
-        @RenderSection("scripts", required: false)
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
 </body>
 </html>

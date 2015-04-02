@@ -34,8 +34,8 @@ function loadImage() {
             type: "GET"
         }).done(function (data)
         {
-            $("#img_blob").attr("src", root + data + '?' + new Date().getTime());
-            $("#img").attr("src", root + "/Content/Images/Capture/capture.jpg" + '?' + new Date().getTime());
+            $("#img_blob").attr("src", root + data + "?" + new Date().getTime());
+            $("#img").attr("src", root + "/Content/Images/Capture/capture.jpg" + "?" + new Date().getTime());
             console.log(data);
         }).fail(function (error)
         {
