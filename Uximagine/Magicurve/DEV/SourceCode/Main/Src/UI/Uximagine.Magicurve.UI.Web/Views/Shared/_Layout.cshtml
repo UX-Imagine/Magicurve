@@ -22,32 +22,35 @@
 </div></div>
 
 
+    <nav class="navbar navbar-inverse" id="nav-bar">
 
 
-    <div class="row" id="nav-bar">
-        <div class="col-md-12">
+        <div class="col-md-12 container-fluid">
 
 
-            @Html.Partial("_NavBar",null)
+            @Html.Partial("_NavBar", null)
 
         </div>
 
-    </div>
+
+
+    </nav>
         <div class="row" id="content-full">
             <div class="col-md-2 " id="tool-bar">tool bar</div>
-            <div class="col-md-10" id="content">content
-            @RenderBody()
+            <div class="col-md-10" id="content">
+                content
+                @RenderBody()
 
             </div>
 
         </div>
-    <div class="row" id="footer">
-        <div class="col-md-12">@Html.Partial("_Footer", null)</div>
+        <div class="row" id="footer">
+            <div class="col-md-12">@Html.Partial("_Footer", null)</div>
 
-    </div>
+        </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @RenderSection("scripts", required: false)
 </body>
 </html>
