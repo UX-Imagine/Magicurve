@@ -1,7 +1,7 @@
 ﻿magicurveApp.controller("homeController",
-    function($scope, toaster) {
+    function($scope, toaster, homeService) {
         $scope.pop = function() {
-            toaster.pop("success", "Hello", "Magi-curve is here.");
+            toaster.pop("success", "Hello", homeService.shape.type);
         };
     });
 

@@ -1,9 +1,8 @@
-﻿using Uximagine.Magicurve.DataTransfer.Requests;
-
-namespace Uximagine.Magicurve.Services.Client
+﻿namespace Uximagine.Magicurve.Services.Client
 {
     using Uximagine.Magicurve.DataTransfer.Responses;
     using Uximagine.Magicurve.Services.BusinessServices;
+    using Uximagine.Magicurve.DataTransfer.Requests;
 
     /// <summary>
     /// The processing service.

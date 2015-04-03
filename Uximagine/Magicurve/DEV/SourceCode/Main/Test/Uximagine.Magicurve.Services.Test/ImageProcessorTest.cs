@@ -5,14 +5,20 @@ using Uximagine.Magicurve.Image.Processing.Matchers;
 
 namespace Uximagine.Magicurve.Services.Test
 {
+    /// <summary>
+    /// Image processor test.
+    /// </summary>
     [TestClass]
     public class ImageProcessorTest
     {
+        /// <summary>
+        /// Tests the template matcher.
+        /// </summary>
         [TestMethod]
         public void TestTemplateMatcher()
         {
-            Bitmap template =  new Bitmap("template.jpg");
-            Bitmap source =  new Bitmap("capture.jpg");
+            Bitmap template = new Bitmap("template.jpg");
+            Bitmap source = new Bitmap("capture.jpg");
 
             IDetector edgeDetect = DetectorFactory.GetEdgeDetector();
 

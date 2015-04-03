@@ -70,10 +70,6 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Test\Uximagine.Magicurve.Services.Test\Uximagine.Magicurve.Services.Test.csproj">
-      <Project>{6e2191cb-a9a6-49de-ac2a-b312f22e6e9d}</Project>
-      <Name>Uximagine.Magicurve.Services.Test</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Domain\Uximagine.Magicurve.DataTransfer\Uximagine.Magicurve.DataTransfer.csproj">
       <Project>{1419cbe2-f970-4a01-b8dc-5bec2ada2902}</Project>
       <Name>Uximagine.Magicurve.DataTransfer</Name>

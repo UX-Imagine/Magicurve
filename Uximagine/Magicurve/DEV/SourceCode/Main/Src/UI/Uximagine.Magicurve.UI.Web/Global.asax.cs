@@ -8,6 +8,8 @@ using System.Web.Routing;
 
 namespace Uximagine.Magicurve.UI.Web
 {
+    using System.IO;
+
     /// <summary>
     /// The web application.
     /// </summary>
@@ -23,6 +25,7 @@ namespace Uximagine.Magicurve.UI.Web
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            log4net.Config.XmlConfigurator.Configure(new FileInfo(Server.MapPath("~/Web.config")));
         }
 
         /// <summary>

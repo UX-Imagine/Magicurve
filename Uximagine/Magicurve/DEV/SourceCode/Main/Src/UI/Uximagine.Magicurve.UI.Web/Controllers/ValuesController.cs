@@ -2,16 +2,15 @@
 using System.Collections.Generic;
 using System.Web.Hosting;
 using System.Web.Http;
-using Uximagine.Magicurve.Core.Models;
 using Uximagine.Magicurve.DataTransfer.Responses;
+using Uximagine.Magicurve.DataTransfer.Requests;
+using Uximagine.Magicurve.Services;
+using Uximagine.Magicurve.Services.Client;
 #endregion
 namespace Uximagine.Magicurve.UI.Web.Controllers
 {
-    using System.Drawing;
-
-    using Uximagine.Magicurve.DataTransfer.Requests;
-    using Uximagine.Magicurve.Services;
-    using Uximagine.Magicurve.Services.Client;
+    using System;
+    using System.Web;
 
     /// <summary>
     /// The API controller.
@@ -35,13 +34,12 @@ namespace Uximagine.Magicurve.UI.Web.Controllers
         /// <returns>
         /// The edge image.
         /// </returns>
-        public string GetEdges()
+        [HttpGet]
+        public string Edges()
         {
-
             const string SavedPath = "/Content/images/test2.png";
-
-             string imgPath = HostingEnvironment.MapPath(
-                    "~/Content/Images/Capture/capture.jpg");
+            string imgPath = HostingEnvironment.MapPath(string.Empty) +
+               "\\Content\\Images\\Capture\\capture.jpg";
 
             IProcessingService service = new ProcessigService();
             ProcessRequestDto request = new ProcessRequestDto { ImagePath = imgPath };

@@ -2,10 +2,11 @@
 {
     <script src="~/Scripts/app/views/home/magicurve.app.js"></script>
     <script src="~/Scripts/app/views/home/magicurve.app.controller.home.js"></script>
+    <script src="~/Scripts/app/views/home/magicurve.app.service.home.js"></script>
 }
 
 <toaster-container></toaster-container>
 
-<div data-ng-contrller="homeController">
-    <button onclick="pop()">Toast</button>
+<div data-ng-controller="homeController">
+    <button ng-click="pop()">Show a Toaster</button>
 </div>
