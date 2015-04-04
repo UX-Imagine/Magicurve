@@ -9,6 +9,9 @@ using Uximagine.Magicurve.Image.Processing.Helpers;
 
 namespace Uximagine.Magicurve.Image.Processing.Detectors
 {
+    using Uximagine.Magicurve.Core.Models;
+    using Uximagine.Magicurve.Image.Processing.ShapeCheckers;
+
     /// <summary>
     /// The blob detector.
     /// </summary>
@@ -17,7 +20,9 @@ namespace Uximagine.Magicurve.Image.Processing.Detectors
         /// <summary>
         /// Detects the specified original image.
         /// </summary>
-        /// <param name="bitmap">The original image.</param>
+        /// <param name="bitmap">
+        /// The original image.
+        /// </param>
         /// <returns>
         /// The detected image.
         /// </returns>
@@ -51,7 +56,7 @@ namespace Uximagine.Magicurve.Image.Processing.Detectors
             bitmap.UnlockBits(bitmapData);
 
             //// step 3 - check objects' type and highlight
-            SimpleShapeChecker shapeChecker = new SimpleShapeChecker();
+            FiveCornerShapeChecker shapeChecker = new FiveCornerShapeChecker();
 
             Graphics g = Graphics.FromImage(bitmap);
             Pen yellowPen = new Pen(Color.Yellow, 2); //// circles
@@ -79,24 +84,34 @@ namespace Uximagine.Magicurve.Image.Processing.Detectors
                     List<IntPoint> corners;
 
                     //// is triangle or quadrilateral
-                    if (shapeChecker.IsConvexPolygon(edgePoints, out corners))
-                    {
+                    /*if (shapeChecker.IsConvexPolygon(edgePoints, out corners))
+                    {*/
                         //// get sub-type
-                        PolygonSubType subType = shapeChecker.CheckPolygonSubType(corners);
+                        //// PolygonSubType subType = shapeChecker.CheckPolygonSubType(corners);
+                        corners = shapeChecker.GetShapeCorners(edgePoints);
+
+                        ControlType controlType = shapeChecker.GetControlType(edgePoints);
 
                         Pen pen;
 
-                        if (subType == PolygonSubType.Unknown)
+                        if (controlType == ControlType.None)
                         {
-                            pen = (corners.Count == 4) ? redPen : bluePen;
+                            pen = bluePen;
+                        }
+                        else if (controlType == ControlType.Button)
+                        {
+                            pen = greenPen;
+                        }
+                        else if (controlType == ControlType.ComboBox)
+                        {
+                            pen = yellowPen;
                         }
                         else
                         {
-                            pen = (corners.Count == 4) ? brownPen : greenPen;
+                            pen = redPen;
                         }
 
                         g.DrawPolygon(pen, DrawingHelper.ToPointsArray(corners));
-                    }
                 }
             }
 
