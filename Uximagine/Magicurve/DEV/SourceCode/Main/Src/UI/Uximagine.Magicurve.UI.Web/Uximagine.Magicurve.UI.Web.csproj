@@ -132,6 +132,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\" />
     <Folder Include="Content\Images\Capture\" />
+    <Folder Include="Content\Images\Upload\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
@@ -156,6 +157,7 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\app\views\home\home.upload.js" />
     <Content Include="Scripts\app\views\home\magicurve.app.controller.home.js" />
     <Content Include="Scripts\app\views\home\magicurve.app.js" />
     <Content Include="Scripts\app\views\home\magicurve.app.service.home.js" />
@@ -994,6 +996,7 @@
     <Content Include="Views\Home\Zebra.cshtml" />
     <Content Include="Views\Home\Template.cshtml" />
     <Content Include="Scripts\fx\angular\version.json" />
+    <Content Include="Views\Home\Upload.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Common\Uximagine.Magicurve.Core\Uximagine.Magicurve.Core.csproj">

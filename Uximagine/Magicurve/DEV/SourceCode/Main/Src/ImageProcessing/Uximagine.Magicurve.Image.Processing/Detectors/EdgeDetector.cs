@@ -21,15 +21,12 @@ namespace Uximagine.Magicurve.Image.Processing.Detectors
         {
             Bitmap result = null;
 
-            Bitmap gsImage = Grayscale.CommonAlgorithms.BT709.Apply(originalImage);
+            Bitmap image = Grayscale.CommonAlgorithms.BT709.Apply(originalImage);
 
-            ////ContrastStretch filter = new ContrastStretch();
-            ////filter.ApplyInPlace(gsImage);
+            SobelEdgeDetector edgeFilter = new SobelEdgeDetector();
+            result = edgeFilter.Apply(image);
 
-            CannyEdgeDetector edgeFilter = new CannyEdgeDetector();
-            result = edgeFilter.Apply(gsImage);
-
-            gsImage.Dispose();
+            image.Dispose();
 
             return result;
         }

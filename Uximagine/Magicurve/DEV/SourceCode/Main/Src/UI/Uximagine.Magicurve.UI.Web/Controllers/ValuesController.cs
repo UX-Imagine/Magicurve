@@ -77,7 +77,7 @@ namespace Uximagine.Magicurve.UI.Web.Controllers
                     break;
                 case 2:
                     imgPath = HostingEnvironment.MapPath(
-                        "~/Content/images/tri.png");
+                        "~/Content/Images/Upload/upload.jpg");
                     break;
                 default:
                     imgPath = HostingEnvironment.MapPath(

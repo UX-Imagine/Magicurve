@@ -8,6 +8,8 @@ using Uximagine.Magicurve.Image.Processing.Helpers;
 
 namespace Uximagine.Magicurve.Image.Processing
 {
+    using AForge.Imaging.Filters;
+
     /// <summary>
     /// The class which handle processing of the image.
     /// </summary>
@@ -58,6 +60,9 @@ namespace Uximagine.Magicurve.Image.Processing
                 Bitmap edgeResult = edgeDetector.Detect(bitmap);
 
                 IDetector blobDetector = DetectorFactory.GetBlobDetector();
+
+                ////Threshold filterThreshold = new Threshold();
+                ////filterThreshold.ApplyInPlace(edgeResult);
 
                 Bitmap correctFormatImage = edgeResult.ConvertToFormat(PixelFormat.Format24bppRgb);
 

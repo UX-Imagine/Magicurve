@@ -6,6 +6,13 @@ using System.Web.Mvc;
 
 namespace Uximagine.Magicurve.UI.Web.Controllers
 {
+    using System.Linq;
+    using System.Web;
+
+    using Microsoft.Ajax.Utilities;
+
+    using WebGrease.Css.Extensions;
+
     /// <summary>
     /// The Default controller for the web application.
     /// </summary>
@@ -118,6 +125,82 @@ namespace Uximagine.Magicurve.UI.Web.Controllers
             {
                 throw;
             }
+        }
+
+        /// <summary>
+        /// Indexes the specified file.
+        /// </summary>
+        /// <returns>
+        /// <c>true</c> if [upload is success].
+        /// </returns>
+        [HttpPost]
+        public ActionResult UploadFile()
+        {
+            ActionResult result = null;
+
+            if (Request.Files.AllKeys.Any())
+            {
+                // Get the uploaded image from the Files collection
+                var file = Request.Files["UploadedImage"];
+
+                if (ModelState.IsValid)
+                {
+                    if (file == null)
+                    {
+                        ModelState.AddModelError("File", "Please Upload Your file");
+                    }
+                    else if (file.ContentLength > 0)
+                    {
+                        const int MaxContentLength = 1024 * 1024 * 4; // Size = 4 MB
+
+                        string[] allowedFileExtensions =
+                            {
+                                ".jpg", ".bmp", ".png", ".jpeg", ".JPG", ".BMP", ".PNG",
+                                ".JPEG"
+                            };
+                        if (!allowedFileExtensions.Contains(file.FileName.Substring(file.FileName.LastIndexOf('.'))))
+                        {
+                            ModelState.AddModelError(
+                                "File",
+                                "Please file of type: " + string.Join(", ", allowedFileExtensions));
+                        }
+                        else if (file.ContentLength > MaxContentLength)
+                        {
+                            ModelState.AddModelError(
+                                "File",
+                                "Your file is too large, maximum allowed size is: " + MaxContentLength + " MB");
+                        }
+                        else
+                        {
+                            const string FileName = "upload.jpg";
+                            var path = Path.Combine(Server.MapPath("~/Content/Images/Upload"), FileName);
+                            file.SaveAs(path);
+                            ModelState.Clear();
+                            ViewBag.Message = "File uploaded successfully. File path :   ~/Content/Images/Upload/"
+                                              + FileName;
+
+                            result = this.Json(new { path = path });
+
+                            return result;
+                        }
+                    }
+                }
+            }
+
+            result = this.Json(new { message = "error" });
+            return result;
+        }
+
+        /// <summary>
+        /// Uploads this instance.
+        /// </summary>
+        /// <returns>
+        /// The view.
+        /// </returns>
+        [HttpGet]
+        public ActionResult Upload()
+        {
+            return this.View();
         }
 
         /// <summary>
