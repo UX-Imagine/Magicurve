@@ -56,13 +56,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConfigurationData.cs" />
     <Compile Include="Detectors\BlobDetector.cs" />
-    <Compile Include="Detectors\DetectorFactory.cs" />
     <Compile Include="Detectors\EdgeDetector.cs" />
+    <Compile Include="Detectors\IBlobDetector.cs" />
     <Compile Include="Detectors\IDetector.cs" />
+    <Compile Include="Detectors\IEdgeDetector.cs" />
     <Compile Include="Matchers\BlockMatcher.cs" />
     <Compile Include="Matchers\IMatcher.cs" />
-    <Compile Include="Matchers\MatcherFactory.cs" />
+    <Compile Include="ProcessingFactory.cs" />
     <Compile Include="Matchers\TemplateMatcher.cs" />
     <Compile Include="Helpers\DrawingHelper.cs" />
     <Compile Include="Processor.cs" />

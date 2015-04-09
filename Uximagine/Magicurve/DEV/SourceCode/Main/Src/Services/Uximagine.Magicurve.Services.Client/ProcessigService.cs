@@ -1,7 +1,6 @@
 ﻿namespace Uximagine.Magicurve.Services.Client
 {
     using Uximagine.Magicurve.DataTransfer.Responses;
-    using Uximagine.Magicurve.Services.BusinessServices;
     using Uximagine.Magicurve.DataTransfer.Requests;
 
     /// <summary>
@@ -12,7 +11,9 @@
         /// <summary>
         /// Gets the processed image URL.
         /// </summary>
-        /// <param name="requestDto">The requestDto.</param>
+        /// <param name="requestDto">
+        /// The request DTO.
+        /// </param>
         /// <returns>
         /// The URL.
         /// </returns>
@@ -29,11 +30,9 @@
         /// <returns>
         /// The processing service.
         /// </returns>
-        public IProcessingService GetService()
+        private IProcessingService GetService()
         {
-            ServiceFactory factory = new ServiceFactory();
-
-            return factory.GetProcessingService();
+            return ServiceFactory.GetProcessingService();
         }
 
     }

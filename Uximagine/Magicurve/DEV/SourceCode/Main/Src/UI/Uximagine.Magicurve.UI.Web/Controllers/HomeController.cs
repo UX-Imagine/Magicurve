@@ -2,17 +2,11 @@
 using System;
 using System.IO;
 using System.Web.Mvc;
+using System.Linq;
 #endregion
 
 namespace Uximagine.Magicurve.UI.Web.Controllers
 {
-    using System.Linq;
-    using System.Web;
-
-    using Microsoft.Ajax.Utilities;
-
-    using WebGrease.Css.Extensions;
-
     /// <summary>
     /// The Default controller for the web application.
     /// </summary>

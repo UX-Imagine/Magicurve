@@ -5,8 +5,6 @@ using Uximagine.Magicurve.Core.Models;
 
 namespace Uximagine.Magicurve.Image.Processing.ShapeCheckers
 {
-    using AForge.Imaging;
-
     /// <summary>
     /// The advanced shape checker.
     /// </summary>

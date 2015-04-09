@@ -1,10 +1,11 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Uximagine.Magicurve.Image.Processing.Detectors;
-using System.Drawing;
-using Uximagine.Magicurve.Image.Processing.Matchers;
-
-namespace Uximagine.Magicurve.Services.Test
+﻿namespace Uximagine.Magicurve.Services.Test
 {
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using System.Drawing;
+    using Uximagine.Magicurve.Image.Processing;
+    using Uximagine.Magicurve.Image.Processing.Detectors;
+    using Uximagine.Magicurve.Image.Processing.Matchers;
+
     /// <summary>
     /// Image processor test.
     /// </summary>
@@ -20,12 +21,12 @@ namespace Uximagine.Magicurve.Services.Test
             Bitmap template = new Bitmap("template.jpg");
             Bitmap source = new Bitmap("capture.jpg");
 
-            IDetector edgeDetect = DetectorFactory.GetEdgeDetector();
+            IDetector edgeDetect = ProcessingFactory.GetEdgeDetector();
 
             Bitmap edgedTemplate = edgeDetect.Detect(template);
             Bitmap edgedSource = edgeDetect.Detect(source);
 
-            IMatcher matcher = MatcherFactory.GetTemplateMatcher();
+            IMatcher matcher = ProcessingFactory.GetMatcher();
 
             matcher.Template = edgedTemplate;
 
@@ -43,7 +44,7 @@ namespace Uximagine.Magicurve.Services.Test
             Bitmap template = new Bitmap("template.jpg");
             Bitmap source = new Bitmap("capture.jpg");
 
-            IMatcher matcher = MatcherFactory.GetBlockMatcher();
+            IMatcher matcher = ProcessingFactory.GetMatcher();
             matcher.Template = template ;
             Bitmap image = matcher.Match(source);
 

@@ -1,12 +1,11 @@
-﻿using System;
-using System.Globalization;
-using System.Transactions;
-using Uximagine.Magicurve.Core.Diagnostics.ExceptionManagement;
-
-namespace Uximagine.Magicurve.Services.BusinessServices.UnitsOfWork
+﻿namespace Uximagine.Magicurve.Services.BusinessServices.UnitsOfWork
 {
+    using System;
+    using System.Globalization;
+    using System.Transactions;
     using Uximagine.Magicurve.Core;
     using Uximagine.Magicurve.Core.Diagnostics;
+    using Uximagine.Magicurve.Core.Diagnostics.ExceptionManagement;
     using Uximagine.Magicurve.Core.Diagnostics.Logging;
     using Uximagine.Magicurve.DataTransfer.Exceptions;
 

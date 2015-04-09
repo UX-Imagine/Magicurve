@@ -1,21 +1,19 @@
-﻿using AForge;
-using AForge.Imaging;
-using AForge.Imaging.Filters;
-using AForge.Math.Geometry;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Drawing.Imaging;
-using Uximagine.Magicurve.Image.Processing.Helpers;
-
-namespace Uximagine.Magicurve.Image.Processing.Detectors
+﻿namespace Uximagine.Magicurve.Image.Processing.Detectors
 {
+    using AForge;
+    using AForge.Imaging;
+    using AForge.Imaging.Filters;
+    using System.Collections.Generic;
+    using System.Drawing;
+    using System.Drawing.Imaging;
     using Uximagine.Magicurve.Core.Models;
+    using Uximagine.Magicurve.Image.Processing.Helpers;
     using Uximagine.Magicurve.Image.Processing.ShapeCheckers;
 
     /// <summary>
     /// The blob detector.
     /// </summary>
-    public class BlobDetector : IDetector
+    public class BlobDetector : IBlobDetector
     {
         /// <summary>
         /// Detects the specified original image.
@@ -86,32 +84,32 @@ namespace Uximagine.Magicurve.Image.Processing.Detectors
                     //// is triangle or quadrilateral
                     /*if (shapeChecker.IsConvexPolygon(edgePoints, out corners))
                     {*/
-                        //// get sub-type
-                        //// PolygonSubType subType = shapeChecker.CheckPolygonSubType(corners);
-                        corners = shapeChecker.GetShapeCorners(edgePoints);
+                    //// get sub-type
+                    //// PolygonSubType subType = shapeChecker.CheckPolygonSubType(corners);
+                    corners = shapeChecker.GetShapeCorners(edgePoints);
 
-                        ControlType controlType = shapeChecker.GetControlType(edgePoints);
+                    ControlType controlType = shapeChecker.GetControlType(edgePoints);
 
-                        Pen pen;
+                    Pen pen;
 
-                        if (controlType == ControlType.None)
-                        {
-                            pen = bluePen;
-                        }
-                        else if (controlType == ControlType.Button)
-                        {
-                            pen = greenPen;
-                        }
-                        else if (controlType == ControlType.ComboBox)
-                        {
-                            pen = yellowPen;
-                        }
-                        else
-                        {
-                            pen = redPen;
-                        }
+                    if (controlType == ControlType.None)
+                    {
+                        pen = bluePen;
+                    }
+                    else if (controlType == ControlType.Button)
+                    {
+                        pen = greenPen;
+                    }
+                    else if (controlType == ControlType.ComboBox)
+                    {
+                        pen = yellowPen;
+                    }
+                    else
+                    {
+                        pen = redPen;
+                    }
 
-                        g.DrawPolygon(pen, DrawingHelper.ToPointsArray(corners));
+                    g.DrawPolygon(pen, DrawingHelper.ToPointsArray(corners));
                 }
             }
 

@@ -49,7 +49,6 @@
     <Compile Include="ConfigurationData.cs" />
     <Compile Include="ProcessingService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ServiceFactory.cs" />
     <Compile Include="UnitsOfWork\DetectEdgesUnitOfWork.cs" />
     <Compile Include="UnitsOfWork\Operation.cs" />
     <Compile Include="UnitsOfWork\OperationsCollection.cs" />
