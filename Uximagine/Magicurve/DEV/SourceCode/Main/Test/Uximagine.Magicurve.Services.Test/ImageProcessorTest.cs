@@ -45,7 +45,7 @@
             Bitmap source = new Bitmap("capture.jpg");
 
             IMatcher matcher = ProcessingFactory.GetMatcher();
-            matcher.Template = template ;
+            matcher.Template = template;
             Bitmap image = matcher.Match(source);
 
             Assert.IsNotNull(image);

@@ -58,7 +58,9 @@
   <ItemGroup>
     <Compile Include="ConfigurationData.cs" />
     <Compile Include="Detectors\BlobDetector.cs" />
-    <Compile Include="Detectors\EdgeDetector.cs" />
+    <Compile Include="Detectors\CannyDetector.cs" />
+    <Compile Include="Detectors\SobelDetector.cs" />
+    <Compile Include="Detectors\HullBlobDetector.cs" />
     <Compile Include="Detectors\IBlobDetector.cs" />
     <Compile Include="Detectors\IDetector.cs" />
     <Compile Include="Detectors\IEdgeDetector.cs" />
