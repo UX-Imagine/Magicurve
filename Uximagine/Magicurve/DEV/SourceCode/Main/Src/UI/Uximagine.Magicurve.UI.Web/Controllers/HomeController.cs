@@ -198,6 +198,33 @@ namespace Uximagine.Magicurve.UI.Web.Controllers
         }
 
         /// <summary>
+        /// Downloads this instance.
+        /// </summary>
+        /// <param name="content">
+        /// The content.
+        /// </param>
+        /// <returns>
+        /// The file
+        /// </returns>
+        public FileResult Download(string content)
+        {
+            if (!string.IsNullOrEmpty(content))
+            {
+                const string FileName = "source.html";
+
+                var path = Path.Combine(Server.MapPath("~/Content/Files"), FileName);
+
+                System.IO.File.WriteAllText(@path, content);
+
+                byte[] fileBytes = System.IO.File.ReadAllBytes(@path);
+
+                return this.File(fileBytes, System.Net.Mime.MediaTypeNames.Text.Html, FileName); 
+            }
+
+            return null;
+        }
+
+        /// <summary>
         /// return the navigation
         /// </summary>
         /// <returns> the view </returns>

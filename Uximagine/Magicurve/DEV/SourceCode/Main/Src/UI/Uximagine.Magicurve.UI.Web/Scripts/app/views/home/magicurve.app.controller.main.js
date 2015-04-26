@@ -247,8 +247,17 @@
             $rootScope.rootUrl = "/Magicurve";
 
             $scope.initUpload = function($event) {
-                var input = angular.element($event.target.children[0]);
+                var input = window.angular.element($event.target.children[0]);
             };
+
+            $scope.content = {type:'button', x:20, y:30};
+
+            $scope.download = function () {
+
+                var url = $rootScope.rootUrl + "/Home/Download?content=" + JSON.stringify($scope.content);
+
+                window.open(url, '_blank', '');
+            }
 
             $scope.uploadFile = function($event) {
                 var file = $scope.image;

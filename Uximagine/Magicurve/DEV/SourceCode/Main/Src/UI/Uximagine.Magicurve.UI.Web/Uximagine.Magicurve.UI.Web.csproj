@@ -131,6 +131,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\" />
+    <Folder Include="Content\Files\" />
     <Folder Include="Content\Images\Capture\" />
     <Folder Include="Content\Images\Upload\" />
     <Folder Include="Models\" />
