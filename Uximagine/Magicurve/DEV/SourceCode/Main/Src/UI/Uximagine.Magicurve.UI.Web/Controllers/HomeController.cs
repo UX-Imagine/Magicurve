@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Uximagine.Magicurve.UI.Web.Controllers
 {
-    using Uximagine.Magicurve.UI.Web.Models;
+    
 
     /// <summary>
     /// The Default controller for the web application.
