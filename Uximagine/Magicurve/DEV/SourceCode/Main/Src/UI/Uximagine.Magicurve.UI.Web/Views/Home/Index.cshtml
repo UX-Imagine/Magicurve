@@ -5,8 +5,47 @@
     <script src="~/Scripts/fx/zebra/zebra.js"></script>
 }
 
-<toaster-container></toaster-container>
+@*<toaster-container></toaster-container>
 
 <div data-ng-controller="homeController">
     <canvas id="designer"></canvas>
 </div>
+
+
+    <script>
+        function allowDrop(ev) {
+            ev.preventDefault();
+        }
+
+        function drag(ev) {
+            ev.dataTransfer.setData("text", ev.target.id);
+        }
+
+        function drop(ev) {
+            ev.preventDefault();
+            var data = ev.dataTransfer.getData("text");
+            ev.target.appendChild(document.getElementById(data));
+        }
+    </script>
+
+
+    <div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+    <br>
+
+    <div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)">
+   
+        <img alt="HTML" src="img_w3slogo.gif" draggable="true" ondragstart="drag(event)" id="drag1" width="88" height="31">
+    </div>
+
+
+
+<button type="button" class="btn btn-default" aria-label="Left Align">
+    <span class="glyphicon glyphicon-align-left" aria-hidden="true"></span>
+</button>*@
+ 
+
+<button onclick="onclickd()">View Code</button>
+<div id="demo">
+ 
+</div>
+
