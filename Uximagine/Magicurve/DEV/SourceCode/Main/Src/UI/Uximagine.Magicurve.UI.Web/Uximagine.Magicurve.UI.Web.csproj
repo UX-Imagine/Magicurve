@@ -133,7 +133,6 @@
     <Folder Include="Areas\" />
     <Folder Include="Content\Images\Capture\" />
     <Folder Include="Content\Images\Upload\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -145,6 +144,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\EdgeRequestModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -163,6 +163,7 @@
     <Content Include="Scripts\app\views\home\magicurve.app.service.home.js" />
     <Content Include="Scripts\fx\angular\angular-ui-router.js" />
     <Content Include="Scripts\fx\angular\angular-ui-router.min.js" />
+    <Content Include="Scripts\app\views\home\magicurve.app.controller.main.js" />
     <None Include="Scripts\fx\angular\angular.intellisense.js" />
     <Content Include="Scripts\fx\angular\angular-animate.js" />
     <Content Include="Scripts\fx\angular\angular-animate.min.js" />

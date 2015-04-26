@@ -9,8 +9,7 @@ using Uximagine.Magicurve.Services.Client;
 #endregion
 namespace Uximagine.Magicurve.UI.Web.Controllers
 {
-    using System;
-    using System.Web;
+    using Uximagine.Magicurve.UI.Web.Models;
 
     /// <summary>
     /// The API controller.

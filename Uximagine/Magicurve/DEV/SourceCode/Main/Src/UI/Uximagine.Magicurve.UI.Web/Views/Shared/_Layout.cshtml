@@ -23,21 +23,17 @@
 
     <nav class="navbar navbar-inverse" id="nav-bar">
 
-
-        <div class="col-md-12 container-fluid">
-
+        <div class="col-md-12 container-fluid" data-ng-controller="mainController">
 
             @Html.Partial("_NavBar", null)
 
         </div>
 
-
-
     </nav>
         <div class="row" id="content-full">
             <div class="col-md-2 " id="tool-bar">tool bar</div>
             <div class="col-md-10" id="content">
-                content
+                
             @RenderBody()
 
             </div>
@@ -49,8 +45,10 @@
     </div>
 
     <script src="~/Scripts/app/views/home/magicurve.app.js"></script>
+    <script src="~/Scripts/app/views/home/magicurve.app.controller.main.js"></script>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+
 </body>
 </html>
