@@ -133,6 +133,7 @@
     <Folder Include="Areas\" />
     <Folder Include="Content\Images\Capture\" />
     <Folder Include="Content\Images\Upload\" />
+    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -144,7 +145,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\EdgeRequestModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -989,9 +989,6 @@
     <Content Include="Views\Home\Sample.cshtml" />
     <Content Include="Views\Home\Canvas.cshtml" />
     <Content Include="Views\Home\_navBar.cshtml" />
-    <Content Include="Views\Shared\_MenuBar.cshtml" />
-    <Content Include="Views\Shared\_NavBar.cshtml" />
-    <Content Include="Views\Shared\_Footer.cshtml" />
     <Content Include="Views\Home\_MenuBar.cshtml" />
     <Content Include="Views\Home\_Footer.cshtml" />
     <Content Include="Views\Home\Zebra.cshtml" />
