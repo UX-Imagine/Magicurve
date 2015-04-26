@@ -9,8 +9,6 @@ using Uximagine.Magicurve.Services.Client;
 #endregion
 namespace Uximagine.Magicurve.UI.Web.Controllers
 {
-   
-
     /// <summary>
     /// The API controller.
     /// </summary>
