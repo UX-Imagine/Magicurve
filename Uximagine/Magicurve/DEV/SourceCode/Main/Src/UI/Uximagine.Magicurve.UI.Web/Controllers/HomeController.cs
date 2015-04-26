@@ -7,8 +7,6 @@ using System.Linq;
 
 namespace Uximagine.Magicurve.UI.Web.Controllers
 {
-    
-
     /// <summary>
     /// The Default controller for the web application.
     /// </summary>
@@ -37,7 +35,7 @@ namespace Uximagine.Magicurve.UI.Web.Controllers
         /// </returns>
         public ActionResult Sample()
         {
-            return this.View(new EdgeRequestModel());
+            return this.View();
         }
 
         /// <summary>
