@@ -230,6 +230,7 @@
                     })
                     .success(function () {
                         messagingService.UploadSuccess();
+                        $('#viewCodeButton').css('display','block');
                     })
                     .error(function () {
                      messagingService.UploadFail();

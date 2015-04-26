@@ -6,7 +6,7 @@ $(document).ready(function () {
 
         var data = new FormData();
 
-        var files = $("#fileUpload").get(0).files;
+        var files = $("#uploadImage").get(0).files;
 
         // Add the uploaded image content to the form data collection
         if (files.length > 0) {
