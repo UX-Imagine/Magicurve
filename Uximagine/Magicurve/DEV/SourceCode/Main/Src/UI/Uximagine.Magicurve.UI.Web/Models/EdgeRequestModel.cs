@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace Uximagine.Magicurve.UI.Web.Models
+﻿namespace Uximagine.Magicurve.UI.Web.Models
 {
     using System.ComponentModel.DataAnnotations;
 

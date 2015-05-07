@@ -30,9 +30,9 @@ namespace Uximagine.Magicurve.Core.Reflection
 #if DEBUG
             Debug.WriteLine(whatIHave);
 #else
-			PremiaSoft.Spindle.Core.Diagnostics.Logging.LogManager.Log(
+			Uximagine.Magicurve.Core.Diagnostics.Logging.LogManager.Log(
 				typeof(ObjectFactory),
-				PremiaSoft.Spindle.Core.Diagnostics.ErrorSeverity.Information,
+				Uximagine.Magicurve.Core.Diagnostics.ErrorSeverity.Information,
 				whatIHave);
 #endif
         }
