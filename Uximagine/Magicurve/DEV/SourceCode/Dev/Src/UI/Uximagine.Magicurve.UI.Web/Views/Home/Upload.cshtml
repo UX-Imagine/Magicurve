@@ -1,0 +1,24 @@
+﻿@{
+    ViewBag.Title = "Upload file";
+}
+
+@section scripts
+{
+    <script src="~/Scripts/app/views/home/home.upload.js"></script>
+}
+
+<h2>Upload File</h2>
+<h3 style="color: green">@ViewBag.Message</h3>
+<div>
+    <label for="uploadImage">
+        Select File to Upload:
+    </label> <input id="uploadImage" type="file" />
+
+        <input id="btnUploadFile" type="button" value="Upload File" />
+</div>
+
+<button onclick="loadImage()">Show shapes</button>
+<div class="row">
+    <img id="img" src="#" height="400" class="col-md-6" />
+    <img id="img_blob" src="#" height="400" class="col-md-6" />
+</div>

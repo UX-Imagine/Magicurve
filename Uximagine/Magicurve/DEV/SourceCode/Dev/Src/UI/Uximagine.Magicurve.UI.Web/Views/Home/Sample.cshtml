@@ -1,0 +1,24 @@
+﻿@{
+    ViewBag.Title = "Sample";
+    
+}
+
+@section Scripts{
+    <script src="~/Scripts/fx/webcam/jquery.webcam.js"></script>
+    <script src="~/Scripts/app/views/home/home.sample.js"></script>
+
+}
+
+<h2>Capture</h2>
+
+<div id="Camera"></div>
+<button id="shoot">Shoot</button>
+
+<button onclick=" loadImage() ">Show shapes</button>
+
+<div class="row">
+    <img id="img" src="#" height="400" class="col-md-6" alt="original image"/>
+    <img id="img_blob" src="#" height="400" class="col-md-6" alt="sample image" />
+</div>
+
+

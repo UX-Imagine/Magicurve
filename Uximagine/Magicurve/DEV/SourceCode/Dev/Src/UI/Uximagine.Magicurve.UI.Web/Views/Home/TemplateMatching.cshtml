@@ -1,0 +1,31 @@
+﻿@{
+    ViewBag.Title = "TemplateMatching";
+}
+
+@section Scripts
+    {
+        <script src="~/Scripts/FX/webcam/jquery.webcam.js"></script>
+        <script src="~/Scripts/app/views/home/home.template.js"></script>
+    }
+
+<h2>TemplateMatching</h2>
+
+<div>
+    <h3>Step1 : <b>Shoot</b></h3>
+    <div id="Camera"></div>
+    <button id="shoot">Shoot</button>
+
+    <h3>Step 2: load</h3>
+    <button onclick="loadImage()">Show shapes</button>
+    <div class="row">
+        <div class="col-md-4">
+            <img id="img_blob" src="#" height="400"/>
+        </div>
+        <div class="col-md-4">
+            <img id="or_img_blob" src="#" height="400"/>
+        </div>
+        <div class="col-md-4">
+            <img id="temp_img_blob" src="#" height="400" />
+        </div>
+    </div>
+</div>

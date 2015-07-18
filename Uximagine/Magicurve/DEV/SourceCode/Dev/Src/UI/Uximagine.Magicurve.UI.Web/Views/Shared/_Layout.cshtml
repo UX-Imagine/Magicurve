@@ -1,0 +1,166 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>UX Imagine</title>
+
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/less")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/angular")
+    @RenderSection("styles", false)
+
+</head>
+<body dir="ltr" id="body" data-ng-app="magicurveApp">
+
+
+        <div class="row" id="menu-bar">
+            <div class="col-md-12">
+                @Html.Partial("_MenuBar", null)
+        </div>
+    </div>
+
+    <nav class="navbar navbar-inverse" id="nav-bar">
+
+        <div class="col-md-12 container-fluid" data-ng-controller="mainController">
+
+            @Html.Partial("_NavBar", null)
+
+        </div>
+
+    </nav>
+        <div class="row" id="content-full">
+            <div class="col-md-2 " id="tool-bar">
+                <div class="acidjs-css3-treeview">
+                    <ul>
+                        <li>
+                            <input type="checkbox" id="node-0" checked="checked" /><label><span></span></label><label for="node-0">HTML</label>
+                            <ul>
+                                <li>
+                                    <input type="checkbox" id="node-0-0" checked="checked" /><label><span></span></label><label for="node-0-0">Tags</label>
+                                    <ul>
+                                        <li>
+                                            <input type="checkbox"  checked="checked" /><label><span></span></label><label for="node-0-0-0">Div</label>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" checked="checked" /><label><span></span></label><label for="node-0-0-1">Spane</label>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" checked="checked" /><label><span></span></label><label for="node-0-0-2">Break</label>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" checked="checked" /><label><span></span></label><label for="node-0-0-3">Horizontal Line</label>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" checked="checked" /><label><span></span></label><label for="node-0-0-4">Image</label>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" checked="checked" /><label><span></span></label><label for="node-0-0-5">Inline Frame</label>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" checked="checked" /><label><span></span></label><label for="node-0-0-6">Paragraph</label>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <input type="checkbox" id="node-0-1" /><label><span></span></label><label for="node-0-1">Form Controls</label>
+                                    <ul>
+                                        <li>
+                                            <input type="checkbox" /><label><span></span></label><label for="node-0-1-0">Advance Button</label>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" /><label><span></span></label><label for="node-0-1-1">Drop-Down Box</label>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" checked="checked" /><label><span></span></label><label for="node-0-0-0">Form</label>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" checked="checked" /><label><span></span></label><label for="node-0-0-0">Group Box</label>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" checked="checked" /><label><span></span></label><label for="node-0-0-0">Input(Button)</label>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" checked="checked" /><label><span></span></label><label for="node-0-0-0">Input(checkbox)</label>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" checked="checked" /><label><span></span></label><label for="node-0-0-0">Input(file)</label>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" checked="checked" /><label><span></span></label><label for="node-0-0-0">Input(Reset)</label>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" checked="checked" /><label><span></span></label><label for="node-0-0-0">Input(Radio)</label>
+                                        </li>
+                                         <li>
+                                            <input type="checkbox" checked="checked" /><label><span></span></label><label for="node-0-0-0">Input(Button)</label>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" checked="checked" /><label><span></span></label><label for="node-0-0-0">Input(checkbox)</label>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" checked="checked" /><label><span></span></label><label for="node-0-0-0">Input(file)</label>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" checked="checked" /><label><span></span></label><label for="node-0-0-0">Input(Hidden)</label>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" checked="checked" /><label><span></span></label><label for="node-0-0-0">Input(Password)</label>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" id="node-0-1-14" checked="checked" /><label><span></span></label><label for="node-0-0-0">Input(Submit)</label>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" id="node-0-1-15" checked="checked" /><label><span></span></label><label for="node-0-0-0">Input(text)</label>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" id="node-0-1-16" checked="checked" /><label><span></span></label><label for="node-0-0-0">Lable</label>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" id="node-0-1-17" checked="checked" /><label><span></span></label><label for="node-0-0-0">Text Area</label>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <input type="checkbox" id="node-0-2" /><label><span></span></label><label for="node-0-2">Media</label>
+                                    <ul>
+                                        <li>
+                                            <input type="checkbox" id="node-0-2-0" /><label><span></span></label><label for="node-0-2-0">Deep Zoom</label>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" id="node-0-2-1" /><label><span></span></label><label for="node-0-2-1">Flash Movie</label>
+                                        </li>
+                                    </ul>
+                                </li>
+                                
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+          
+            <div class="col-md-10" id="content">
+                
+            @RenderBody()
+
+            </div>
+    
+        </div>
+
+
+
+    <div class="row" id="footer">
+        <div class="col-md-12">@Html.Partial("_Footer", null)</div>
+
+    </div>
+
+    <script src="~/Scripts/app/views/home/magicurve.app.js"></script>
+    <script src="~/Scripts/app/views/home/magicurve.app.controller.main.js"></script>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+
+</body>
+</html>

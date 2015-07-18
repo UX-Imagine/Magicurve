@@ -1,0 +1,174 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ImageProcessing", "ImageProcessing", "{E224EB81-D16B-46F8-A0A4-6D9192C8FAA9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NeuroNetworks", "NeuroNetworks", "{1C160C39-9202-4B7E-A165-C46D94EEA655}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{7CDA112E-EA5A-4951-A7C1-20FDEA195CAF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{4BF62DF5-0761-45B2-857F-5AEF4B2D6E27}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Uximagine.Magicurve.Image.Processing", "Src\ImageProcessing\Uximagine.Magicurve.Image.Processing\Uximagine.Magicurve.Image.Processing.csproj", "{DA122933-7BBA-4036-9377-6F15B1FB7F63}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Uximagine.Magicurve.DataAccess", "Src\Domain\Uximagine.Magicurve.DataAccess\Uximagine.Magicurve.DataAccess.csproj", "{50001CC6-AA08-4A10-95DA-1431BF2BC29F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{F97330D6-0BAD-4589-8463-5BBA13B28D42}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Uximagine.Magicurve.Services", "Src\Services\Uximagine.Magicurve.Services\Uximagine.Magicurve.Services.csproj", "{E3A0D046-35FD-49D9-A211-A5B9BEB25E6D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Uximagine.Magicurve.Neuro.Processing", "Src\NeuroNetworks\Uximagine.Magicurve.Neuro.Processing\Uximagine.Magicurve.Neuro.Processing.csproj", "{442ACB2B-A562-4257-8187-11C42F9AFBFF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{5F75948E-DF74-4F4F-97FC-48D5BA565E50}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Uximagine.Magicurve.UI.Web", "Src\UI\Uximagine.Magicurve.UI.Web\Uximagine.Magicurve.UI.Web.csproj", "{A8A7DCA9-0EF8-4AE5-ACB7-EACB0AAF2422}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Uximagine.Magicurve.Services.Test", "Test\Uximagine.Magicurve.Services.Test\Uximagine.Magicurve.Services.Test.csproj", "{6E2191CB-A9A6-49DE-AC2A-B312F22E6E9D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{97792495-1B23-4D56-8510-EA4C91F58701}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Uximagine.Magicurve.Core", "Src\Common\Uximagine.Magicurve.Core\Uximagine.Magicurve.Core.csproj", "{0E3B890E-D113-4B87-9E39-19AC065E00C7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Uximagine.Magicurve.DataTransfer", "Src\Domain\Uximagine.Magicurve.DataTransfer\Uximagine.Magicurve.DataTransfer.csproj", "{1419CBE2-F970-4A01-B8DC-5BEC2ADA2902}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Uximagine.Magicurve.Services.Client", "Src\Services\Uximagine.Magicurve.Services.Client\Uximagine.Magicurve.Services.Client.csproj", "{2B063674-DC45-4750-8816-EC77601B00F0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Uximagine.Magicurve.Services.BusinessServices", "Src\Services\Uximagine.Magicurve.Services.BusinessServices\Uximagine.Magicurve.Services.BusinessServices.csproj", "{B01199E0-CC8C-4F1E-B550-959543314908}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{450E389E-5ADC-497D-8D2D-12C50A5E36C8}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+		.nuget\packages.config = .nuget\packages.config
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F70BAC65-3664-4F5B-B2FA-EE8104183A2A}"
+	ProjectSection(SolutionItems) = preProject
+		Settings.StyleCop = Settings.StyleCop
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Uximagine.Magicurve.UI.Web.Test", "Test\Uximagine.Magicurve.UI.Web.Test\Uximagine.Magicurve.UI.Web.Test.csproj", "{117D4FDD-73AB-41D2-87ED-0789151E3BF8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DB", "DB", "{E3CE8301-BE71-4C34-95C5-2F104512ECA1}"
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 12
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://uximagine.visualstudio.com/defaultcollection
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = Src\\Domain\\Uximagine.Magicurve.DataAccess\\Uximagine.Magicurve.DataAccess.csproj
+		SccProjectTopLevelParentUniqueName1 = Uximagine.Magicurve.sln
+		SccProjectName1 = Src/Domain/Uximagine.Magicurve.DataAccess
+		SccLocalPath1 = Src\\Domain\\Uximagine.Magicurve.DataAccess
+		SccProjectUniqueName2 = Src\\ImageProcessing\\Uximagine.Magicurve.Image.Processing\\Uximagine.Magicurve.Image.Processing.csproj
+		SccProjectTopLevelParentUniqueName2 = Uximagine.Magicurve.sln
+		SccProjectName2 = Src/ImageProcessing/Uximagine.Magicurve.Image.Processing
+		SccLocalPath2 = Src\\ImageProcessing\\Uximagine.Magicurve.Image.Processing
+		SccProjectUniqueName3 = Src\\NeuroNetworks\\Uximagine.Magicurve.Neuro.Processing\\Uximagine.Magicurve.Neuro.Processing.csproj
+		SccProjectTopLevelParentUniqueName3 = Uximagine.Magicurve.sln
+		SccProjectName3 = Src/NeuroNetworks/Uximagine.Magicurve.Neuro.Processing
+		SccLocalPath3 = Src\\NeuroNetworks\\Uximagine.Magicurve.Neuro.Processing
+		SccProjectUniqueName4 = Src\\Services\\Uximagine.Magicurve.Services\\Uximagine.Magicurve.Services.csproj
+		SccProjectTopLevelParentUniqueName4 = Uximagine.Magicurve.sln
+		SccProjectName4 = Src/Services/Uximagine.Magicurve.Services
+		SccLocalPath4 = Src\\Services\\Uximagine.Magicurve.Services
+		SccProjectUniqueName5 = Src\\UI\\Uximagine.Magicurve.UI.Web\\Uximagine.Magicurve.UI.Web.csproj
+		SccProjectTopLevelParentUniqueName5 = Uximagine.Magicurve.sln
+		SccProjectName5 = Src/UI/Uximagine.Magicurve.UI.Web
+		SccLocalPath5 = Src\\UI\\Uximagine.Magicurve.UI.Web
+		SccProjectUniqueName6 = Test\\Uximagine.Magicurve.Services.Test\\Uximagine.Magicurve.Services.Test.csproj
+		SccProjectTopLevelParentUniqueName6 = Uximagine.Magicurve.sln
+		SccProjectName6 = Test/Uximagine.Magicurve.Services.Test
+		SccLocalPath6 = Test\\Uximagine.Magicurve.Services.Test
+		SccProjectUniqueName7 = Src\\Common\\Uximagine.Magicurve.Core\\Uximagine.Magicurve.Core.csproj
+		SccProjectTopLevelParentUniqueName7 = Uximagine.Magicurve.sln
+		SccProjectName7 = Src/Common/Uximagine.Magicurve.Core
+		SccLocalPath7 = Src\\Common\\Uximagine.Magicurve.Core
+		SccProjectUniqueName8 = Src\\Domain\\Uximagine.Magicurve.DataTransfer\\Uximagine.Magicurve.DataTransfer.csproj
+		SccProjectTopLevelParentUniqueName8 = Uximagine.Magicurve.sln
+		SccProjectName8 = Src/Domain/Uximagine.Magicurve.DataTransfer
+		SccLocalPath8 = Src\\Domain\\Uximagine.Magicurve.DataTransfer
+		SccProjectUniqueName9 = Src\\Services\\Uximagine.Magicurve.Services.Client\\Uximagine.Magicurve.Services.Client.csproj
+		SccProjectTopLevelParentUniqueName9 = Uximagine.Magicurve.sln
+		SccProjectName9 = Src/Services/Uximagine.Magicurve.Services.Client
+		SccLocalPath9 = Src\\Services\\Uximagine.Magicurve.Services.Client
+		SccProjectUniqueName10 = Src\\Services\\Uximagine.Magicurve.Services.BusinessServices\\Uximagine.Magicurve.Services.BusinessServices.csproj
+		SccProjectTopLevelParentUniqueName10 = Uximagine.Magicurve.sln
+		SccProjectName10 = Src/Services/Uximagine.Magicurve.Services.BusinessServices
+		SccLocalPath10 = Src\\Services\\Uximagine.Magicurve.Services.BusinessServices
+		SccProjectUniqueName11 = Test\\Uximagine.Magicurve.UI.Web.Test\\Uximagine.Magicurve.UI.Web.Test.csproj
+		SccProjectTopLevelParentUniqueName11 = Uximagine.Magicurve.sln
+		SccProjectName11 = Test/Uximagine.Magicurve.UI.Web.Test
+		SccLocalPath11 = Test\\Uximagine.Magicurve.UI.Web.Test
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DA122933-7BBA-4036-9377-6F15B1FB7F63}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA122933-7BBA-4036-9377-6F15B1FB7F63}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA122933-7BBA-4036-9377-6F15B1FB7F63}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA122933-7BBA-4036-9377-6F15B1FB7F63}.Release|Any CPU.Build.0 = Release|Any CPU
+		{50001CC6-AA08-4A10-95DA-1431BF2BC29F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50001CC6-AA08-4A10-95DA-1431BF2BC29F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50001CC6-AA08-4A10-95DA-1431BF2BC29F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50001CC6-AA08-4A10-95DA-1431BF2BC29F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E3A0D046-35FD-49D9-A211-A5B9BEB25E6D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E3A0D046-35FD-49D9-A211-A5B9BEB25E6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E3A0D046-35FD-49D9-A211-A5B9BEB25E6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E3A0D046-35FD-49D9-A211-A5B9BEB25E6D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{442ACB2B-A562-4257-8187-11C42F9AFBFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{442ACB2B-A562-4257-8187-11C42F9AFBFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{442ACB2B-A562-4257-8187-11C42F9AFBFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{442ACB2B-A562-4257-8187-11C42F9AFBFF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A8A7DCA9-0EF8-4AE5-ACB7-EACB0AAF2422}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8A7DCA9-0EF8-4AE5-ACB7-EACB0AAF2422}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8A7DCA9-0EF8-4AE5-ACB7-EACB0AAF2422}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A8A7DCA9-0EF8-4AE5-ACB7-EACB0AAF2422}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E2191CB-A9A6-49DE-AC2A-B312F22E6E9D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E2191CB-A9A6-49DE-AC2A-B312F22E6E9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E2191CB-A9A6-49DE-AC2A-B312F22E6E9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E2191CB-A9A6-49DE-AC2A-B312F22E6E9D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E3B890E-D113-4B87-9E39-19AC065E00C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E3B890E-D113-4B87-9E39-19AC065E00C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E3B890E-D113-4B87-9E39-19AC065E00C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E3B890E-D113-4B87-9E39-19AC065E00C7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1419CBE2-F970-4A01-B8DC-5BEC2ADA2902}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1419CBE2-F970-4A01-B8DC-5BEC2ADA2902}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1419CBE2-F970-4A01-B8DC-5BEC2ADA2902}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1419CBE2-F970-4A01-B8DC-5BEC2ADA2902}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B063674-DC45-4750-8816-EC77601B00F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B063674-DC45-4750-8816-EC77601B00F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B063674-DC45-4750-8816-EC77601B00F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B063674-DC45-4750-8816-EC77601B00F0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B01199E0-CC8C-4F1E-B550-959543314908}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B01199E0-CC8C-4F1E-B550-959543314908}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B01199E0-CC8C-4F1E-B550-959543314908}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B01199E0-CC8C-4F1E-B550-959543314908}.Release|Any CPU.Build.0 = Release|Any CPU
+		{117D4FDD-73AB-41D2-87ED-0789151E3BF8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{117D4FDD-73AB-41D2-87ED-0789151E3BF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{117D4FDD-73AB-41D2-87ED-0789151E3BF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{117D4FDD-73AB-41D2-87ED-0789151E3BF8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{DA122933-7BBA-4036-9377-6F15B1FB7F63} = {E224EB81-D16B-46F8-A0A4-6D9192C8FAA9}
+		{50001CC6-AA08-4A10-95DA-1431BF2BC29F} = {7CDA112E-EA5A-4951-A7C1-20FDEA195CAF}
+		{E3A0D046-35FD-49D9-A211-A5B9BEB25E6D} = {F97330D6-0BAD-4589-8463-5BBA13B28D42}
+		{442ACB2B-A562-4257-8187-11C42F9AFBFF} = {1C160C39-9202-4B7E-A165-C46D94EEA655}
+		{A8A7DCA9-0EF8-4AE5-ACB7-EACB0AAF2422} = {4BF62DF5-0761-45B2-857F-5AEF4B2D6E27}
+		{6E2191CB-A9A6-49DE-AC2A-B312F22E6E9D} = {5F75948E-DF74-4F4F-97FC-48D5BA565E50}
+		{0E3B890E-D113-4B87-9E39-19AC065E00C7} = {97792495-1B23-4D56-8510-EA4C91F58701}
+		{1419CBE2-F970-4A01-B8DC-5BEC2ADA2902} = {7CDA112E-EA5A-4951-A7C1-20FDEA195CAF}
+		{2B063674-DC45-4750-8816-EC77601B00F0} = {F97330D6-0BAD-4589-8463-5BBA13B28D42}
+		{B01199E0-CC8C-4F1E-B550-959543314908} = {F97330D6-0BAD-4589-8463-5BBA13B28D42}
+		{117D4FDD-73AB-41D2-87ED-0789151E3BF8} = {5F75948E-DF74-4F4F-97FC-48D5BA565E50}
+	EndGlobalSection
+EndGlobal

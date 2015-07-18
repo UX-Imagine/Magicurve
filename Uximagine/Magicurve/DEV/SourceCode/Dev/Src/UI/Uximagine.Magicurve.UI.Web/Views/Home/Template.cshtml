@@ -1,0 +1,30 @@
+﻿@{
+    ViewBag.Title = "Template";
+}
+
+@section Scripts{
+    <script src="~/Scripts/fx/webcam/jquery.webcam.js"></script>
+    <script src="~/Scripts/app/views/home/home.template.js"></script>
+}
+
+<h2>@ViewBag.Title</h2>
+
+
+
+<div id="Camera"></div>
+<button id="shoot">Shoot</button>
+
+<button onclick="loadImage()">Show shapes</button>
+<div class="row">
+    <div class="col-md-6"><p>Original image</p></div>
+    <div class="col-md-6"><p>Template</p></div>
+</div>
+<div class="row">
+    <img id="or_img_blob" src="#" height="400" class="col-md-6" />
+    <img id="temp_img_blob" src="#" height="400" class="col-md-6" />
+</div>
+
+<div class="row">
+    <p>Detected shapes</p>
+    <img id="img_blob" src="#" height="400" class="col-md-10" />
+</div>
