@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using AForge;
 using Uximagine.Magicurve.Core.Models;
+using AForge.Math.Geometry;
+using RulesEngine;
 
 
 namespace Uximagine.Magicurve.Image.Processing.ShapeCheckers
@@ -8,8 +10,13 @@ namespace Uximagine.Magicurve.Image.Processing.ShapeCheckers
     /// <summary>
     /// The five cornered shape checker.
     /// </summary>
-    public class FiveCornerShapeChecker : AdvancedShapeChecker
+    public class UIShapeChecker : AdvancedShapeChecker
     {
+        /// <summary>
+        /// The button corner count.
+        /// </summary>
+        private const int BUTTON_CORNER_COUNT = 4;        
+
         /// <summary>
         /// Determines whether the specified edge points is button.
         /// </summary>
@@ -26,11 +33,49 @@ namespace Uximagine.Magicurve.Image.Processing.ShapeCheckers
         {
             bool isButton = false;
 
+            double distanceError = 3;
+
+            //var baseBuilder = new RulesEngine.Fluent.FluentBuilder();
+            //baseBuilder.For<Foo1>()
+            //            .Setup(f => f.Value)
+            //                .MustBeGreaterThan(0);
+            //baseBuilder.For<Foo2>()
+            //            .Setup(f => f.Value)
+            //                .MustEqual(6);
+
+            //var baseEngine = baseBuilder.Build();
+            //Assert.IsFalse(baseEngine.Validate(new Foo1(-1)));
+            //Assert.IsFalse(baseEngine.Validate(new Foo2(1)));
+
             if (this.CheckIfPointsFitShape(edgePoints, corners))
             {
-                if (corners.Count == 5)
+                if (corners.Count == UIShapeChecker.BUTTON_CORNER_COUNT)
                 {
-                    isButton = true;
+                    //get length of each side
+                    float[] sides = new float[corners.Count];
+                    int next = 1;
+                    IntPoint minXY, maxXY;
+                    for (int i = 0; i < corners.Count; i++)
+			        {
+                        if (i == corners.Count - 1)
+	                        {
+		                        next = 0;
+	                        }
+
+			            sides[i] = corners[i].DistanceTo(corners[next++]);                        
+			        }
+                    
+                    if (sides[0]-sides[2] < distanceError && sides[1] - sides[3] < distanceError)
+	                {
+                        PointsCloud.GetBoundingRectangle( edgePoints, out minXY, out maxXY );
+
+                        this.X = minXY.X;
+                        this.Y = minXY.Y;
+                        this.Height = maxXY.Y - minXY.Y;
+                        this.Width = maxXY.X - minXY.X;
+
+		                isButton = true;
+	                }
                 }
             }
 

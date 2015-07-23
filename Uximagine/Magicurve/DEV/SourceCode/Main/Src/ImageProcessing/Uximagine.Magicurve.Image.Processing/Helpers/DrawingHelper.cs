@@ -8,7 +8,7 @@ namespace Uximagine.Magicurve.Image.Processing.Helpers
     /// <summary>
     /// Helper for drawing images.
     /// </summary>
-    internal static class DrawingHelper
+    public static class DrawingHelper
     {
         ///// <summary>
         ///// Convert list of AForge.NET's points to array of .NET points        

@@ -4,6 +4,8 @@
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
     using Uximagine.Magicurve.UI.Web.Controllers;
+    using System.Collections.Generic;
+    using Uximagine.Magicurve.Core.Shapes;
 
     /// <summary>
     /// Values controller test.
@@ -23,7 +25,7 @@
             controller.ControllerContext = controllerCtx.Object;
             
             //// Act
-            string image = controller.Edges();
+            List<Control> image = controller.Edges();
 
             //// Assert
             Assert.IsNotNull(image);
@@ -40,7 +42,7 @@
 
             //// Act
 
-            string image = valuesController.Get(1);
+            List<Control> image = valuesController.Get(1);
 
             //// Assert
             Assert.IsNotNull(image);

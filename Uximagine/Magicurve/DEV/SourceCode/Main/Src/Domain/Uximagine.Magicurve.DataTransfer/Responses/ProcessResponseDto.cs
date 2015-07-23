@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Runtime.Serialization;
+using Uximagine.Magicurve.Core.Shapes;
 
 namespace Uximagine.Magicurve.DataTransfer.Responses
 {
@@ -18,7 +20,7 @@ namespace Uximagine.Magicurve.DataTransfer.Responses
         /// The image.
         /// </value>
         [DataMember]
-        public Bitmap Image { get; set; }
+        public List<Control> Controls { get; set; }
 
         /// <summary>
         /// Gets or sets the image path.

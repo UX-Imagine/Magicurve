@@ -1,5 +1,7 @@
-﻿using System.Drawing;
+﻿using System.Collections.Generic;
+using System.Drawing;
 using Uximagine.Magicurve.Image.Processing;
+using Uximagine.Magicurve.Core.Shapes;
 
 namespace Uximagine.Magicurve.Services.BusinessServices.UnitsOfWork
 {
@@ -26,7 +28,7 @@ namespace Uximagine.Magicurve.Services.BusinessServices.UnitsOfWork
         /// <value>
         /// The result.
         /// </value>
-        public Bitmap Result
+        public List<Control> Result
         {
             get;
             set;

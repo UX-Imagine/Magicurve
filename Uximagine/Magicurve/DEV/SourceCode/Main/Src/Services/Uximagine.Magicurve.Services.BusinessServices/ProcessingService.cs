@@ -28,7 +28,7 @@ namespace Uximagine.Magicurve.Services.BusinessServices
 
             this.DoWork(work);
 
-            response.Image = work.Result;
+            response.Controls = work.Result;
 
             return response;
         }

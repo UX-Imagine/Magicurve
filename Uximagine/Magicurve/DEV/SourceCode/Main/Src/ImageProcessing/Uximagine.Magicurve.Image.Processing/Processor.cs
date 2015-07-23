@@ -1,7 +1,9 @@
 ﻿#region Imports
+using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 using Uximagine.Magicurve.Core.Models;
+using Uximagine.Magicurve.Core.Shapes;
 using Uximagine.Magicurve.Image.Processing.Detectors;
 using Uximagine.Magicurve.Image.Processing.Helpers;
 #endregion
@@ -46,9 +48,9 @@ namespace Uximagine.Magicurve.Image.Processing
         /// <returns>
         /// The Processed output.
         /// </returns>
-        public Bitmap ProcessImage(string path)
+        public List<Control> ProcessImage(string path)
         {
-            Bitmap result = null;
+            List<Control> result = null;
 
             using (Bitmap bitmap = new Bitmap(path))
             {
@@ -57,14 +59,14 @@ namespace Uximagine.Magicurve.Image.Processing
 
                 Bitmap edgeResult = edgeDetector.Detect(bitmap);
 
-                IDetector blobDetector = ProcessingFactory.GetBlobDetector();
+                IBlobDetector blobDetector = ProcessingFactory.GetBlobDetector();
 
                 ////Threshold filterThreshold = new Threshold();
                 ////filterThreshold.ApplyInPlace(edgeResult);
 
                 Bitmap correctFormatImage = edgeResult.ConvertToFormat(PixelFormat.Format24bppRgb);
 
-                result = blobDetector.Detect(correctFormatImage);
+                result = blobDetector.GetShapes(correctFormatImage);
 
             }
 

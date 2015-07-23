@@ -6,6 +6,7 @@ using Uximagine.Magicurve.DataTransfer.Responses;
 using Uximagine.Magicurve.DataTransfer.Requests;
 using Uximagine.Magicurve.Services;
 using Uximagine.Magicurve.Services.Client;
+using Uximagine.Magicurve.Core.Shapes;
 #endregion
 namespace Uximagine.Magicurve.UI.Web.Controllers
 {
@@ -32,7 +33,7 @@ namespace Uximagine.Magicurve.UI.Web.Controllers
         /// The edge image.
         /// </returns>
         [HttpGet]
-        public string Edges()
+        public List<Control> Edges()
         {
             const string SavedPath = "/Content/images/test2.png";
             string imgPath = HostingEnvironment.MapPath(string.Empty) +
@@ -42,15 +43,11 @@ namespace Uximagine.Magicurve.UI.Web.Controllers
             ProcessRequestDto request = new ProcessRequestDto { ImagePath = imgPath };
             ProcessResponseDto response = service.GetEdgeProcessedImageUrl(request);
 
-            if (response == null || response.Image == null)
-            {
-                return SavedPath;
-            }
+            var json = response.Controls;
+            ////response.Image.Save(HostingEnvironment.MapPath("~/Content/images/test2.png"));
+            ////response.Image.Dispose();
 
-            response.Image.Save(HostingEnvironment.MapPath("~/Content/images/test2.png"));
-            response.Image.Dispose();
-
-            return SavedPath;
+            return json;
         }
 
         /// <summary>
@@ -62,7 +59,7 @@ namespace Uximagine.Magicurve.UI.Web.Controllers
         /// <returns> 
         /// Get API/values/5   
         /// </returns>
-        public string Get(int id)
+        public List<Control> Get(int id)
         {
             string imgPath;
 
@@ -90,12 +87,7 @@ namespace Uximagine.Magicurve.UI.Web.Controllers
                     ProcessRequestDto request = new ProcessRequestDto();
                     request.ImagePath = imgPath;
                     ProcessResponseDto response = service.GetEdgeProcessedImageUrl(request);
-                    if (response != null && response.Image != null)
-                    {
-                        response.Image.Save(HostingEnvironment.MapPath("~/Content/images/test2.png"));
-                        response.Image.Dispose();
-                    }
-
+                    return response.Controls;
                 }
 
             }
@@ -104,7 +96,7 @@ namespace Uximagine.Magicurve.UI.Web.Controllers
 
             }
 
-            return "/Content/images/test2.png";
+            return new List<Control>();
         }
 
         /// <summary>

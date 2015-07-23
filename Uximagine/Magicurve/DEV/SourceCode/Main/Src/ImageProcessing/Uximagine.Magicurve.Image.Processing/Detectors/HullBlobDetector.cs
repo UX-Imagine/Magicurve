@@ -16,6 +16,7 @@ namespace Uximagine.Magicurve.Image.Processing.Detectors
     using Uximagine.Magicurve.Image.Processing.Helpers;
 
     using Image = AForge.Imaging.Image;
+    using Uximagine.Magicurve.Core.Shapes;
 
     /// <summary>
     /// The hull blob detector.
@@ -269,7 +270,7 @@ namespace Uximagine.Magicurve.Image.Processing.Detectors
         /// Draws the edge.
         /// </summary>
         /// <param name="g">
-        /// The g.
+        /// The graphics.
         /// </param>
         /// <param name="pen">
         /// The pen.
@@ -289,6 +290,21 @@ namespace Uximagine.Magicurve.Image.Processing.Detectors
             {
                 g.DrawLine(pen, points[0], points[0]);
             }
+        }
+
+        /// <summary>
+        /// Gets the shapes.
+        /// </summary>
+        /// <param name="image">The image.</param>
+        /// <returns>
+        /// The list of controls.
+        /// </returns>
+        /// <exception cref="System.NotImplementedException">
+        /// Not implemented yet.
+        /// </exception>
+        public List<Control> GetShapes(Bitmap image)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }
