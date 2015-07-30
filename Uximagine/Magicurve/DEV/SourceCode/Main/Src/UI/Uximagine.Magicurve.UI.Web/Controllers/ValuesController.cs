@@ -16,17 +16,6 @@ namespace Uximagine.Magicurve.UI.Web.Controllers
     public class ValuesController : ApiController
     {
         /// <summary>
-        /// GET API/values
-        /// </summary>
-        /// <returns>
-        /// The list.
-        /// </returns>
-        public IEnumerable<string> Get()
-        {
-            return new[] { "value1", "value2" };
-        }
-
-        /// <summary>
         /// Gets the edges.
         /// </summary>
         /// <returns>
@@ -107,6 +96,7 @@ namespace Uximagine.Magicurve.UI.Web.Controllers
         /// </param>
         public void Post([FromBody]string value)
         {
+
         }
 
         /// <summary>

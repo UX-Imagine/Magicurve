@@ -1,5 +1,5 @@
 ﻿magicurveApp.factory("homeService",
-    function() {
+    function($http) {
         return {
             shape : {
                 type    :   "button",
@@ -7,6 +7,12 @@
                 left: 30,
                 height: 100,
                 width: 100
+            },
+
+            getShapeInfo: function () {
+                var promise = $http.get("/values");
+                return promise;
             }
         }
     });
+

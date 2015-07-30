@@ -1,11 +1,23 @@
 ﻿magicurveApp.controller("homeController",
     function ($scope, toaster, homeService) {
         $scope.message = "Hello";
+        $scope.spices = homeService.shape;
+
+
+
+          //{ "name": "pasilla", "spiciness": "mild" };
+       
+                   
 
         $scope.pop = function() {
             toaster.pop("success", "Hello", homeService.shape.type);
+            
+            homeService.getShape().then(function (data) {
+               // zebra.createButton(data.x,);
+            });
         };
     });
+
 
 function onclickd() {
 

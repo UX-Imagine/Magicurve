@@ -3,13 +3,17 @@
     <script src="~/Scripts/fx/zebra/zebra.js"></script>
     <script src="~/Scripts/app/views/home/magicurve.app.controller.home.js"></script>
     <script src="~/Scripts/app/views/home/magicurve.app.service.home.js"></script>
-    
+    <script src="~/Scripts/fx/zebra/zebra.js"></script>
 }
 
 <toaster-container></toaster-container>
 
 <div data-ng-controller="homeController">
-    <canvas id="designer"></canvas>
+    <canvas id="designer">
+       
+    </canvas>
+    {{spices}}
+   
 </div>
 @*
 
@@ -45,7 +49,9 @@
     </button>*@
  
 
-<button id="viewCodeButton" onclick="onclickd()" style="display: none;">View Code</button>
+<button onclick="onclicka()">View Code</button>
+
+<button onclick="onclickd()">View Code</button>
 <div id="demo">
  
 </div>
