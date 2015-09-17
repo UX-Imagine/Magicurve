@@ -56,7 +56,10 @@ namespace Uximagine.Magicurve.CodeGenerator
             //execute sorted list and check control types
             foreach (var con in query)
             {
-                //Console.Write(sortedName.Name);
+
+
+                //Console.Write(((Button)con).Name);
+
                 switch (con.Type)
                 {
                     case Core.Models.ControlType.Button:
@@ -154,14 +157,17 @@ namespace Uximagine.Magicurve.CodeGenerator
             return "";
         }
 
-        public string GetButton(Control button)
+        public string GetButton(Control control)
         {
+            Button button = control as Button;
+            
             string btn = string.Format(@"<input type='button' value='{0}' style='left:{1};top:{2};position:absolute'/>","click", button.X,button.Y);
             return btn;
         }
 
         public string GetCheckBox(Control checkbox)
         {
+            
             string check = string.Format(@"<input type='checkbox' style='width:{0};height:{1};left:{2};top:{3}'/>",
                                            checkbox.Width,
                                            checkbox.Height,
