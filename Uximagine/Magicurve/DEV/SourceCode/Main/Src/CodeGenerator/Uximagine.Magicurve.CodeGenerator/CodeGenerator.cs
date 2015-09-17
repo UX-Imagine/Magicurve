@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using Uximagine.Magicurve.Core.Shapes;
 
 namespace Uximagine.Magicurve.CodeGenerator
@@ -149,12 +148,12 @@ namespace Uximagine.Magicurve.CodeGenerator
 
         public string DynamicContent()
         {
-            return "";
+            return string.Empty;
         }
 
         public string InputTag(string inputType, string inputName, string inputValue)
         {
-            return "";
+            return string.Empty;
         }
 
         public string GetButton(Control control)
@@ -178,7 +177,7 @@ namespace Uximagine.Magicurve.CodeGenerator
 
         public string GetRadio(Control radio)
         {
-            return "";
+            return string.Empty;
         }
 
         public string GetCombo(Control combo)
@@ -214,12 +213,12 @@ namespace Uximagine.Magicurve.CodeGenerator
 
         public string GetTextBox(Control textbox) // for paragraph and normal single line label type text
         {
-            return "";
+            return string.Empty;
         }
 
         public string GetTextArea(Control textarea)
         {
-            return "";
+            return string.Empty;
         }
 
         public string GetImage(Control img)
@@ -229,17 +228,17 @@ namespace Uximagine.Magicurve.CodeGenerator
 
         public string GetHyperLink(Control hyperlink)
         {
-            return "";
+            return string.Empty;
         }
 
         public string GetIframe(Control iframe)
         {
-            return "";
+            return string.Empty;
         }
 
         public string GetHLine(Control hline)
         {
-            return "";
+            return string.Empty;
         }
 
     }
