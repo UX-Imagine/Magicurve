@@ -54,9 +54,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Uximagine.Magicurve.UI.Web.
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DB", "DB", "{E3CE8301-BE71-4C34-95C5-2F104512ECA1}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CodeGenerator", "CodeGenerator", "{AF23DEE0-A65A-498D-A688-C6D41F07223F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Uximagine.Magicurve.CodeGenerator", "Src\CodeGenerator\Uximagine.Magicurve.CodeGenerator\Uximagine.Magicurve.CodeGenerator.csproj", "{49699B09-A7B5-4BA1-8DAE-50B8251A85BA}"
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 12
+		SccNumberOfProjects = 13
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://uximagine.visualstudio.com/defaultcollection
 		SccLocalPath0 = .
@@ -104,6 +108,10 @@ Global
 		SccProjectTopLevelParentUniqueName11 = Uximagine.Magicurve.sln
 		SccProjectName11 = Test/Uximagine.Magicurve.UI.Web.Test
 		SccLocalPath11 = Test\\Uximagine.Magicurve.UI.Web.Test
+		SccProjectUniqueName12 = Src\\CodeGenerator\\Uximagine.Magicurve.CodeGenerator\\Uximagine.Magicurve.CodeGenerator.csproj
+		SccProjectTopLevelParentUniqueName12 = Uximagine.Magicurve.sln
+		SccProjectName12 = Src/CodeGenerator/Uximagine.Magicurve.CodeGenerator
+		SccLocalPath12 = Src\\CodeGenerator\\Uximagine.Magicurve.CodeGenerator
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -154,6 +162,10 @@ Global
 		{117D4FDD-73AB-41D2-87ED-0789151E3BF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{117D4FDD-73AB-41D2-87ED-0789151E3BF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{117D4FDD-73AB-41D2-87ED-0789151E3BF8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{49699B09-A7B5-4BA1-8DAE-50B8251A85BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{49699B09-A7B5-4BA1-8DAE-50B8251A85BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49699B09-A7B5-4BA1-8DAE-50B8251A85BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{49699B09-A7B5-4BA1-8DAE-50B8251A85BA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -170,5 +182,6 @@ Global
 		{2B063674-DC45-4750-8816-EC77601B00F0} = {F97330D6-0BAD-4589-8463-5BBA13B28D42}
 		{B01199E0-CC8C-4F1E-B550-959543314908} = {F97330D6-0BAD-4589-8463-5BBA13B28D42}
 		{117D4FDD-73AB-41D2-87ED-0789151E3BF8} = {5F75948E-DF74-4F4F-97FC-48D5BA565E50}
+		{49699B09-A7B5-4BA1-8DAE-50B8251A85BA} = {AF23DEE0-A65A-498D-A688-C6D41F07223F}
 	EndGlobalSection
 EndGlobal

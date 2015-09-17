@@ -80,9 +80,9 @@ namespace Uximagine.Magicurve.UI.Web.Controllers
                 }
 
             }
-            catch (System.Exception)
+            catch (System.Exception e)
             {
-
+               
             }
 
             return new List<Control>();
