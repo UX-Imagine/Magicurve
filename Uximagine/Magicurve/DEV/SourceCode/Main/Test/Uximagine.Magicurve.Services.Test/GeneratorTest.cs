@@ -21,6 +21,7 @@ namespace Uximagine.Magicurve.Services.Test
         public string title = "<title>";
         public string head = "<head>";
         public string body = "body";
+        
 
         [TestMethod]
         public void TestMethod1(string pageContent)
@@ -38,9 +39,9 @@ namespace Uximagine.Magicurve.Services.Test
         public void CodeGenTest()
         {
             GeneratorTest testClass = new GeneratorTest();
-
+           
             IGenerator generator = new CodeGenerator();
-
+            
             List<Control> controls = new List<Control>()
             {
                 new Control(){ 
@@ -62,7 +63,7 @@ namespace Uximagine.Magicurve.Services.Test
                 new Button(){
                     X = 50,
                     Y = 72,
-                    //Value = "Click Me"
+                    Value = "Click Me"
                     
                 }
 

@@ -89,8 +89,12 @@ namespace Uximagine.Magicurve.CodeGenerator
                         builder.Append(this.GetDatePicker(con));
                         break;
 
-                    case Core.Models.ControlType.TextBox:
-                        builder.Append(this.GetTextBox(con));
+                    case Core.Models.ControlType.Paragraph:
+                        builder.Append(this.GetPara(con));
+                        break;
+
+                    case Core.Models.ControlType.Label:
+                        builder.Append(this.GetLabel(con));
                         break;
 
                     case Core.Models.ControlType.TextArea:
@@ -124,13 +128,13 @@ namespace Uximagine.Magicurve.CodeGenerator
 
         private string GetFooter()
         {
-            string footer = string.Format(@"</body></html>");
+            string footer = string.Format(@"</body>"+newline+"</html>");
             return footer;
         }
 
         public string GetHeader(string html, string body)
         {
-            string header = string.Format(@"<html><body>");
+            string header = string.Format(@"<html>"+newline+"<body>"+newline);
             return header;
         }
 
@@ -160,18 +164,14 @@ namespace Uximagine.Magicurve.CodeGenerator
         {
             Button button = control as Button;
             
-            string btn = string.Format(@"<input type='button' value='{0}' style='left:{1};top:{2};position:absolute'/>","click", button.X,button.Y);
+            string btn = string.Format(@"    <input type='button' value='{0}' style='left:{1};top:{2};position:absolute'/>"+newline,button.Value, button.X,button.Y);
             return btn;
         }
 
         public string GetCheckBox(Control checkbox)
         {
             
-            string check = string.Format(@"<input type='checkbox' style='width:{0};height:{1};left:{2};top:{3}'/>",
-                                           checkbox.Width,
-                                           checkbox.Height,
-                                           checkbox.X,
-                                           checkbox.Y);
+            string check = string.Format(@"    <input type='checkbox' style='width:{0};height:{1};left:{2};top:{3}'/>"+newline,checkbox.Width,checkbox.Height,checkbox.X,checkbox.Y);
             return check;
         }
 
@@ -182,17 +182,18 @@ namespace Uximagine.Magicurve.CodeGenerator
 
         public string GetCombo(Control combo)
         {
-            string select = string.Format(@"<select id='styledSelect' class='blueText' style='left:{0};top:{1};position:absolute'><option value='yourMom'>Your Mom</option><option value='myMom'>My Mom</option>
-                                            </select>",
-                                            combo.X,
-                                            combo.Y);
+            string select = string.Format(
+                            @"    <select id='styledSelect' class='blueText' style='left:{0};top:{1};position:absolute'>
+        <option value='yourMom'>Your Mom</option>
+        <option value='myMom'>My Mom</option>
+   </select>"+newline,combo.X,combo.Y);
 
             return select;
         }
 
         public string GetText(Control text)
         {
-            string txt = string.Format(@"<input type='text' style='left:{0};top:{1};position:absolute'/>",
+            string txt = string.Format(@"    <input type='text' style='left:{0};top:{1};position:absolute'/>"+newline,
                                            text.X,
                                            text.Y);
             return txt;
@@ -200,7 +201,7 @@ namespace Uximagine.Magicurve.CodeGenerator
 
         public string GetPassword(Control password)
         {
-            string pass = string.Format(@"<input type='password' style='left:{0};top:{1}'/>",
+            string pass = string.Format(@"    <input type='password' style='left:{0};top:{1}'/>",
                                            password.X,
                                            password.Y);
             return pass;
@@ -208,10 +209,18 @@ namespace Uximagine.Magicurve.CodeGenerator
 
         public string GetDatePicker(Control datepicker)
         {
-            return "";
+            string date = string.Format(@"    <input type='date' style='left:{0};top:{1}'/>",
+                                          datepicker.X,
+                                          datepicker.Y);
+            return date;
         }
 
-        public string GetTextBox(Control textbox) // for paragraph and normal single line label type text
+        public string GetPara(Control para) // for paragraph and normal single line label type text
+        {
+            return string.Empty;
+        }
+
+        public string GetLabel(Control label)
         {
             return string.Empty;
         }

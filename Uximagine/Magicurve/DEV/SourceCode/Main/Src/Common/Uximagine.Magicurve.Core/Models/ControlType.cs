@@ -53,9 +53,15 @@
 
 
         /// <summary>
-        /// The text box.
+        /// The paragraph.
         /// </summary>
-        TextBox,
+        Paragraph,
+
+
+        /// <summary>
+        /// The label.
+        /// </summary>
+        Label,
 
 
         /// <summary>

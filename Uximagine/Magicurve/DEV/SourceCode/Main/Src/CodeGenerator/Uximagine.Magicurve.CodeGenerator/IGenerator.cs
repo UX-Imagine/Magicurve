@@ -35,7 +35,9 @@ namespace Uximagine.Magicurve.CodeGenerator
 
         string GetDatePicker(Control datepicker);
 
-        string GetTextBox(Control textbox); // for paragraph and normal single line label type text
+        string GetPara(Control para); // for paragraph and normal single line label type text
+
+        string GetLabel(Control label);
 
         string GetTextArea(Control textarea);
 
