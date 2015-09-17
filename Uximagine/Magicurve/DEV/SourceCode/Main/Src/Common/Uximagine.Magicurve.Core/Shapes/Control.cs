@@ -64,5 +64,6 @@ namespace Uximagine.Magicurve.Core.Shapes
         /// The height.
         /// </value>
         public double Height { get; set; }
+
     }
 }

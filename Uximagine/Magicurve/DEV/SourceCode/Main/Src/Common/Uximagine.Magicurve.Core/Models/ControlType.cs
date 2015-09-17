@@ -15,6 +15,19 @@
         /// </summary>
         Button,
 
+
+        /// <summary>
+        /// The checkBox.
+        /// </summary>
+        CheckBox,
+
+
+        /// <summary>
+        /// The radioButton.
+        /// </summary>
+        RadioButton,
+
+
         /// <summary>
         /// The ComboBox.
         /// </summary>
@@ -24,6 +37,54 @@
         /// <summary>
         /// The input text.
         /// </summary>
-        InputText
+        InputText,
+
+
+        /// <summary>
+        /// The input password.
+        /// </summary>
+        InputPassword,
+
+
+        /// <summary>
+        /// The DatePicker.
+        /// </summary>
+        DatePicker,
+
+
+        /// <summary>
+        /// The text box.
+        /// </summary>
+        TextBox,
+
+
+        /// <summary>
+        /// The text area.
+        /// </summary>
+        TextArea,
+
+
+        /// <summary>
+        /// The image.
+        /// </summary>
+        Image,
+
+
+        /// <summary>
+        /// The hyperlink.
+        /// </summary>
+        HyperLink,
+
+
+        /// <summary>
+        /// The iframe.
+        /// </summary>
+        Iframe,
+
+
+        /// <summary>
+        /// The horizontal line.
+        /// </summary>
+        HLine
     }
 }

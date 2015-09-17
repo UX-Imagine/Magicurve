@@ -3,6 +3,8 @@
     using Uximagine.Magicurve.DataTransfer.Requests;
     using Uximagine.Magicurve.DataTransfer.Responses;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Uximagine.Magicurve.Services;
+   
     using Moq;
 
     /// <summary>

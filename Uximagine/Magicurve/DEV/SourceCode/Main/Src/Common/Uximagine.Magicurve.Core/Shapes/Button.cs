@@ -20,5 +20,17 @@ namespace Uximagine.Magicurve.Core.Shapes
                 return ControlType.Button;
             }
         }
+
+        public string Value
+        {
+            get;
+            set;
+        }
+
+        public string Name
+        {
+            get;
+            set;
+        }
     }
 }

@@ -11,7 +11,7 @@ namespace Uximagine.Magicurve.CodeGenerator
     {
          string CreateHtmlCode(List<Control> controls);
 
-         string CreateHeaderPart(string html,string body);
+         string GetHeader(string html,string body);
 
          string NormalStartTag(string tagName);
 
@@ -21,31 +21,31 @@ namespace Uximagine.Magicurve.CodeGenerator
 
         string InputTag(string inputType, string inputName, string inputValue);
 
-        string InputButton(Control button);
+        string GetButton(Control button);
 
-        string InputCheckBox(Control checkbox);
+        string GetCheckBox(Control checkbox);
 
-        string InputRadio(Control radio);
+        string GetRadio(Control radio);
 
-        string ComboBox(Control combo);
+        string GetCombo(Control combo);
 
-        string InputText(Control text);
+        string GetText(Control text);
 
-        string InputPassword(Control password);
+        string GetPassword(Control password);
 
-        string InputDatePicker(Control datepicker);
+        string GetDatePicker(Control datepicker);
 
-        string TextBox(Control textbox); // for paragraph and normal single line label type text
+        string GetTextBox(Control textbox); // for paragraph and normal single line label type text
 
-        string TextArea(Control textarea);
+        string GetTextArea(Control textarea);
 
-        string ImageTag(Control img);
+        string GetImage(Control img);
 
-        string HyperLink(Control hyperlink);
+        string GetHyperLink(Control hyperlink);
 
-        string Iframe(Control iframe);
+        string GetIframe(Control iframe);
 
-        string HLine(Control hline);
+        string GetHLine(Control hline);
 
 
 
