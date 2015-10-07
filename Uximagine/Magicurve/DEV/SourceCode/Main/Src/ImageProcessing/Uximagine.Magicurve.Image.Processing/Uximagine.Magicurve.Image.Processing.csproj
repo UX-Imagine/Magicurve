@@ -46,9 +46,6 @@
     <Reference Include="AForge.Math">
       <HintPath>..\..\..\Ext\In\AForge.Math.dll</HintPath>
     </Reference>
-    <Reference Include="RulesEngine">
-      <HintPath>..\..\..\..\..\..\..\..\..\..\Rule Engine\RulesEngine.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />

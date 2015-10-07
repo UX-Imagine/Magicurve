@@ -2,7 +2,6 @@
 using AForge;
 using Uximagine.Magicurve.Core.Models;
 using AForge.Math.Geometry;
-using RulesEngine;
 
 
 namespace Uximagine.Magicurve.Image.Processing.ShapeCheckers
