@@ -52,9 +52,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Ext\In\AForge.Math.dll</HintPath>
     </Reference>
-    <Reference Include="Fixie">
-      <HintPath>..\..\packages\Fixie.1.0.0.15\lib\net45\Fixie.dll</HintPath>
-    </Reference>
     <Reference Include="Moq">
       <HintPath>..\..\packages\Moq.4.2.1502.0911\lib\net40\Moq.dll</HintPath>
     </Reference>

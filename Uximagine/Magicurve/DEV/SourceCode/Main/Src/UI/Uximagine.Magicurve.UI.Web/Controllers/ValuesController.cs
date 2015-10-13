@@ -50,6 +50,7 @@ namespace Uximagine.Magicurve.UI.Web.Controllers
         /// </returns>
         public List<Control> Get(int id)
         {
+            var result = new List<Control>();
             string imgPath;
 
             switch (id)
@@ -73,19 +74,21 @@ namespace Uximagine.Magicurve.UI.Web.Controllers
                 if (imgPath != null)
                 {
                     IProcessingService service = new ProcessigService();
-                    ProcessRequestDto request = new ProcessRequestDto();
-                    request.ImagePath = imgPath;
+                    ProcessRequestDto request = new ProcessRequestDto
+                    {
+                        ImagePath = imgPath
+                    };
+
                     ProcessResponseDto response = service.GetEdgeProcessedImageUrl(request);
-                    return response.Controls;
+                    result = response.Controls;
                 }
 
             }
             catch (System.Exception e)
             {
-               
             }
 
-            return new List<Control>();
+            return result;
         }
 
         /// <summary>

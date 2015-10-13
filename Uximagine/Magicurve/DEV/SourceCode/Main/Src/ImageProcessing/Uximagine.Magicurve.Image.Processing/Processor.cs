@@ -39,6 +39,17 @@ namespace Uximagine.Magicurve.Image.Processing
             set; 
         }
 
+        public Bitmap ImageResult
+        {
+            get; set;
+        }
+
+        public List<Control> Controls
+        {
+            get;
+            set;
+        } 
+
         /// <summary>
         /// Processes the image.
         /// </summary>
@@ -48,10 +59,8 @@ namespace Uximagine.Magicurve.Image.Processing
         /// <returns>
         /// The Processed output.
         /// </returns>
-        public List<Control> ProcessImage(string path)
+        public void ProcessImage(string path)
         {
-            List<Control> result = null;
-
             using (Bitmap bitmap = new Bitmap(path))
             {
 
@@ -66,11 +75,9 @@ namespace Uximagine.Magicurve.Image.Processing
 
                 Bitmap correctFormatImage = edgeResult.ConvertToFormat(PixelFormat.Format24bppRgb);
 
-                result = blobDetector.GetShapes(correctFormatImage);
-
+                this.Controls= blobDetector.GetShapes(correctFormatImage);
+                this.ImageResult = blobDetector.Detect(correctFormatImage);
             }
-
-            return result;
         }
     }
 }

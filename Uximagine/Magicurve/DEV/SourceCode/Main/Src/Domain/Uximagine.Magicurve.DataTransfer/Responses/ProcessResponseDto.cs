@@ -23,6 +23,15 @@ namespace Uximagine.Magicurve.DataTransfer.Responses
         public List<Control> Controls { get; set; }
 
         /// <summary>
+        /// Gets or sets the image result.
+        /// </summary>
+        /// <value>
+        /// The image result.
+        /// </value>
+        [DataMember]
+        public Bitmap ImageResult { get; set; }
+
+        /// <summary>
         /// Gets or sets the image path.
         /// </summary>
         /// <value>

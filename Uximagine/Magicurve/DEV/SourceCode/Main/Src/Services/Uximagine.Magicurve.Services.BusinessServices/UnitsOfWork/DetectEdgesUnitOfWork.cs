@@ -28,11 +28,23 @@ namespace Uximagine.Magicurve.Services.BusinessServices.UnitsOfWork
         /// <value>
         /// The result.
         /// </value>
-        public List<Control> Result
+        public List<Control> Controls
         {
             get;
             set;
-        }  
+        }
+
+        /// <summary>
+        /// Gets or sets the image.
+        /// </summary>
+        /// <value>
+        /// The image.
+        /// </value>
+        public Bitmap ImageResult
+        {
+            get;
+            set;
+        } 
 
         #region Methods - Instance Member - Constructors
         /// <summary>
@@ -61,7 +73,9 @@ namespace Uximagine.Magicurve.Services.BusinessServices.UnitsOfWork
         protected override void Execute()
         {
             Processor processor = new Processor();
-            this.Result = processor.ProcessImage(this.ImagePath);
+            processor.ProcessImage(this.ImagePath);
+            this.Controls = processor.Controls;
+            this.ImageResult = processor.ImageResult;
         }
     }
 }

@@ -9,9 +9,9 @@
     public class HttpContextFactory
     {
         /// <summary>
-        /// The context
+        /// The ctx
         /// </summary>
-        private static HttpContextBase context;
+        private static HttpContextBase _context;
 
         /// <summary>
         /// Gets the current.
@@ -24,9 +24,9 @@
         {
             get
             {
-                if (HttpContextFactory.context != null)
+                if (HttpContextFactory._context != null)
                 {
-                    return context;
+                    return _context;
                 }
 
                 if (HttpContext.Current == null)
@@ -39,12 +39,14 @@
         }
 
         /// <summary>
-        /// Sets the current context.
+        /// Sets the current ctx.
         /// </summary>
-        /// <param name="context">The context.</param>
-        public static void SetCurrentContext(HttpContextBase context)
+        /// <param name="ctx">
+        /// The ctx.
+        /// </param>
+        public static void SetCurrentContext(HttpContextBase ctx)
         {
-            HttpContextFactory.context = context;
+            HttpContextFactory._context = ctx;
         }
     }
 }

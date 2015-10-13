@@ -39,7 +39,6 @@
             var valuesController = new ValuesController();
 
             //// Act
-
             string image = valuesController.Get(1);
 
             //// Assert
