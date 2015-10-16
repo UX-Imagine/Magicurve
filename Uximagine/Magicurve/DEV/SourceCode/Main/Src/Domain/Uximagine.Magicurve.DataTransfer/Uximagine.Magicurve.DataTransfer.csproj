@@ -9,12 +9,13 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Uximagine.Magicurve.DataTransfer</RootNamespace>
     <AssemblyName>Uximagine.Magicurve.DataTransfer</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SccProjectName>SAK</SccProjectName>
     <SccLocalPath>SAK</SccLocalPath>
     <SccAuxPath>SAK</SccAuxPath>
     <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -52,7 +53,15 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Requests\FileDeleteRequest.cs" />
+    <Compile Include="Requests\FileRetrieveRequest.cs" />
+    <Compile Include="Requests\FileSaveRequest.cs" />
+    <Compile Include="Requests\FileUpdateRequest.cs" />
     <Compile Include="Requests\ProcessRequestDto.cs" />
+    <Compile Include="Responses\FileDeleteResponse.cs" />
+    <Compile Include="Responses\FileRetrieveResponse.cs" />
+    <Compile Include="Responses\FileSaveResponse.cs" />
+    <Compile Include="Responses\FileUpdateResponse.cs" />
     <Compile Include="Responses\ProcessResponseDto.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -65,6 +74,10 @@
     <ProjectReference Include="..\..\Common\Uximagine.Magicurve.Core\Uximagine.Magicurve.Core.csproj">
       <Project>{0e3b890e-d113-4b87-9e39-19ac065e00c7}</Project>
       <Name>Uximagine.Magicurve.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Uximagine.Magicurve.DataAccess\Uximagine.Magicurve.DataAccess.csproj">
+      <Project>{50001cc6-aa08-4a10-95da-1431bf2bc29f}</Project>
+      <Name>Uximagine.Magicurve.DataAccess</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

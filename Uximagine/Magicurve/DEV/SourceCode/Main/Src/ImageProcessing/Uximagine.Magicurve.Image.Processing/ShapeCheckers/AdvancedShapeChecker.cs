@@ -8,7 +8,7 @@ namespace Uximagine.Magicurve.Image.Processing.ShapeCheckers
     /// <summary>
     /// The advanced shape checker.
     /// </summary>
-    public abstract class AdvancedShapeChecker : SimpleShapeChecker
+    public abstract class AdvancedShapeChecker : SimpleShapeChecker, IShapeChecker
     {
         /// <summary>
         /// The shape optimizer.

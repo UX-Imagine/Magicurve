@@ -27,7 +27,7 @@ using Uximagine.Magicurve.Image.Processing.ShapeCheckers;
         /// <summary>
         /// Detects the specified original image.
         /// </summary>
-        /// <param name="bitmap">
+        /// <param name="originalImage">
         /// The original image.
         /// </param>
         /// <returns>
@@ -41,35 +41,47 @@ using Uximagine.Magicurve.Image.Processing.ShapeCheckers;
             this.Blobs = blobCounter.GetObjectsInformation();     
 
             //// step 3 - check objects' type and highlight
-            AdvancedShapeChecker shapeChecker = new UIShapeChecker();
+            AdvancedShapeChecker shapeChecker = new UiShapeChecker();
 
             List<Control> controls = new List<Control>();
 
             for (int i = 0, n = this.Blobs.Length; i < n; i++)
             {
-                List<IntPoint> edgePoints = blobCounter.GetBlobsEdgePoints(this.Blobs[i]);
+                var edgePoints = blobCounter.GetBlobsEdgePoints(this.Blobs[i]);
 
-                ControlType type = shapeChecker.GetControlType(edgePoints);
+                var type = shapeChecker.GetControlType(edgePoints);
 
-                Control control = new Control();
-                control.Edges = edgePoints;
-                control.X = shapeChecker.X;
-                control.Y = shapeChecker.Y;
-                control.Width = shapeChecker.Width;
-                control.Height = shapeChecker.Height;
+                var control = new Control
+                {
+                    Type = type,
+                    X = shapeChecker.X,
+                    Y = shapeChecker.Y,
+                    Width = shapeChecker.Width,
+                    Height = shapeChecker.Height
+                };
+
                 controls.Add(control);
             }
 
             return controls;
         }
 
-        public Bitmap Detect(Bitmap bitmap)
+        /// <summary>
+        /// Gets the image.
+        /// </summary>
+        /// <param name="originaImage">
+        /// The originaImage.
+        /// </param>
+        /// <returns>
+        /// The detected shapes in painted image.
+        /// </returns>
+        public Bitmap GetImage(Bitmap originaImage)
         {
             // step 2 - locating objects
-            BlobCounter blobCounter = this.GetBlobs(bitmap);
+            BlobCounter blobCounter = this.GetBlobs(originaImage);
             this.Blobs = blobCounter.GetObjectsInformation();
-            AdvancedShapeChecker shapeChecker = new UIShapeChecker();
-            Graphics g = Graphics.FromImage(bitmap);
+            AdvancedShapeChecker shapeChecker = new UiShapeChecker();
+            Graphics g = Graphics.FromImage(originaImage);
             Pen yellowPen = new Pen(Color.Yellow, 2); //// circles
             Pen redPen = new Pen(Color.Red, 2);       //// quadrilateral
             Pen brownPen = new Pen(Color.Brown, 2);   //// quadrilateral with known sub-type
@@ -133,7 +145,7 @@ using Uximagine.Magicurve.Image.Processing.ShapeCheckers;
             brownPen.Dispose();
             g.Dispose();
 
-            return bitmap;
+            return originaImage;
         }
 
         private BlobCounter GetBlobs(Bitmap bitmap)

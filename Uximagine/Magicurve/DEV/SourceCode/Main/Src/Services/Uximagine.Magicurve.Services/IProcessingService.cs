@@ -1,24 +1,22 @@
-﻿using System.ServiceModel;
-using Uximagine.Magicurve.DataTransfer.Requests;
+﻿using Uximagine.Magicurve.DataTransfer.Requests;
+using Uximagine.Magicurve.DataTransfer.Responses;
 
 namespace Uximagine.Magicurve.Services
 {
-    using Uximagine.Magicurve.DataTransfer.Responses;
-
     /// <summary>
-    /// The processing service.
+    ///     The processing service.
     /// </summary>
-    [ServiceContract(Namespace = "http://ux-imagine.com")]
     public interface IProcessingService
     {
         /// <summary>
-        /// Gets the processed image URL.
+        ///     Gets the processed image URL.
         /// </summary>
-        /// <param name="requestDto">The requestDto.</param>
+        /// <param name="requestDto">
+        /// The requestDto.
+        /// </param>
         /// <returns>
-        /// The URL.
+        ///     The URL.
         /// </returns>
-        [OperationContract]
-        ProcessResponseDto GetEdgeProcessedImageUrl(ProcessRequestDto requestDto);
+        ProcessResponseDto ProcessImage(ProcessRequestDto requestDto);
     }
 }

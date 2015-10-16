@@ -27,7 +27,7 @@
             this.service = new Mock<IProcessingService>();
             var request = new Mock<ProcessRequestDto>();
             var response = new Mock<ProcessResponseDto>();
-            this.service.Setup(ser => ser.GetEdgeProcessedImageUrl(request.Object))
+            this.service.Setup(ser => ser.ProcessImage(request.Object))
                 .Returns(response.Object);
         }
 
@@ -41,7 +41,7 @@
             var request = new ProcessRequestDto() { ImagePath = "image" };
 
             //// Act
-            var result = this.service.Object.GetEdgeProcessedImageUrl(request);
+            var result = this.service.Object.ProcessImage(request);
 
             //// Assert
             Assert.IsNotNull((result));

@@ -2,6 +2,7 @@
 using Uximagine.Magicurve.DataTransfer.Requests;
 using Uximagine.Magicurve.DataTransfer.Responses;
 using Uximagine.Magicurve.Services.BusinessServices.UnitsOfWork; 
+using Uximagine.Magicurve.Services;
 #endregion
 
 namespace Uximagine.Magicurve.Services.BusinessServices
@@ -20,7 +21,7 @@ namespace Uximagine.Magicurve.Services.BusinessServices
         /// <returns>
         /// The URL.
         /// </returns>
-        public ProcessResponseDto GetEdgeProcessedImageUrl(ProcessRequestDto requestDto)
+        public ProcessResponseDto ProcessImage(ProcessRequestDto requestDto)
         {
             ProcessResponseDto response = new ProcessResponseDto();
 

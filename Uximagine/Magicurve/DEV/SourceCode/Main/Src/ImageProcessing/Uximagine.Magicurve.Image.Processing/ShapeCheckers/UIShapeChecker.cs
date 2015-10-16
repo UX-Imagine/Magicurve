@@ -9,7 +9,7 @@ namespace Uximagine.Magicurve.Image.Processing.ShapeCheckers
     /// <summary>
     /// The five cornered shape checker.
     /// </summary>
-    public class UIShapeChecker : AdvancedShapeChecker
+    public class UiShapeChecker : AdvancedShapeChecker
     {
         /// <summary>
         /// The button corner count.
@@ -32,7 +32,7 @@ namespace Uximagine.Magicurve.Image.Processing.ShapeCheckers
         {
             bool isButton = false;
 
-            double distanceError = 3;
+            const double distanceError = 3;
 
             //var baseBuilder = new RulesEngine.Fluent.FluentBuilder();
             //baseBuilder.For<Foo1>()
@@ -48,12 +48,11 @@ namespace Uximagine.Magicurve.Image.Processing.ShapeCheckers
 
             if (this.CheckIfPointsFitShape(edgePoints, corners))
             {
-                if (corners.Count == UIShapeChecker.BUTTON_CORNER_COUNT)
+                if (corners.Count == UiShapeChecker.BUTTON_CORNER_COUNT)
                 {
                     //get length of each side
                     float[] sides = new float[corners.Count];
                     int next = 1;
-                    IntPoint minXY, maxXY;
                     for (int i = 0; i < corners.Count; i++)
 			        {
                         if (i == corners.Count - 1)
@@ -66,7 +65,9 @@ namespace Uximagine.Magicurve.Image.Processing.ShapeCheckers
                     
                     if (sides[0]-sides[2] < distanceError && sides[1] - sides[3] < distanceError)
 	                {
-                        PointsCloud.GetBoundingRectangle( edgePoints, out minXY, out maxXY );
+	                    IntPoint minXY;
+	                    IntPoint maxXY;
+	                    PointsCloud.GetBoundingRectangle( edgePoints, out minXY, out maxXY );
 
                         this.X = minXY.X;
                         this.Y = minXY.Y;

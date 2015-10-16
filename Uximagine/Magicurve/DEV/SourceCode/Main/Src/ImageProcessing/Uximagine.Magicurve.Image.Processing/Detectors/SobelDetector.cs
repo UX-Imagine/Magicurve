@@ -11,17 +11,17 @@ namespace Uximagine.Magicurve.Image.Processing.Detectors
         /// <summary>
         /// Detects the specified original image.
         /// </summary>
-        /// <param name="originalImage">
+        /// <param name="originaImage">
         /// The original image.
         /// </param>
         /// <returns>
         /// The detected image.
         /// </returns>
-        public Bitmap Detect(Bitmap originalImage)
+        public Bitmap GetImage(Bitmap originaImage)
         {
             Bitmap result = null;
 
-            Bitmap image = Grayscale.CommonAlgorithms.BT709.Apply(originalImage);
+            Bitmap image = Grayscale.CommonAlgorithms.BT709.Apply(originaImage);
 
             SobelEdgeDetector edgeFilter = new SobelEdgeDetector();
             result = edgeFilter.Apply(image);

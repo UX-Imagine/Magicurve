@@ -20,12 +20,12 @@
         public void TestEdges()
         {
             //// Arrange
-            var controller = new ValuesController();
+            var controller = new ImagesController();
             var controllerCtx = new Mock<HttpControllerContext>();
             controller.ControllerContext = controllerCtx.Object;
             
             //// Act
-            List<Control> image = controller.Edges();
+            List<Control> image = controller.GetControls();
 
             //// Assert
             Assert.IsNotNull(image);
@@ -38,11 +38,11 @@
         public void GetTest()
         {
             //// Arrange
-            var valuesController = new ValuesController();
+            var imagesController = new ImagesController();
 
             //// Act
 
-            List<Control> image = valuesController.Get(1);
+            List<Control> image = imagesController.GetControls();
 
             //// Assert
             Assert.IsNotNull(image);

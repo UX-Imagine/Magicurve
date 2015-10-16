@@ -1,6 +1,7 @@
 ﻿namespace Uximagine.Magicurve.Services
 {
     using Uximagine.Magicurve.Core.Reflection;
+    
 
     /// <summary>
     /// Get the service instance.
@@ -17,6 +18,18 @@
         {
             return ObjectFactory.GetInstance<IProcessingService>(
 				ConfigurationData.ServiceImplementationPluginName);
+        }
+
+        /// <summary>
+        /// Gets the file service.
+        /// </summary>
+        /// <returns>
+        /// The file service.
+        /// </returns>
+        public static IFileService GetFileService()
+        {
+            return ObjectFactory.GetInstance<IFileService>(
+               ConfigurationData.ServiceImplementationPluginName);
         }
     }
 }

@@ -10,12 +10,12 @@ namespace Uximagine.Magicurve.Image.Processing.Detectors
         /// <summary>
         /// Detects the specified original image.
         /// </summary>
-        /// <param name="originalImage">
+        /// <param name="originaImage">
         /// The original image.
         /// </param>
         /// <returns>
         /// The detected image.
         /// </returns>
-        Bitmap Detect(Bitmap originalImage);
+        Bitmap GetImage(Bitmap originaImage);
     }
 }

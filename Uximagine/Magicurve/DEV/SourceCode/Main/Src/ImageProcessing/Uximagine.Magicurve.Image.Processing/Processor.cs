@@ -66,7 +66,7 @@ namespace Uximagine.Magicurve.Image.Processing
 
                 IDetector edgeDetector = ProcessingFactory.GetEdgeDetector();
 
-                Bitmap edgeResult = edgeDetector.Detect(bitmap);
+                Bitmap edgeResult = edgeDetector.GetImage(bitmap);
 
                 IBlobDetector blobDetector = ProcessingFactory.GetBlobDetector();
 
@@ -76,7 +76,9 @@ namespace Uximagine.Magicurve.Image.Processing
                 Bitmap correctFormatImage = edgeResult.ConvertToFormat(PixelFormat.Format24bppRgb);
 
                 this.Controls= blobDetector.GetShapes(correctFormatImage);
-                this.ImageResult = blobDetector.Detect(correctFormatImage);
+
+
+                this.ImageResult = blobDetector.GetImage(correctFormatImage);
             }
         }
     }

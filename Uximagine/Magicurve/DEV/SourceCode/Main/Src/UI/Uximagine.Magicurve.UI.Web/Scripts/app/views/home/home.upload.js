@@ -33,10 +33,10 @@ $(document).ready(function () {
 function loadImage() {
     $.ajax(
         {
-            url: root + "/api/values/2",
+            url: root + "/api/images/result",
             type: "GET"
         }).done(function (data) {
-            $("#img_blob").attr("src", root + data + "?" + new Date().getTime());
+            $("#img_blob").attr("src", root + data.url + "?" + new Date().getTime());
             $("#img").attr("src", root + "/Content/Images/Upload/upload.jpg" + "?" + new Date().getTime());
             console.log(data);
         }).fail(function (error) {

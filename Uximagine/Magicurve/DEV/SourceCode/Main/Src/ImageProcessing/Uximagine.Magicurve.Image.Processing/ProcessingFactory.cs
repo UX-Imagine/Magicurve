@@ -1,4 +1,6 @@
-﻿namespace Uximagine.Magicurve.Image.Processing
+﻿using Uximagine.Magicurve.Image.Processing.ShapeCheckers;
+
+namespace Uximagine.Magicurve.Image.Processing
 {
     using Uximagine.Magicurve.Core.Reflection;
     using Uximagine.Magicurve.Image.Processing.Detectors;
@@ -43,6 +45,18 @@
         {
             return ObjectFactory.GetInstance<IBlobDetector>(
                  ConfigurationData.BlobDetectorImplementationPluginName);
+        }
+
+        /// <summary>
+        /// Gets the shape checker.
+        /// </summary>
+        /// <returns>
+        /// The shape checker.
+        /// </returns>
+        public static IShapeChecker GetShapeChecker()
+        {
+            return ObjectFactory.GetInstance<IShapeChecker>(
+                 ConfigurationData.ShapeCheckerImplementationPluginName);
         }
     }
 }

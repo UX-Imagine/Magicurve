@@ -19,17 +19,5 @@ namespace Uximagine.Magicurve.Core.Models
             get;
             set;
         }
-
-        /// <summary>
-        /// Gets or sets the edges.
-        /// </summary>
-        /// <value>
-        /// The edges.
-        /// </value>
-        List<IntPoint> Edges
-        { 
-            get; 
-            set; 
-        }
     }
 }

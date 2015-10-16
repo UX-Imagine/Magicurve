@@ -36,11 +36,11 @@ namespace Uximagine.Magicurve.Services.Test
 
             var bitmap = new Bitmap("capture.jpg");
 
-            var edgeResult = edgeDetector.Detect(bitmap);
+            var edgeResult = edgeDetector.GetImage(bitmap);
 
             var correctFormatImage = edgeResult.ConvertToFormat(PixelFormat.Format24bppRgb);
 
-            result = blobDetector.Detect(correctFormatImage);
+            result = blobDetector.GetImage(correctFormatImage);
 
             result.Save("new.jpg");
 
@@ -65,7 +65,7 @@ namespace Uximagine.Magicurve.Services.Test
 
             var bitmap = new Bitmap("template.jpg");
 
-            var edgeResult = edgeDetector.Detect(bitmap);
+            var edgeResult = edgeDetector.GetImage(bitmap);
 
             var correctFormatImage = edgeResult.ConvertToFormat(PixelFormat.Format24bppRgb);
 

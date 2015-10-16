@@ -1,33 +1,27 @@
-﻿
+﻿using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Uximagine.Magicurve.CodeGenerator;
+using Uximagine.Magicurve.Core.Models;
+using Uximagine.Magicurve.Core.Shapes;
 
 namespace Uximagine.Magicurve.Services.Test
 {
-    using System;
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-    using Uximagine.Magicurve.CodeGenerator;
-    using Uximagine.Magicurve.Core.Shapes;
-    using System.Diagnostics;
-
     [TestClass]
     public class GeneratorTest
     {
-        string dir = @"E:\Level 4\Project\Code Generation\second example";
+        private readonly string dir = @"E:\Level 4\Project\Code Generation\second example";
+        public string body = "body";
+        public string head = "<head>";
         public string html = "html";
         public string title = "<title>";
-        public string head = "<head>";
-        public string body = "body";
-        
 
         [TestMethod]
         public void TestMethod1(string pageContent)
         {
-            CodeGenerator codeGenerator = new CodeGenerator();
-            if (!Directory.Exists(dir))  // if it doesn't exist, create
+            var codeGenerator = new CodeGenerator.CodeGenerator();
+            if (!Directory.Exists(dir)) // if it doesn't exist, create
                 Directory.CreateDirectory(dir);
 
             //string createText = codeGenerator.CreateHeaderPart(html, body) + Environment.NewLine;
@@ -38,35 +32,36 @@ namespace Uximagine.Magicurve.Services.Test
         [TestMethod]
         public void CodeGenTest()
         {
-            GeneratorTest testClass = new GeneratorTest();
-           
-            IGenerator generator = new CodeGenerator();
-            
-            List<Control> controls = new List<Control>()
+            var testClass = new GeneratorTest();
+
+            IGenerator generator = new CodeGenerator.CodeGenerator();
+
+            var controls = new List<Control>
             {
-                new Control(){ 
+                new Control
+                {
                     //Edges = new List<AForge.IntPoint>(){},
                     //Height = 5,
                     //Width = 10, 
-                    Type = Core.Models.ControlType.ComboBox,
+                    Type = ControlType.ComboBox,
                     X = 50,
                     Y = 128
                 },
-                new Control(){ 
+                new Control
+                {
                     //Edges = new List<AForge.IntPoint>(){},
                     //Height = 6,
                     //Width = 20, 
-                    Type = Core.Models.ControlType.InputText,
+                    Type = ControlType.InputText,
                     X = 50,
                     Y = 100
                 },
-                new Button(){
+                new Button
+                {
                     X = 50,
                     Y = 72,
                     Value = "Click Me"
-                    
                 }
-
             };
 
             //Control button = new Control()
@@ -81,7 +76,7 @@ namespace Uximagine.Magicurve.Services.Test
 
             //controls.Add(button);
 
-           // var result = generator.CreateHtmlCode(controls);
+            // var result = generator.CreateHtmlCode(controls);
 
             //checking sorting based on Y value and return sorted Name values of controls
             //var query =
@@ -104,7 +99,7 @@ namespace Uximagine.Magicurve.Services.Test
             testClass.TestMethod1(result);
 
 
-           // Assert.AreEqual(result, "<htm></html>");
+            // Assert.AreEqual(result, "<htm></html>");
         }
     }
 }

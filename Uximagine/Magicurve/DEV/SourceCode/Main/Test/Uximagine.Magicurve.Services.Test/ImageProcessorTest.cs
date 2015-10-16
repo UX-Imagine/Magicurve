@@ -23,8 +23,8 @@
 
             IDetector edgeDetect = ProcessingFactory.GetEdgeDetector();
 
-            Bitmap edgedTemplate = edgeDetect.Detect(template);
-            Bitmap edgedSource = edgeDetect.Detect(source);
+            Bitmap edgedTemplate = edgeDetect.GetImage(template);
+            Bitmap edgedSource = edgeDetect.GetImage(source);
 
             IMatcher matcher = ProcessingFactory.GetMatcher();
 

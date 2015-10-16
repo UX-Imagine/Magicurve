@@ -29,6 +29,11 @@
             /// </summary>
             public const string BlobDetectorImplementation = @"BlobDetectorImpl";
 
+            /// <summary>
+            /// The shape checker implementation plugin name.
+            /// </summary>
+            public const string ShapeCheckerImplementationPluginName = @"ShapeCheckerImpl";
+
             #endregion
         }
 
@@ -73,6 +78,20 @@
             get
             {
                 return ConfigurationData.PluginNames.BlobDetectorImplementation;
+            }
+        }
+
+        /// <summary>
+        /// Gets the name of the shape checker implementation plugin.
+        /// </summary>
+        /// <value>
+        /// The name of the shape checker implementation plugin.
+        /// </value>
+        public static string ShapeCheckerImplementationPluginName
+        {
+            get
+            {
+                return ConfigurationData.PluginNames.ShapeCheckerImplementationPluginName;
             }
         }
     }

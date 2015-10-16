@@ -1,5 +1,4 @@
-﻿using System;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using Uximagine.Magicurve.Image.Processing.ShapeCheckers;
 using AForge;
 using Uximagine.Magicurve.Core.Models;
@@ -8,14 +7,20 @@ using System.Collections.Generic;
 
 namespace Uximagine.Magicurve.Services.Test
 {
+    /// <summary>
+    /// The shape checker test.
+    /// </summary>
     [TestFixture]
     public class ShapeCheckerTest
     {
+        /// <summary>
+        /// Advanceds the shape checker test.
+        /// </summary>
         [TestCase]
         public void AdvancedShapeCheckerTest()
         {
             //Arrange
-            AdvancedShapeChecker checker = new UIShapeChecker();
+            AdvancedShapeChecker checker = new UiShapeChecker();
             List<IntPoint> edgePoints = new List<IntPoint>
             {
                 new IntPoint(1,1),
@@ -29,13 +34,13 @@ namespace Uximagine.Magicurve.Services.Test
             //Act
 
             ControlType type = checker.GetControlType(edgePoints);
+
+            //Assert
             type.ShouldEqual(ControlType.Button);
             checker.X.ShouldEqual(1);
             checker.Y.ShouldEqual(1);
             checker.Width.ShouldEqual(2);
             checker.Height.ShouldEqual(2);
-
-            //Assert
         }
     }
 }

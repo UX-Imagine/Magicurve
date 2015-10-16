@@ -22,18 +22,6 @@ namespace Uximagine.Magicurve.Core.Shapes
         }
 
         /// <summary>
-        /// Gets or sets the edges.
-        /// </summary>
-        /// <value>
-        /// The edges.
-        /// </value>
-        public List<IntPoint> Edges
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
         /// Gets or sets the x.
         /// </summary>
         /// <value>
@@ -64,6 +52,5 @@ namespace Uximagine.Magicurve.Core.Shapes
         /// The height.
         /// </value>
         public double Height { get; set; }
-
     }
 }

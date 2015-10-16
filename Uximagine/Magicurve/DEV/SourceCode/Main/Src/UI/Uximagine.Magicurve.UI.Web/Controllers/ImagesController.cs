@@ -1,19 +1,21 @@
 ﻿#region Imports
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Web.Hosting;
 using System.Web.Http;
 using Uximagine.Magicurve.DataTransfer.Responses;
 using Uximagine.Magicurve.DataTransfer.Requests;
 using Uximagine.Magicurve.Services;
-using Uximagine.Magicurve.Services.Client;
 using Uximagine.Magicurve.Core.Shapes;
 #endregion
+
 namespace Uximagine.Magicurve.UI.Web.Controllers
 {
     /// <summary>
     /// The API controller.
     /// </summary>
-    public class ValuesController : ApiController
+    public class ImagesController : ApiController
     {
         /// <summary>
         /// Gets the edges.
@@ -21,22 +23,54 @@ namespace Uximagine.Magicurve.UI.Web.Controllers
         /// <returns>
         /// The edge image.
         /// </returns>
+        [Route("api/images/controls")]
         [HttpGet]
-        public List<Control> Edges()
+        public List<Control> GetControls()
         {
-            const string SavedPath = "/Content/images/test2.png";
+            //// const string SavedPath = "/Content/images/test2.png";
             string imgPath = HostingEnvironment.MapPath(string.Empty) +
                "\\Content\\Images\\Capture\\capture.jpg";
 
-            IProcessingService service = new ProcessigService();
+            IProcessingService service = ServiceFactory.GetProcessingService();
             ProcessRequestDto request = new ProcessRequestDto { ImagePath = imgPath };
-            ProcessResponseDto response = service.GetEdgeProcessedImageUrl(request);
+            ProcessResponseDto response = service.ProcessImage(request);
 
             var json = response.Controls;
-            ////response.Image.Save(HostingEnvironment.MapPath("~/Content/images/test2.png"));
-            ////response.Image.Dispose();
+            response.ImageResult.Save(HostingEnvironment.MapPath("~/Content/images/test2.png"));
+            response.ImageResult.Dispose();
 
             return json;
+        }
+
+        /// <summary>
+        /// Gets the image.
+        /// </summary>
+        /// <returns>
+        /// The image path.
+        /// </returns>
+        [Route("api/images/result")]
+        [HttpGet]
+        public IHttpActionResult GetImage()
+        {
+            var path = Path.Combine(HostingEnvironment.MapPath("~/Content/Images/Upload"), "upload.jpg");
+
+            IProcessingService service = ServiceFactory.GetProcessingService();
+            ProcessRequestDto request = new ProcessRequestDto { ImagePath = path };
+            ProcessResponseDto response = service.ProcessImage(request);
+            
+            var savePath = HostingEnvironment.MapPath("~/Content/images/result.png");
+
+            if (savePath != null)
+            {
+                response.ImageResult.Save(savePath);
+                response.ImageResult.Dispose();
+            }
+
+            return this.Json(new
+                                {
+                                    url = "/Content/images/result.png",
+                                    controls = response.Controls
+                                });
         }
 
         /// <summary>
@@ -48,7 +82,8 @@ namespace Uximagine.Magicurve.UI.Web.Controllers
         /// <returns> 
         /// Get API/values/5   
         /// </returns>
-        public List<Control> Get(int id)
+        [Route("api/images/{id}")]
+        public List<Control> GetById(int id)
         {
             var result = new List<Control>();
             string imgPath;
@@ -73,54 +108,23 @@ namespace Uximagine.Magicurve.UI.Web.Controllers
             {
                 if (imgPath != null)
                 {
-                    IProcessingService service = new ProcessigService();
+                    IProcessingService service = ServiceFactory.GetProcessingService();
                     ProcessRequestDto request = new ProcessRequestDto
                     {
                         ImagePath = imgPath
                     };
 
-                    ProcessResponseDto response = service.GetEdgeProcessedImageUrl(request);
+                    ProcessResponseDto response = service.ProcessImage(request);
                     result = response.Controls;
                 }
 
             }
             catch (System.Exception e)
             {
+                Debug.WriteLine(e.Message);
             }
 
             return result;
-        }
-
-        /// <summary>
-        /// Posts the specified value.
-        /// </summary>
-        /// <param name="value">
-        /// The value.
-        /// </param>
-        public void Post([FromBody]string value)
-        {
-
-        }
-
-        /// <summary>
-        /// Puts the specified identifier.
-        /// API/values/5
-        /// </summary>
-        /// <param name="id">The identifier.</param>
-        /// <param name="value">The value.</param>
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        /// <summary>
-        /// Deletes the specified identifier.
-        /// // DELETE API/values/5    
-        /// </summary>
-        /// <param name="id">
-        /// The identifier.
-        /// </param>
-        public void Delete(int id)
-        {
         }
     }
 }

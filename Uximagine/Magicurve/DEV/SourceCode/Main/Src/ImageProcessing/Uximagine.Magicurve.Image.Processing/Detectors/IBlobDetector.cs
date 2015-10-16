@@ -17,7 +17,7 @@ namespace Uximagine.Magicurve.Image.Processing.Detectors
         /// <summary>
         /// Gets the shape.
         /// </summary>
-        /// <param name="edgePoints">
+        /// <param name="originalImage">
         /// The edge points.
         /// </param>
         /// <returns>
