@@ -40,7 +40,8 @@ namespace Uximagine.Magicurve.Services.Test
 
             var correctFormatImage = edgeResult.ConvertToFormat(PixelFormat.Format24bppRgb);
 
-            result = blobDetector.GetImage(correctFormatImage);
+            blobDetector.ProcessImage(bitmap);
+            result = blobDetector.GetImage();
 
             result.Save("new.jpg");
 
@@ -68,8 +69,8 @@ namespace Uximagine.Magicurve.Services.Test
             var edgeResult = edgeDetector.GetImage(bitmap);
 
             var correctFormatImage = edgeResult.ConvertToFormat(PixelFormat.Format24bppRgb);
-
-            result = blobDetector.GetShapes(correctFormatImage);
+            blobDetector.ProcessImage(correctFormatImage);
+            result = blobDetector.GetShapes();
 
             foreach (var item in result)
             {

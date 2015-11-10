@@ -1,4 +1,4 @@
-﻿namespace Uximagine.Magicurve.UI.Web.Test
+﻿namespace Uximagine.Magicurve.Services.Test
 {
     using System;
     using System.Web;
@@ -24,7 +24,7 @@
         {
             get
             {
-                if (HttpContextFactory._context != null)
+                if (_context != null)
                 {
                     return _context;
                 }
@@ -46,7 +46,7 @@
         /// </param>
         public static void SetCurrentContext(HttpContextBase ctx)
         {
-            HttpContextFactory._context = ctx;
+            _context = ctx;
         }
     }
 }

@@ -63,99 +63,90 @@ namespace Uximagine.Magicurve.Image.Processing.Detectors
         /// <summary>
         ///     The blob counter.
         /// </summary>
-        private readonly BlobCounter blobCounter = new BlobCounter();
+        private readonly BlobCounter _blobCounter = new BlobCounter();
 
         /// <summary>
         ///     The bottom edges.
         /// </summary>
-        private readonly Dictionary<int, List<IntPoint>> bottomEdges = new Dictionary<int, List<IntPoint>>();
+        private readonly Dictionary<int, List<IntPoint>> _bottomEdges = new Dictionary<int, List<IntPoint>>();
 
         /// <summary>
         ///     The highlighting.
         /// </summary>
-        private readonly HightlightType highlighting = HightlightType.ConvexHull;
+        private const HightlightType Highlighting = HightlightType.ConvexHull;
 
         /// <summary>
         ///     The hulls.
         /// </summary>
-        private readonly Dictionary<int, List<IntPoint>> hulls = new Dictionary<int, List<IntPoint>>();
+        private readonly Dictionary<int, List<IntPoint>> _hulls = new Dictionary<int, List<IntPoint>>();
 
         /// <summary>
         ///     The left edges.
         /// </summary>
-        private readonly Dictionary<int, List<IntPoint>> leftEdges = new Dictionary<int, List<IntPoint>>();
+        private readonly Dictionary<int, List<IntPoint>> _leftEdges = new Dictionary<int, List<IntPoint>>();
 
         /// <summary>
         ///     The quadrilaterals.
         /// </summary>
-        private readonly Dictionary<int, List<IntPoint>> quadrilaterals = new Dictionary<int, List<IntPoint>>();
+        private readonly Dictionary<int, List<IntPoint>> _quadrilaterals = new Dictionary<int, List<IntPoint>>();
 
         /// <summary>
         ///     The right edges.
         /// </summary>
-        private readonly Dictionary<int, List<IntPoint>> rightEdges = new Dictionary<int, List<IntPoint>>();
+        private readonly Dictionary<int, List<IntPoint>> _rightEdges = new Dictionary<int, List<IntPoint>>();
 
         /// <summary>
         ///     The top edges.
         /// </summary>
-        private readonly Dictionary<int, List<IntPoint>> topEdges = new Dictionary<int, List<IntPoint>>();
-
-        /// <summary>
-        ///     The biggest BLOB identifier.
-        /// </summary>
-        private int biggestBlobId;
+        private readonly Dictionary<int, List<IntPoint>> _topEdges = new Dictionary<int, List<IntPoint>>();
 
         /// <summary>
         ///     The Blobs.
         /// </summary>
-        private Blob[] Blobs;
+        private Blob[] _blobs;
 
         /// <summary>
         ///     The originaImage.
         /// </summary>
-        private Bitmap image;
-
-        /// <summary>
-        ///     The originaImage height.
-        /// </summary>
-        private int imageHeight;
-
-        /// <summary>
-        ///     The originaImage width.
-        /// </summary>
-        private int imageWidth;
+        private Bitmap _image;
 
         /// <summary>
         ///     The selected blob id.
         /// </summary>
-        private int selectedBlobID;
+        private int selectedBlobId;
 
         /// <summary>
         ///     The show rectangle around selection.
         /// </summary>
-        private bool showRectangleAroundSelection;
+        private const bool ShowRectangleAroundSelection = false;
 
-        public HullBlobDetector(Bitmap originaImage)
+        /// <summary>
+        /// Initializes the specified origina image.
+        /// </summary>
+        /// <param name="originalImage">
+        /// The original image.
+        /// </param>
+        public void ProcessImage(Bitmap originalImage)
         {
             this.Reset();
-
-            this.GenerateBlobs(originaImage);
-
-            this.PaintImage();
+            this.GenerateBlobs(originalImage);
         }
 
-        public void ProcessBlobs()
+        /// <summary>
+        /// Processes the blobs.
+        /// </summary>
+        private void DetectControls()
         {
-            this.Blobs = this.blobCounter.GetObjectsInformation();
+            this._blobs = this._blobCounter.GetObjectsInformation();
 
             //// step 3 - check objects' type and highlight
-            AdvancedShapeChecker shapeChecker = new UiShapeChecker();
+            var shapeChecker = ProcessingFactory.GetShapeChecker();
             
             this.Controls = new List<Control>();
 
-            for (int i = 0, n = this.Blobs.Length; i < n; i++)
+            for (int i = 0, n = this._blobs.Length; i < n; i++)
             {
-                List<IntPoint> edgePoints = blobCounter.GetBlobsEdgePoints(this.Blobs[i]);
+                List<IntPoint> edgePoints = _blobCounter.GetBlobsEdgePoints(this._blobs[i]);
 
                 ControlType type = shapeChecker.GetControlType(edgePoints);
 
@@ -175,38 +166,25 @@ namespace Uximagine.Magicurve.Image.Processing.Detectors
         /// <summary>
         ///     The detect.
         /// </summary>
-        /// <param name="originaImage">
-        ///     The original originaImage.
-        /// </param>
         /// <returns>
         ///     The <see cref="Bitmap" />.
         /// </returns>
-        public Bitmap GetImage(Bitmap originaImage)
+        public Bitmap GetImage()
         {
-            this.Reset();
-
-            this.GenerateBlobs(originaImage);
-
             this.PaintImage();
 
-            return this.image;
+            return this._image;
         }
 
         /// <summary>
         ///     Gets the shapes.
         /// </summary>
-        /// <param name="originalImage">
-        ///     The originaImage.
-        /// </param>
         /// <returns>
         ///     The list of Controls.
         /// </returns>
-        public List<Control> GetShapes(Bitmap originalImage)
+        public List<Control> GetShapes()
         {
-            // step 2 - locating objects
-            this.GenerateBlobs(originalImage);
-            
-
+            this.DetectControls();
             return Controls;
         }
 
@@ -218,16 +196,14 @@ namespace Uximagine.Magicurve.Image.Processing.Detectors
         /// </param>
         public void GenerateBlobs(Bitmap originalImage)
         {
-            this.image = AForge.Imaging.Image.Clone(image, PixelFormat.Format24bppRgb);
+            this._image = AForge.Imaging.Image.Clone(originalImage, PixelFormat.Format24bppRgb);
 
-            this.imageWidth = this.image.Width;
-            this.imageHeight = this.image.Height;
-            this.blobCounter.ProcessImage(this.image);
-            this.Blobs = this.blobCounter.GetObjectsInformation();
+            this._blobCounter.ProcessImage(this._image);
+            this._blobs = this._blobCounter.GetObjectsInformation();
 
             var grahamScan = new GrahamConvexHull();
 
-            foreach (var blob in this.Blobs)
+            foreach (var blob in this._blobs)
             {
                 this.ProcessBlob(blob, grahamScan);
             }
@@ -250,13 +226,13 @@ namespace Uximagine.Magicurve.Image.Processing.Detectors
             var bottomEdge = new List<IntPoint>();
 
             // collect edge points
-            this.blobCounter.GetBlobsLeftAndRightEdges(blob, out leftEdge, out rightEdge);
-            this.blobCounter.GetBlobsTopAndBottomEdges(blob, out topEdge, out bottomEdge);
+            this._blobCounter.GetBlobsLeftAndRightEdges(blob, out leftEdge, out rightEdge);
+            this._blobCounter.GetBlobsTopAndBottomEdges(blob, out topEdge, out bottomEdge);
 
-            this.leftEdges.Add(blob.ID, leftEdge);
-            this.rightEdges.Add(blob.ID, rightEdge);
-            this.topEdges.Add(blob.ID, topEdge);
-            this.bottomEdges.Add(blob.ID, bottomEdge);
+            this._leftEdges.Add(blob.ID, leftEdge);
+            this._rightEdges.Add(blob.ID, rightEdge);
+            this._topEdges.Add(blob.ID, topEdge);
+            this._bottomEdges.Add(blob.ID, bottomEdge);
 
             // find convex hull
             var edgePoints = new List<IntPoint>();
@@ -264,14 +240,14 @@ namespace Uximagine.Magicurve.Image.Processing.Detectors
             edgePoints.AddRange(rightEdge);
 
             var hull = grahamScan.FindHull(edgePoints);
-            this.hulls.Add(blob.ID, hull);
+            this._hulls.Add(blob.ID, hull);
 
             List<IntPoint> quadrilateral = null;
 
             // find quadrilateral
             quadrilateral = hull.Count < 4 ? new List<IntPoint>(hull) : PointsCloud.FindQuadrilateralCorners(hull);
 
-            this.quadrilaterals.Add(blob.ID, quadrilateral);
+            this._quadrilaterals.Add(blob.ID, quadrilateral);
 
             // shift all points for visualization
             var shift = new IntPoint(1, 1);
@@ -289,13 +265,13 @@ namespace Uximagine.Magicurve.Image.Processing.Detectors
         /// </summary>
         private void Reset()
         {
-            this.leftEdges.Clear();
-            this.rightEdges.Clear();
-            this.topEdges.Clear();
-            this.bottomEdges.Clear();
-            this.hulls.Clear();
-            this.quadrilaterals.Clear();
-            this.selectedBlobID = 0;
+            this._leftEdges.Clear();
+            this._rightEdges.Clear();
+            this._topEdges.Clear();
+            this._bottomEdges.Clear();
+            this._hulls.Clear();
+            this._quadrilaterals.Clear();
+            this.selectedBlobId = 0;
         }
 
         /// <summary>
@@ -303,39 +279,39 @@ namespace Uximagine.Magicurve.Image.Processing.Detectors
         /// </summary>
         private void PaintImage()
         {
-            var g = Graphics.FromImage(this.image);
+            var g = Graphics.FromImage(this._image);
 
             var highlightPen = new Pen(Color.Red);
             var highlightPenBold = new Pen(Color.FromArgb(0, 255, 0), 3);
             var rectPen = new Pen(Color.Blue);
 
             // draw rectangle
-            if (this.image != null)
+            if (this._image != null)
             {
-                foreach (var blob in this.Blobs)
+                foreach (var blob in this._blobs)
                 {
-                    var pen = (blob.ID == this.selectedBlobID) ? highlightPenBold : highlightPen;
+                    var pen = (blob.ID == this.selectedBlobId) ? highlightPenBold : highlightPen;
 
-                    if (this.showRectangleAroundSelection && (blob.ID == this.selectedBlobID))
+                    if (ShowRectangleAroundSelection && (blob.ID == this.selectedBlobId))
                     {
                         g.DrawRectangle(rectPen, blob.Rectangle);
                     }
 
-                    switch (this.highlighting)
+                    switch (Highlighting)
                     {
                         case HightlightType.ConvexHull:
-                            g.DrawPolygon(pen, (this.hulls[blob.ID]).ToPointsArray());
+                            g.DrawPolygon(pen, (this._hulls[blob.ID]).ToPointsArray());
                             break;
                         case HightlightType.LeftAndRightEdges:
-                            this.DrawEdge(g, pen, this.leftEdges[blob.ID]);
-                            this.DrawEdge(g, pen, this.rightEdges[blob.ID]);
+                            this.DrawEdge(g, pen, this._leftEdges[blob.ID]);
+                            this.DrawEdge(g, pen, this._rightEdges[blob.ID]);
                             break;
                         case HightlightType.TopAndBottomEdges:
-                            this.DrawEdge(g, pen, this.topEdges[blob.ID]);
-                            this.DrawEdge(g, pen, this.bottomEdges[blob.ID]);
+                            this.DrawEdge(g, pen, this._topEdges[blob.ID]);
+                            this.DrawEdge(g, pen, this._bottomEdges[blob.ID]);
                             break;
                         case HightlightType.Quadrilateral:
-                            g.DrawPolygon(pen, (this.quadrilaterals[blob.ID]).ToPointsArray());
+                            g.DrawPolygon(pen, (this._quadrilaterals[blob.ID]).ToPointsArray());
                             break;
                     }
                 }

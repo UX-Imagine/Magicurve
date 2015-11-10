@@ -1,36 +1,37 @@
-﻿using System.Collections.Generic;
+﻿#region Imports
+using System.Collections.Generic;
 using AForge;
-using Uximagine.Magicurve.Core.Models;
 using AForge.Math.Geometry;
-
+using Uximagine.Magicurve.Core.Models; 
+#endregion
 
 namespace Uximagine.Magicurve.Image.Processing.ShapeCheckers
 {
     /// <summary>
-    /// The five cornered shape checker.
+    ///     The UI shape checker.
     /// </summary>
     public class UiShapeChecker : AdvancedShapeChecker
     {
         /// <summary>
-        /// The button corner count.
+        ///     The button corner count.
         /// </summary>
-        private const int BUTTON_CORNER_COUNT = 4;        
+        private const int BUTTON_CORNER_COUNT = 4;
 
         /// <summary>
-        /// Determines whether the specified edge points is button.
+        ///     Determines whether the specified edge points is button.
         /// </summary>
         /// <param name="edgePoints">
-        /// The edge points.
+        ///     The edge points.
         /// </param>
         /// <param name="corners">
-        /// The corners.
+        ///     The corners.
         /// </param>
         /// <returns>
-        /// <c> true</c> if [is button] shape.
+        ///     <c> true</c> if [is button] shape.
         /// </returns>
         protected bool IsButton(List<IntPoint> edgePoints, List<IntPoint> corners)
         {
-            bool isButton = false;
+            var isButton = false;
 
             const double distanceError = 3;
 
@@ -48,34 +49,34 @@ namespace Uximagine.Magicurve.Image.Processing.ShapeCheckers
 
             if (this.CheckIfPointsFitShape(edgePoints, corners))
             {
-                if (corners.Count == UiShapeChecker.BUTTON_CORNER_COUNT)
+                if (corners.Count == BUTTON_CORNER_COUNT)
                 {
                     //get length of each side
-                    float[] sides = new float[corners.Count];
-                    int next = 1;
-                    for (int i = 0; i < corners.Count; i++)
-			        {
+                    var sides = new float[corners.Count];
+                    var next = 1;
+                    for (var i = 0; i < corners.Count; i++)
+                    {
                         if (i == corners.Count - 1)
-	                        {
-		                        next = 0;
-	                        }
+                        {
+                            next = 0;
+                        }
 
-			            sides[i] = corners[i].DistanceTo(corners[next++]);                        
-			        }
-                    
-                    if (sides[0]-sides[2] < distanceError && sides[1] - sides[3] < distanceError)
-	                {
-	                    IntPoint minXY;
-	                    IntPoint maxXY;
-	                    PointsCloud.GetBoundingRectangle( edgePoints, out minXY, out maxXY );
+                        sides[i] = corners[i].DistanceTo(corners[next++]);
+                    }
 
-                        this.X = minXY.X;
-                        this.Y = minXY.Y;
-                        this.Height = maxXY.Y - minXY.Y;
-                        this.Width = maxXY.X - minXY.X;
+                    if (sides[0] - sides[2] < distanceError && sides[1] - sides[3] < distanceError)
+                    {
+                        IntPoint minXy;
+                        IntPoint maxXy;
+                        PointsCloud.GetBoundingRectangle(edgePoints, out minXy, out maxXy);
 
-		                isButton = true;
-	                }
+                        this.X = minXy.X;
+                        this.Y = minXy.Y;
+                        this.Height = maxXy.Y - minXy.Y;
+                        this.Width = maxXy.X - minXy.X;
+
+                        isButton = true;
+                    }
                 }
             }
 
@@ -83,16 +84,16 @@ namespace Uximagine.Magicurve.Image.Processing.ShapeCheckers
         }
 
         /// <summary>
-        /// Determines whether [is drop down] [the specified edge points].
+        ///     Determines whether [is drop down] [the specified edge points].
         /// </summary>
         /// <param name="edgePoints">The edge points.</param>
         /// <param name="corners">The corners.</param>
         /// <returns>
-        /// <c> true</c> if drop down.
+        ///     <c> true</c> if drop down.
         /// </returns>
         protected bool IsDropDown(List<IntPoint> edgePoints, List<IntPoint> corners)
         {
-            bool isDropDown = false;
+            var isDropDown = false;
 
             if (this.CheckIfPointsFitShape(edgePoints, corners))
             {
@@ -106,16 +107,16 @@ namespace Uximagine.Magicurve.Image.Processing.ShapeCheckers
         }
 
         /// <summary>
-        /// Determines whether [is input text] [the specified edge points].
+        ///     Determines whether [is input text] [the specified edge points].
         /// </summary>
         /// <param name="edgePoints">The edge points.</param>
         /// <param name="corners">The corners.</param>
         /// <returns>
-        /// <c>true</c> if [shape is input text].
+        ///     <c>true</c> if [shape is input text].
         /// </returns>
         protected bool IsInputText(List<IntPoint> edgePoints, List<IntPoint> corners)
         {
-            bool isInputText = false;
+            var isInputText = false;
 
             if (this.CheckIfPointsFitShape(edgePoints, corners))
             {
@@ -129,17 +130,17 @@ namespace Uximagine.Magicurve.Image.Processing.ShapeCheckers
         }
 
         /// <summary>
-        /// Gets the type of the control.
+        ///     Gets the type of the control.
         /// </summary>
         /// <param name="edgePoints">The edge points.</param>
         /// <returns>
-        /// The content type
+        ///     The content type
         /// </returns>
         public override ControlType GetControlType(List<IntPoint> edgePoints)
         {
-            ControlType type = ControlType.None;
+            var type = ControlType.None;
 
-            List<IntPoint> corners = this.GetShapeCorners(edgePoints);
+            var corners = this.GetShapeCorners(edgePoints);
 
             if (this.IsButton(edgePoints, corners))
             {

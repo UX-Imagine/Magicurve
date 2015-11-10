@@ -68,6 +68,10 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Http">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
@@ -84,6 +88,7 @@
   <ItemGroup>
     <Compile Include="BlobTests.cs" />
     <Compile Include="FileServiceTests.cs" />
+    <Compile Include="HttpContextFactory.cs" />
     <Compile Include="ImageProcessorTest.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -91,6 +96,7 @@
     <Compile Include="ShapeCheckerTest.cs" />
     <Compile Include="GeneratorTest.cs" />
     <Compile Include="LinqTest.cs" />
+    <Compile Include="ValuesControllerTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
@@ -123,6 +129,10 @@
     <ProjectReference Include="..\..\Src\Services\Uximagine.Magicurve.Services\Uximagine.Magicurve.Services.csproj">
       <Project>{e86af4c7-26b5-47df-9b28-23390b901b66}</Project>
       <Name>Uximagine.Magicurve.Services</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Src\UI\Uximagine.Magicurve.UI.Web\Uximagine.Magicurve.UI.Web.csproj">
+      <Project>{a8a7dca9-0ef8-4ae5-acb7-eacb0aaf2422}</Project>
+      <Name>Uximagine.Magicurve.UI.Web</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

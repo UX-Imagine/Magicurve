@@ -46,8 +46,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Settings.StyleCop = Settings.StyleCop
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Uximagine.Magicurve.UI.Web.Test", "Test\Uximagine.Magicurve.UI.Web.Test\Uximagine.Magicurve.UI.Web.Test.csproj", "{117D4FDD-73AB-41D2-87ED-0789151E3BF8}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DB", "DB", "{E3CE8301-BE71-4C34-95C5-2F104512ECA1}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CodeGenerator", "CodeGenerator", "{AF23DEE0-A65A-498D-A688-C6D41F07223F}"
@@ -55,6 +53,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Uximagine.Magicurve.CodeGenerator", "Src\CodeGenerator\Uximagine.Magicurve.CodeGenerator\Uximagine.Magicurve.CodeGenerator.csproj", "{49699B09-A7B5-4BA1-8DAE-50B8251A85BA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Uximagine.Magicurve.Services", "Src\Services\Uximagine.Magicurve.Services\Uximagine.Magicurve.Services.csproj", "{E86AF4C7-26B5-47DF-9B28-23390B901B66}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Uximagine.Magicurve.UI.Web.Test", "Test\Uximagine.Magicurve.UI.Web.Test\Uximagine.Magicurve.UI.Web.Test.csproj", "{E3C0AFAE-98E7-436D-BAC7-EAFB0C430F7F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -94,10 +94,6 @@ Global
 		{B01199E0-CC8C-4F1E-B550-959543314908}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B01199E0-CC8C-4F1E-B550-959543314908}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B01199E0-CC8C-4F1E-B550-959543314908}.Release|Any CPU.Build.0 = Release|Any CPU
-		{117D4FDD-73AB-41D2-87ED-0789151E3BF8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{117D4FDD-73AB-41D2-87ED-0789151E3BF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{117D4FDD-73AB-41D2-87ED-0789151E3BF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{117D4FDD-73AB-41D2-87ED-0789151E3BF8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{49699B09-A7B5-4BA1-8DAE-50B8251A85BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{49699B09-A7B5-4BA1-8DAE-50B8251A85BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{49699B09-A7B5-4BA1-8DAE-50B8251A85BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -106,6 +102,10 @@ Global
 		{E86AF4C7-26B5-47DF-9B28-23390B901B66}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E86AF4C7-26B5-47DF-9B28-23390B901B66}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E86AF4C7-26B5-47DF-9B28-23390B901B66}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E3C0AFAE-98E7-436D-BAC7-EAFB0C430F7F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E3C0AFAE-98E7-436D-BAC7-EAFB0C430F7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E3C0AFAE-98E7-436D-BAC7-EAFB0C430F7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E3C0AFAE-98E7-436D-BAC7-EAFB0C430F7F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -119,9 +119,9 @@ Global
 		{0E3B890E-D113-4B87-9E39-19AC065E00C7} = {97792495-1B23-4D56-8510-EA4C91F58701}
 		{1419CBE2-F970-4A01-B8DC-5BEC2ADA2902} = {7CDA112E-EA5A-4951-A7C1-20FDEA195CAF}
 		{B01199E0-CC8C-4F1E-B550-959543314908} = {F97330D6-0BAD-4589-8463-5BBA13B28D42}
-		{117D4FDD-73AB-41D2-87ED-0789151E3BF8} = {5F75948E-DF74-4F4F-97FC-48D5BA565E50}
 		{49699B09-A7B5-4BA1-8DAE-50B8251A85BA} = {AF23DEE0-A65A-498D-A688-C6D41F07223F}
 		{E86AF4C7-26B5-47DF-9B28-23390B901B66} = {F97330D6-0BAD-4589-8463-5BBA13B28D42}
+		{E3C0AFAE-98E7-436D-BAC7-EAFB0C430F7F} = {5F75948E-DF74-4F4F-97FC-48D5BA565E50}
 	EndGlobalSection
 	GlobalSection(TeamFoundationVersionControl) = preSolution
 		SccNumberOfProjects = 12
@@ -160,17 +160,17 @@ Global
 		SccProjectTopLevelParentUniqueName8 = Uximagine.Magicurve.sln
 		SccProjectName8 = Src/Services/Uximagine.Magicurve.Services.BusinessServices
 		SccLocalPath8 = Src\\Services\\Uximagine.Magicurve.Services.BusinessServices
-		SccProjectUniqueName9 = Test\\Uximagine.Magicurve.UI.Web.Test\\Uximagine.Magicurve.UI.Web.Test.csproj
+		SccProjectUniqueName9 = Src\\CodeGenerator\\Uximagine.Magicurve.CodeGenerator\\Uximagine.Magicurve.CodeGenerator.csproj
 		SccProjectTopLevelParentUniqueName9 = Uximagine.Magicurve.sln
-		SccProjectName9 = Test/Uximagine.Magicurve.UI.Web.Test
-		SccLocalPath9 = Test\\Uximagine.Magicurve.UI.Web.Test
-		SccProjectUniqueName10 = Src\\CodeGenerator\\Uximagine.Magicurve.CodeGenerator\\Uximagine.Magicurve.CodeGenerator.csproj
+		SccProjectName9 = Src/CodeGenerator/Uximagine.Magicurve.CodeGenerator
+		SccLocalPath9 = Src\\CodeGenerator\\Uximagine.Magicurve.CodeGenerator
+		SccProjectUniqueName10 = Src\\Services\\Uximagine.Magicurve.Services\\Uximagine.Magicurve.Services.csproj
 		SccProjectTopLevelParentUniqueName10 = Uximagine.Magicurve.sln
-		SccProjectName10 = Src/CodeGenerator/Uximagine.Magicurve.CodeGenerator
-		SccLocalPath10 = Src\\CodeGenerator\\Uximagine.Magicurve.CodeGenerator
-		SccProjectUniqueName11 = Src\\Services\\Uximagine.Magicurve.Services\\Uximagine.Magicurve.Services.csproj
+		SccProjectName10 = Src/Services/Uximagine.Magicurve.Services
+		SccLocalPath10 = Src\\Services\\Uximagine.Magicurve.Services
+		SccProjectUniqueName11 = Test\\Uximagine.Magicurve.UI.Web.Test\\Uximagine.Magicurve.UI.Web.Test.csproj
 		SccProjectTopLevelParentUniqueName11 = Uximagine.Magicurve.sln
-		SccProjectName11 = Src/Services/Uximagine.Magicurve.Services
-		SccLocalPath11 = Src\\Services\\Uximagine.Magicurve.Services
+		SccProjectName11 = Test/Uximagine.Magicurve.UI.Web.Test
+		SccLocalPath11 = Test\\Uximagine.Magicurve.UI.Web.Test
 	EndGlobalSection
 EndGlobal

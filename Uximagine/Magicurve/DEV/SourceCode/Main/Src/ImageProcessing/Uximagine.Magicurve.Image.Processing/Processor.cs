@@ -75,10 +75,9 @@ namespace Uximagine.Magicurve.Image.Processing
 
                 Bitmap correctFormatImage = edgeResult.ConvertToFormat(PixelFormat.Format24bppRgb);
 
-                this.Controls= blobDetector.GetShapes(correctFormatImage);
-
-
-                this.ImageResult = blobDetector.GetImage(correctFormatImage);
+                blobDetector.ProcessImage(correctFormatImage);
+                this.Controls= blobDetector.GetShapes();
+                this.ImageResult = blobDetector.GetImage();
             }
         }
     }

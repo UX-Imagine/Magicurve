@@ -13,7 +13,7 @@ namespace Uximagine.Magicurve.Image.Processing.ShapeCheckers
         /// <summary>
         /// The shape optimizer.
         /// </summary>
-        private readonly FlatAnglesOptimizer shapeOptimizer = new FlatAnglesOptimizer(160f);
+        private readonly FlatAnglesOptimizer _shapeOptimizer = new FlatAnglesOptimizer(160f);
 
         /// <summary>
         /// Gets or sets the x.
@@ -67,7 +67,7 @@ namespace Uximagine.Magicurve.Image.Processing.ShapeCheckers
         /// </returns>
         public List<IntPoint> GetShapeCorners(List<IntPoint> edgePoints)
         {
-            return this.shapeOptimizer.OptimizeShape(PointsCloud.FindQuadrilateralCorners((IEnumerable<IntPoint>)edgePoints));
+            return this._shapeOptimizer.OptimizeShape(PointsCloud.FindQuadrilateralCorners((IEnumerable<IntPoint>)edgePoints));
         }
         
     }

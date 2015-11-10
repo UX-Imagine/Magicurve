@@ -28,15 +28,14 @@ namespace Uximagine.Magicurve.UI.Web.Controllers
         public List<Control> GetControls()
         {
             //// const string SavedPath = "/Content/images/test2.png";
-            string imgPath = HostingEnvironment.MapPath(string.Empty) +
-               "\\Content\\Images\\Capture\\capture.jpg";
+            string imgPath = HostingEnvironment.MapPath("~/Content/images/Capture/capture.jpg");
 
             IProcessingService service = ServiceFactory.GetProcessingService();
             ProcessRequestDto request = new ProcessRequestDto { ImagePath = imgPath };
             ProcessResponseDto response = service.ProcessImage(request);
 
             var json = response.Controls;
-            response.ImageResult.Save(HostingEnvironment.MapPath("~/Content/images/test2.png"));
+            response.ImageResult.Save(filename: HostingEnvironment.MapPath("~/Content/images/test2.png"));
             response.ImageResult.Dispose();
 
             return json;
