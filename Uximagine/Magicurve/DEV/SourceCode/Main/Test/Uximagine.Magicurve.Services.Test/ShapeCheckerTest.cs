@@ -1,9 +1,10 @@
 ﻿using NUnit.Framework;
 using Uximagine.Magicurve.Image.Processing.ShapeCheckers;
-using AForge;
+using Accord;
 using Uximagine.Magicurve.Core.Models;
 using Should;
 using System.Collections.Generic;
+using AForge;
 
 namespace Uximagine.Magicurve.Services.Test
 {
@@ -20,7 +21,7 @@ namespace Uximagine.Magicurve.Services.Test
         public void AdvancedShapeCheckerTest()
         {
             //Arrange
-            AdvancedShapeChecker checker = new UiShapeChecker();
+            var checker = new UiShapeChecker();
             List<IntPoint> edgePoints = new List<IntPoint>
             {
                 new IntPoint(1,1),

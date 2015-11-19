@@ -4,16 +4,15 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 using AForge;
 using AForge.Imaging;
 using AForge.Math.Geometry;
-using Uximagine.Magicurve.Core.Models;
 using Uximagine.Magicurve.Core.Shapes;
 using Uximagine.Magicurve.Image.Processing.Helpers;
-using Uximagine.Magicurve.Image.Processing.ShapeCheckers;
 
 namespace Uximagine.Magicurve.Image.Processing.Detectors
 {
@@ -49,16 +48,14 @@ namespace Uximagine.Magicurve.Image.Processing.Detectors
         }
 
         /// <summary>
-        /// Gets or sets the controls.
+        ///     The highlighting.
         /// </summary>
-        /// <value>
-        /// The controls.
-        /// </value>
-        List<Control> Controls
-        {
-            get;
-            set;
-        }
+        private const HightlightType Highlighting = HightlightType.ConvexHull;
+
+        /// <summary>
+        ///     The show rectangle around selection.
+        /// </summary>
+        private const bool ShowRectangleAroundSelection = false;
 
         /// <summary>
         ///     The blob counter.
@@ -69,11 +66,6 @@ namespace Uximagine.Magicurve.Image.Processing.Detectors
         ///     The bottom edges.
         /// </summary>
         private readonly Dictionary<int, List<IntPoint>> _bottomEdges = new Dictionary<int, List<IntPoint>>();
-
-        /// <summary>
-        ///     The highlighting.
-        /// </summary>
-        private const HightlightType Highlighting = HightlightType.ConvexHull;
 
         /// <summary>
         ///     The hulls.
@@ -113,18 +105,21 @@ namespace Uximagine.Magicurve.Image.Processing.Detectors
         /// <summary>
         ///     The selected blob id.
         /// </summary>
-        private int selectedBlobId;
+        private int _selectedBlobId;
 
         /// <summary>
-        ///     The show rectangle around selection.
+        ///     Gets or sets the controls.
         /// </summary>
-        private const bool ShowRectangleAroundSelection = false;
+        /// <value>
+        ///     The controls.
+        /// </value>
+        private List<Control> Controls { get; set; }
 
         /// <summary>
-        /// Initializes the specified origina image.
+        ///     Initializes the specified origina image.
         /// </summary>
         /// <param name="originalImage">
-        /// The original image.
+        ///     The original image.
         /// </param>
         public void ProcessImage(Bitmap originalImage)
         {
@@ -133,7 +128,42 @@ namespace Uximagine.Magicurve.Image.Processing.Detectors
         }
 
         /// <summary>
-        /// Processes the blobs.
+        ///     The detect.
+        /// </summary>
+        /// <returns>
+        ///     The <see cref="Bitmap" />.
+        /// </returns>
+        public Bitmap GetImage()
+        {
+            if (this._image == null)
+            {
+                throw new MethodAccessException("Process Image before accessing the image output.");
+            }
+
+            this.PaintImage();
+
+            return this._image;
+        }
+
+        /// <summary>
+        ///     Gets the shapes.
+        /// </summary>
+        /// <returns>
+        ///     The list of Controls.
+        /// </returns>
+        public List<Control> GetShapes()
+        {
+            if (this._image == null)
+            {
+                throw new MethodAccessException("Process Image before accessing the image output.");
+            }
+
+            this.DetectControls();
+            return Controls;
+        }
+
+        /// <summary>
+        ///     Processes the blobs.
         /// </summary>
         private void DetectControls()
         {
@@ -141,14 +171,14 @@ namespace Uximagine.Magicurve.Image.Processing.Detectors
 
             //// step 3 - check objects' type and highlight
             var shapeChecker = ProcessingFactory.GetShapeChecker();
-            
+
             this.Controls = new List<Control>();
 
             for (int i = 0, n = this._blobs.Length; i < n; i++)
             {
-                List<IntPoint> edgePoints = _blobCounter.GetBlobsEdgePoints(this._blobs[i]);
+                var edgePoints = _blobCounter.GetBlobsEdgePoints(this._blobs[i]);
 
-                ControlType type = shapeChecker.GetControlType(edgePoints);
+                var type = shapeChecker.GetControlType(edgePoints);
 
                 var control = new Control
                 {
@@ -164,41 +194,18 @@ namespace Uximagine.Magicurve.Image.Processing.Detectors
         }
 
         /// <summary>
-        ///     The detect.
-        /// </summary>
-        /// <returns>
-        ///     The <see cref="Bitmap" />.
-        /// </returns>
-        public Bitmap GetImage()
-        {
-            this.PaintImage();
-
-            return this._image;
-        }
-
-        /// <summary>
-        ///     Gets the shapes.
-        /// </summary>
-        /// <returns>
-        ///     The list of Controls.
-        /// </returns>
-        public List<Control> GetShapes()
-        {
-            this.DetectControls();
-            return Controls;
-        }
-
-        /// <summary>
-        /// Generates the blobs.
+        ///     Generates the blobs.
         /// </summary>
         /// <param name="originalImage">
-        /// The image.
+        ///     The image.
         /// </param>
         public void GenerateBlobs(Bitmap originalImage)
         {
             this._image = AForge.Imaging.Image.Clone(originalImage, PixelFormat.Format24bppRgb);
 
             this._blobCounter.ProcessImage(this._image);
+            this._blobCounter.MinHeight = 20;
+            this._blobCounter.MinWidth = 20;
             this._blobs = this._blobCounter.GetObjectsInformation();
 
             var grahamScan = new GrahamConvexHull();
@@ -271,7 +278,7 @@ namespace Uximagine.Magicurve.Image.Processing.Detectors
             this._bottomEdges.Clear();
             this._hulls.Clear();
             this._quadrilaterals.Clear();
-            this.selectedBlobId = 0;
+            this._selectedBlobId = 0;
         }
 
         /// <summary>
@@ -283,25 +290,28 @@ namespace Uximagine.Magicurve.Image.Processing.Detectors
 
             var highlightPen = new Pen(Color.Red);
             var highlightPenBold = new Pen(Color.FromArgb(0, 255, 0), 3);
-            var rectPen = new Pen(Color.Blue);
+            // var rectPen = new Pen(Color.Blue);
 
             // draw rectangle
             if (this._image != null)
             {
                 foreach (var blob in this._blobs)
                 {
-                    var pen = (blob.ID == this.selectedBlobId) ? highlightPenBold : highlightPen;
+                    var pen = (blob.ID == this._selectedBlobId) ? highlightPenBold : highlightPen;
 
-                    if (ShowRectangleAroundSelection && (blob.ID == this.selectedBlobId))
+/*
+                    if (ShowRectangleAroundSelection && (blob.ID == this._selectedBlobId))
                     {
                         g.DrawRectangle(rectPen, blob.Rectangle);
                     }
+*/
 
                     switch (Highlighting)
                     {
                         case HightlightType.ConvexHull:
                             g.DrawPolygon(pen, (this._hulls[blob.ID]).ToPointsArray());
                             break;
+/*
                         case HightlightType.LeftAndRightEdges:
                             this.DrawEdge(g, pen, this._leftEdges[blob.ID]);
                             this.DrawEdge(g, pen, this._rightEdges[blob.ID]);
@@ -313,6 +323,7 @@ namespace Uximagine.Magicurve.Image.Processing.Detectors
                         case HightlightType.Quadrilateral:
                             g.DrawPolygon(pen, (this._quadrilaterals[blob.ID]).ToPointsArray());
                             break;
+*/
                     }
                 }
             }

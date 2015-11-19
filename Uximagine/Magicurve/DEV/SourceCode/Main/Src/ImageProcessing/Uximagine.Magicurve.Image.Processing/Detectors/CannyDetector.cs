@@ -32,6 +32,7 @@ namespace Uximagine.Magicurve.Image.Processing.Detectors
             Bitmap image = Grayscale.CommonAlgorithms.BT709.Apply(originaImage);
 
             CannyEdgeDetector edgeFilter = new CannyEdgeDetector(15, 100);
+
             result = edgeFilter.Apply(image);
 
             image.Dispose();
