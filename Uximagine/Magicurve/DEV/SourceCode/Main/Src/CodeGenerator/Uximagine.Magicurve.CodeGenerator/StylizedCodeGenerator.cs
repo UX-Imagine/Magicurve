@@ -9,13 +9,13 @@ namespace Uximagine.Magicurve.CodeGenerator
     /// <summary>
     /// code generator class
     /// </summary>
-    public class CodeGenerator : IGenerator
+    public class StylizedCodeGenerator : IGenerator
     {
 
         //public string boostrapCss = "css/bootstrap.min.css";
         public string customCss = "selected-css.css";
         public string html = "html";
-        public string title = "<title>";
+        public string title = "title";
         public string head = "head";
         public string body = "body";
         public string paraOrLabelTag = "p";
@@ -33,11 +33,9 @@ namespace Uximagine.Magicurve.CodeGenerator
         public string imageTag = "img";
         public string hyperLinkTag = "a";
         public string iframeTag = "iframe";
-        public string horizontalTag = "hr";
         public string div = "div";
+        public string horizontalTag = "hr";
         public string newline = Environment.NewLine;
-
-        //CodeGenerator codegenerator = new CodeGenerator();//created for the use of calling div tag methods
 
         public string CreateHtmlCode(List<Control> controls)
         {
@@ -51,7 +49,7 @@ namespace Uximagine.Magicurve.CodeGenerator
             builder.Append(NormalStartTag(html));
             builder.Append(NormalStartTag(head));
             //builder.Append(ApplyCss(boostrapCss));
-            //builder.Append(ApplyCss(customCss));
+            builder.Append(ApplyCss(customCss));
             builder.Append(EndTag(head));
             builder.Append(GetBody());
 
@@ -155,8 +153,8 @@ namespace Uximagine.Magicurve.CodeGenerator
 
         public string ApplyCss(string src)
         {
-            //string content = string.Format(@"<link rel='stylesheet' type='text/css' href='{0}'>" + newline, src);
-            return string.Empty;
+            string content = string.Format(@"<link rel='stylesheet' type='text/css' href='{0}'>"+newline,src);
+            return content;
         }
 
         public string ApplyScript(string src)
@@ -184,8 +182,7 @@ namespace Uximagine.Magicurve.CodeGenerator
 
         public string StartDiv(double left, double top)
         {
-            string div = string.Format(@" <div style='margin-left:{0}px;margin-top:{1}px' />" + newline, left, top);
-            return div;
+            return string.Empty;
         }
 
         public string OpenRowDiv(double height)
@@ -209,25 +206,15 @@ namespace Uximagine.Magicurve.CodeGenerator
         public string GetButton(Control control)
         {
             Button button = control as Button;
-
-            //string divTag = codegenerator.StartDiv(button.X, button.Y);
-            string btn = string.Format(@"    <input type='button' value='{0}' style='left:{1}px;top:{2}px;position:absolute'/>"+newline,button.Value, button.X,button.Y);
-            //string btn = string.Format(@"    <input type='button' value='{0}' />" + newline);
-            //string endDiv = codegenerator.EndTag(div);
-            //return divTag + btn + endDiv;
+            
+            string btn = string.Format(@"    <input type='button' value='{0}' style='left:{1}px;top:{2}px;'/>"+newline,button.Value, button.X,button.Y);
             return btn;
         }
 
         public string GetCheckBox(Control checkbox)
         {
-            //width  checkbox.width
-            //height checkbox.height
-
-            //string divTag = codegenerator.StartDiv(checkbox.X, checkbox.Y);
-            string check = string.Format(@"    <input type='checkbox' style='width:{0}px;height:{1}px;left:{2}px;top:{3}px'/>" + newline, checkbox.Width, checkbox.Height, checkbox.X, checkbox.Y);
-            //string check = string.Format(@"    <input type='checkbox' style='width:{0}px;height:{1}px'/>" + newline, checkbox.Width, checkbox.Height);
-            //string endDiv = codegenerator.EndTag(div);
-            //return divTag + check + endDiv;
+            
+            string check = string.Format(@"    <div class = 'squaredTwo' style='width:{0}px;height:{1}px;left:{2}px;top:{3}px'>" + newline + "<input type='checkbox' value='None' id='squaredTwo' name='check'/>" + newline + "<label for='squaredTwo'></label>" + newline + "</div>", checkbox.Width, checkbox.Height, checkbox.X, checkbox.Y);
             return check;
         }
 
@@ -238,38 +225,26 @@ namespace Uximagine.Magicurve.CodeGenerator
 
         public string GetCombo(Control combo)
         {
-           // string divTag = codegenerator.StartDiv(combo.X, combo.Y);
             string select = string.Format(
                             @"    <select id='styledSelect' class='blueText' style='left:{0}px;top:{1}px;position:absolute'>
         <option value='yourMom'>Your Mom</option>
         <option value='myMom'>My Mom</option>
-   </select>" + newline, combo.X, combo.Y);
-//            string select = string.Format(
-//                            @"    <select id='styledSelect' class='blueText'>
-//        <option value='yourMom'>Your Mom</option>
-//        <option value='myMom'>My Mom</option>
-//   </select>" + newline);
-//            string endDiv = codegenerator.EndTag(div);
+   </select>"+newline,combo.X,combo.Y);
 
-            //return divTag+select+endDiv;
             return select;
         }
 
         public string GetText(Control text)
         {
-            //string divTag = codegenerator.StartDiv(text.X, text.Y);
-            string txt = string.Format(@"    <input type='text' style='left:{0}px;top:{1}px;position:absolute'/>" + newline,
+            string txt = string.Format(@"    <input type='text' style='left:{0}px;top:{1}px;position:absolute'/>"+newline,
                                            text.X,
                                            text.Y);
-            //string txt = string.Format(@"    <input type='text'/>" + newline);
-            //string endDiv = codegenerator.EndTag(div);
-            //return divTag + txt + endDiv;
             return txt;
         }
 
         public string GetPassword(Control password)
         {
-            string pass = string.Format(@"    <input type='password' style='left:{0}px;top:{1}px'/>",
+            string pass = string.Format(@"    <input type='password' style='left:{0};top:{1}'/>",
                                            password.X,
                                            password.Y);
             return pass;
@@ -277,15 +252,14 @@ namespace Uximagine.Magicurve.CodeGenerator
 
         public string GetDatePicker(Control datepicker)
         {
-            string date = string.Format(@"    <input type='date' style='left:{0}px;top:{1}px'/>",
+            string date = string.Format(@"    <input type='date' style='left:{0};top:{1}'/>",
                                           datepicker.X,
                                           datepicker.Y);
             return date;
         }
 
-        public string GetPara(Control para) // for paragraph 
+        public string GetPara(Control para) // for paragraph and normal single line label type text
         {
-            //string paragraph = 
             return string.Empty;
         }
 

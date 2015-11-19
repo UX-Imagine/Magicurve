@@ -11,13 +11,25 @@ namespace Uximagine.Magicurve.CodeGenerator
     {
          string CreateHtmlCode(List<Control> controls);
 
-         string GetHeader(string html,string body);
+        // string GetHeader(string href);
+
+         string GetBody();
+
+         string ApplyCss(string src);
+
+         string ApplyScript(string src);
 
          string NormalStartTag(string tagName);
 
          string EndTag(string tagName);
 
         string DynamicContent();
+
+        string StartDiv(double left, double top);
+
+        string OpenRowDiv(double height);
+
+        string OpenColDiv(int controlsCount);
 
         string InputTag(string inputType, string inputName, string inputValue);
 

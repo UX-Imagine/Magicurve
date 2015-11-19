@@ -2,20 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using Uximagine.Magicurve.Core.Shapes;
 
 namespace Uximagine.Magicurve.CodeGenerator
 {
-    /// <summary>
-    /// code generator class
-    /// </summary>
-    public class CodeGenerator : IGenerator
+    public class ResponsiveCodeGenerator : IGenerator
     {
-
-        //public string boostrapCss = "css/bootstrap.min.css";
+        public string boostrapCss = "css/bootstrap.min.css";
         public string customCss = "selected-css.css";
+        public string boostrapMinJs = "js/bootstrap.min.js";
+        public string jquery = "js/jquery.js";
         public string html = "html";
-        public string title = "<title>";
+        public string title = "title";
         public string head = "head";
         public string body = "body";
         public string paraOrLabelTag = "p";
@@ -33,102 +32,106 @@ namespace Uximagine.Magicurve.CodeGenerator
         public string imageTag = "img";
         public string hyperLinkTag = "a";
         public string iframeTag = "iframe";
+        public string groupTag = "div";
         public string horizontalTag = "hr";
         public string div = "div";
         public string newline = Environment.NewLine;
 
-        //CodeGenerator codegenerator = new CodeGenerator();//created for the use of calling div tag methods
+        SortHelper sortHelper = new SortHelper();
 
         public string CreateHtmlCode(List<Control> controls)
         {
             StringBuilder builder = new StringBuilder();
-            // use passed control list with set of html controls and their properties
-
-            //sort list (group using parent,sort using y and then finally sort using x
-            //get item of sorted list using foreach
-            //check control.type == "controlType" (button,checkbox etc) then call particular method using if else if blocks
 
             builder.Append(NormalStartTag(html));
             builder.Append(NormalStartTag(head));
-            //builder.Append(ApplyCss(boostrapCss));
-            //builder.Append(ApplyCss(customCss));
+            builder.Append(ApplyCss(boostrapCss));
             builder.Append(EndTag(head));
             builder.Append(GetBody());
 
-            //sorting input list
-            var query =
-                from con in controls
-                orderby con.Y
-                select con;
+            //List<Control> sortedControls = sortHelper.SortListYProperty(controls);
+            List<Row> sortedControls = sortHelper.DivAlgorithm(sortHelper.SortListYProperty(controls));
 
             //execute sorted list and check control types
-            foreach (var con in query)
+            foreach (Row row in sortedControls)
             {
+                //openrow(row.Height)
+                builder.Append(OpenRowDiv(row.Height));
 
+                foreach (Control item in row.Controls)
+                {
+                    //openColums(row.controls.Count)
+                    builder.Append(OpenColDiv(row.Controls.Count));
 
                 //Console.Write(((Button)con).Name);
+                    switch (item.Type)
+                    {
+                        case Core.Models.ControlType.Button:
+                            builder.Append(this.GetButton(item));
+                            break;
 
-                switch (con.Type)
-                {
-                    case Core.Models.ControlType.Button:
-                        builder.Append(this.GetButton(con));
-                        break;
+                        case Core.Models.ControlType.CheckBox:
+                            builder.Append(this.GetCheckBox(item));
+                            break;
 
-                    case Core.Models.ControlType.CheckBox:
-                        builder.Append(this.GetCheckBox(con));
-                        break;
+                        case Core.Models.ControlType.RadioButton:
+                            builder.Append(this.GetRadio(item));
+                            break;
 
-                    case Core.Models.ControlType.RadioButton:
-                        builder.Append(this.GetRadio(con));
-                        break;
+                        case Core.Models.ControlType.ComboBox:
+                            builder.Append(this.GetCombo(item));
+                            break;
 
-                    case Core.Models.ControlType.ComboBox:
-                        builder.Append(this.GetCombo(con));
-                        break;
+                        case Core.Models.ControlType.InputText:
+                            builder.Append(this.GetText(item));
+                            break;
 
-                    case Core.Models.ControlType.InputText:
-                        builder.Append(this.GetText(con));
-                        break;
+                        case Core.Models.ControlType.InputPassword:
+                            builder.Append(this.GetPassword(item));
+                            break;
 
-                    case Core.Models.ControlType.InputPassword:
-                        builder.Append(this.GetPassword(con));
-                        break;
+                        case Core.Models.ControlType.DatePicker:
+                            builder.Append(this.GetDatePicker(item));
+                            break;
 
-                    case Core.Models.ControlType.DatePicker:
-                        builder.Append(this.GetDatePicker(con));
-                        break;
+                        case Core.Models.ControlType.Paragraph:
+                            builder.Append(this.GetPara(item));
+                            break;
 
-                    case Core.Models.ControlType.Paragraph:
-                        builder.Append(this.GetPara(con));
-                        break;
+                        case Core.Models.ControlType.Label:
+                            builder.Append(this.GetLabel(item));
+                            break;
 
-                    case Core.Models.ControlType.Label:
-                        builder.Append(this.GetLabel(con));
-                        break;
+                        case Core.Models.ControlType.TextArea:
+                            builder.Append(this.GetTextArea(item));
+                            break;
 
-                    case Core.Models.ControlType.TextArea:
-                        builder.Append(this.GetTextArea(con));
-                        break;
+                        case Core.Models.ControlType.Image:
+                            builder.Append(this.GetImage(item));
+                            break;
 
-                    case Core.Models.ControlType.Image:
-                        builder.Append(this.GetImage(con));
-                        break;
+                        case Core.Models.ControlType.HyperLink:
+                            builder.Append(this.GetHyperLink(item));
+                            break;
 
-                    case Core.Models.ControlType.HyperLink:
-                        builder.Append(this.GetHyperLink(con));
-                        break;
+                        case Core.Models.ControlType.Iframe:
+                            builder.Append(this.GetHyperLink(item));
+                            break;
 
-                    case Core.Models.ControlType.Iframe:
-                        builder.Append(this.GetHyperLink(con));
-                        break;
+                        case Core.Models.ControlType.HLine:
+                            builder.Append(this.GetHLine(item));
+                            break;
 
-                    case Core.Models.ControlType.HLine:
-                        builder.Append(this.GetHLine(con));
-                        break;
-
+                    }
+                    //close col div
+                    builder.Append(EndTag(div));
                 }
+                //close row div
+                builder.Append(EndTag(div));
             }
 
+            builder.Append(ApplyScript(jquery));
+            builder.Append(ApplyScript(boostrapMinJs));
             builder.Append(GetFooter());
 
             return builder.ToString();//return generated html code as string
@@ -137,13 +140,13 @@ namespace Uximagine.Magicurve.CodeGenerator
 
         private string GetFooter()
         {
-            string footer = string.Format(@"</body>"+newline+"</html>");
+            string footer = string.Format(@"</div> </body>"+newline+"</html>");
             return footer;
         }
 
         //public string GetHeader(string href)
         //{
-        //    string header = string.Format(@"<html>" + newline + "<head>" + newline + "<link href='{0}' rel='stylesheet'>" + newline + "</head>" + newline, href);
+        //    string header = string.Format(@"<html>"+newline+"<head>"+newline+"<link href='{0}' rel='stylesheet'>"+newline+"</head>"+newline,href);
         //    return header;
         //}
 
@@ -155,14 +158,14 @@ namespace Uximagine.Magicurve.CodeGenerator
 
         public string ApplyCss(string src)
         {
-            //string content = string.Format(@"<link rel='stylesheet' type='text/css' href='{0}'>" + newline, src);
-            return string.Empty;
+            string content = string.Format(@"<link rel='stylesheet' type='text/css' href='{0}'>" + newline, src);
+            return content;
         }
 
         public string ApplyScript(string src)
         {
-            //string script = string.Format(@"<script src='{0}'></script>" + newline, src);
-            return string.Empty;
+            string script = string.Format(@"<script src='{0}'></script>" + newline, src);
+            return script;
         }
 
         public string NormalStartTag(string tagName)
@@ -184,13 +187,13 @@ namespace Uximagine.Magicurve.CodeGenerator
 
         public string StartDiv(double left, double top)
         {
-            string div = string.Format(@" <div style='margin-left:{0}px;margin-top:{1}px' />" + newline, left, top);
+            string div = string.Format(@" <div style='margin-left:{0}px;margin-top:{1}px' />" +newline, left, top);
             return div;
         }
 
         public string OpenRowDiv(double height)
         {
-            string rowDiv = string.Format(@"<div class='row' style='height: {0}px'>" + height + newline);
+            string rowDiv = string.Format(@"<div class='row' style='height: {0}px'>" +newline, height);
             return rowDiv;
         }
 
@@ -211,8 +214,8 @@ namespace Uximagine.Magicurve.CodeGenerator
             Button button = control as Button;
 
             //string divTag = codegenerator.StartDiv(button.X, button.Y);
-            string btn = string.Format(@"    <input type='button' value='{0}' style='left:{1}px;top:{2}px;position:absolute'/>"+newline,button.Value, button.X,button.Y);
-            //string btn = string.Format(@"    <input type='button' value='{0}' />" + newline);
+           //// string btn = string.Format(@"    <input type='button' value='{0}' style='left:{1}px;top:{2}px;position:absolute'/>"+newline,button.Value, button.X,button.Y);
+            string btn = string.Format(@"    <input type='button' value='{0}' />" + newline,button.Value);
             //string endDiv = codegenerator.EndTag(div);
             //return divTag + btn + endDiv;
             return btn;
@@ -320,4 +323,5 @@ namespace Uximagine.Magicurve.CodeGenerator
         }
 
     }
+    
 }
