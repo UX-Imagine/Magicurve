@@ -27,6 +27,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -67,6 +68,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\ConvolutionMatrix.cs" />
     <Compile Include="ConfigurationData.cs" />
     <Compile Include="Detectors\BlobDetector.cs" />
     <Compile Include="Detectors\CannyDetector.cs" />
@@ -75,6 +77,10 @@
     <Compile Include="Detectors\IBlobDetector.cs" />
     <Compile Include="Detectors\IDetector.cs" />
     <Compile Include="Detectors\IEdgeDetector.cs" />
+    <Compile Include="Common\ColorFilterType.cs" />
+    <Compile Include="Helpers\ConvolutionFilterHelper.cs" />
+    <Compile Include="Helpers\EdgeFilterHelper.cs" />
+    <Compile Include="Helpers\FilterHelper.cs" />
     <Compile Include="Matchers\BlockMatcher.cs" />
     <Compile Include="Matchers\IMatcher.cs" />
     <Compile Include="ProcessingFactory.cs" />

@@ -108,15 +108,17 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="BlobTests.cs" />
+    <Compile Include="Image\BasicImageProcessingTests.cs" />
+    <Compile Include="Image\BlobTests.cs" />
     <Compile Include="FileServiceTests.cs" />
     <Compile Include="HttpContextFactory.cs" />
-    <Compile Include="ImageProcessorTest.cs" />
+    <Compile Include="Image\ImageProcessorTest.cs" />
+    <Compile Include="Image\CornerTests.cs" />
     <Compile Include="Image\EdgeTests.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ProcessingServiceTest.cs" />
-    <Compile Include="ShapeCheckerTest.cs" />
+    <Compile Include="Image\ShapeCheckerTest.cs" />
     <Compile Include="GeneratorTest.cs" />
     <Compile Include="LinqTest.cs" />
     <Compile Include="ValuesControllerTest.cs" />

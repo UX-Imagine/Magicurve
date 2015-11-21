@@ -1,7 +1,9 @@
-﻿using AForge;
+﻿using System;
+using AForge;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
+using AForge.Math.Geometry;
 
 namespace Uximagine.Magicurve.Image.Processing.Helpers
 {
@@ -55,8 +57,12 @@ namespace Uximagine.Magicurve.Image.Processing.Helpers
         /// <summary>
         /// Converts to format.
         /// </summary>
-        /// <param name="image">The image.</param>
-        /// <param name="format">The format.</param>
+        /// <param name="image">
+        /// The image.
+        /// </param>
+        /// <param name="format">
+        /// The format.
+        /// </param>
         /// <returns>
         /// The converted image.
         /// </returns>
@@ -69,6 +75,38 @@ namespace Uximagine.Magicurve.Image.Processing.Helpers
             }
 
             return copy;
+        }
+
+        /// <summary>
+        /// Edgeses to bitmap.
+        /// </summary>
+        /// <param name="points">
+        /// The points.
+        /// </param>
+        /// <returns>
+        /// The bitmap.
+        /// </returns>
+        public static Bitmap ConvertToBitmap(this List<IntPoint> points)
+        {
+            IntPoint minXy;
+            IntPoint maxXy;
+
+            PointsCloud.GetBoundingRectangle(points, out minXy, out maxXy);
+
+            int width = Math.Abs(maxXy.X - minXy.X);
+            int height = Math.Abs(maxXy.Y - minXy.Y);
+
+
+            Bitmap bitmap = new Bitmap(width, height);
+
+            for (int i = 0; i < points.Count; i++)
+            {
+                IntPoint newPoint = points[i] - minXy - new IntPoint(1,1);
+                points[i] = newPoint;
+                bitmap.SetPixel(newPoint.X, newPoint.Y, Color.White);
+            }
+
+            return bitmap;
         }
     }
 }

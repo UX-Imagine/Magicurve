@@ -1,11 +1,11 @@
-﻿namespace Uximagine.Magicurve.Services.Test
-{
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using System.Drawing;
-    using Uximagine.Magicurve.Image.Processing;
-    using Uximagine.Magicurve.Image.Processing.Detectors;
-    using Uximagine.Magicurve.Image.Processing.Matchers;
+﻿using System.Drawing;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Uximagine.Magicurve.Image.Processing;
+using Uximagine.Magicurve.Image.Processing.Detectors;
+using Uximagine.Magicurve.Image.Processing.Matchers;
 
+namespace Uximagine.Magicurve.Services.Test.Image
+{
     /// <summary>
     /// Image processor test.
     /// </summary>

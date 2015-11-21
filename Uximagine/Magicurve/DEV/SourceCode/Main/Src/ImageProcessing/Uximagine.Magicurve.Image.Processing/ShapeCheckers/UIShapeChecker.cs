@@ -13,6 +13,11 @@ namespace Uximagine.Magicurve.Image.Processing.ShapeCheckers
     public class UiShapeChecker : AdvancedShapeChecker
     {
         /// <summary>
+        /// The text corner count.
+        /// </summary>
+        private const int TEXT_CORNER_COUNT = 4;
+
+        /// <summary>
         ///     The button corner count.
         /// </summary>
         private const int BUTTON_CORNER_COUNT = 4;
@@ -33,19 +38,7 @@ namespace Uximagine.Magicurve.Image.Processing.ShapeCheckers
         {
             var isButton = false;
 
-            const double distanceError = 3;
-
-            //var baseBuilder = new RulesEngine.Fluent.FluentBuilder();
-            //baseBuilder.For<Foo1>()
-            //            .Setup(f => f.Value)
-            //                .MustBeGreaterThan(0);
-            //baseBuilder.For<Foo2>()
-            //            .Setup(f => f.Value)
-            //                .MustEqual(6);
-
-            //var baseEngine = baseBuilder.Build();
-            //Assert.IsFalse(baseEngine.Validate(new Foo1(-1)));
-            //Assert.IsFalse(baseEngine.Validate(new Foo2(1)));
+            const double distanceError = 30;
 
             if (this.CheckIfPointsFitShape(edgePoints, corners))
             {
@@ -120,7 +113,7 @@ namespace Uximagine.Magicurve.Image.Processing.ShapeCheckers
 
             if (this.CheckIfPointsFitShape(edgePoints, corners))
             {
-                if (corners.Count == 7)
+                if (corners.Count == TEXT_CORNER_COUNT)
                 {
                     isInputText = true;
                 }
@@ -153,9 +146,29 @@ namespace Uximagine.Magicurve.Image.Processing.ShapeCheckers
             else if (this.IsInputText(edgePoints, corners))
             {
                 type = ControlType.InputText;
+            }else if (this.IsRadioButton(edgePoints, corners))
+            {
+                type = ControlType.RadioButton;
             }
 
             return type;
+        }
+
+        /// <summary>
+        /// Determines whether the specified edge points is RadioButton.
+        /// </summary>
+        /// <param name="edgePoints">
+        /// The edge points.
+        /// </param>
+        /// <param name="corners">
+        /// The corners.
+        /// </param>
+        /// <returns>
+        /// <c>True</c> if radio. otherwise <c>false</c>
+        /// </returns>
+        private bool IsRadioButton(List<IntPoint> edgePoints, List<IntPoint> corners)
+        {
+            return this.IsCircle(edgePoints);
         }
     }
 }

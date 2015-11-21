@@ -89,6 +89,12 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Src\Common\Uximagine.Magicurve.Core\Uximagine.Magicurve.Core.csproj">
+      <Project>{0E3B890E-D113-4B87-9E39-19AC065E00C7}</Project>
+      <Name>Uximagine.Magicurve.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

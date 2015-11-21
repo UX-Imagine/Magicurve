@@ -16,7 +16,7 @@ using Uximagine.Magicurve.Core.Shapes;
 using Uximagine.Magicurve.Image.Processing.Detectors;
 using Uximagine.Magicurve.Image.Processing.Helpers;
 
-namespace Uximagine.Magicurve.Services.Test
+namespace Uximagine.Magicurve.Services.Test.Image
 {
     /// <summary>
     ///     The blob tests.
@@ -34,24 +34,24 @@ namespace Uximagine.Magicurve.Services.Test
 
             IBlobDetector blobDetector = new HullBlobDetector();
 
-            //IEdgeDetector edgeDetector = new CannyDetector();
+            IEdgeDetector edgeDetector = new CannyDetector();
 
-            var bitmap = new Bitmap("template.jpg");
+            var bitmap = new Bitmap("inputs/template.jpg");
 
-            //var edgeResult = edgeDetector.GetImage(bitmap);
+            var edgeResult = edgeDetector.GetImage(bitmap);
 
-            //var correctFormatImage = edgeResult.ConvertToFormat(PixelFormat.Format24bppRgb);
+            var correctFormatImage = edgeResult.ConvertToFormat(PixelFormat.Format24bppRgb);
             Bitmap image = Grayscale.CommonAlgorithms.BT709.Apply(bitmap);
             Threshold filterThreshold = new Threshold(79);
             filterThreshold.ApplyInPlace(image);
             Invert invert = new Invert();
             invert.ApplyInPlace(image);
-            image.Save("thresh.jpg");
+            image.Save("outputs/thresh.jpg");
             blobDetector.ProcessImage(image);
 
             result = blobDetector.GetImage();
 
-            result.Save("new.jpg");
+            result.Save("outputs/blobs.jpg");
 
             result.ShouldNotBeNull();
 
@@ -72,7 +72,7 @@ namespace Uximagine.Magicurve.Services.Test
 
             IEdgeDetector edgeDetector = new CannyDetector();
 
-            var bitmap = new Bitmap("template.jpg");
+            var bitmap = new Bitmap("inputs/template.jpg");
 
             var edgeResult = edgeDetector.GetImage(bitmap);
 
@@ -82,7 +82,7 @@ namespace Uximagine.Magicurve.Services.Test
 
             result = blobDetector.GetImage();
 
-            result.Save("new.jpg");
+            result.Save("outputs/blobs.jpg");
 
             result.ShouldNotBeNull();
 

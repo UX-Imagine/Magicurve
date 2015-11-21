@@ -168,7 +168,9 @@ namespace Uximagine.Magicurve.Image.Processing.Detectors
                     X = shapeChecker.X,
                     Y = shapeChecker.Y,
                     Width = shapeChecker.Width,
-                    Height = shapeChecker.Height
+                    Height = shapeChecker.Height,
+                    EdgePoints = edgePoints
+
                 };
 
                 _controls.Add(control);
@@ -201,11 +203,13 @@ namespace Uximagine.Magicurve.Image.Processing.Detectors
             colorFilter.ApplyInPlace(bitmapData);
 
             // step 2 - locating objects
-            this._blobCounter = new BlobCounter();
+            this._blobCounter = new BlobCounter
+            {
+                FilterBlobs = true,
+                MinHeight = 20,
+                MinWidth = 20
+            };
 
-            this._blobCounter.FilterBlobs = true;
-            this._blobCounter.MinHeight = 20;
-            this._blobCounter.MinWidth = 20;
 
             this._blobCounter.ProcessImage(bitmapData);
             this._image.UnlockBits(bitmapData);

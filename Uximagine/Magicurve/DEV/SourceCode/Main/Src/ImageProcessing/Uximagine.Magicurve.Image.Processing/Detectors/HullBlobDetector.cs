@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Linq;
 using AForge;
 using AForge.Imaging;
 using AForge.Math.Geometry;
@@ -108,6 +109,16 @@ namespace Uximagine.Magicurve.Image.Processing.Detectors
         private int _selectedBlobId;
 
         /// <summary>
+        /// The blob min hight.
+        /// </summary>
+        private const int BLOB_MIN_HIGHT = 25;
+
+        /// <summary>
+        /// The blob min width.
+        /// </summary>
+        private const int BLOB_MIN_WIDTH = 25;
+
+        /// <summary>
         ///     Gets or sets the controls.
         /// </summary>
         /// <value>
@@ -186,7 +197,8 @@ namespace Uximagine.Magicurve.Image.Processing.Detectors
                     X = shapeChecker.X,
                     Y = shapeChecker.Y,
                     Width = shapeChecker.Width,
-                    Height = shapeChecker.Height
+                    Height = shapeChecker.Height,
+                    EdgePoints = edgePoints
                 };
 
                 Controls.Add(control);
@@ -204,8 +216,9 @@ namespace Uximagine.Magicurve.Image.Processing.Detectors
             this._image = AForge.Imaging.Image.Clone(originalImage, PixelFormat.Format24bppRgb);
 
             this._blobCounter.ProcessImage(this._image);
-            this._blobCounter.MinHeight = 20;
-            this._blobCounter.MinWidth = 20;
+            this._blobCounter.MinHeight = BLOB_MIN_HIGHT;
+            this._blobCounter.MinWidth = BLOB_MIN_WIDTH;
+            this._blobCounter.CoupledSizeFiltering = true;
             this._blobs = this._blobCounter.GetObjectsInformation();
 
             var grahamScan = new GrahamConvexHull();
@@ -297,19 +310,36 @@ namespace Uximagine.Magicurve.Image.Processing.Detectors
             {
                 foreach (var blob in this._blobs)
                 {
-                    var pen = (blob.ID == this._selectedBlobId) ? highlightPenBold : highlightPen;
+                    var pen = highlightPen;
+                    var leftEdges = new List<IntPoint>();
+                    var topEdges = new List<IntPoint>();
+                    var rightEdges = new List<IntPoint>();
+                    var bottomEdges = new List<IntPoint>();
 
-/*
-                    if (ShowRectangleAroundSelection && (blob.ID == this._selectedBlobId))
-                    {
-                        g.DrawRectangle(rectPen, blob.Rectangle);
-                    }
-*/
+                    this._leftEdges.TryGetValue(blob.ID, out leftEdges);
+                    this._rightEdges.TryGetValue(blob.ID, out rightEdges);
+                    this._bottomEdges.TryGetValue(blob.ID, out bottomEdges);
+                    this._topEdges.TryGetValue(blob.ID, out topEdges);
+
+                    var edges = new List<IntPoint>();
+
+                    edges.AddRange(topEdges);
+                    edges.AddRange(rightEdges);
+                    edges.AddRange(bottomEdges);
+                    edges.AddRange(leftEdges);
+
+                    /*
+                                        if (ShowRectangleAroundSelection && (blob.ID == this._selectedBlobId))
+                                        {
+                                            g.DrawRectangle(rectPen, blob.Rectangle);
+                                        }
+                    */
 
                     switch (Highlighting)
                     {
                         case HightlightType.ConvexHull:
-                            g.DrawPolygon(pen, (this._hulls[blob.ID]).ToPointsArray());
+                            g.DrawPolygon(highlightPenBold, (this._hulls[blob.ID]).ToPointsArray());
+                            g.DrawPolygon(pen, (edges).ToPointsArray());
                             break;
 /*
                         case HightlightType.LeftAndRightEdges:

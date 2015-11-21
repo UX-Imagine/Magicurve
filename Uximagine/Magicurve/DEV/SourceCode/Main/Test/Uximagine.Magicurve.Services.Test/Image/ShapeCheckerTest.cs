@@ -1,12 +1,11 @@
-﻿using NUnit.Framework;
-using Uximagine.Magicurve.Image.Processing.ShapeCheckers;
-using Accord;
-using Uximagine.Magicurve.Core.Models;
-using Should;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using AForge;
+using NUnit.Framework;
+using Should;
+using Uximagine.Magicurve.Core.Models;
+using Uximagine.Magicurve.Image.Processing.ShapeCheckers;
 
-namespace Uximagine.Magicurve.Services.Test
+namespace Uximagine.Magicurve.Services.Test.Image
 {
     /// <summary>
     /// The shape checker test.

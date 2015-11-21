@@ -1,5 +1,5 @@
-﻿using AForge;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using AForge;
 using Uximagine.Magicurve.Core.Models;
 
 namespace Uximagine.Magicurve.Core.Shapes
@@ -52,5 +52,17 @@ namespace Uximagine.Magicurve.Core.Shapes
         /// The height.
         /// </value>
         public double Height { get; set; }
+
+        /// <summary>
+        /// Gets or sets the edge points.
+        /// </summary>
+        /// <value>
+        /// The edge points.
+        /// </value>
+        public List<IntPoint> EdgePoints
+        {
+            get; set;
+        } 
+
     }
 }
