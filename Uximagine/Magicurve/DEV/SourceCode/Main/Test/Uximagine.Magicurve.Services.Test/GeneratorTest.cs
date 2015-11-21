@@ -1,4 +1,5 @@
-﻿    using System.Collections.Generic;
+﻿    using System;
+    using System.Collections.Generic;
 using System.Diagnostics;
     using System.IO;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -199,7 +200,7 @@ namespace Uximagine.Magicurve.Services.Test
             foreach(Row row in rowList){
                 foreach (Control item in row.Controls)
                 {
-                    Console.WriteLine("{0} {1} {2} {3} {4}",item.Type, item.X, item.Y, ((Button)item).Name,item.Height);
+                    Console.WriteLine(@"{0} {1} {2} {3} {4}",item.Type, item.X, item.Y, ((Button)item).Name,item.Height);
                 }
                 
             }

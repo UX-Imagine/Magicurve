@@ -189,5 +189,35 @@ namespace Uximagine.Magicurve.Services.Test.Image
             var result = gray.ApplySobel();
             result.Save(@"D:/Data/test/outputs/sobel" + fileName.Split('/').Last());
         }
+
+        [TestCase(@"D:/Data/test/inputs/template4.jpg", (byte)127)]
+        [TestCase(@"D:/Data/test/inputs/template.jpg", (byte)0)]
+        public void TestHomogenityFilter(string fileName, byte threshold)
+        {
+            Bitmap bmap = new Bitmap(fileName);
+            var gray = bmap.Grayscale();
+            var result = gray.EdgeDetectHomogenity(threshold);
+            result.Save(@"D:/Data/test/outputs/homo" + fileName.Split('/').Last());
+        }
+
+        [TestCase(@"D:/Data/test/inputs/template.jpg")]
+        [TestCase(@"D:/Data/test/inputs/template4.jpg")]
+        public void TestHorizontalEdges(string fileName)
+        {
+            Bitmap bmap = new Bitmap(fileName);
+            var gray = bmap.Grayscale();
+            var result = gray.HorizontalEdges();
+            result.Save(@"D:/Data/test/outputs/hEdges" + fileName.Split('/').Last());
+        }
+
+        [TestCase(@"D:/Data/test/inputs/template.jpg")]
+        [TestCase(@"D:/Data/test/inputs/template4.jpg")]
+        public void TestVerticalEdges(string fileName)
+        {
+            Bitmap bmap = new Bitmap(fileName);
+            var gray = bmap.Grayscale();
+            var result = gray.VerticalEdges();
+            result.Save(@"D:/Data/test/outputs/vEdges" + fileName.Split('/').Last());
+        }
     }
 }

@@ -104,11 +104,6 @@ namespace Uximagine.Magicurve.Image.Processing.Detectors
         private Bitmap _image;
 
         /// <summary>
-        ///     The selected blob id.
-        /// </summary>
-        private int _selectedBlobId;
-
-        /// <summary>
         /// The blob min hight.
         /// </summary>
         private const int BLOB_MIN_HIGHT = 25;
@@ -291,7 +286,6 @@ namespace Uximagine.Magicurve.Image.Processing.Detectors
             this._bottomEdges.Clear();
             this._hulls.Clear();
             this._quadrilaterals.Clear();
-            this._selectedBlobId = 0;
         }
 
         /// <summary>
