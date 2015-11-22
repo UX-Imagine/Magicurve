@@ -9,10 +9,9 @@ namespace Uximagine.Magicurve.CodeGenerator
     /// <summary>
     /// code generator class
     /// </summary>
-    public class CodeGenerator : IGenerator
+    public class SimpleCodeGenerator : IGenerator
     {
 
-        //public string boostrapCss = "css/bootstrap.min.css";
         public string customCss = "selected-css.css";
         public string html = "html";
         public string title = "<title>";

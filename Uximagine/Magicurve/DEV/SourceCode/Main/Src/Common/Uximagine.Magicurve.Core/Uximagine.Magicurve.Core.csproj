@@ -95,6 +95,7 @@
     </Compile>
     <Compile Include="Shapes\Control.cs" />
     <Compile Include="Shapes\Button.cs" />
+    <Compile Include="Shapes\Label.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Diagnostics\ExceptionManagement\Resource.resx">

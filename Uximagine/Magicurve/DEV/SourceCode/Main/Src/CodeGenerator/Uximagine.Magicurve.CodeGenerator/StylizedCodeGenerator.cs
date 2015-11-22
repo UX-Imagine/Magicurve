@@ -12,7 +12,6 @@ namespace Uximagine.Magicurve.CodeGenerator
     public class StylizedCodeGenerator : IGenerator
     {
 
-        //public string boostrapCss = "css/bootstrap.min.css";
         public string customCss = "selected-css.css";
         public string html = "html";
         public string title = "title";
@@ -206,8 +205,8 @@ namespace Uximagine.Magicurve.CodeGenerator
         public string GetButton(Control control)
         {
             Button button = control as Button;
-            
-            string btn = string.Format(@"    <input type='button' value='{0}' style='left:{1}px;top:{2}px;'/>"+newline,button.Value, button.X,button.Y);
+
+            string btn = string.Format(@"    <input type='button' value='{0}' style='left:{1}px;top:{2}px;position:absolute'/>" + newline, button.Value, button.X, button.Y);
             return btn;
         }
 

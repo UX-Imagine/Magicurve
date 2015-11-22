@@ -6,6 +6,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Uximagine.Magicurve.CodeGenerator;
 using Uximagine.Magicurve.Core.Models;
     using Uximagine.Magicurve.Core.Shapes;
+using System;
 
 namespace Uximagine.Magicurve.Services.Test
 {
@@ -18,10 +19,10 @@ namespace Uximagine.Magicurve.Services.Test
         public string html = "html";
         public string title = "<title>";
         
-        [TestMethod]
-        public void TestMethod1(string pageContent)
+       
+        public void GenarateSimpleHTMLPage(string pageContent)
         {
-            var codeGenerator = new CodeGenerator.CodeGenerator();
+           // var codeGenerator = new CodeGenerator.CodeGenerator();
             if (!Directory.Exists(dir)) // if it doesn't exist, create
                 Directory.CreateDirectory(dir);
 
@@ -30,38 +31,85 @@ namespace Uximagine.Magicurve.Services.Test
             File.WriteAllText(Path.Combine(dir, "webPage.html"), pageContent);
         }
 
-        [TestMethod]
-        public void TestMethod2(string pageContent)
+     
+        public void GenarateCssHTMLPage(string pageContent)
         {
-            StylizedCodeGenerator codeGenerator = new StylizedCodeGenerator();
             if (!Directory.Exists(dir))  // if it doesn't exist, create
                 Directory.CreateDirectory(dir);
 
-            //string createText = codeGenerator.CreateHeaderPart(html, body) + Environment.NewLine;
             // use Path.Combine to combine 2 strings to a path
             File.WriteAllText(Path.Combine(dir, "styleWebPage.html"), pageContent);
         }
 
-        [TestMethod]
-        public void TestMethod3(string pageContent)
+     
+        public void GenarateResponsiveHTMLPage(string pageContent, string filename)
         {
-            ResponsiveCodeGenerator codeGenerator = new ResponsiveCodeGenerator();
             if (!Directory.Exists(dir))  // if it doesn't exist, create
                 Directory.CreateDirectory(dir);
 
-            //string createText = codeGenerator.CreateHeaderPart(html, body) + Environment.NewLine;
             // use Path.Combine to combine 2 strings to a path
-            File.WriteAllText(Path.Combine(dir, "responsiveWebPage.html"), pageContent);
+            File.WriteAllText(Path.Combine(dir, filename), pageContent);
         }
 
+        /// <summary>
+        /// test simple html page and css applied pages with one sorting algorithm(y property sorting)
+        /// </summary>
         [TestMethod]
-        public void CodeGenTest()
+        public void TestSimpleCssPages()
         {
             var testClass = new GeneratorTest();
            
-            IGenerator generator = new CodeGenerator.CodeGenerator();
+            IGenerator generator = new SimpleCodeGenerator();
             
             IGenerator styleGenerator = new StylizedCodeGenerator();
+
+            List<Control> controls = new List<Control>()
+            {
+                new Control(){  
+                    Type = Core.Models.ControlType.ComboBox,
+                    X = 50,
+                    Y = 128
+                },
+                new Control(){ 
+                    Type = Core.Models.ControlType.InputText,
+                    X = 50,
+                    Y = 100
+                },
+                new Button(){
+                    X = 50,
+                    Y = 72,
+                    Value = "Click Me"
+
+                },
+                new Control(){
+                    Type = Core.Models.ControlType.CheckBox,
+                    Width = 28,
+                    Height = 28,
+                    X = 50,
+                    Y = 150
+
+                }
+
+            };
+
+            //without applying custom css file
+            string result = generator.CreateHtmlCode(controls);
+            Debug.Write(result);
+            testClass.GenarateSimpleHTMLPage(result);
+
+            //for style generator page
+            string styleResult = styleGenerator.CreateHtmlCode(controls);
+            Debug.Write(styleResult);
+            testClass.GenarateCssHTMLPage(styleResult);
+        }
+
+        /// <summary>
+        /// test responsive web page with new three of sorting algorithms for manual data
+        /// </summary>
+        [TestMethod]
+        public void TestResponsiveManualData()
+        {
+            var testClass = new GeneratorTest();
 
             IGenerator responsiveGenerator = new ResponsiveCodeGenerator();
 
@@ -69,41 +117,10 @@ namespace Uximagine.Magicurve.Services.Test
             
             List<Control> controls = new List<Control>()
             {
-                //new Control(){ 
-                //    //Edges = new List<AForge.IntPoint>(){},
-                //    //Height = 5,
-                //    //Width = 10, 
-                //    Type = Core.Models.ControlType.ComboBox,
-                //    X = 50,
-                //    Y = 128
-                //},
-                //new Control(){ 
-                //    //Edges = new List<AForge.IntPoint>(){},
-                //    //Height = 6,
-                //    //Width = 20, 
-                //    Type = Core.Models.ControlType.InputText,
-                //    X = 50,
-                //    Y = 100
-                //},
-                //new Button(){
-                //    X = 50,
-                //    Y = 72,
-                //    Value = "Click Me"
                     
-                //},
-                //new Control(){
-                //    Type = Core.Models.ControlType.CheckBox,
-                //    Width = 28,
-                //    Height = 28,
-                //    X = 50,
-                //    Y = 150
-                    
-                
-                //}
-
                 //check controls for DivAlgorithm
                 new Button(){
-                    X = 30,
+                    X = 60,
                     Y = 80,
                     Height = 10,
                     Name = "C",
@@ -111,7 +128,7 @@ namespace Uximagine.Magicurve.Services.Test
                 },
 
                 new Button(){
-                    X = 60,
+                    X = 30,
                     Y = 85,
                     Height = 10,
                     Name = "D",
@@ -133,85 +150,136 @@ namespace Uximagine.Magicurve.Services.Test
                     Name = "A",
                     Value="A Button"
                 }
-
-
             };
 
-            //Control button = new Control()
-            //{
-            //    Edges = new List<AForge.IntPoint>() { },
-            //    Height = 5,
-            //    Width = 10,
-            //    Type = Core.Models.ControlType.Button,
-            //    X = 5,
-            //    Y = 22
-            //};
-
-            //controls.Add(button);
-
-           // var result = generator.CreateHtmlCode(controls);
-
-            //checking sorting based on Y value and return sorted Name values of controls
-            //var query =
-            //    from con in controls
-            //    orderby con.Y
-            //    select con;
-
-            //foreach (var name in query)
-            //{
-            //    Console.Write(name.Name);
-            //    Console.Write("\n");
-            //}
-
-
-            //When above sorting code implement inside CodeGenerator.createHtmlCode method then test it as below
-            //without applying custom css file
-            var result = generator.CreateHtmlCode(controls);
-
-            Debug.Write(result);
-
-            testClass.TestMethod1(result);
-
-            //for style generator page
-            var styleResult = styleGenerator.CreateHtmlCode(controls);
-
-            Debug.Write(styleResult);
-
-            testClass.TestMethod2(styleResult);
-
             //for resposive generator page
-            var responsiveResult = responsiveGenerator.CreateHtmlCode(controls);
-
+            string responsiveResult = responsiveGenerator.CreateHtmlCode(controls);
             Debug.Write(responsiveResult);
+            testClass.GenarateResponsiveHTMLPage(responsiveResult, "responsiveWebPage.html");
 
-            testClass.TestMethod3(responsiveResult);
-
-
-            //test x and y sort function
-            //List<Control> sortXY = sortHelper.SortListYProperty(controls);
-
-            //foreach (Control con in sortXY)
-            //{
-            //    Console.WriteLine(((Button)con).Name);
-            //}
-
-            //test DivAlgorithm method
+            //test y sorting and DivAlgorithm method without x sorting
             List<Row> rowList = sortHelper.DivAlgorithm(sortHelper.SortListYProperty(controls));
-            foreach(Row row in rowList){
+            foreach (Row row in rowList)
+            {
                 foreach (Control item in row.Controls)
                 {
-                    Console.WriteLine(@"{0} {1} {2} {3} {4}",item.Type, item.X, item.Y, ((Button)item).Name,item.Height);
+                    Console.WriteLine("{0} {1} {2} {3} {4}", item.Type, item.X, item.Y, ((Button)item).Name, item.Height);
                 }
-                
+
             }
-           
-            Assert.AreEqual("A",((Button)(rowList[0].Controls[0])).Name);
+
+            Assert.AreEqual("A", ((Button)(rowList[0].Controls[0])).Name);
             Assert.AreEqual("B", ((Button)(rowList[1].Controls[0])).Name);
             Assert.AreEqual("C", ((Button)(rowList[2].Controls[0])).Name);
             Assert.AreEqual("D", ((Button)(rowList[2].Controls[1])).Name);
             Assert.AreEqual(2, rowList[2].Controls.Count);
 
-           // Assert.AreEqual(result, "<htm></html>");
+            // test after x sorting
+            List<Row> rowListX = sortHelper.SortListXProperty(rowList);
+            foreach (Row row in rowListX)
+            {
+                foreach (Control item in row.Controls)
+                {
+                    Console.WriteLine("{0} {1} {2} {3} {4}", item.Type, item.X, item.Y, ((Button)item).Name, item.Height);
+                }
+
+            }
+
+            Assert.AreEqual("A", ((Button)(rowListX[0].Controls[0])).Name);
+            Assert.AreEqual("B", ((Button)(rowListX[1].Controls[0])).Name);
+            Assert.AreEqual("D", ((Button)(rowListX[2].Controls[0])).Name);
+            Assert.AreEqual("C", ((Button)(rowListX[2].Controls[1])).Name);
+            Assert.AreEqual(2, rowListX[2].Controls.Count);
+
+        }
+
+        /// <summary>
+        /// test responsive web page with new three of sorting algorithms for sample pages data
+        /// </summary>
+        [TestMethod]
+        public void TestResponsiveSamplePagesData()
+        {
+            var testClass = new GeneratorTest();
+
+            IGenerator responsiveGenerator = new ResponsiveCodeGenerator();
+
+            SortHelper sortHelper = new SortHelper();
+
+            List<Control> controls = new List<Control>()
+            {
+
+                //Check output html for sample-1.html data
+
+                new Label(){
+                    Width = 100,
+                    Height = 24,
+                    X = 39,
+                    Y = 152,
+                    Value = "Password"
+                },
+
+                new Button(){
+                    Height = 24,
+                    X = 88,
+                    Y = 210,
+                    Value = "Submit"
+                },
+
+                new Control(){
+                    Type = ControlType.InputText,
+                    Width = 100,
+                    Height = 24,
+                    X = 132,
+                    Y = 102
+                },
+
+                new Label(){
+                    Width = 74,
+                    Height = 24,
+                    X = 39,
+                    Y = 60,
+                    Value = "Name"
+                },
+
+                new Label(){
+                    Width = 100,
+                    Height = 24,
+                    X = 39,
+                    Y = 102,
+                    Value = "Age"
+                },
+
+                new Label(){
+                    Width = 127,
+                    Height = 20,
+                    X = 65,
+                    Y = 10,
+                    Value ="Sign Up"
+                },
+
+                new Control(){
+                    Type = ControlType.InputText,
+                    Width = 100,
+                    Height = 24,
+                    X = 132,
+                    Y = 60
+                },
+
+                new Control(){
+                    Type = ControlType.InputPassword,
+                    Width = 100,
+                    Height = 24,
+                    X = 132,
+                    Y = 152
+                }
+                
+            };
+           
+            //for resposive generator page
+            string responsiveResult = responsiveGenerator.CreateHtmlCode(controls);
+            Debug.Write(responsiveResult);
+            testClass.GenarateResponsiveHTMLPage(responsiveResult, "responsiveSample-1.html");
+
         }
     }
 }

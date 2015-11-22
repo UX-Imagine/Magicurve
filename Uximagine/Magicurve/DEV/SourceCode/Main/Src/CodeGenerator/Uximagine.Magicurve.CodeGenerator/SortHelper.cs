@@ -10,19 +10,19 @@ namespace Uximagine.Magicurve.CodeGenerator
     public class SortHelper
     {
         List<Control> controls = new List<Control>();
-        
+
         public List<Control> SortListYProperty(List<Control> list)
         {
             //sorting input list
 
             var query =
                 from con in list
-                orderby con.X 
+                orderby con.Y
                 select con;
 
-            foreach (var con in query)
+            foreach (var control in query)
             {
-                controls.Add(con);
+                controls.Add(control);
             }
 
             return controls;
@@ -34,8 +34,8 @@ namespace Uximagine.Magicurve.CodeGenerator
             Control minYControl = list[0];
             double maxHeight = list[0].Height;
             int rowIndex = 0;
-            listOfList.Add(new Row() 
-            { 
+            listOfList.Add(new Row()
+            {
                 Controls = new List<Control>()
                     { 
                         list[0] 
@@ -52,20 +52,20 @@ namespace Uximagine.Magicurve.CodeGenerator
                 if (currentY > previousY + maxHeight)
                 {
                     maxHeight = list[i].Height;
-                    listOfList.Add(new Row() 
+                    listOfList.Add(new Row()
                     {
                         Controls = new List<Control>()
                         {
                             list[i] 
-                        }, 
-                        RowIndex = ++rowIndex, 
+                        },
+                        RowIndex = ++rowIndex,
                         Height = maxHeight
                     });
-                    
+
                 }
                 else
                 {
-                    
+
                     if (list[i].Height > maxHeight)
                     {
                         maxHeight = list[i].Height;
@@ -78,17 +78,33 @@ namespace Uximagine.Magicurve.CodeGenerator
             return listOfList;
         }
 
-        //public List<Row> SortListXProperty(List<Row> rowList)
-        //{
+        public List<Row> SortListXProperty(List<Row> rowList)
+        {
+            List<Row> finalizeRowList = new List<Row>();
 
 
-        //    var query =
-        //        from con in rowList
-        //        orderby con.Controls.
-        //        select con;
+            foreach (Row row in rowList)
+            {
 
-        //    return rowList;
-        //}
+                List<Control> finalizeControlList = new List<Control>();
+                var query =
+                from con in row.Controls
+                orderby con.X
+                select con;
+
+                finalizeControlList = query.ToList();
+
+                finalizeRowList.Add(new Row()
+                {
+                    Controls = finalizeControlList,
+                    Height = row.Height,
+                    RowIndex = row.RowIndex
+                });
+            }
+
+
+            return finalizeRowList;
+        }
 
 
     }
