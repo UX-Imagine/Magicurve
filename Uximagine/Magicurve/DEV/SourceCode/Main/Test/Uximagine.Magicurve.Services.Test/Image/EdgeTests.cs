@@ -306,5 +306,46 @@ namespace Uximagine.Magicurve.Services.Test.Image
                 Debug.WriteLine(line.Theta);
             }
         }
+
+        /// <summary>
+        /// Tests the hough transform.
+        /// </summary>
+        [TestCase(@"D:/Data/test/inputs/template.jpg")]
+        public void TestHoughTransformBasic(string fileName)
+        {
+            var image = new Bitmap(fileName); // Lena's picture
+
+            IBlobDetector blobDetector = new BlobDetector();
+
+            image = Grayscale.CommonAlgorithms.BT709.Apply(image);
+
+            var threshold = new Threshold();
+            threshold.ApplyInPlace(image);
+
+            var median = new Median();
+            median.ApplyInPlace(image);
+
+            //var correctFormatImage = image.ConvertToFormat(PixelFormat.Format24bppRgb);
+
+            Invert invert = new Invert();
+            invert.ApplyInPlace(image);
+
+            var result = image.HorizontalEdges();
+            result.Save(@"D:/Data/test/outputs/hEdges" + fileName.Split('/').Last());
+
+            HoughLineTransformation lineTransform = new HoughLineTransformation();
+            // apply Hough line transofrm
+            lineTransform.ProcessImage(result);
+            Bitmap houghLineImage = lineTransform.ToBitmap();
+            houghLineImage.Save(@"D:/Data/test/outputs/hough" + fileName.Split('/').Last());
+
+            Debug.WriteLine("Lines {0}", lineTransform.GetLinesByRelativeIntensity(.5).Count());
+            Debug.WriteLine("Lines {0}", lineTransform.GetLinesByRelativeIntensity(.75).Count());
+
+            foreach (var line in lineTransform.GetLinesByRelativeIntensity(0.75))
+            {
+                Debug.WriteLine(line.Theta);
+            }
+        }
     }
 }

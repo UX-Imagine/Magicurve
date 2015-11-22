@@ -238,5 +238,162 @@ namespace Uximagine.Magicurve.Image.Processing.Helpers
 
             return image;
         }
+
+        /// <summary>
+        /// Edges the detect difference.
+        /// </summary>
+        /// <param name="bmap">
+        /// The bmap.
+        /// </param>
+        /// <param name="threshold">
+        /// The threshold.
+        /// </param>
+        /// <returns>
+        /// <c>true</c> if success. otherwise <c>false.</c>
+        /// </returns>
+        public static bool EdgeDetectDifference(this Bitmap bmap, byte threshold)
+        {
+            Bitmap bmap2 = (Bitmap) bmap.Clone();
+
+            BitmapData bmData = bmap.LockBits(
+                new Rectangle(0, 0, bmap.Width, bmap.Height),
+                ImageLockMode.ReadWrite,
+                PixelFormat.Format24bppRgb);
+
+            BitmapData bmData2 = bmap2.LockBits(
+                new Rectangle(0, 0, bmap2.Width, bmap2.Height),
+                ImageLockMode.ReadWrite,
+                PixelFormat.Format24bppRgb);
+
+            int stride = bmData.Stride;
+            IntPtr scan0 = bmData.Scan0;
+            IntPtr scan02 = bmData2.Scan0;
+
+            unsafe
+            {
+                byte* ptr = (byte*) (void*) scan0;
+                byte* ptr2 = (byte*) (void*) scan02;
+
+                int offset = stride - bmap.Width*3;
+                int width = bmap.Width*3;
+
+                ptr += stride;
+                ptr2 += stride;
+
+                for (int y = 1; y < bmap.Height - 1; ++y)
+                {
+                    ptr += 3;
+                    ptr2 += 3;
+
+                    for (int x = 3; x < width - 3; ++x)
+                    {
+                        int pixelMax = Math.Abs((ptr2 - stride + 3)[0] - (ptr2 + stride - 3)[0]);
+                        int pixel = Math.Abs((ptr2 + stride + 3)[0] - (ptr2 - stride - 3)[0]);
+                        pixelMax = pixel > pixelMax ? pixel : pixelMax;
+
+                        pixel = Math.Abs((ptr2 - stride)[0] - (ptr2 + stride)[0]);
+                        pixelMax = pixel > pixelMax ? pixel : pixelMax;
+
+                        pixel = Math.Abs((ptr2 + 3)[0] - (ptr2 - 3)[0]);
+                        pixelMax = pixel > pixelMax ? pixel : pixelMax;
+
+                        if (pixelMax < threshold) pixelMax = 0;
+
+                        ptr[0] = (byte) pixelMax;
+
+                        ++ptr;
+                        ++ptr2;
+                    }
+
+                    ptr += 3 + offset;
+                    ptr += 3 + offset;
+                }
+            }
+
+            bmap.UnlockBits(bmData);
+            bmap2.UnlockBits(bmData2);
+
+            return true;
+        }
+
+        /// <summary>
+        /// Edges the enhancement.
+        /// </summary>
+        /// <param name="bmap">
+        /// The image.
+        /// </param>
+        /// <param name="threshold">
+        /// The threshold.
+        /// </param>
+        /// <returns>
+        /// <c>true</c> if success. othewise <c>false</c>.
+        /// </returns>
+        public static bool EdgeEnhancement(this Bitmap bmap, byte threshold)
+        {
+            Bitmap bmap2 = (Bitmap) bmap.Clone();
+
+            BitmapData bmData = bmap.LockBits(
+                new Rectangle(0, 0, bmap.Width, bmap.Height),
+                ImageLockMode.ReadWrite,
+                PixelFormat.Format24bppRgb);
+
+            BitmapData bmData2 = bmap2.LockBits(
+                new Rectangle(0, 0, bmap2.Width, bmap2.Height),
+                ImageLockMode.ReadWrite,
+                PixelFormat.Format24bppRgb);
+
+            int stride = bmData.Stride;
+            IntPtr scan0 = bmData.Scan0;
+            IntPtr scan02 = bmData.Scan0;
+
+            unsafe
+            {
+                byte* ptr = (byte*) (void*) scan0;
+                byte* ptr2 = (byte*) (void*) scan02;
+
+                int width = bmap.Width*3;
+                int offset = stride - width;
+
+                ptr += stride;
+                ptr2 += stride;
+
+                for (int y = 1; y < bmap.Height - 1; ++y)
+                {
+                    ptr += 3;
+                    ptr2 += 3;
+
+                    for (int x = 3; x < width - 3; ++x)
+                    {
+                        int pixelMax = 0, pixel = 0;
+
+                        pixelMax = Math.Abs((ptr2 - stride + 3)[0] - (ptr2 + stride - 3)[0]);
+                        pixel = Math.Abs((ptr2 + stride + 3)[0] - (ptr2 - stride - 3)[0]);
+                        pixelMax = pixel > pixelMax ? pixel : pixelMax;
+
+                        pixel = Math.Abs((ptr2 - stride)[0] - (ptr2 + stride)[0]);
+                        pixelMax = pixel > pixelMax ? pixel : pixelMax;
+
+                        pixel = Math.Abs((ptr2 + 3)[0] - (ptr2 - 3)[0]);
+                        pixelMax = pixel > pixelMax ? pixel : pixelMax;
+
+                        if (pixelMax > threshold && pixelMax > ptr[0])
+                            ptr[0] = (byte) Math.Max(ptr[0], pixelMax);
+
+                        ++ptr;
+                        ++ptr2;
+
+                    }
+
+                    ptr += offset + 3;
+                    ptr2 += offset + 3;
+                }
+
+            }
+
+            bmap.UnlockBits(bmData);
+            bmap2.UnlockBits(bmData2);
+
+            return true;
+        }
     }
 }

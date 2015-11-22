@@ -1,6 +1,7 @@
 ﻿using System.Drawing;
 using System.Linq;
 using NUnit.Framework;
+using Should;
 using Uximagine.Magicurve.Image.Processing.Common;
 using Uximagine.Magicurve.Image.Processing.Helpers;
 
@@ -200,6 +201,10 @@ namespace Uximagine.Magicurve.Services.Test.Image
             result.Save(@"D:/Data/test/outputs/homo" + fileName.Split('/').Last());
         }
 
+        /// <summary>
+        /// Tests the horizontal edges.
+        /// </summary>
+        /// <param name="fileName">Name of the file.</param>
         [TestCase(@"D:/Data/test/inputs/template.jpg")]
         [TestCase(@"D:/Data/test/inputs/template4.jpg")]
         public void TestHorizontalEdges(string fileName)
@@ -210,6 +215,10 @@ namespace Uximagine.Magicurve.Services.Test.Image
             result.Save(@"D:/Data/test/outputs/hEdges" + fileName.Split('/').Last());
         }
 
+        /// <summary>
+        /// Tests the vertical edges.
+        /// </summary>
+        /// <param name="fileName">Name of the file.</param>
         [TestCase(@"D:/Data/test/inputs/template.jpg")]
         [TestCase(@"D:/Data/test/inputs/template4.jpg")]
         public void TestVerticalEdges(string fileName)
@@ -218,6 +227,38 @@ namespace Uximagine.Magicurve.Services.Test.Image
             var gray = bmap.Grayscale();
             var result = gray.VerticalEdges();
             result.Save(@"D:/Data/test/outputs/vEdges" + fileName.Split('/').Last());
+        }
+
+        /// <summary>
+        /// Tests the difference egde detect.
+        /// </summary>
+        /// <param name="fileName">Name of the file.</param>
+        /// <param name="threshold">The threshold.</param>
+        [TestCase(@"D:/Data/test/inputs/template4.jpg", (byte)127)]
+        [TestCase(@"D:/Data/test/inputs/template.jpg", (byte)0)]
+        public void TestDifferenceEgdeDetect(string fileName, byte threshold)
+        {
+            Bitmap bmap = new Bitmap(fileName);
+            var gray = bmap.Grayscale();
+            var result = gray.EdgeDetectDifference(threshold);
+            result.ShouldBeTrue();
+            gray.Save(@"D:/Data/test/outputs/difference_" + fileName.Split('/').Last());
+        }
+
+        /// <summary>
+        /// Tests the enhance edge.
+        /// </summary>
+        /// <param name="fileName">Name of the file.</param>
+        /// <param name="threshold">The threshold.</param>
+        [TestCase(@"D:/Data/test/inputs/template4.jpg", (byte)127)]
+        [TestCase(@"D:/Data/test/inputs/template.jpg", (byte)0)]
+        public void TestEnhanceEdge(string fileName, byte threshold)
+        {
+            Bitmap bmap = new Bitmap(fileName);
+            var gray = bmap.Grayscale();
+            var result = gray.EdgeEnhancement(threshold);
+            result.ShouldBeTrue();
+            gray.Save(@"D:/Data/test/outputs/enhanced_" + fileName.Split('/').Last());
         }
     }
 }
