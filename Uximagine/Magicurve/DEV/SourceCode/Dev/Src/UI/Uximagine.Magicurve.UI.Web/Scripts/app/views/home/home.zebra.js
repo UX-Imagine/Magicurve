@@ -1,138 +1,227 @@
 ﻿zebra.ready(function () {
-    // build Zebra canvas component that adds new
-    // Canvas DOM element into page with the given size
-    var zCanvas = new zebra.ui.zCanvas("designer", 970, 820);
-    //zCanvas.setBackground("red");
-    var root = zCanvas.root; // save reference to root UI component
-    root.setBackground("black")
+    eval(zebra.Import("ui", "layout"));
 
-    var p = new zebra.ui.Panel(); // create panel
-    p.setBounds(5, 5, 960, 810); // shape panel
-    p.setBackground("white");    // set yellow background
-    root.add(p);                  // add panel to root
+    //create json object array
+    var jsonObj = [{ "controlsName": "Button", "width": 50, "height": 60 }, { "controlsName": "CheckBox", "width": 100, "height": 60 }, { "controlsName": "panel", "width": 100, "height": 60 }];
 
-    var header = new zebra.ui.Panel(); // create panel
-    header.setBounds(5, 5, 950, 150); // shape panel
-    header.setBackground("#F2F2F2");    // set yellow background
-    p.add(header);
+    var controls = [];
+    //controls.length = jsonObj.length;
 
-    var labaleImage = new zebra.ui.Label("This is image");
-    labaleImage.setBounds(425,65,450,75)
-    header.add(labaleImage);
+    //function for drawing button
+    function drawButton(bwidth, bheight) {
+        var button = new zebra.ui.Button("Button");
+        button.properties({
+            width: bwidth,
+            height: bheight
 
-    /*
-    // insert image 
-        var image = new zebra.ui.ImagePan(); // create panel
-        image.setBounds(0, 0, 950, 150); // shape panel
-        image.setBackground("red");    // set yellow background
-        header.add(image);*/
+        });
+        var buttonShaperPan = new zebra.ui.designer.ShaperPan(button);
+        buttonShaperPan.properties({
+            value: true,
+            location: [90, 50]
 
-    var m = new zebra.ui.Menubar({
-        "Item 1": {
-            "Subitem 1.1": null,
-            "Subitem 1.2": null,
-            "Subitem 1.3": null
-        },
-        "Item 2": {
-            "Subitem 2.1": null,
-            "Subitem 2.2": null,
-            "Subitem 2.3": null
-        },
-        "Item 3": null
-    });
+        });
 
-    m.setBounds(0, 110, 950, 40);
- 
-    header.add(m);
+       
 
-    var body = new zebra.ui.Panel();
-    body.setBounds(5, 159, 950, 600); // shape panel
-    body.setBackground("#E6E6E6");    // set yellow background
-    p.add(body);
+        return buttonShaperPan;
 
-    var sideBar = new zebra.ui.Panel();
-    sideBar.setBounds(700, 0, 248, 600);
-    sideBar.setBackground("#CEF6F5");
-    body.add(sideBar);
+    }
 
-    var lable1 = new zebra.ui.Label("User Name");
-    lable1.setBounds(20, 33, 80, 30);
-    lable1.setColor("black");
-    sideBar.add(lable1);
+    //function for drawing button
+    function drawPanel(px,py,pw,ph) {
+        var panel = new zebra.ui.Panel();
+        panel.setBounds(px, py, pw, ph);
+        panel.setBackground("red");
 
-    var textBox = new zebra.ui.TextField("type here...");
-    textBox.setBounds(120, 25, 120, 30);
-    sideBar.add(textBox);
+        var shperPanel = new zebra.ui.designer.ShaperPan(panel);
 
-    var lable2 = new zebra.ui.Label("Password");
-    lable2.setBounds(20, 77, 80, 30);
-    lable2.setColor("black");
-    sideBar.add(lable2);
+        return shperPanel;
 
-    var passWord = new zebra.ui.TextField();
-    passWord.setBounds(120, 70, 120, 30);
-    sideBar.add(passWord);
+    }
 
-    var horizontal = new zebra.ui.Line();
-    horizontal.setBounds(0, 150, 250, 3);
-    sideBar.add(horizontal);
+    //function for drawing lable
+    function drawLable(lx,ly,lw,lh) {
+        var lable = new zebra.ui.Label("lable");
+        lable.setBounds(lx, ly, lw, lh);
+        lable.setColor("black");
 
-    var radioButton1 = new zebra.ui.Radiobox("Male");
-    radioButton1.setBounds(20, 170, 80, 30);
-    sideBar.add(radioButton1);
+          var shperlable = new zebra.ui.designer.ShaperPan(lable);
 
-    var radioButton2 = new zebra.ui.Radiobox("Female");
-    radioButton2.setBounds(20, 200, 80, 30);
-    sideBar.add(radioButton2);
+          return shperlable;
 
-    var horizonta2 = new zebra.ui.Line();
-    horizonta2.setBounds(0, 250, 250, 3);
-    sideBar.add(horizonta2);
+    }
 
-    var checkBox1 = new zebra.ui.Checkbox("Java");
-    checkBox1.setBounds(20, 270, 80, 30);
-    sideBar.add(checkBox1);
+    //function for drawing text box
+    function drawTextBox(tx,ty,tw,th) {
+        var textBox = new zebra.ui.TextField("type here...");
+        textBox.setBounds(tx, ty, tw, th);
 
-    var checkBox2 = new zebra.ui.Checkbox("C#");
-    checkBox2.setBounds(20, 290, 80, 30);
-    sideBar.add(checkBox2);
+        var shpertextBox = new zebra.ui.designer.ShaperPan(textBox);
 
-    var horizonta3 = new zebra.ui.Line();
-    horizonta3.setBounds(0, 330, 250, 3);
-    sideBar.add(horizonta3);
+        return shpertextBox;
+    }
 
-    var lable3 = new zebra.ui.Label("Select Country");
-    lable3.setBounds(20, 360, 100, 30);
-    lable3.setColor("black");
-    sideBar.add(lable3);
+    //function for drawing Horizontal Line
+    function drawHorizontalLine(hx,hy,hw) {
 
-    var comboBox = new zebra.ui.Combo();
-    comboBox.setBounds(130, 350, 100, 30);
-    sideBar.add(comboBox);
+        var horizontal = new zebra.ui.Line();
+        horizontal.setBounds(hx, hy, hw, 3);
+        var shperhorizontal = new zebra.ui.designer.ShaperPan(horizontal);
 
-    var horizonta4 = new zebra.ui.Line();
-    horizonta4.setBounds(0, 400, 250, 3);
-    sideBar.add(horizonta4);
+        return shperhorizontal;
+    }
 
-    var textArea = new zebra.ui.HtmlTextArea();
-    textArea.setBounds(20, 420, 180, 100);
-    sideBar.add(textArea);
+    //function for drawing checkBox
+    function drawCheckBox(checkX,checkY,checkW,checkH) {
+
+        var checkBox = new zebra.ui.Checkbox("Java");
+        checkBox.setBounds(checkX, checkY, checkW, checkH);
+        var shpercheckBox = new zebra.ui.designer.ShaperPan(checkBox);
+
+        return shpercheckBox;
+    }
+
+    //function for drawing radio button
+    function drawRadioButton(radioX,radioY,radioW,radioH) {
+        var radioButton = new zebra.ui.Radiobox("radio");
+        radioButton.setBounds(radioX, radioY, radioW, radioH);
+        var shpercheckBox = new zebra.ui.designer.ShaperPan(radioButton);
+
+        return shpercheckBox;
+    }
+
+    //function for drawing combo box
+    function drawComboBox(comboX,comboY,comboW,comboH) {
+        var combo = new zebra.ui.Combo(new zebra.ui.List([
+       "Item 1",
+       "Item 2",
+       "Item 3"
+        ]));
+
+        combo.setBounds(comboX, comboY, comboW, comboH);
+        var shpercombo = new zebra.ui.designer.ShaperPan(combo);
+
+        return shpercombo;
+    }
+
+    //function for drawing TextArea
+    function drawTextArea(textAreaX, textAreaY, textAreaW, textAreaH) {
+        var textArea = new zebra.ui.TextArea();
+        textArea.setBounds(textAreaX, textAreaY, textAreaW, textAreaH);
+        var shpertextArea = new zebra.ui.designer.ShaperPan(textArea);
+
+        return shpertextArea;
+    }
+
+    //function for drawing combo box
+    function drawHyperlink(hyX,hyY,hyW,hyH) {
+        var hyperlink = new zebra.ui.Link("This is a hyperlink");
+        hyperlink.setBounds(hyX, hyY, hyW, hyH);
+        hyperlink.setColor("#2E64FE");
+        var shperhyperlink = new zebra.ui.designer.ShaperPan(hyperlink);
+
+        return shperhyperlink;
+    }
+
+    //function for drawing Menubar
+    function drawMenuBar(menuX, menuY, menuW, menuH) {
+        var menu = new zebra.ui.Menubar({
+            "HOME": {
+                "Subitem 1.1": null,
+                "Subitem 1.2": null,
+                "Subitem 1.3": null
+            },
+            "CONTENT": {
+                "Subitem 2.1": null,
+                "Subitem 2.2": null,
+                "Subitem 2.3": null
+            },
+            "CONTCT": null
+        });
+
+        menu.setBounds(menuX, menuY, menuW, menuH);
+        var shpermenu = new zebra.ui.designer.ShaperPan(menu).properties({value : true});
+
+        return shpermenu;
+    }
+
+    var controlsValid = 0;
+
+    for (var i = 0; i < jsonObj.length; i++) {
+        if (jsonObj[i].controlsName == "Button") {
+            controls[controlsValid] = drawButton(jsonObj[i].width, jsonObj[i].height);
+            controlsValid++;
+        } else if (jsonObj[i].controlsName == "CheckBox") {
+            controls[controlsValid] = drawCheckBox(jsonObj[i].width, jsonObj[i].height);
+            controlsValid++;
+        }
+    }
+
+    var root = (new zCanvas("designer", 1000, 400)).root;
+  
+    var pn = new drawPanel(600,10,50,50);
+    root.add(pn);
+    var butt = new drawButton(50, 50);
+    root.add(butt);
+    
+    var lable1 = new drawLable(0,0,100,50);
+    root.add(lable1);
+
+    var text = new drawTextBox(500,80,80,30);
+    root.add(text);
+
+    var hor = new drawHorizontalLine(0, 330, 250);
+    root.add(hor);
+
+    var radio = new drawRadioButton(20, 200, 80, 30);
+    root.add(radio);
+
+    var check = new drawCheckBox(20, 290, 80, 30);
+    root.add(check);
+
+    var com = new drawComboBox(130, 350, 100, 30);
+    root.add(com);
+
+    var texA = new drawTextArea(20, 300, 180, 100);
+    root.add(texA);
+
+    var lin = new drawHyperlink(350, 20, 150, 20);
+    root.add(lin);
+
+    var me = new drawMenuBar(0, 110, 950, 40);
+    root.add(me);
+
+  /*  root.properties({
+        layout: new BorderLayout(4, 4),
+        border: new Border(),
+        padding: 8,
+        kids: {
+            CENTER: new BorderPan("UX panel", new Panel({
+                //padding: 50,
+                kids: controls
+            })),
+         
+            BOTTOM: new Button("Align", [
+                function fire() {
+                    this.$super();
+                    var y = 10, c = root.findAll("//zebra.ui.designer.ShaperPan");
+                    for (var i = 0; i < c.length; i++) {
+                        c[i].toPreferredSize();
+                        c[i].setLocation(10, y);
+                        y += c[i].height + 5;
+                    }
+                }
+            ])
+        }
+    });*/
 
 
-    var button = new zebra.ui.Button("Submit"); // create button
-    button.setBounds(20, 550, 60, 30); // shape button
-    sideBar.add(button);
 
 
 
-    var footer = new zebra.ui.Panel();
-    footer.setBounds(5, 761, 950, 45); // shape panel
-    footer.setBackground("#F2F2F2");    // set yellow background
-    p.add(footer);
 
-    var hyperlink = new zebra.ui.Link("This is a hyperlink");
-    hyperlink.setBounds(350, 20, 150, 20);
-    hyperlink.setColor("#2E64FE");
-    footer.add(hyperlink);
 
 });
+
+
