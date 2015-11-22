@@ -18,7 +18,7 @@
         var buttonShaperPan = new zebra.ui.designer.ShaperPan(button);
         buttonShaperPan.properties({
             value: true,
-            location: [90, 50]
+            location: [720, 760]
 
         });
 
@@ -32,11 +32,11 @@
     function drawPanel(px, py, pw, ph) {
         var panel = new zebra.ui.Panel();
         panel.setBounds(px, py, pw, ph);
-        panel.setBackground("red");
+        panel.setBackground("white");
 
-        var shperPanel = new zebra.ui.designer.ShaperPan(panel);
+        //var shperPanel = new zebra.ui.designer.ShaperPan(panel);
 
-        return shperPanel;
+        return panel;
 
     }
 
@@ -141,9 +141,21 @@
         });
 
         menu.setBounds(menuX, menuY, menuW, menuH);
-        var shpermenu = new zebra.ui.designer.ShaperPan(menu).properties({ value: true });
+        var shpermenu = new zebra.ui.designer.ShaperPan(menu);
+        
 
         return shpermenu;
+    }
+
+    //function for drawing image
+    function drawImageContent(imageX, imageY, imageW, imageH) {
+        var image = new zebra.ui.ImagePan();
+
+        image.setBounds(imageX, imageY, imageW, imageH);
+        var shperimage = new zebra.ui.designer.ShaperPan(image);
+
+
+        return shperimage;
     }
 
     var controlsValid = 0;
@@ -158,39 +170,66 @@
         }
     }
 
-    var root = (new zCanvas("designer", 1000, 400)).root;
+    var root = (new zCanvas("designer", 970, 820)).root;
+    root.setBackground("black");
 
-    var pn = new drawPanel(600, 10, 50, 50);
-    root.add(pn);
-    var butt = new drawButton(50, 50);
-    root.add(butt);
+    var pn1 = new drawPanel(5, 5, 960, 810);
+    root.add(pn1);
 
-    var lable1 = new drawLable(0, 0, 100, 50);
+    var image1 = new drawImageContent(5, 5, 950, 150);
+    root.add(image1);
+
+    var me = new drawMenuBar(10, 110, 950, 40);
+    root.add(me);
+
+    var lable1 = new drawLable(720, 183, 80, 30);
     root.add(lable1);
 
-    var text = new drawTextBox(500, 80, 80, 30);
+    var text = new drawTextBox(820, 183, 120, 30);
     root.add(text);
 
-    var hor = new drawHorizontalLine(0, 330, 250);
+    var lable2 = new drawLable(720, 235, 80, 30);
+    root.add(lable2);
+
+    var text1 = new drawTextBox(820, 235, 120, 30);
+    root.add(text1);
+
+
+    var hor = new drawHorizontalLine(700, 330, 250);
     root.add(hor);
 
-    var radio = new drawRadioButton(20, 200, 80, 30);
-    root.add(radio);
+    var radio1 = new drawRadioButton(720, 370, 80, 30);
+    root.add(radio1);
+    var radio2 = new drawRadioButton(720, 400, 80, 30);
+    root.add(radio2);
 
-    var check = new drawCheckBox(20, 290, 80, 30);
-    root.add(check);
+    var hor1 = new drawHorizontalLine(700, 450, 250);
+    root.add(hor1);
 
-    var com = new drawComboBox(130, 350, 100, 30);
+    var check1 = new drawCheckBox(720, 470, 80, 30);
+    root.add(check1);
+
+    var check2 = new drawCheckBox(720, 500, 80, 30);
+    root.add(check2);
+
+    var hor2 = new drawHorizontalLine(700, 570, 250);
+    root.add(hor2);
+
+
+    var com = new drawComboBox(720, 600, 100, 30);
     root.add(com);
 
-    var texA = new drawTextArea(20, 300, 180, 100);
+   
+    var texA = new drawTextArea(720, 650, 180, 100);
     root.add(texA);
 
-    var lin = new drawHyperlink(350, 20, 150, 20);
+    var butt = new drawButton(60, 30);
+    root.add(butt);   
+
+    var lin = new drawHyperlink(350, 780, 150, 20);
     root.add(lin);
 
-    var me = new drawMenuBar(0, 110, 950, 40);
-    root.add(me);
+
 
     /*  root.properties({
           layout: new BorderLayout(4, 4),
