@@ -1,4 +1,6 @@
-﻿namespace Uximagine.Magicurve.Services.Test
+﻿using Uximagine.Magicurve.Core.Models;
+
+namespace Uximagine.Magicurve.Services.Test
 {
     using System.Web.Http.Controllers;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -41,8 +43,7 @@
             var imagesController = new ImagesController();
 
             //// Act
-
-            List<Control> image = imagesController.GetControls();
+            List<Row> image = imagesController.GetControls();
 
             //// Assert
             Assert.IsNotNull(image);

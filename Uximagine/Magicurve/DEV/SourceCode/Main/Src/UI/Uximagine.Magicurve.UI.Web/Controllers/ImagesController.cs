@@ -8,6 +8,7 @@ using Uximagine.Magicurve.DataTransfer.Responses;
 using Uximagine.Magicurve.DataTransfer.Requests;
 using Uximagine.Magicurve.Services;
 using Uximagine.Magicurve.Core.Shapes;
+using Uximagine.Magicurve.Core.Models;
 #endregion
 
 namespace Uximagine.Magicurve.UI.Web.Controllers
@@ -25,7 +26,7 @@ namespace Uximagine.Magicurve.UI.Web.Controllers
         /// </returns>
         [Route("api/images/controls")]
         [HttpGet]
-        public List<Control> GetControls()
+        public List<Row> GetControls()
         {
             //// const string SavedPath = "/Content/images/test2.png";
             string imgPath = HostingEnvironment.MapPath("~/Content/images/Capture/capture.jpg");
@@ -82,9 +83,9 @@ namespace Uximagine.Magicurve.UI.Web.Controllers
         /// Get API/values/5   
         /// </returns>
         [Route("api/images/{id}")]
-        public List<Control> GetById(int id)
+        public List<Row> GetById(int id)
         {
-            var result = new List<Control>();
+            var result = new List<Row>();
             string imgPath;
 
             switch (id)

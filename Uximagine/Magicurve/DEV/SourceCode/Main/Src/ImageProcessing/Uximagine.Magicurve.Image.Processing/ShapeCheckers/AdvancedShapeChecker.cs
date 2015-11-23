@@ -61,7 +61,9 @@ namespace Uximagine.Magicurve.Image.Processing.ShapeCheckers
         /// <summary>
         /// Gets the shape corners.
         /// </summary>
-        /// <param name="edgePoints">The edge points.</param>
+        /// <param name="edgePoints">
+        /// The edge points.
+        /// </param>
         /// <returns>
         /// The corners.
         /// </returns>

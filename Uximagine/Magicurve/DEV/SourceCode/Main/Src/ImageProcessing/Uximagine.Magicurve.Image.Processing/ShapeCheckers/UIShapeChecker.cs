@@ -59,15 +59,6 @@ namespace Uximagine.Magicurve.Image.Processing.ShapeCheckers
 
                     if (sides[0] - sides[2] < distanceError && sides[1] - sides[3] < distanceError)
                     {
-                        IntPoint minXy;
-                        IntPoint maxXy;
-                        PointsCloud.GetBoundingRectangle(edgePoints, out minXy, out maxXy);
-
-                        this.X = minXy.X;
-                        this.Y = minXy.Y;
-                        this.Height = maxXy.Y - minXy.Y;
-                        this.Width = maxXy.X - minXy.X;
-
                         isButton = true;
                     }
                 }
@@ -132,6 +123,15 @@ namespace Uximagine.Magicurve.Image.Processing.ShapeCheckers
         public override ControlType GetControlType(List<IntPoint> edgePoints)
         {
             var type = ControlType.None;
+
+            IntPoint minXy;
+            IntPoint maxXy;
+            PointsCloud.GetBoundingRectangle(edgePoints, out minXy, out maxXy);
+
+            this.X = minXy.X;
+            this.Y = minXy.Y;
+            this.Height = maxXy.Y - minXy.Y;
+            this.Width = maxXy.X - minXy.X;
 
             var corners = this.GetShapeCorners(edgePoints);
 

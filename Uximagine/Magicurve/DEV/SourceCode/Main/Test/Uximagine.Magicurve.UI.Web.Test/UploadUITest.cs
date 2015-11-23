@@ -13,6 +13,7 @@ using Keyboard = Microsoft.VisualStudio.TestTools.UITesting.Keyboard;
 
 namespace Uximagine.Magicurve.UI.Web.Test
 {
+    /*
     /// <summary>
     /// Summary description for UploadUITest
     /// </summary>
@@ -71,4 +72,6 @@ namespace Uximagine.Magicurve.UI.Web.Test
         }
         private TestContext testContextInstance;
     }
+
+    */
 }

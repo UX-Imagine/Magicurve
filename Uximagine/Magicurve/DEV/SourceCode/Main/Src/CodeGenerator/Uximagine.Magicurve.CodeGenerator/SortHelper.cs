@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Uximagine.Magicurve.Core.Models;
 using Uximagine.Magicurve.Core.Shapes;
 
 namespace Uximagine.Magicurve.CodeGenerator

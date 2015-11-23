@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Runtime.Serialization;
 using AForge;
+using Newtonsoft.Json;
 using Uximagine.Magicurve.Core.Models;
 
 namespace Uximagine.Magicurve.Core.Shapes
@@ -7,6 +9,7 @@ namespace Uximagine.Magicurve.Core.Shapes
     /// <summary>
     /// The control function.
     /// </summary>
+    [DataContract]
     public class Control : IControl
     {
         /// <summary>
@@ -15,6 +18,7 @@ namespace Uximagine.Magicurve.Core.Shapes
         /// <value>
         /// The type.
         /// </value>
+        [DataMember]
         public virtual ControlType Type
         {
             get;
@@ -27,6 +31,7 @@ namespace Uximagine.Magicurve.Core.Shapes
         /// <value>
         /// The x.
         /// </value>
+        [DataMember]
         public int X { get; set; }
 
         /// <summary>
@@ -35,6 +40,7 @@ namespace Uximagine.Magicurve.Core.Shapes
         /// <value>
         /// The y.
         /// </value>
+        [DataMember]
         public int Y { get; set; }
 
         /// <summary>
@@ -43,6 +49,7 @@ namespace Uximagine.Magicurve.Core.Shapes
         /// <value>
         /// The width.
         /// </value>
+        [DataMember]
         public double Width { get; set; }
 
         /// <summary>
@@ -51,6 +58,7 @@ namespace Uximagine.Magicurve.Core.Shapes
         /// <value>
         /// The height.
         /// </value>
+        [DataMember]
         public double Height { get; set; }
 
         /// <summary>
@@ -59,6 +67,7 @@ namespace Uximagine.Magicurve.Core.Shapes
         /// <value>
         /// The edge points.
         /// </value>
+        [JsonIgnore]
         public List<IntPoint> EdgePoints
         {
             get; set;

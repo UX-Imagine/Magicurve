@@ -1,8 +1,8 @@
 ﻿#region Imports
 using Uximagine.Magicurve.DataTransfer.Requests;
 using Uximagine.Magicurve.DataTransfer.Responses;
-using Uximagine.Magicurve.Services.BusinessServices.UnitsOfWork; 
-using Uximagine.Magicurve.Services;
+using Uximagine.Magicurve.Services.BusinessServices.UnitsOfWork;
+
 #endregion
 
 namespace Uximagine.Magicurve.Services.BusinessServices

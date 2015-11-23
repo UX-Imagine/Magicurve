@@ -1,7 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
-using Uximagine.Magicurve.Image.Processing;
+using System.Linq;
+using Uximagine.Magicurve.CodeGenerator;
+using Uximagine.Magicurve.Core.Models;
 using Uximagine.Magicurve.Core.Shapes;
+using Uximagine.Magicurve.Image.Processing;
 
 namespace Uximagine.Magicurve.Services.BusinessServices.UnitsOfWork
 {
@@ -10,6 +13,7 @@ namespace Uximagine.Magicurve.Services.BusinessServices.UnitsOfWork
     /// </summary>
     internal class DetectEdgesUnitOfWork : UnitOfWork
     {
+        #region Properties - Instance Member - Public Members
         /// <summary>
         /// Gets or sets the image path.
         /// </summary>
@@ -28,7 +32,7 @@ namespace Uximagine.Magicurve.Services.BusinessServices.UnitsOfWork
         /// <value>
         /// The result.
         /// </value>
-        public List<Control> Controls
+        public List<Row> Controls
         {
             get;
             set;
@@ -44,7 +48,8 @@ namespace Uximagine.Magicurve.Services.BusinessServices.UnitsOfWork
         {
             get;
             set;
-        } 
+        }  
+        #endregion
 
         #region Methods - Instance Member - Constructors
         /// <summary>
@@ -74,8 +79,72 @@ namespace Uximagine.Magicurve.Services.BusinessServices.UnitsOfWork
         {
             Processor processor = new Processor();
             processor.ProcessImage(this.ImagePath);
-            this.Controls = processor.Controls;
+            List<Control> controls = processor.Controls;
+
+            //controls.ForEach((c) => c.EdgePoints = null);
+
+            this.Controls = GetRows(controls);
             this.ImageResult = processor.ImageResult;
+        }
+
+        /// <summary>
+        /// Gets the rows.
+        /// </summary>
+        /// <param name="list">
+        /// The list.
+        /// </param>
+        /// <returns>
+        /// The rows.
+        /// </returns>
+        private List<Row> GetRows(List<Control> list)
+        {
+            list = list.OrderBy(c => c.Y).ToList();
+            List<Row> listOfList = new List<Row>();
+            double maxHeight = list[0].Height;
+            int rowIndex = 0;
+            listOfList.Add(new Row()
+            {
+                Controls = new List<Control>()
+                    {
+                        list[0]
+                    },
+                RowIndex = 0,
+                Height = maxHeight
+            });
+
+            for (int i = 1; i <= (list.Count) - 1; i++)
+            {
+                int previousY = list[i - 1].Y;
+                int currentY = list[i].Y;
+
+                if (currentY > previousY + maxHeight)
+                {
+                    maxHeight = list[i].Height;
+                    listOfList.Add(new Row()
+                    {
+                        Controls = new List<Control>()
+                        {
+                            list[i]
+                        },
+                        RowIndex = ++rowIndex,
+                        Height = maxHeight
+                    });
+
+                }
+                else
+                {
+
+                    if (list[i].Height > maxHeight)
+                    {
+                        maxHeight = list[i].Height;
+                    }
+
+                    listOfList[rowIndex].Controls.Add(list[i]);
+                    listOfList[rowIndex].Height = maxHeight;
+                }
+            }
+
+            return listOfList;
         }
     }
 }
