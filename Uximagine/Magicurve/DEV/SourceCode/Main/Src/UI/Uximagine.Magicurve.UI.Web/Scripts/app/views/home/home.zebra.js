@@ -8,20 +8,24 @@
     //controls.length = jsonObj.length;
 
     //function for drawing button
-    function drawButton(bwidth, bheight) {
-        var button = new zebra.ui.Button("Button");
+    function drawButton(bwidth, bheight,ButttonCaption) {
+        var button = new zebra.ui.Button(ButttonCaption);
         button.properties({
             width: bwidth,
-            height: bheight
+            height: bheight,
+            
+           
 
         });
+      
         var buttonShaperPan = new zebra.ui.designer.ShaperPan(button);
         buttonShaperPan.properties({
             value: true,
-            location: [720, 760]
+            location: [720, 760],
+            
 
         });
-
+       
 
 
         return buttonShaperPan;
@@ -41,8 +45,8 @@
     }
 
     //function for drawing lable
-    function drawLable(lx, ly, lw, lh) {
-        var lable = new zebra.ui.Label("lable");
+    function drawLable(lx, ly, lw, lh,labaleCaption) {
+        var lable = new zebra.ui.Label(labaleCaption);
         lable.setBounds(lx, ly, lw, lh);
         lable.setColor("black");
 
@@ -73,9 +77,9 @@
     }
 
     //function for drawing checkBox
-    function drawCheckBox(checkX, checkY, checkW, checkH) {
+    function drawCheckBox(checkX, checkY, checkW, checkH,checkValue) {
 
-        var checkBox = new zebra.ui.Checkbox("Java");
+        var checkBox = new zebra.ui.Checkbox(checkValue);
         checkBox.setBounds(checkX, checkY, checkW, checkH);
         var shpercheckBox = new zebra.ui.designer.ShaperPan(checkBox);
 
@@ -83,11 +87,12 @@
     }
 
     //function for drawing radio button
-    function drawRadioButton(radioX, radioY, radioW, radioH) {
-        var radioButton = new zebra.ui.Radiobox("radio");
+    function drawRadioButton(radioX, radioY, radioW, radioH,radioValue) {
+        var radioButton = new zebra.ui.Radiobox(radioValue);
         radioButton.setBounds(radioX, radioY, radioW, radioH);
+       
         var shpercheckBox = new zebra.ui.designer.ShaperPan(radioButton);
-
+        
         return shpercheckBox;
     }
 
@@ -115,8 +120,8 @@
     }
 
     //function for drawing combo box
-    function drawHyperlink(hyX, hyY, hyW, hyH) {
-        var hyperlink = new zebra.ui.Link("This is a hyperlink");
+    function drawHyperlink(hyX, hyY, hyW, hyH,hyperValue) {
+        var hyperlink = new zebra.ui.Link(hyperValue);
         hyperlink.setBounds(hyX, hyY, hyW, hyH);
         hyperlink.setColor("#2E64FE");
         var shperhyperlink = new zebra.ui.designer.ShaperPan(hyperlink);
@@ -169,9 +174,9 @@
             controlsValid++;
         }
     }
-
+    
     var root = (new zCanvas("designer", 970, 820)).root;
-    root.setBackground("black");
+        root.setBackground("black");
 
     var pn1 = new drawPanel(5, 5, 960, 810);
     root.add(pn1);
@@ -182,13 +187,13 @@
     var me = new drawMenuBar(10, 110, 950, 40);
     root.add(me);
 
-    var lable1 = new drawLable(720, 183, 80, 30);
+    var lable1 = new drawLable(720, 183, 80, 30,"User Name");
     root.add(lable1);
 
     var text = new drawTextBox(820, 183, 120, 30);
     root.add(text);
 
-    var lable2 = new drawLable(720, 235, 80, 30);
+    var lable2 = new drawLable(720, 235, 80, 30,"Password");
     root.add(lable2);
 
     var text1 = new drawTextBox(820, 235, 120, 30);
@@ -198,18 +203,18 @@
     var hor = new drawHorizontalLine(700, 330, 250);
     root.add(hor);
 
-    var radio1 = new drawRadioButton(720, 370, 80, 30);
+    var radio1 = new drawRadioButton(720, 370, 80, 30,"Male");
     root.add(radio1);
-    var radio2 = new drawRadioButton(720, 400, 80, 30);
+    var radio2 = new drawRadioButton(720, 400, 80, 30,"Female");
     root.add(radio2);
 
     var hor1 = new drawHorizontalLine(700, 450, 250);
     root.add(hor1);
 
-    var check1 = new drawCheckBox(720, 470, 80, 30);
+    var check1 = new drawCheckBox(720, 470, 80, 30,"Java");
     root.add(check1);
 
-    var check2 = new drawCheckBox(720, 500, 80, 30);
+    var check2 = new drawCheckBox(720, 500, 80, 30,"C#");
     root.add(check2);
 
     var hor2 = new drawHorizontalLine(700, 570, 250);
@@ -223,22 +228,27 @@
     var texA = new drawTextArea(720, 650, 180, 100);
     root.add(texA);
 
-    var butt = new drawButton(60, 30);
+    var butt = new drawButton(60, 30,"submit");
     root.add(butt);   
 
-    var lin = new drawHyperlink(350, 780, 150, 20);
+    var lin = new drawHyperlink(350, 780, 150, 20,"this is a hyperlink");
     root.add(lin);
 
+    var root = (new zCanvas("designerho", 970, 820)).root;
+    root.setBackground("black");
+    
+    
+  /*
 
 
-    /*  root.properties({
+     root.properties({
           layout: new BorderLayout(4, 4),
           border: new Border(),
           padding: 8,
           kids: {
               CENTER: new BorderPan("UX panel", new Panel({
                   //padding: 50,
-                  kids: controls
+                  kids: drawButton(60,30,"test")
               })),
            
               BOTTOM: new Button("Align", [
@@ -253,11 +263,11 @@
                   }
               ])
           }
-      });*/
+      });
 
 
 
-
+*/
 
 
 
