@@ -180,6 +180,7 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\app\views\home\home.Index.js" />
     <Content Include="Scripts\app\views\home\home.upload.js" />
     <Content Include="Scripts\app\views\home\magicurve.app.controller.home.js" />
     <Content Include="Scripts\app\views\home\magicurve.app.js" />
