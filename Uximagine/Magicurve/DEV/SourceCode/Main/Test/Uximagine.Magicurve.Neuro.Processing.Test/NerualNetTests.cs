@@ -243,5 +243,30 @@ namespace Uximagine.Magicurve.Neuro.Processing.Test
 
             return features;
         }
+
+        /// <summary>
+        /// Tests the classfier.
+        /// </summary>
+        [Test]
+        public void TestClassfier()
+        {
+            double[][] inputs =
+           {
+                new double[] { 0, 0, 0, 0, 0 },           // Radio
+                new double[] { 4, 4, 1, 2, 2 },           // Button
+                new double[] { 5, 6, 4, 2, 2 },           // Combo
+                new double[] { 6, 5, 1, 2, 3 },           // Text Box
+                new double[] { 6, 5, 1, 3, 2 },           // Paragraph
+                new double[] { 5, 5, 2, 3, 2 }            // IFrame
+            };
+
+            // Output for each of the inputs
+            int[] outputs = { 0, 1, 2, 3, 4, 5 };
+
+            ShapeClassfier classifier = ShapeClassfier.GetInstance(nInputs:5, classes: 6);
+            classifier.TrainMachine(inputs, outputs);
+            int decision = classifier.Compute(new double[] { 6, 5, 1, 2, 3 });
+            decision.ShouldEqual(3);
+        }
     }
 }

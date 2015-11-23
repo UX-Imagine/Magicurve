@@ -115,6 +115,7 @@
     <Compile Include="Image\ImageProcessorTest.cs" />
     <Compile Include="Image\CornerTests.cs" />
     <Compile Include="Image\EdgeTests.cs" />
+    <Compile Include="Neuro\NeuroTrainTests.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ProcessingServiceTest.cs" />
@@ -139,6 +140,10 @@
       <Project>{0e3b890e-d113-4b87-9e39-19ac065e00c7}</Project>
       <Name>Uximagine.Magicurve.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Src\Domain\Uximagine.Magicurve.DataAccess\Uximagine.Magicurve.DataAccess.csproj">
+      <Project>{50001cc6-aa08-4a10-95da-1431bf2bc29f}</Project>
+      <Name>Uximagine.Magicurve.DataAccess</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Src\Domain\Uximagine.Magicurve.DataTransfer\Uximagine.Magicurve.DataTransfer.csproj">
       <Project>{1419cbe2-f970-4a01-b8dc-5bec2ada2902}</Project>
       <Name>Uximagine.Magicurve.DataTransfer</Name>
@@ -146,6 +151,10 @@
     <ProjectReference Include="..\..\Src\ImageProcessing\Uximagine.Magicurve.Image.Processing\Uximagine.Magicurve.Image.Processing.csproj">
       <Project>{da122933-7bba-4036-9377-6f15b1fb7f63}</Project>
       <Name>Uximagine.Magicurve.Image.Processing</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Src\NeuroNetworks\Uximagine.Magicurve.Neuro.Processing\Uximagine.Magicurve.Neuro.Processing.csproj">
+      <Project>{442acb2b-a562-4257-8187-11c42f9afbff}</Project>
+      <Name>Uximagine.Magicurve.Neuro.Processing</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Src\Services\Uximagine.Magicurve.Services.BusinessServices\Uximagine.Magicurve.Services.BusinessServices.csproj">
       <Project>{b01199e0-cc8c-4f1e-b550-959543314908}</Project>

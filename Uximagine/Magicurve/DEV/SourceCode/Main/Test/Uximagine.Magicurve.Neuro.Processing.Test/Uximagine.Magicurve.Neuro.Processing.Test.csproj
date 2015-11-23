@@ -95,6 +95,10 @@
       <Project>{0E3B890E-D113-4B87-9E39-19AC065E00C7}</Project>
       <Name>Uximagine.Magicurve.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Src\NeuroNetworks\Uximagine.Magicurve.Neuro.Processing\Uximagine.Magicurve.Neuro.Processing.csproj">
+      <Project>{442acb2b-a562-4257-8187-11c42f9afbff}</Project>
+      <Name>Uximagine.Magicurve.Neuro.Processing</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

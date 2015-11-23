@@ -662,6 +662,7 @@ namespace Uximagine.Magicurve.Services.Test.Image
         }
 
         [TestCase(@"D:/Data/test/inputs/image_06.jpg", 1f, 100)]
+        [TestCase(@"D:/Data/test/inputs/button/button_06.jpg", 4.2f, 50)]
         [TestCase(@"D:/Data/test/inputs/image_06.jpg", 2f, 100)]
         [TestCase(@"D:/Data/test/inputs/image_06.jpg", 4f, 100)]
         [TestCase(@"D:/Data/test/inputs/combo_06.jpg", 4f, 100)]
@@ -693,6 +694,7 @@ namespace Uximagine.Magicurve.Services.Test.Image
         }
 
         [TestCase(@"D:/Data/test/inputs/mix.jpg", 4.3f, 25)]
+        [TestCase(@"D:/Data/test/inputs/Image.jpeg", 4.3f, 25)] 
         public void HarrisCornerDetectAll(string fileName, float multiflier, int minSize)
         {
             var images = GetCroppedAll(fileName, minSize);
