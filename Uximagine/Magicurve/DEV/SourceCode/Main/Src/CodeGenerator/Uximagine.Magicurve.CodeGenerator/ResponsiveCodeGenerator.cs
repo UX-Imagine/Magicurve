@@ -39,7 +39,7 @@ namespace Uximagine.Magicurve.CodeGenerator
 
         SortHelper sortHelper = new SortHelper();
 
-        public string CreateHtmlCode(List<Control> controls)
+        public string CreateHtmlCode(List<Control> controls, double width)
         {
             StringBuilder builder = new StringBuilder();
 
@@ -62,7 +62,8 @@ namespace Uximagine.Magicurve.CodeGenerator
                 foreach (Control item in row.Controls)
                 {
                     //openColums(row.controls.Count)
-                    builder.Append(OpenColDiv(row.Controls.Count));
+                    //builder.Append(OpenColDiv(row.Controls.Count));
+                    builder.Append(OpenColDiv(sortHelper.GenerateColSizeAlgo(item,width)));
 
                 //Console.Write(((Button)con).Name);
                     switch (item.Type)
@@ -194,16 +195,30 @@ namespace Uximagine.Magicurve.CodeGenerator
 
         public string OpenRowDiv(double height)
         {
-            string rowDiv = string.Format(@"<div class='row' style='height: {0}px'>" +newline, height);
+            string rowDiv = string.Format(@"<div class='row' style='height: {0}px;margin-top: 5px'>" +newline, height);
             return rowDiv;
         }
 
-        public string OpenColDiv(int controlsCount)
+        public string OpenColDiv(int colSize)
         {
-            int colDivider = 12 / controlsCount;
-            string colDiv = string.Format(@"<div class='col-md-{0}'>" + newline, colDivider);
+            string colDiv = string.Format(@"<div class='col-md-{0}'>" + newline, colSize);
             return colDiv;
         }
+
+        //public string OpenColDiv(Control item)
+        //{
+        //    double pageWidth = 900;
+        //    double value = (item.Width / pageWidth)*12;
+        //    int colSize = (int)(Math.Round(value));
+        //    if (colSize < 2)
+        //    {
+        //        colSize = 2;
+        //    }
+        //    string colDiv = string.Format(@"<div class='col-md-{0}'>" + newline, colSize);
+
+        //    return colDiv;
+        //}
+
 
         public string InputTag(string inputType, string inputName, string inputValue)
         {
@@ -214,49 +229,45 @@ namespace Uximagine.Magicurve.CodeGenerator
         {
             Button button = control as Button;
 
-            //string divTag = codegenerator.StartDiv(button.X, button.Y);
-           //// string btn = string.Format(@"    <input type='button' value='{0}' style='left:{1}px;top:{2}px;position:absolute'/>"+newline,button.Value, button.X,button.Y);
-            string btn = string.Format(@"    <input type='button' value='{0}' style='margin-left: {1}px'/>" + newline,button.Value, button.X);
-            //string endDiv = codegenerator.EndTag(div);
-            //return divTag + btn + endDiv;
+            string btn = string.Format(@"    <input type='button' value='{0}'/>" + newline,button.Value);
+
             return btn;
         }
 
         public string GetCheckBox(Control checkbox)
         {
-            string check = string.Format(@"    <input type='checkbox' style='width: {0}px;margin-left: {1}px'/>" + newline, checkbox.Width, checkbox.X);
+            string check = string.Format(@"    <input type='checkbox'/>" + newline);
            
             return check;
         }
 
         public string GetRadio(Control radio)
         {
-            return string.Empty;
+            string radioBtn = string.Format(@"    <input type='radio'/>" + newline);
+            return radioBtn;
         }
 
         public string GetCombo(Control combo)
         {
             string select = string.Format(
-                            @"    <select id='styledSelect' class='blueText' style='left:{0}px;top:{1}px;position:absolute'>
+                            @"    <select style='margin-left:{0}px'>
         <option value='yourMom'>Your Mom</option>
         <option value='myMom'>My Mom</option>
-   </select>" + newline, combo.X, combo.Y);
+   </select>" + newline, combo.X);
 
             return select;
         }
 
         public string GetText(Control text)
         {
-            string txt = string.Format(@"    <input type='text' style='margin-left:{0}px'/>" + newline,
-                                          text.X);
+            string txt = string.Format(@"    <input type='text'/>" + newline);
             
             return txt;
         }
 
         public string GetPassword(Control password)
         {
-            string pass = string.Format(@"    <input type='password' style='margin-left:{0}px'/>",
-                                           password.X);
+            string pass = string.Format(@"    <input type='password'/>"+newline);
             return pass;
         }
 
@@ -277,7 +288,7 @@ namespace Uximagine.Magicurve.CodeGenerator
         public string GetLabel(Control control)
         {
             Label label = control as Label;
-            string lbl = string.Format(@" <label style='margin-left:{0}px'>{1}</label>"+newline,label.X,label.Value);
+            string lbl = string.Format(@"    <label>{0}</label>"+newline,label.Value);
             return lbl;
         }
 
@@ -288,7 +299,8 @@ namespace Uximagine.Magicurve.CodeGenerator
 
         public string GetImage(Control img)
         {
-            return "";
+            string image = string.Format(@" <img src='img.jpg'/>" + newline);
+            return image;
         }
 
         public string GetHyperLink(Control hyperlink)

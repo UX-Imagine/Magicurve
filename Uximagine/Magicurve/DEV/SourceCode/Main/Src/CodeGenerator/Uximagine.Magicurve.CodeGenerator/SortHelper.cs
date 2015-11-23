@@ -31,9 +31,19 @@ namespace Uximagine.Magicurve.CodeGenerator
 
         public List<Row> DivAlgorithm(List<Control> list)
         {
+            double defaultHeight = 40;
+            double maxHeight;
             List<Row> listOfList = new List<Row>();
             Control minYControl = list[0];
-            double maxHeight = list[0].Height;
+            if (list[0].Height < defaultHeight)
+            {
+                maxHeight = defaultHeight;
+            }
+            else
+            {
+                maxHeight = list[0].Height;
+            }
+             
             int rowIndex = 0;
             listOfList.Add(new Row()
             {
@@ -52,7 +62,15 @@ namespace Uximagine.Magicurve.CodeGenerator
 
                 if (currentY > previousY + maxHeight)
                 {
-                    maxHeight = list[i].Height;
+                    if (list[i].Height > defaultHeight)
+                    {
+                        maxHeight = list[i].Height;
+                    }
+                    else
+                    {
+                        maxHeight = defaultHeight;
+                    }
+                    
                     listOfList.Add(new Row()
                     {
                         Controls = new List<Control>()
@@ -105,6 +123,17 @@ namespace Uximagine.Magicurve.CodeGenerator
 
 
             return finalizeRowList;
+        }
+
+        public int GenerateColSizeAlgo(Control item, double pageWidth)
+        {
+            double value = (item.Width / pageWidth) * 12;
+            int colSize = (int)(Math.Round(value));
+            if (colSize < 2)
+            {
+                colSize = 2;
+            }
+            return colSize;
         }
 
 

@@ -9,7 +9,7 @@ namespace Uximagine.Magicurve.CodeGenerator
 {
     public interface IGenerator
     {
-         string CreateHtmlCode(List<Control> controls);
+         string CreateHtmlCode(List<Control> controls, double width);
 
         // string GetHeader(string href);
 

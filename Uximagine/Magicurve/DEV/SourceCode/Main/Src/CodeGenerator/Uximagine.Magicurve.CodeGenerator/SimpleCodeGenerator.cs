@@ -38,7 +38,7 @@ namespace Uximagine.Magicurve.CodeGenerator
 
         //CodeGenerator codegenerator = new CodeGenerator();//created for the use of calling div tag methods
 
-        public string CreateHtmlCode(List<Control> controls)
+        public string CreateHtmlCode(List<Control> controls, double width)
         {
             StringBuilder builder = new StringBuilder();
             // use passed control list with set of html controls and their properties

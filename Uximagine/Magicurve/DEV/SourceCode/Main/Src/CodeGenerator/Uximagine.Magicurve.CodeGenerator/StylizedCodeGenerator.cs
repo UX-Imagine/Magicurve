@@ -36,7 +36,7 @@ namespace Uximagine.Magicurve.CodeGenerator
         public string horizontalTag = "hr";
         public string newline = Environment.NewLine;
 
-        public string CreateHtmlCode(List<Control> controls)
+        public string CreateHtmlCode(List<Control> controls, double width)
         {
             StringBuilder builder = new StringBuilder();
             // use passed control list with set of html controls and their properties
