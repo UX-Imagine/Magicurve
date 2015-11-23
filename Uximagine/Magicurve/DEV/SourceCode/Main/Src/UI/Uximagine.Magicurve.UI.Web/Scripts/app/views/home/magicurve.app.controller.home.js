@@ -3,8 +3,13 @@
         $scope.message = "Hello";
         $scope.spices = homeService.shape;
 
+        /*
+        homeService.getShapeInfo().then(function (data) {
+            $scope.getsh = data;
+           
+        }, function () {alert("error") });*/
 
-
+        
           //{ "name": "pasilla", "spiciness": "mild" };
        
                    
@@ -12,9 +17,6 @@
         $scope.pop = function() {
             toaster.pop("success", "Hello", homeService.shape.type);
             
-            homeService.getShape().then(function (data) {
-               // zebra.createButton(data.x,);
-            });
         };
     });
 
