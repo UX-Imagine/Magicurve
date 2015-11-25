@@ -24,6 +24,7 @@
         root.setBackground("black");
 
     var pn1 = new drawPanel(5, 5, 960, 810);
+    pn1.setBackground("white");
     root.add(pn1);
 
     var pn2 = new drawPanel(700, 155, 260, 655);
