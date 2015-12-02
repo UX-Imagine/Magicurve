@@ -66,8 +66,7 @@ namespace Uximagine.Magicurve.Image.Processing
             using (Bitmap bitmap = new Bitmap(path))
             {
                 // Apply filters to get smooth image.
-                var blobReady = bitmap.GetBlobReady();
-                blobReady.Save("D:/blobready.jpg");
+                Bitmap blobReady = bitmap.GetBlobReady();
 
                 // Detect Shapes.
                 IBlobDetector blobDetector = ProcessingFactory.GetBlobDetector();
