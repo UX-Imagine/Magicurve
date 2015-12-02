@@ -82,63 +82,17 @@ namespace Uximagine.Magicurve.Image.Processing.Detectors
         public Bitmap GetImage()
         {
             // step 2 - locating objects
-            var shapeChecker = ProcessingFactory.GetShapeChecker();
             var g = Graphics.FromImage(this._image);
-            var yellowPen = new Pen(Color.Yellow, 2); //// circles
-            var redPen = new Pen(Color.Red, 2); //// quadrilateral
-            var brownPen = new Pen(Color.Brown, 2); //// quadrilateral with known sub-type
-            var greenPen = new Pen(Color.Green, 2); //// known triangle
-            var bluePen = new Pen(Color.Blue, 2); //// triangle
+            var bluePen = new Pen(Color.Blue, 2); //// other
 
             for (int i = 0, n = this.Blobs.Length; i < n; i++)
             {
                 List<IntPoint> edgePoints = _blobCounter.GetBlobsEdgePoints(this.Blobs[i]);
-
-                Point center;
-
-                float radius;
-
-                //// is circle ?
-                if (((SimpleShapeChecker)shapeChecker).IsCircle(edgePoints, out center, out radius))
-                {
-                    g.DrawEllipse(yellowPen,
-                        center.X - radius, center.Y - radius,
-                        radius * 2, radius * 2);
-                }
-                else
-                {
-                    var corners = shapeChecker.GetShapeCorners(edgePoints);
-
-                    var controlType = shapeChecker.GetControlType(edgePoints);
-
-                    Pen pen;
-
-                    if (controlType == ControlType.None)
-                    {
-                        pen = bluePen;
-                    }
-                    else if (controlType == ControlType.Button)
-                    {
-                        pen = greenPen;
-                    }
-                    else if (controlType == ControlType.ComboBox)
-                    {
-                        pen = yellowPen;
-                    }
-                    else
-                    {
-                        pen = redPen;
-                    }
-
-                    g.DrawPolygon(pen, corners.ToPointsArray());
-                }
+                Pen pen = bluePen;
+                g.DrawPolygon(pen, edgePoints.ToPointsArray());
             }
-
-            yellowPen.Dispose();
-            redPen.Dispose();
-            greenPen.Dispose();
+           
             bluePen.Dispose();
-            brownPen.Dispose();
             g.Dispose();
 
             return this._image;
@@ -160,18 +114,7 @@ namespace Uximagine.Magicurve.Image.Processing.Detectors
             {
                 var edgePoints = this._blobCounter.GetBlobsEdgePoints(this.Blobs[i]);
 
-                var type = shapeChecker.GetControlType(edgePoints);
-
-                var control = new Control
-                {
-                    Type = type,
-                    X = shapeChecker.X,
-                    Y = shapeChecker.Y,
-                    Width = shapeChecker.Width,
-                    Height = shapeChecker.Height,
-                    EdgePoints = edgePoints
-
-                };
+                Control control = edgePoints.ToControl();
 
                 _controls.Add(control);
             }

@@ -7,7 +7,6 @@ using System.Web.Http;
 using Uximagine.Magicurve.DataTransfer.Responses;
 using Uximagine.Magicurve.DataTransfer.Requests;
 using Uximagine.Magicurve.Services;
-using Uximagine.Magicurve.Core.Shapes;
 using Uximagine.Magicurve.Core.Models;
 #endregion
 

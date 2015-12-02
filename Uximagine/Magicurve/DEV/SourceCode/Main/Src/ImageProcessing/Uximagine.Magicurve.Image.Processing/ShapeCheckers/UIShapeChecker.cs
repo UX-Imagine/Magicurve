@@ -1,5 +1,6 @@
 ﻿#region Imports
 using System.Collections.Generic;
+using System.Drawing;
 using AForge;
 using AForge.Math.Geometry;
 using Uximagine.Magicurve.Core.Models; 
@@ -127,15 +128,6 @@ namespace Uximagine.Magicurve.Image.Processing.ShapeCheckers
         {
             var type = ControlType.None;
 
-            IntPoint minXy;
-            IntPoint maxXy;
-            PointsCloud.GetBoundingRectangle(edgePoints, out minXy, out maxXy);
-
-            this.X = minXy.X;
-            this.Y = minXy.Y;
-            this.Height = maxXy.Y - minXy.Y;
-            this.Width = maxXy.X - minXy.X;
-
             var corners = this.GetShapeCorners(edgePoints);
 
             if (this.IsButton(edgePoints, corners))
@@ -155,6 +147,19 @@ namespace Uximagine.Magicurve.Image.Processing.ShapeCheckers
             }
 
             return type;
+        }
+
+        /// <summary>
+        /// Gets the type of the control.
+        /// </summary>
+        /// <param name="control">The control.</param>
+        /// <param name="edgePoints">The edge points.</param>
+        /// <returns>
+        /// The control type.
+        /// </returns>
+        public override ControlType GetControlType(Bitmap control, List<IntPoint> edgePoints)
+        {
+            return GetControlType(edgePoints);
         }
 
         /// <summary>

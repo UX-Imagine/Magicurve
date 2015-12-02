@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Drawing;
 using System.Drawing.Imaging;
+using AForge.Imaging;
+using AForge.Imaging.Filters;
 using Uximagine.Magicurve.Image.Processing.Common;
 
 namespace Uximagine.Magicurve.Image.Processing.Helpers
@@ -430,6 +432,29 @@ namespace Uximagine.Magicurve.Image.Processing.Helpers
             bmap.UnlockBits(data);
 
             return bmap;
+        }
+
+        /// <summary>
+        /// Gets the BLOB ready.
+        /// </summary>
+        /// <param name="image">The image.</param>
+        /// <returns>
+        /// The filtered image.
+        /// </returns>
+        public static Bitmap GetBlobReady(this Bitmap image)
+        {
+            image = AForge.Imaging.Filters.Grayscale.CommonAlgorithms.BT709.Apply(image);
+
+            Threshold threshold = new Threshold();
+            threshold.ApplyInPlace(image);
+
+            Median median = new Median();
+            median.ApplyInPlace(image);
+
+            Invert invert = new Invert();
+            invert.ApplyInPlace(image);
+
+            return image;
         }
     }
 }

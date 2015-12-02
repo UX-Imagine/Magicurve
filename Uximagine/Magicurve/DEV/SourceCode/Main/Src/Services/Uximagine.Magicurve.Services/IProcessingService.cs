@@ -18,5 +18,10 @@ namespace Uximagine.Magicurve.Services
         ///     The URL.
         /// </returns>
         ProcessResponseDto ProcessImage(ProcessRequestDto requestDto);
+
+        /// <summary>
+        /// Trains this instance.
+        /// </summary>
+        void Train();
     }
 }

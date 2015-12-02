@@ -34,5 +34,14 @@ namespace Uximagine.Magicurve.Services.BusinessServices
 
             return response;
         }
+
+        /// <summary>
+        /// Trains this instance.
+        /// </summary>
+        public void Train()
+        {
+            TrainDataUnitOfWork work = new TrainDataUnitOfWork(true);
+            this.DoWork(work);
+        }
     }
 }

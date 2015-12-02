@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Drawing;
+using System.Security.Cryptography.X509Certificates;
 using AForge;
 using Uximagine.Magicurve.Core.Models;
 
@@ -60,5 +62,23 @@ namespace Uximagine.Magicurve.Image.Processing.ShapeCheckers
         /// The shape corners.
         /// </returns>
         List<IntPoint> GetShapeCorners(List<IntPoint> edgePoints);
+
+        /// <summary>
+        /// Gets the type of the control.
+        /// </summary>
+        /// <param name="original">The original.</param>
+        /// <param name="edgePoints">The edge points.</param>
+        /// <returns>
+        /// The control type
+        /// </returns>
+        ControlType GetControlType(Bitmap original, List<IntPoint> edgePoints);
+
+        /// <summary>
+        /// Sets the properties.
+        /// </summary>
+        /// <param name="edgePoints">
+        /// The edge points.
+        /// </param>
+        void SetProperties(List<IntPoint> edgePoints);
     }
 }

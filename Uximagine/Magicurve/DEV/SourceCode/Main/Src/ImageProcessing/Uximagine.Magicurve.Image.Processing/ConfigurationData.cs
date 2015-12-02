@@ -1,4 +1,7 @@
-﻿namespace Uximagine.Magicurve.Image.Processing
+﻿using System.Collections.Specialized;
+using System.Configuration;
+
+namespace Uximagine.Magicurve.Image.Processing
 {
     /// <summary>
     /// Provides access to configuration data.
@@ -35,6 +38,15 @@
             public const string ShapeCheckerImplementationPluginName = @"ShapeCheckerImpl";
 
             #endregion
+        }
+
+        private static class DirectoryNames
+        {
+            /// <summary>
+            /// The train data section name
+            /// </summary>
+            public const string TrainDataSectionName = @"TrainData";
+
         }
 
         #endregion
@@ -92,6 +104,45 @@
             get
             {
                 return ConfigurationData.PluginNames.ShapeCheckerImplementationPluginName;
+            }
+        }
+
+        /// <summary>
+        /// Gets the train data directory.
+        /// </summary>
+        /// <value>
+        /// The train data directory.
+        /// </value>
+        public static NameValueCollection TrainDataInfo
+        {
+            get
+            {
+                NameValueCollection trainData =
+                    (NameValueCollection)ConfigurationManager.GetSection(DirectoryNames.TrainDataSectionName);
+
+                return trainData;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether [must log operational performance].
+        /// </summary>
+        /// <value>
+        /// <c>true</c> if [must log operational performance]; otherwise, <c>false</c>.
+        /// </value>
+        public static bool MustLogOperationalPerformance { get { return true; } }
+
+        /// <summary>
+        /// Gets the minimum size.
+        /// </summary>
+        /// <value>
+        /// The minimum size.
+        /// </value>
+        public static int MinSize
+        {
+            get
+            {
+                return int.Parse(ConfigurationManager.AppSettings["minSize"]);
             }
         }
     }

@@ -92,13 +92,13 @@ namespace Uximagine.Magicurve.Services.Test.Neuro
         /// <param name="minSize">The minimum size.</param>
         private void AddSymbols(string folder, int label, int minSize)
         {
-            string[] buttons = Directory.GetFiles(folder);
-            var samples = buttons.Length;
+            string[] files = Directory.GetFiles(folder);
+            var samples = files.Length;
             _index = 0;
 
             for (var i = 0; i < samples; i++)
             {
-                Bitmap cropped = Crop(buttons[i], minSize);
+                Bitmap cropped = Crop(files[i], minSize);
                 if (cropped != null)
                 {
                     _images.Add(new Tuple<Bitmap, int>(cropped, label));

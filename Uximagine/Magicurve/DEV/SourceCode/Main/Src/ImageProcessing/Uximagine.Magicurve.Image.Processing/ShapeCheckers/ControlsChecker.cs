@@ -1,5 +1,6 @@
 ﻿using AForge;
 using System.Collections.Generic;
+using System.Drawing;
 using Uximagine.Magicurve.Core.Models;
 
 namespace Uximagine.Magicurve.Image.Processing.ShapeCheckers
@@ -18,6 +19,11 @@ namespace Uximagine.Magicurve.Image.Processing.ShapeCheckers
             }
             
             return type;
+        }
+
+        public override ControlType GetControlType(Bitmap control, List<IntPoint> edgePoints)
+        {
+            throw new System.NotImplementedException();
         }
 
         protected bool CheckButton(List<IntPoint> edgePoints, List<IntPoint> corners)

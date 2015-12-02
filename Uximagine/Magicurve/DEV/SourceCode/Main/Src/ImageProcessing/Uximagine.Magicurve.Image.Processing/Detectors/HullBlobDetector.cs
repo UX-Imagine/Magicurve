@@ -8,7 +8,6 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
-using System.Linq;
 using AForge;
 using AForge.Imaging;
 using AForge.Math.Geometry;
@@ -22,42 +21,6 @@ namespace Uximagine.Magicurve.Image.Processing.Detectors
     /// </summary>
     public class HullBlobDetector : IBlobDetector
     {
-        /// <summary>
-        ///     Blobs' highlight types enumeration
-        /// </summary>
-        public enum HightlightType
-        {
-            /// <summary>
-            ///     The convex hull.
-            /// </summary>
-            ConvexHull,
-
-            /// <summary>
-            ///     The left and right edges.
-            /// </summary>
-            LeftAndRightEdges,
-
-            /// <summary>
-            ///     The top and bottom edges.
-            /// </summary>
-            TopAndBottomEdges,
-
-            /// <summary>
-            ///     The quadrilateral.
-            /// </summary>
-            Quadrilateral
-        }
-
-        /// <summary>
-        ///     The highlighting.
-        /// </summary>
-        private const HightlightType Highlighting = HightlightType.ConvexHull;
-
-        /// <summary>
-        ///     The show rectangle around selection.
-        /// </summary>
-        private const bool ShowRectangleAroundSelection = false;
-
         /// <summary>
         ///     The blob counter.
         /// </summary>
@@ -106,12 +69,12 @@ namespace Uximagine.Magicurve.Image.Processing.Detectors
         /// <summary>
         /// The blob min hight.
         /// </summary>
-        private const int BLOB_MIN_HIGHT = 25;
+        public static int BlobMinHight = 50;
 
         /// <summary>
         /// The blob min width.
         /// </summary>
-        private const int BLOB_MIN_WIDTH = 25;
+        public static int BlobMinWidth = 50;
 
         /// <summary>
         ///     Gets or sets the controls.
@@ -146,9 +109,9 @@ namespace Uximagine.Magicurve.Image.Processing.Detectors
                 throw new MethodAccessException("Process Image before accessing the image output.");
             }
 
-            this.PaintImage();
+            Bitmap painted = this.PaintImage();
 
-            return this._image;
+            return painted;
         }
 
         /// <summary>
@@ -175,26 +138,13 @@ namespace Uximagine.Magicurve.Image.Processing.Detectors
         {
             this._blobs = this._blobCounter.GetObjectsInformation();
 
-            //// step 3 - check objects' type and highlight
-            var shapeChecker = ProcessingFactory.GetShapeChecker();
-
             this.Controls = new List<Control>();
 
             for (int i = 0, n = this._blobs.Length; i < n; i++)
             {
                 var edgePoints = _blobCounter.GetBlobsEdgePoints(this._blobs[i]);
 
-                var type = shapeChecker.GetControlType(edgePoints);
-
-                var control = new Control
-                {
-                    Type = type,
-                    X = shapeChecker.X,
-                    Y = shapeChecker.Y,
-                    Width = shapeChecker.Width,
-                    Height = shapeChecker.Height,
-                    EdgePoints = edgePoints
-                };
+                Control control = edgePoints.ToControl();
 
                 Controls.Add(control);
             }
@@ -211,8 +161,8 @@ namespace Uximagine.Magicurve.Image.Processing.Detectors
             this._image = AForge.Imaging.Image.Clone(originalImage, PixelFormat.Format24bppRgb);
 
             this._blobCounter.ProcessImage(this._image);
-            this._blobCounter.MinHeight = BLOB_MIN_HIGHT;
-            this._blobCounter.MinWidth = BLOB_MIN_WIDTH;
+            this._blobCounter.MinHeight = BlobMinHight;
+            this._blobCounter.MinWidth = BlobMinWidth;
             this._blobCounter.CoupledSizeFiltering = true;
             this._blobCounter.FilterBlobs = true;
             this._blobs = this._blobCounter.GetObjectsInformation();
@@ -236,10 +186,7 @@ namespace Uximagine.Magicurve.Image.Processing.Detectors
         /// </param>
         private void ProcessBlob(Blob blob, GrahamConvexHull grahamScan)
         {
-            List<IntPoint> leftEdge = new List<IntPoint>();
-            List<IntPoint> rightEdge = new List<IntPoint>();
-            List<IntPoint> topEdge = new List<IntPoint>();
-            List<IntPoint> bottomEdge = new List<IntPoint>();
+            List<IntPoint> leftEdge, topEdge, rightEdge, bottomEdge;
 
             // collect edge points
             this._blobCounter.GetBlobsLeftAndRightEdges(blob, out leftEdge, out rightEdge);
@@ -258,15 +205,13 @@ namespace Uximagine.Magicurve.Image.Processing.Detectors
             var hull = grahamScan.FindHull(edgePoints);
             this._hulls.Add(blob.ID, hull);
 
-            List<IntPoint> quadrilateral = null;
-
             // find quadrilateral
-            quadrilateral = hull.Count < 4 ? new List<IntPoint>(hull) : PointsCloud.FindQuadrilateralCorners(hull);
+            List<IntPoint> quadrilateral = hull.Count < 4 ? new List<IntPoint>(hull) : PointsCloud.FindQuadrilateralCorners(hull);
 
             this._quadrilaterals.Add(blob.ID, quadrilateral);
 
             // shift all points for visualization
-            var shift = new IntPoint(1, 1);
+            IntPoint shift = new IntPoint(1, 1);
 
             PointsCloud.Shift(leftEdge, shift);
             PointsCloud.Shift(rightEdge, shift);
@@ -292,13 +237,13 @@ namespace Uximagine.Magicurve.Image.Processing.Detectors
         /// <summary>
         ///     The paint method of the originaImage.
         /// </summary>
-        private void PaintImage()
+        private Bitmap PaintImage()
         {
-            var g = Graphics.FromImage(this._image);
+            Bitmap pained = (Bitmap)_image.Clone();
+            var g = Graphics.FromImage(pained);
 
             var highlightPen = new Pen(Color.Red);
             var highlightPenBold = new Pen(Color.FromArgb(0, 255, 0), 3);
-            // var rectPen = new Pen(Color.Blue);
 
             // draw rectangle
             if (this._image != null)
@@ -306,78 +251,28 @@ namespace Uximagine.Magicurve.Image.Processing.Detectors
                 foreach (var blob in this._blobs)
                 {
                     var pen = highlightPen;
-                    var leftEdges = new List<IntPoint>();
-                    var topEdges = new List<IntPoint>();
-                    var rightEdges = new List<IntPoint>();
-                    var bottomEdges = new List<IntPoint>();
+
+                    List<IntPoint> leftEdges, topEdges, rightEdges, bottomEdges;
 
                     this._leftEdges.TryGetValue(blob.ID, out leftEdges);
                     this._rightEdges.TryGetValue(blob.ID, out rightEdges);
                     this._bottomEdges.TryGetValue(blob.ID, out bottomEdges);
                     this._topEdges.TryGetValue(blob.ID, out topEdges);
 
-                    var edges = new List<IntPoint>();
+                    List<IntPoint> edges = new List<IntPoint>();
 
-                    edges.AddRange(topEdges);
-                    edges.AddRange(rightEdges);
-                    edges.AddRange(bottomEdges);
-                    edges.AddRange(leftEdges);
+                    if (topEdges != null) edges.AddRange(topEdges);
+                    if (rightEdges != null) edges.AddRange(rightEdges);
+                    if (bottomEdges != null) edges.AddRange(bottomEdges);
+                    if (leftEdges != null) edges.AddRange(leftEdges);
 
-                    /*
-                                        if (ShowRectangleAroundSelection && (blob.ID == this._selectedBlobId))
-                                        {
-                                            g.DrawRectangle(rectPen, blob.Rectangle);
-                                        }
-                    */
+                    g.DrawPolygon(highlightPenBold, (this._hulls[blob.ID]).ToPointsArray());
+                    g.DrawPolygon(pen, (edges).ToPointsArray());
 
-                    switch (Highlighting)
-                    {
-                        case HightlightType.ConvexHull:
-                            g.DrawPolygon(highlightPenBold, (this._hulls[blob.ID]).ToPointsArray());
-                            g.DrawPolygon(pen, (edges).ToPointsArray());
-                            break;
-/*
-                        case HightlightType.LeftAndRightEdges:
-                            this.DrawEdge(g, pen, this._leftEdges[blob.ID]);
-                            this.DrawEdge(g, pen, this._rightEdges[blob.ID]);
-                            break;
-                        case HightlightType.TopAndBottomEdges:
-                            this.DrawEdge(g, pen, this._topEdges[blob.ID]);
-                            this.DrawEdge(g, pen, this._bottomEdges[blob.ID]);
-                            break;
-                        case HightlightType.Quadrilateral:
-                            g.DrawPolygon(pen, (this._quadrilaterals[blob.ID]).ToPointsArray());
-                            break;
-*/
-                    }
                 }
             }
-        }
 
-        /// <summary>
-        ///     Draws the edge.
-        /// </summary>
-        /// <param name="g">
-        ///     The graphics.
-        /// </param>
-        /// <param name="pen">
-        ///     The pen.
-        /// </param>
-        /// <param name="edge">
-        ///     The edge.
-        /// </param>
-        private void DrawEdge(Graphics g, Pen pen, List<IntPoint> edge)
-        {
-            var points = edge.ToPointsArray();
-
-            if (points.Length > 1)
-            {
-                g.DrawLines(pen, points);
-            }
-            else
-            {
-                g.DrawLine(pen, points[0], points[0]);
-            }
+            return pained;
         }
     }
 }

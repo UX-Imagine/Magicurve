@@ -1,4 +1,6 @@
-﻿namespace Uximagine.Magicurve.Services.BusinessServices
+﻿using System.Configuration;
+
+namespace Uximagine.Magicurve.Services.BusinessServices
 {
     /// <summary>
     /// Provides access to configuration data.
@@ -113,6 +115,31 @@
             {
                 return ConfigurationData.PluginNames.ServiceImplementation;
             }
+        }
+
+        /// <summary>
+        /// Gets the minimum size of the control.
+        /// </summary>
+        /// <value>
+        /// The minimum size of the control.
+        /// </value>
+        public static int MinControlSize
+        {
+            get
+            {
+                return int.Parse(ConfigurationManager.AppSettings["minSize"]);
+            }
+        }
+
+        /// <summary>
+        /// Gets the size of the sample.
+        /// </summary>
+        /// <value>
+        /// The size of the sample.
+        /// </value>
+        public static int SampleSize
+        {
+            get { return 32; }
         }
 
         #endregion

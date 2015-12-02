@@ -3,6 +3,8 @@ using System;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Text;
+using Uximagine.Magicurve.Core.Diagnostics;
+
 #endregion
 
 namespace Uximagine.Magicurve.Services.BusinessServices.UnitsOfWork

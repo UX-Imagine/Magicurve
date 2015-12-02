@@ -59,8 +59,10 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -79,6 +81,7 @@
     <Compile Include="Detectors\IDetector.cs" />
     <Compile Include="Detectors\IEdgeDetector.cs" />
     <Compile Include="Common\ColorFilterType.cs" />
+    <Compile Include="Helpers\ControlHelper.cs" />
     <Compile Include="Helpers\ConvolutionFilterHelper.cs" />
     <Compile Include="Helpers\EdgeFilterHelper.cs" />
     <Compile Include="Helpers\FilterHelper.cs" />
@@ -93,8 +96,10 @@
     <Compile Include="ShapeCheckers\AdvancedShapeChecker.cs" />
     <Compile Include="ShapeCheckers\ControlsChecker.cs" />
     <Compile Include="ShapeCheckers\IShapeChecker.cs" />
+    <Compile Include="ShapeCheckers\PcaShapeChecker.cs" />
     <Compile Include="ShapeCheckers\SvmShapeChecker.cs" />
     <Compile Include="ShapeCheckers\UiShapeChecker.cs" />
+    <Compile Include="Trainer.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Common\Uximagine.Magicurve.Core\Uximagine.Magicurve.Core.csproj">
@@ -104,6 +109,10 @@
     <ProjectReference Include="..\..\Domain\Uximagine.Magicurve.DataTransfer\Uximagine.Magicurve.DataTransfer.csproj">
       <Project>{1419cbe2-f970-4a01-b8dc-5bec2ada2902}</Project>
       <Name>Uximagine.Magicurve.DataTransfer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\NeuroNetworks\Uximagine.Magicurve.Neuro.Processing\Uximagine.Magicurve.Neuro.Processing.csproj">
+      <Project>{442acb2b-a562-4257-8187-11c42f9afbff}</Project>
+      <Name>Uximagine.Magicurve.Neuro.Processing</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

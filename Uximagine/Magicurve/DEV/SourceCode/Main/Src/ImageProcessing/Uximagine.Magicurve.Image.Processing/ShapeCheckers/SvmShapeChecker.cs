@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using AForge;
 using Uximagine.Magicurve.Core.Models;
 
@@ -17,6 +18,16 @@ namespace Uximagine.Magicurve.Image.Processing.ShapeCheckers
         }
 
         public List<IntPoint> GetShapeCorners(List<IntPoint> edgePoints)
+        {
+            throw new NotImplementedException();
+        }
+
+        public ControlType GetControlType(Bitmap original, List<IntPoint> edgePoints)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SetProperties(List<IntPoint> edgePoints)
         {
             throw new NotImplementedException();
         }

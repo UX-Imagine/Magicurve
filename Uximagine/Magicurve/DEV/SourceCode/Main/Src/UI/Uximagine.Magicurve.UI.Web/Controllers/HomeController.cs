@@ -3,6 +3,9 @@ using System;
 using System.IO;
 using System.Web.Mvc;
 using System.Linq;
+using System.Threading.Tasks;
+using Uximagine.Magicurve.Services;
+
 #endregion
 
 namespace Uximagine.Magicurve.UI.Web.Controllers
@@ -23,7 +26,7 @@ namespace Uximagine.Magicurve.UI.Web.Controllers
         public ActionResult Index()
         {
             ViewBag.Title = "Home Page";
-
+            this.Train();
             return this.View();
         }
 
@@ -222,6 +225,18 @@ namespace Uximagine.Magicurve.UI.Web.Controllers
             }
 
             return null;
+        }
+
+        /// <summary>
+        /// Trains this instance.
+        /// </summary>
+        /// <returns>
+        /// When task is completed.
+        /// </returns>
+        private async Task Train()
+        {
+            IProcessingService service = ServiceFactory.GetProcessingService();
+            service.Train();
         }
 
         /// <summary>

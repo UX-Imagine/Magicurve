@@ -1,14 +1,14 @@
-﻿namespace Uximagine.Magicurve.Services.BusinessServices.UnitsOfWork
-{
-    using System;
-    using System.Globalization;
-    using System.Transactions;
-    using Uximagine.Magicurve.Core;
-    using Uximagine.Magicurve.Core.Diagnostics;
-    using Uximagine.Magicurve.Core.Diagnostics.ExceptionManagement;
-    using Uximagine.Magicurve.Core.Diagnostics.Logging;
-    using Uximagine.Magicurve.DataTransfer.Exceptions;
+﻿using System;
+using System.Globalization;
+using System.Transactions;
+using Uximagine.Magicurve.Core;
+using Uximagine.Magicurve.Core.Diagnostics;
+using Uximagine.Magicurve.Core.Diagnostics.ExceptionManagement;
+using Uximagine.Magicurve.Core.Diagnostics.Logging;
+using Uximagine.Magicurve.DataTransfer.Exceptions;
 
+namespace Uximagine.Magicurve.Services.BusinessServices.UnitsOfWork
+{
     /// <summary>
     /// Defines the functionality of a Unit of Work.
     /// </summary>
@@ -189,7 +189,7 @@
                     this.GetType(),
                     ex,
                     ErrorSeverity.Error,
-                    UnitOfWork.ExceptionPolicy.DoWork);
+                    ExceptionPolicy.DoWork);
 
                 if (handledException != null)
                 {
@@ -311,7 +311,7 @@
                     this.GetType(),
                     ex,
                     ErrorSeverity.Warning,
-                    UnitOfWork.ExceptionPolicy.AttemptCleanUp);
+                    ExceptionPolicy.AttemptCleanUp);
 
                 //// sink exception
             }
@@ -379,7 +379,7 @@
         /// </summary>
         private void LogStart()
         {
-            this.LogOperation(UnitOfWork.OperationsLogMessages.LogStart);
+            this.LogOperation(OperationsLogMessages.LogStart);
         }
 
         /// <summary>
@@ -387,7 +387,7 @@
         /// </summary>
         private void LogEnd()
         {
-            this.LogOperation(UnitOfWork.OperationsLogMessages.LogEnd);
+            this.LogOperation(OperationsLogMessages.LogEnd);
         }
 
         /// <summary>
@@ -395,7 +395,7 @@
         /// </summary>
         private void LogStartPreExecute()
         {
-            this.LogOperation(UnitOfWork.OperationsLogMessages.LogStartPreExecute);
+            this.LogOperation(OperationsLogMessages.LogStartPreExecute);
         }
 
         /// <summary>
@@ -403,7 +403,7 @@
         /// </summary>
         private void LogEndPreExecute()
         {
-            this.LogOperation(UnitOfWork.OperationsLogMessages.LogEndPreExecute);
+            this.LogOperation(OperationsLogMessages.LogEndPreExecute);
         }
 
         /// <summary>
@@ -411,7 +411,7 @@
         /// </summary>
         private void LogStartWork()
         {
-            this.LogOperation(UnitOfWork.OperationsLogMessages.LogStartWork);
+            this.LogOperation(OperationsLogMessages.LogStartWork);
         }
 
         /// <summary>
@@ -419,7 +419,7 @@
         /// </summary>
         private void LogEndWork()
         {
-            this.LogOperation(UnitOfWork.OperationsLogMessages.LogEndWork);
+            this.LogOperation(OperationsLogMessages.LogEndWork);
         }
 
         /// <summary>
@@ -427,7 +427,7 @@
         /// </summary>
         private void LogStartPostExecute()
         {
-            this.LogOperation(UnitOfWork.OperationsLogMessages.LogStartPostExecute);
+            this.LogOperation(OperationsLogMessages.LogStartPostExecute);
         }
 
         /// <summary>
@@ -435,7 +435,7 @@
         /// </summary>
         private void LogEndPostExecute()
         {
-            this.LogOperation(UnitOfWork.OperationsLogMessages.LogEndPostExecute);
+            this.LogOperation(OperationsLogMessages.LogEndPostExecute);
         }
 
         /// <summary>
@@ -443,7 +443,7 @@
         /// </summary>
         private void LogStartErrorHandling()
         {
-            this.LogOperation(UnitOfWork.OperationsLogMessages.LogStartErrorHandling);
+            this.LogOperation(OperationsLogMessages.LogStartErrorHandling);
         }
 
         /// <summary>
@@ -451,7 +451,7 @@
         /// </summary>
         private void LogEndErrorHandling()
         {
-            this.LogOperation(UnitOfWork.OperationsLogMessages.LogEndErrorHandling);
+            this.LogOperation(OperationsLogMessages.LogEndErrorHandling);
         }
 
         /// <summary>
@@ -459,7 +459,7 @@
         /// </summary>
         private void LogStartCleanup()
         {
-            this.LogOperation(UnitOfWork.OperationsLogMessages.LogStartCleanup);
+            this.LogOperation(OperationsLogMessages.LogStartCleanup);
         }
 
         /// <summary>
@@ -467,7 +467,7 @@
         /// </summary>
         private void LogEndCleanup()
         {
-            this.LogOperation(UnitOfWork.OperationsLogMessages.LogEndCleanup);
+            this.LogOperation(OperationsLogMessages.LogEndCleanup);
         }
 
         #endregion

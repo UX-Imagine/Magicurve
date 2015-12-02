@@ -15,78 +15,63 @@
         /// </summary>
         Button,
 
-
-        /// <summary>
-        /// The checkBox.
-        /// </summary>
-        CheckBox,
-
-
-        /// <summary>
-        /// The radioButton.
-        /// </summary>
-        RadioButton,
-
-
         /// <summary>
         /// The ComboBox.
         /// </summary>
         ComboBox,
-
-
-        /// <summary>
-        /// The input text.
-        /// </summary>
-        InputText,
-
-
-        /// <summary>
-        /// The input password.
-        /// </summary>
-        InputPassword,
-
-
-        /// <summary>
-        /// The DatePicker.
-        /// </summary>
-        DatePicker,
-
 
         /// <summary>
         /// The paragraph.
         /// </summary>
         Paragraph,
 
+        /// <summary>
+        /// The input text.
+        /// </summary>
+        InputText,
 
+        /// <summary>
+        /// The radioButton.
+        /// </summary>
+        RadioButton,
+
+        /// <summary>
+        /// The checkBox.
+        /// </summary>
+        CheckBox,
+
+        /// <summary>
+        /// The input password.
+        /// </summary>
+        InputPassword,
+
+        /// <summary>
+        /// The DatePicker.
+        /// </summary>
+        DatePicker,
         /// <summary>
         /// The label.
         /// </summary>
         Label,
-
-
         /// <summary>
         /// The text area.
         /// </summary>
         TextArea,
-
 
         /// <summary>
         /// The image.
         /// </summary>
         Image,
 
-
         /// <summary>
         /// The hyperlink.
         /// </summary>
         HyperLink,
 
-
         /// <summary>
         /// The iframe.
         /// </summary>
         Iframe,
-
 
         /// <summary>
         /// The horizontal line.

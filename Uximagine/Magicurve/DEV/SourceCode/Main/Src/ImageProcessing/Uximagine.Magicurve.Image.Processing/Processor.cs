@@ -1,11 +1,13 @@
 ﻿#region Imports
 using System.Collections.Generic;
 using System.Drawing;
-using System.Drawing.Imaging;
+using System.Linq;
 using Uximagine.Magicurve.Core.Models;
 using Uximagine.Magicurve.Core.Shapes;
 using Uximagine.Magicurve.Image.Processing.Detectors;
 using Uximagine.Magicurve.Image.Processing.Helpers;
+using Uximagine.Magicurve.Image.Processing.ShapeCheckers;
+
 #endregion
 
 namespace Uximagine.Magicurve.Image.Processing
@@ -21,9 +23,9 @@ namespace Uximagine.Magicurve.Image.Processing
         /// <value>
         /// The shape.
         /// </value>
-        public ControlType Type 
-        { 
-            get; 
+        public ControlType Type
+        {
+            get;
             set;
         }
 
@@ -34,9 +36,9 @@ namespace Uximagine.Magicurve.Image.Processing
         /// The shape.
         /// </value>
         public IControl Shape
-        { 
-            get; 
-            set; 
+        {
+            get;
+            set;
         }
 
         public Bitmap ImageResult
@@ -48,7 +50,7 @@ namespace Uximagine.Magicurve.Image.Processing
         {
             get;
             set;
-        } 
+        }
 
         /// <summary>
         /// Processes the image.
@@ -63,21 +65,31 @@ namespace Uximagine.Magicurve.Image.Processing
         {
             using (Bitmap bitmap = new Bitmap(path))
             {
+                // Apply filters to get smooth image.
+                var blobReady = bitmap.GetBlobReady();
+                blobReady.Save("D:/blobready.jpg");
 
-                IDetector edgeDetector = ProcessingFactory.GetEdgeDetector();
-
-                Bitmap edgeResult = edgeDetector.GetImage(bitmap);
-
+                // Detect Shapes.
                 IBlobDetector blobDetector = ProcessingFactory.GetBlobDetector();
+                blobDetector.ProcessImage(blobReady);
 
-                ////Threshold filterThreshold = new Threshold();
-                ////filterThreshold.ApplyInPlace(edgeResult);
-
-                Bitmap correctFormatImage = edgeResult.ConvertToFormat(PixelFormat.Format24bppRgb);
-
-                blobDetector.ProcessImage(correctFormatImage);
-                this.Controls= blobDetector.GetShapes();
+                List<Control> controls = blobDetector.GetShapes();
                 this.ImageResult = blobDetector.GetImage();
+
+                // Identify control type.
+                IShapeChecker shapeChecker = ProcessingFactory.GetShapeChecker();
+
+                controls =
+                    controls.Where(c => c.Width > ConfigurationData.MinSize && c.Height > ConfigurationData.MinSize)
+                        .ToList();
+
+                foreach (Control control in controls)
+                {
+                    ControlType type = shapeChecker.GetControlType(blobReady, control.EdgePoints);
+                    control.Type = type;
+                }
+
+                Controls = controls;
             }
         }
     }

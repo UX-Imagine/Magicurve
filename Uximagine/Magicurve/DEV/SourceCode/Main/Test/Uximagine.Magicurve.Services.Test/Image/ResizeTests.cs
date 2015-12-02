@@ -2,7 +2,6 @@
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Linq;
-using Accord.Statistics.Kernels;
 using AForge.Imaging.Filters;
 using NUnit.Framework;
 using Uximagine.Magicurve.Core.Shapes;

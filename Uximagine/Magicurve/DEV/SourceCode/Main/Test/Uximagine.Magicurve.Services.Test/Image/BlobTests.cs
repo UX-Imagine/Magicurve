@@ -197,5 +197,13 @@ namespace Uximagine.Magicurve.Services.Test.Image
             blobs.Save(@"D:/Data/test/outputs/blobs_" + fileName.Split('/').Last());
             sekliton.Save(@"D:/Data/test/outputs/skel_" + fileName.Split('/').Last());
         }
+
+        [TestCase(@"D:/Data/test/inputs/combo/test/combo2_01.jpg")]
+        public void TestBlobReady(string fileName)
+        {
+            Bitmap image = new Bitmap(fileName);
+            image = image.GetBlobReady();
+            image.Save(@"D:/Data/test/outputs/blobsReady_" + fileName.Split('/').Last());
+        }
     }
 }

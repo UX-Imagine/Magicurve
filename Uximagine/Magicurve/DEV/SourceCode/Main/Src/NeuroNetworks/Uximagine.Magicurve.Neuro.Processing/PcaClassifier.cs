@@ -39,6 +39,18 @@ namespace Uximagine.Magicurve.Neuro.Processing
         }
 
         /// <summary>
+        /// Gets a value indicating whether this instance is trained.
+        /// </summary>
+        /// <value>
+        /// <c>true</c> if this instance is trained; otherwise, <c>false</c>.
+        /// </value>
+        public bool IsTrained
+        {
+            get;
+            internal set;
+        }
+
+        /// <summary>
         /// Prevents a default _instance of the <see cref="PcaClassifier"/> class from being created.
         /// </summary>
         private PcaClassifier()
@@ -122,6 +134,8 @@ namespace Uximagine.Magicurve.Neuro.Processing
             }
 
             this.TrainMachine(features, outputs);
+
+            IsTrained = true;
         }
 
         /// <summary>

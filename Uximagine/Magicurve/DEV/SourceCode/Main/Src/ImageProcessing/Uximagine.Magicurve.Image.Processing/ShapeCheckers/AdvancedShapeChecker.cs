@@ -1,6 +1,7 @@
 ﻿using AForge;
 using AForge.Math.Geometry;
 using System.Collections.Generic;
+using System.Drawing;
 using Uximagine.Magicurve.Core.Models;
 
 namespace Uximagine.Magicurve.Image.Processing.ShapeCheckers
@@ -69,10 +70,33 @@ namespace Uximagine.Magicurve.Image.Processing.ShapeCheckers
         /// </returns>
         public List<IntPoint> GetShapeCorners(List<IntPoint> edgePoints)
         {
-            //List<IntPoint> corners = PointsCloud.FindQuadrilateralCorners(edgePoints);
-            //List<IntPoint> optimizedCorners = this._shapeOptimizer.OptimizeShape(corners);
             return edgePoints;
         }
-        
+
+        /// <summary>
+        /// Gets the type of the control.
+        /// </summary>
+        /// <param name="control">The control.</param>
+        /// <param name="edgePoints">The edge points.</param>
+        /// <returns>
+        /// The control type.
+        /// </returns>
+        public abstract ControlType GetControlType(Bitmap control, List<IntPoint> edgePoints);
+
+        /// <summary>
+        /// Sets the properties.
+        /// </summary>
+        /// <param name="edgePoints">The edge points.</param>
+        public virtual void SetProperties(List<IntPoint> edgePoints)
+        {
+            IntPoint minXy;
+            IntPoint maxXy;
+            PointsCloud.GetBoundingRectangle(edgePoints, out minXy, out maxXy);
+
+            this.X = minXy.X;
+            this.Y = minXy.Y;
+            this.Height = maxXy.Y - minXy.Y;
+            this.Width = maxXy.X - minXy.X;
+        }
     }
 }

@@ -80,9 +80,6 @@ namespace Uximagine.Magicurve.Services.BusinessServices.UnitsOfWork
             Processor processor = new Processor();
             processor.ProcessImage(this.ImagePath);
             List<Control> controls = processor.Controls;
-
-            //controls.ForEach((c) => c.EdgePoints = null);
-
             this.Controls = GetRows(controls);
             this.ImageResult = processor.ImageResult;
         }

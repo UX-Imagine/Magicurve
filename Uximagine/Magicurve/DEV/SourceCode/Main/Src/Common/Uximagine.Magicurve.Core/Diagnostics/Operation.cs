@@ -1,14 +1,12 @@
 ﻿using System;
 
-namespace Uximagine.Magicurve.Services.BusinessServices.UnitsOfWork
+namespace Uximagine.Magicurve.Core.Diagnostics
 {
-    using Uximagine.Magicurve.Core;
-
     /// <summary>
     /// Contains operation data.
     /// </summary>
     [Serializable]
-    internal class Operation
+    public class Operation
     {
         #region Properties - Instance Members
         /// <summary>
