@@ -41,17 +41,17 @@ namespace Uximagine.Magicurve.Neuro.Processing.Test
                 2, // two neurons in the first layer
                 1);
 
-            var teacher = new LevenbergMarquardtLearning(network);
+            LevenbergMarquardtLearning teacher = new LevenbergMarquardtLearning(network);
 
             for (int i = 0; i < 10; i++)
             {
-                double error = teacher.RunEpoch(inputs, outputs);
+                teacher.RunEpoch(inputs, outputs);
             }
 
             double[] output = network.Compute(new double[] { 0, 0 });
             int answer;
 
-            double result = output.Max(out answer);
+            output.Max(out answer);
 
             answer.ShouldEqual(0);
         }
@@ -103,21 +103,20 @@ namespace Uximagine.Magicurve.Neuro.Processing.Test
                 .Expand(labels, numberOfClasses, -1, 1);
 
             // Next we can proceed to create our network
-            var function = new BipolarSigmoidFunction(2);
-            var network = new ActivationNetwork(function,
+            BipolarSigmoidFunction function = new BipolarSigmoidFunction(2);
+            ActivationNetwork network = new ActivationNetwork(function,
                 numberOfInputs, hiddenNeurons, numberOfClasses);
 
             // Heuristically randomize the network
             new NguyenWidrow(network).Randomize();
 
             // Create the learning algorithm
-            var teacher = new LevenbergMarquardtLearning(network);
+            LevenbergMarquardtLearning teacher = new LevenbergMarquardtLearning(network);
 
             // Teach the network for 100 iterations:
-            double error = double.PositiveInfinity;
 
             for (int i = 0; i < 100; i++)
-                error = teacher.RunEpoch(input, outputs);
+                teacher.RunEpoch(input, outputs);
 
             // At this point, the network should be able to 
             // perfectly classify the training input points.
@@ -126,14 +125,13 @@ namespace Uximagine.Magicurve.Neuro.Processing.Test
             {
                 int answer;
                 double[] output = network.Compute(input[i]);
-                double response = output.Max(out answer);
+                output.Max(out answer);
 
                 int expected = labels[i];
 
-                answer.ShouldEqual(expected);
-
                 // at this point, the variables 'answer' and
                 // 'expected' should contain the same value.
+                answer.ShouldEqual(expected);
             }
         }
 
@@ -161,18 +159,22 @@ namespace Uximagine.Magicurve.Neuro.Processing.Test
 
             // Create a new Multi-class Support Vector Machine with one input,
             //  using the linear kernel and for four disjoint classes.
-            var machine = new MulticlassSupportVectorMachine(inputs: 3, kernel: kernel, classes: 4);
+            MulticlassSupportVectorMachine machine =
+                new MulticlassSupportVectorMachine(inputs: 3, kernel: kernel, classes: 4);
 
             // Create the Multi-class learning algorithm for the machine
-            var teacher = new MulticlassSupportVectorLearning(machine, inputs, outputs);
+            MulticlassSupportVectorLearning teacher =
+                new MulticlassSupportVectorLearning(machine, inputs, outputs)
+                {
+                    Algorithm = (svm, classInputs, classOutputs, i, j) =>
+                        new SequentialMinimalOptimization(svm, classInputs, classOutputs)
+                };
 
             // Configure the learning algorithm to use SMO to train the
             //  underlying SVMs in each of the binary class subproblems.
-            teacher.Algorithm = (svm, classInputs, classOutputs, i, j) =>
-                new SequentialMinimalOptimization(svm, classInputs, classOutputs);
 
             // Run the learning algorithm
-            double error = teacher.Run(); // output should be 0
+            teacher.Run();
 
             // Compute the decision output for one of the input vectors
             int decision = machine.Compute(new double[] { -1, 3, 2 });
@@ -207,18 +209,20 @@ namespace Uximagine.Magicurve.Neuro.Processing.Test
 
             // Create a new Multi-class Support Vector Machine with one input,
             //  using the linear kernel and for four disjoint classes.
-            var machine = new MulticlassSupportVectorMachine(inputs: 5, kernel: kernel, classes: 6);
+            MulticlassSupportVectorMachine machine = new MulticlassSupportVectorMachine(inputs: 5, kernel: kernel, classes: 6);
 
             // Create the Multi-class learning algorithm for the machine
-            var teacher = new MulticlassSupportVectorLearning(machine, inputs, outputs);
+            MulticlassSupportVectorLearning teacher = new MulticlassSupportVectorLearning(machine, inputs, outputs)
+            {
+                Algorithm = (svm, classInputs, classOutputs, i, j) =>
+                    new SequentialMinimalOptimization(svm, classInputs, classOutputs)
+            };
 
             // Configure the learning algorithm to use SMO to train the
             //  underlying SVMs in each of the binary class subproblems.
-            teacher.Algorithm = (svm, classInputs, classOutputs, i, j) =>
-                new SequentialMinimalOptimization(svm, classInputs, classOutputs);
 
             // Run the learning algorithm
-            double error = teacher.Run(); // output should be 0
+            teacher.Run();
 
             // Compute the decision output for one of the input vectors
             int decision = machine.Compute(new double[] { 6, 5, 1, 2, 3 });
@@ -263,7 +267,7 @@ namespace Uximagine.Magicurve.Neuro.Processing.Test
             // Output for each of the inputs
             int[] outputs = { 0, 1, 2, 3, 4, 5 };
 
-            ShapeClassfier classifier = ShapeClassfier.GetInstance(nInputs:5, classes: 6);
+            IClassifer classifier = ShapeClassfier.GetInstance(nInputs:5, classes: 6);
             classifier.TrainMachine(inputs, outputs);
             int decision = classifier.Compute(new double[] { 6, 5, 1, 2, 3 });
             decision.ShouldEqual(3);

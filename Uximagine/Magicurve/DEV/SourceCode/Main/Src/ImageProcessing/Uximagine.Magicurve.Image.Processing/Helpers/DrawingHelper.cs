@@ -13,27 +13,6 @@ namespace Uximagine.Magicurve.Image.Processing.Helpers
     /// </summary>
     public static class DrawingHelper
     {
-        ///// <summary>
-        ///// Convert list of AForge.NET's points to array of .NET points        
-        ///// </summary>
-        ///// <param name="points">
-        ///// The points.
-        ///// </param>
-        ///// <returns>
-        ///// System Drawing Points. 
-        ///// </returns>
-        //public static System.Drawing.Point[] ToPointsArray(List<IntPoint> points)
-        //{
-        //    System.Drawing.Point[] array = new System.Drawing.Point[points.Count];
-
-        //    for (int i = 0, n = points.Count; i < n; i++)
-        //    {
-        //        array[i] = new System.Drawing.Point(points[i].X, points[i].Y);
-        //    }
-
-        //    return array;
-        //}
-
         /// <summary>
         /// Convert list of AForge.NET's points to array of .NET points        
         /// </summary>
@@ -198,5 +177,6 @@ namespace Uximagine.Magicurve.Image.Processing.Helpers
             bitmap.UnlockBits(data);
             return bitmap;
         }
+
     }
 }

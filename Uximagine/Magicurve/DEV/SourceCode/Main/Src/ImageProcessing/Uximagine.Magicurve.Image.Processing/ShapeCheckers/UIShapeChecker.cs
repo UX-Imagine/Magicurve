@@ -37,7 +37,6 @@ namespace Uximagine.Magicurve.Image.Processing.ShapeCheckers
         protected bool IsButton(List<IntPoint> edgePoints, List<IntPoint> corners)
         {
             var isButton = false;
-
             const double distanceError = 30;
 
             if (this.CheckIfPointsFitShape(edgePoints, corners))
@@ -70,8 +69,12 @@ namespace Uximagine.Magicurve.Image.Processing.ShapeCheckers
         /// <summary>
         ///     Determines whether [is drop down] [the specified edge points].
         /// </summary>
-        /// <param name="edgePoints">The edge points.</param>
-        /// <param name="corners">The corners.</param>
+        /// <param name="edgePoints">
+        /// The edge points.
+        /// </param>
+        /// <param name="corners">
+        /// The corners.
+        /// </param>
         /// <returns>
         ///     <c> true</c> if drop down.
         /// </returns>

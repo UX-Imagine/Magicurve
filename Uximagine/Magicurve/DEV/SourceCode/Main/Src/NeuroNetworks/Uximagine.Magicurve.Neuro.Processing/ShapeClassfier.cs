@@ -8,7 +8,7 @@ namespace Uximagine.Magicurve.Neuro.Processing
     /// <summary>
     /// The shape classifier.
     /// </summary>
-    public class ShapeClassfier
+    public class ShapeClassfier : IClassifer
     {
         // Sample input data
         // pointsCount, linesCount, DistinctAngleCount, horizantalLineCount, VerticalLineCount 
@@ -73,7 +73,7 @@ namespace Uximagine.Magicurve.Neuro.Processing
         /// <returns>
         /// The instance.
         /// </returns>
-        public static ShapeClassfier GetInstance(int nInputs, int classes)
+        public static IClassifer GetInstance(int nInputs, int classes)
         {
             if (_classfier == null)
             {
@@ -149,7 +149,7 @@ namespace Uximagine.Magicurve.Neuro.Processing
                 new SequentialMinimalOptimization(svm, classInputs, classOutputs);
 
             // Run the learning algorithm
-            double error = teacher.Run(); // output should be 0
+            teacher.Run();
 
         }
     }

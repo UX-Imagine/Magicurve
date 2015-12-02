@@ -69,6 +69,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\ConvolutionMatrix.cs" />
+    <Compile Include="Common\FilterMatrix.cs" />
     <Compile Include="ConfigurationData.cs" />
     <Compile Include="Detectors\BlobDetector.cs" />
     <Compile Include="Detectors\CannyDetector.cs" />
@@ -81,6 +82,7 @@
     <Compile Include="Helpers\ConvolutionFilterHelper.cs" />
     <Compile Include="Helpers\EdgeFilterHelper.cs" />
     <Compile Include="Helpers\FilterHelper.cs" />
+    <Compile Include="Helpers\ResizeHelper.cs" />
     <Compile Include="Matchers\BlockMatcher.cs" />
     <Compile Include="Matchers\IMatcher.cs" />
     <Compile Include="ProcessingFactory.cs" />
@@ -91,6 +93,7 @@
     <Compile Include="ShapeCheckers\AdvancedShapeChecker.cs" />
     <Compile Include="ShapeCheckers\ControlsChecker.cs" />
     <Compile Include="ShapeCheckers\IShapeChecker.cs" />
+    <Compile Include="ShapeCheckers\SvmShapeChecker.cs" />
     <Compile Include="ShapeCheckers\UiShapeChecker.cs" />
   </ItemGroup>
   <ItemGroup>

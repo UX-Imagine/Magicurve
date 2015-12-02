@@ -92,7 +92,7 @@ namespace Uximagine.Magicurve.Image.Processing.Detectors
 
             for (int i = 0, n = this.Blobs.Length; i < n; i++)
             {
-                var edgePoints = _blobCounter.GetBlobsEdgePoints(this.Blobs[i]);
+                List<IntPoint> edgePoints = _blobCounter.GetBlobsEdgePoints(this.Blobs[i]);
 
                 Point center;
 

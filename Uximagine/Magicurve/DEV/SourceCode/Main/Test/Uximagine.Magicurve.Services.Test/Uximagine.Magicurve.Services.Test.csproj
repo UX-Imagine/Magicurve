@@ -115,6 +115,8 @@
     <Compile Include="Image\ImageProcessorTest.cs" />
     <Compile Include="Image\CornerTests.cs" />
     <Compile Include="Image\EdgeTests.cs" />
+    <Compile Include="Image\ResizeTests.cs" />
+    <Compile Include="Neuro\PcaTrainTests.cs" />
     <Compile Include="Neuro\NeuroTrainTests.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

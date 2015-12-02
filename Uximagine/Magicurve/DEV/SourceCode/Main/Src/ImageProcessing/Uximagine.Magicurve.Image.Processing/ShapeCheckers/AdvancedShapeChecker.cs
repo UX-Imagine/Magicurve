@@ -69,8 +69,8 @@ namespace Uximagine.Magicurve.Image.Processing.ShapeCheckers
         /// </returns>
         public List<IntPoint> GetShapeCorners(List<IntPoint> edgePoints)
         {
-            //var corners = PointsCloud.FindQuadrilateralCorners(edgePoints);
-            //var optimizedCorners = this._shapeOptimizer.OptimizeShape(corners);
+            //List<IntPoint> corners = PointsCloud.FindQuadrilateralCorners(edgePoints);
+            //List<IntPoint> optimizedCorners = this._shapeOptimizer.OptimizeShape(corners);
             return edgePoints;
         }
         

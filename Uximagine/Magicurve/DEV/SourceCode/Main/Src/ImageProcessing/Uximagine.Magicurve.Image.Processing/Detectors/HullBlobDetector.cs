@@ -214,6 +214,7 @@ namespace Uximagine.Magicurve.Image.Processing.Detectors
             this._blobCounter.MinHeight = BLOB_MIN_HIGHT;
             this._blobCounter.MinWidth = BLOB_MIN_WIDTH;
             this._blobCounter.CoupledSizeFiltering = true;
+            this._blobCounter.FilterBlobs = true;
             this._blobs = this._blobCounter.GetObjectsInformation();
 
             var grahamScan = new GrahamConvexHull();
@@ -235,10 +236,10 @@ namespace Uximagine.Magicurve.Image.Processing.Detectors
         /// </param>
         private void ProcessBlob(Blob blob, GrahamConvexHull grahamScan)
         {
-            var leftEdge = new List<IntPoint>();
-            var rightEdge = new List<IntPoint>();
-            var topEdge = new List<IntPoint>();
-            var bottomEdge = new List<IntPoint>();
+            List<IntPoint> leftEdge = new List<IntPoint>();
+            List<IntPoint> rightEdge = new List<IntPoint>();
+            List<IntPoint> topEdge = new List<IntPoint>();
+            List<IntPoint> bottomEdge = new List<IntPoint>();
 
             // collect edge points
             this._blobCounter.GetBlobsLeftAndRightEdges(blob, out leftEdge, out rightEdge);

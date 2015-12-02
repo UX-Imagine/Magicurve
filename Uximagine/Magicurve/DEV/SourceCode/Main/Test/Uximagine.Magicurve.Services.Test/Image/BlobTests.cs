@@ -8,6 +8,9 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Linq;
+using Accord.Imaging;
+using AForge;
 using AForge.Imaging;
 using AForge.Imaging.Filters;
 using NUnit.Framework;
@@ -30,26 +33,27 @@ namespace Uximagine.Magicurve.Services.Test.Image
         [TestCase]
         public void TestHullBlobDetector()
         {
-            Bitmap result = null;
-
             IBlobDetector blobDetector = new HullBlobDetector();
 
             IEdgeDetector edgeDetector = new CannyDetector();
 
-            var bitmap = new Bitmap("inputs/template.jpg");
+            Bitmap bitmap = new Bitmap("inputs/template.jpg");
 
-            var edgeResult = edgeDetector.GetImage(bitmap);
+            Bitmap edgeResult = edgeDetector.GetImage(bitmap);
 
-            var correctFormatImage = edgeResult.ConvertToFormat(PixelFormat.Format24bppRgb);
+            edgeResult.ConvertToFormat(PixelFormat.Format24bppRgb);
             Bitmap image = Grayscale.CommonAlgorithms.BT709.Apply(bitmap);
+
             Threshold filterThreshold = new Threshold(79);
             filterThreshold.ApplyInPlace(image);
+
             Invert invert = new Invert();
             invert.ApplyInPlace(image);
             image.Save("outputs/thresh.jpg");
+
             blobDetector.ProcessImage(image);
 
-            result = blobDetector.GetImage();
+            Bitmap result = blobDetector.GetImage();
 
             result.Save("outputs/blobs.jpg");
 
@@ -61,26 +65,24 @@ namespace Uximagine.Magicurve.Services.Test.Image
         }
 
         /// <summary>
-        /// Tests the BLOB detector.
+        ///     Tests the BLOB detector.
         /// </summary>
         [TestCase]
         public void TestBlobDetector()
         {
-            Bitmap result = null;
-
             IBlobDetector blobDetector = new BlobDetector();
 
             IEdgeDetector edgeDetector = new CannyDetector();
 
-            var bitmap = new Bitmap("inputs/template.jpg");
+            Bitmap bitmap = new Bitmap("inputs/template.jpg");
 
-            var edgeResult = edgeDetector.GetImage(bitmap);
+            Bitmap edgeResult = edgeDetector.GetImage(bitmap);
 
-            var correctFormatImage = edgeResult.ConvertToFormat(PixelFormat.Format24bppRgb);
+            Bitmap correctFormatImage = edgeResult.ConvertToFormat(PixelFormat.Format24bppRgb);
 
             blobDetector.ProcessImage(correctFormatImage);
 
-            result = blobDetector.GetImage();
+            Bitmap result = blobDetector.GetImage();
 
             result.Save("outputs/blobs.jpg");
 
@@ -92,18 +94,70 @@ namespace Uximagine.Magicurve.Services.Test.Image
         }
 
         /// <summary>
-        /// Detects the lines test.
+        ///     The should test blob count.
         /// </summary>
-        [Test]
-        public void DetectLinesTest()
+        [TestCase]
+        public void DetectAndShowBlobTest()
         {
-            IBlobDetector blobDetector = new HullBlobDetector();
+            IBlobDetector blobDetector = new BlobDetector();
 
             IEdgeDetector edgeDetector = new CannyDetector();
 
-            var bitmap = new Bitmap("template.jpg");
+            Bitmap bitmap = new Bitmap("template.jpg");
 
-            var edgeResult = edgeDetector.GetImage(bitmap);
+            Bitmap edgeResult = edgeDetector.GetImage(bitmap);
+
+            Bitmap correctFormatImage = edgeResult.ConvertToFormat(PixelFormat.Format24bppRgb);
+            blobDetector.ProcessImage(correctFormatImage);
+            List<Control> result = blobDetector.GetShapes();
+
+            foreach (Control item in result)
+            {
+                Debug.Write(item.Height);
+            }
+
+            result.Count.ShouldBeGreaterThanOrEqualTo(1);
+            result.ShouldNotBeNull();
+
+            bitmap.Dispose();
+        }
+
+        /// <summary>
+        ///     Tests the border following.
+        /// </summary>
+        /// <param name="fileName">Name of the file.</param>
+        [TestCase(@"D:/Data/test/inputs/combo/test/combo2_01.jpg")]
+        public void TestBorderFollowing(string fileName)
+        {
+            BorderFollowing detector = new BorderFollowing();
+            Bitmap gray = new Bitmap(fileName).Grayscale().Invert();
+            List<IntPoint> points = detector.FindContour(gray);
+            Bitmap cropped = gray.Crop(points);
+            cropped.Save(@"D:/Data/test/outputs/blobfollow_" + fileName.Split('/').Last());
+
+            GaussianSharpen gaussian = new GaussianSharpen(4, 11);
+            Bitmap gaussianed = gaussian.Apply(cropped);
+            gaussianed.Save(@"D:/Data/test/outputs/gau_" + fileName.Split('/').Last());
+
+            GaussianBlur gaussianBlur = new GaussianBlur(4, 11);
+            Bitmap blured = gaussianBlur.Apply(cropped);
+            blured.Save(@"D:/Data/test/outputs/blur_" + fileName.Split('/').Last());
+
+            blured.HorizontalEdges().Save(@"D:/Data/test/outputs/horizontal_" + fileName.Split('/').Last());
+            blured.VerticalEdges().Save(@"D:/Data/test/outputs/ver_" + fileName.Split('/').Last());
+        }
+
+        /// <summary>
+        ///     Detects the lines test.
+        /// </summary>
+        [TestCase(@"D:/Data/test/inputs/combo/test/combo2_01.jpg")]
+        public void DetectLinesTest(string fileName)
+        {
+            IEdgeDetector edgeDetector = new CannyDetector();
+
+            Bitmap bitmap = new Bitmap(fileName);
+
+            Bitmap edgeResult = edgeDetector.GetImage(bitmap);
 
             //var correctFormatImage = edgeResult.ConvertToFormat(PixelFormat.Format24bppRgb);
 
@@ -114,38 +168,34 @@ namespace Uximagine.Magicurve.Services.Test.Image
 
             Bitmap houghLineImage = lineTransform.ToBitmap();
 
-            houghLineImage.Save("hough.jpg");
+            houghLineImage.Save(@"D:/Data/test/outputs/hough_" + fileName.Split('/').Last());
         }
 
         /// <summary>
-        ///     The should test blob count.
+        /// Tests the canny and BLOB.
         /// </summary>
-        [TestCase]
-        public void DetectAndShowBlobTest()
+        /// <param name="fileName">Name of the file.</param>
+        [TestCase(@"D:/Data/test/inputs/combo/test/combo2_01.jpg")]
+        public void TestCannyAndBlob(string fileName)
         {
-            List<Control> result = null;
+            IBlobDetector blobDetector = new HullBlobDetector();
+            IEdgeDetector edgeDetector = new SobelDetector();
 
-            IBlobDetector blobDetector = new BlobDetector();
+            Bitmap image = new Bitmap(fileName);
 
-            IEdgeDetector edgeDetector = new CannyDetector();
+            Bitmap gray = image.Grayscale();
 
-            var bitmap = new Bitmap("template.jpg");
+            Bitmap edges = edgeDetector.GetImage(gray);
 
-            var edgeResult = edgeDetector.GetImage(bitmap);
+            blobDetector.ProcessImage(edges);
+            Bitmap blobs = blobDetector.GetImage();
 
-            var correctFormatImage = edgeResult.ConvertToFormat(PixelFormat.Format24bppRgb);
-            blobDetector.ProcessImage(correctFormatImage);
-            result = blobDetector.GetShapes();
+            SimpleSkeletonization skeletonization = new SimpleSkeletonization();
+            Bitmap sekliton = skeletonization.Apply(edges.ConvertToFormat(PixelFormat.Format8bppIndexed));
 
-            foreach (var item in result)
-            {
-                Debug.Write(item.Height);
-            }
-
-            result.Count.ShouldBeGreaterThanOrEqualTo(1);
-            result.ShouldNotBeNull();
-            
-            bitmap.Dispose();
+            edges.Save(@"D:/Data/test/outputs/edges_" + fileName.Split('/').Last());
+            blobs.Save(@"D:/Data/test/outputs/blobs_" + fileName.Split('/').Last());
+            sekliton.Save(@"D:/Data/test/outputs/skel_" + fileName.Split('/').Last());
         }
     }
 }

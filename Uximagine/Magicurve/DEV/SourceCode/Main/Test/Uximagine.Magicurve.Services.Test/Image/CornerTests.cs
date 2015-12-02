@@ -1,11 +1,13 @@
-﻿using System.Diagnostics;
+﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
-using System.Drawing.Imaging;
+using AForge;
 using AForge.Imaging;
 using AForge.Imaging.Filters;
 using NUnit.Framework;
 using Should;
 using Uximagine.Magicurve.Core.Models;
+using Uximagine.Magicurve.Core.Shapes;
 using Uximagine.Magicurve.Image.Processing.Detectors;
 using Uximagine.Magicurve.Image.Processing.Helpers;
 using Uximagine.Magicurve.Image.Processing.ShapeCheckers;
@@ -13,7 +15,7 @@ using Uximagine.Magicurve.Image.Processing.ShapeCheckers;
 namespace Uximagine.Magicurve.Services.Test.Image
 {
     /// <summary>
-    /// Test the corner detect algorithms
+    ///     Test the corner detect algorithms
     /// </summary>
     [TestFixture]
     public class CornerTests
@@ -21,18 +23,18 @@ namespace Uximagine.Magicurve.Services.Test.Image
         [TestCase(@"D:/Data/test/inputs/combo_10.jpg", 6)]
         public void TestSusan(string fileName, int cornerCount)
         {
-            var image = new Bitmap(fileName); // Lena's picture
+            Bitmap image = new Bitmap(fileName); // Lena's picture
 
             image = Grayscale.CommonAlgorithms.BT709.Apply(image);
 
             image.Save(@"D:/Data/test/outputs/grayscale.jpg");
 
-            var threshold = new Threshold();
+            Threshold threshold = new Threshold();
             threshold.ApplyInPlace(image);
 
             image.Save(@"D:/Data/test/outputs/threshold.jpg");
 
-            var median = new Median();
+            Median median = new Median();
             median.ApplyInPlace(image);
 
             //var correctFormatImage = image.ConvertToFormat(PixelFormat.Format24bppRgb);
@@ -43,11 +45,11 @@ namespace Uximagine.Magicurve.Services.Test.Image
 
             IBlobDetector blobDetector = new HullBlobDetector();
             blobDetector.ProcessImage(image);
-            var shapes = blobDetector.GetShapes();
+            List<Control> shapes = blobDetector.GetShapes();
 
-            foreach (var control in shapes)
+            foreach (Control control in shapes)
             {
-                var shape = control.EdgePoints.ConvertToBitmap();
+                Bitmap shape = control.EdgePoints.ConvertToBitmap();
                 // create corner detector's instance
                 SusanCornersDetector scd = new SusanCornersDetector();
                 // create corner maker filter
@@ -56,13 +58,12 @@ namespace Uximagine.Magicurve.Services.Test.Image
                 filter.ApplyInPlace(shape);
                 shape.Save(@"D:/Data/test/outputs/corners.jpg");
 
-                var corners = scd.ProcessImage(shape);
+                List<IntPoint> corners = scd.ProcessImage(shape);
                 IShapeChecker shapeChecker = new UiShapeChecker();
-                var type = shapeChecker.GetControlType(corners);
+                ControlType type = shapeChecker.GetControlType(corners);
                 Debug.WriteLine(type);
                 type.ShouldEqual(ControlType.ComboBox);
             }
-            
         }
     }
 }
