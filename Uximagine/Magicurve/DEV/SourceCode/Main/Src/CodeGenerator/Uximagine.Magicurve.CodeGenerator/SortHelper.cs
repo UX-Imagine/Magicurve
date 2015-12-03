@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Uximagine.Magicurve.Core.Models;
 using Uximagine.Magicurve.Core.Shapes;
 
@@ -10,7 +8,7 @@ namespace Uximagine.Magicurve.CodeGenerator
 {
     public class SortHelper
     {
-        List<Control> controls = new List<Control>();
+        private List<Control> _controls = new List<Control>();
 
         public List<Control> SortListYProperty(List<Control> list)
         {
@@ -23,10 +21,10 @@ namespace Uximagine.Magicurve.CodeGenerator
 
             foreach (var control in query)
             {
-                controls.Add(control);
+                _controls.Add(control);
             }
 
-            return controls;
+            return _controls;
         }
 
         public List<Row> DivAlgorithm(List<Control> list)
@@ -45,10 +43,10 @@ namespace Uximagine.Magicurve.CodeGenerator
             }
              
             int rowIndex = 0;
-            listOfList.Add(new Row()
+            listOfList.Add(new Row
             {
-                Controls = new List<Control>()
-                    { 
+                Controls = new List<Control>
+                { 
                         list[0] 
                     },
                 RowIndex = 0,
@@ -71,9 +69,9 @@ namespace Uximagine.Magicurve.CodeGenerator
                         maxHeight = defaultHeight;
                     }
                     
-                    listOfList.Add(new Row()
+                    listOfList.Add(new Row
                     {
-                        Controls = new List<Control>()
+                        Controls = new List<Control>
                         {
                             list[i] 
                         },
@@ -101,19 +99,16 @@ namespace Uximagine.Magicurve.CodeGenerator
         {
             List<Row> finalizeRowList = new List<Row>();
 
-
             foreach (Row row in rowList)
             {
-
-                List<Control> finalizeControlList = new List<Control>();
                 var query =
                 from con in row.Controls
                 orderby con.X
                 select con;
 
-                finalizeControlList = query.ToList();
+                List<Control> finalizeControlList = query.ToList();
 
-                finalizeRowList.Add(new Row()
+                finalizeRowList.Add(new Row
                 {
                     Controls = finalizeControlList,
                     Height = row.Height,

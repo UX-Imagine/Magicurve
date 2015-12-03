@@ -57,11 +57,14 @@
     <Compile Include="Requests\FileRetrieveRequest.cs" />
     <Compile Include="Requests\FileSaveRequest.cs" />
     <Compile Include="Requests\FileUpdateRequest.cs" />
+    <Compile Include="Requests\GenerateCodeRequest.cs" />
     <Compile Include="Requests\ProcessRequestDto.cs" />
+    <Compile Include="Requests\TrainRequest.cs" />
     <Compile Include="Responses\FileDeleteResponse.cs" />
     <Compile Include="Responses\FileRetrieveResponse.cs" />
     <Compile Include="Responses\FileSaveResponse.cs" />
     <Compile Include="Responses\FileUpdateResponse.cs" />
+    <Compile Include="Responses\GenerateCodeResponse.cs" />
     <Compile Include="Responses\ProcessResponseDto.cs" />
   </ItemGroup>
   <ItemGroup>

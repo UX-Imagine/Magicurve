@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using Uximagine.Magicurve.Core.Models;
 using Uximagine.Magicurve.Core.Shapes;
 
@@ -56,7 +54,7 @@ namespace Uximagine.Magicurve.CodeGenerator
             //execute sorted list and check control types
             foreach (Row row in finalRowListControls)
             {
-                //openrow(row.Height)
+                //open row(row.Height)
                 builder.Append(OpenRowDiv(row.Height));
 
                 foreach (Control item in row.Controls)
@@ -68,59 +66,59 @@ namespace Uximagine.Magicurve.CodeGenerator
                 //Console.Write(((Button)con).Name);
                     switch (item.Type)
                     {
-                        case Core.Models.ControlType.Button:
+                        case ControlType.Button:
                             builder.Append(this.GetButton(item));
                             break;
 
-                        case Core.Models.ControlType.CheckBox:
+                        case ControlType.CheckBox:
                             builder.Append(this.GetCheckBox(item));
                             break;
 
-                        case Core.Models.ControlType.RadioButton:
+                        case ControlType.RadioButton:
                             builder.Append(this.GetRadio(item));
                             break;
 
-                        case Core.Models.ControlType.ComboBox:
+                        case ControlType.ComboBox:
                             builder.Append(this.GetCombo(item));
                             break;
 
-                        case Core.Models.ControlType.InputText:
+                        case ControlType.InputText:
                             builder.Append(this.GetText(item));
                             break;
 
-                        case Core.Models.ControlType.InputPassword:
+                        case ControlType.InputPassword:
                             builder.Append(this.GetPassword(item));
                             break;
 
-                        case Core.Models.ControlType.DatePicker:
+                        case ControlType.DatePicker:
                             builder.Append(this.GetDatePicker(item));
                             break;
 
-                        case Core.Models.ControlType.Paragraph:
+                        case ControlType.Paragraph:
                             builder.Append(this.GetPara(item));
                             break;
 
-                        case Core.Models.ControlType.Label:
+                        case ControlType.Label:
                             builder.Append(this.GetLabel(item));
                             break;
 
-                        case Core.Models.ControlType.TextArea:
+                        case ControlType.TextArea:
                             builder.Append(this.GetTextArea(item));
                             break;
 
-                        case Core.Models.ControlType.Image:
+                        case ControlType.Image:
                             builder.Append(this.GetImage(item));
                             break;
 
-                        case Core.Models.ControlType.HyperLink:
+                        case ControlType.HyperLink:
                             builder.Append(this.GetHyperLink(item));
                             break;
 
-                        case Core.Models.ControlType.Iframe:
+                        case ControlType.Iframe:
                             builder.Append(this.GetHyperLink(item));
                             break;
 
-                        case Core.Models.ControlType.HLine:
+                        case ControlType.HLine:
                             builder.Append(this.GetHLine(item));
                             break;
 
@@ -229,7 +227,7 @@ namespace Uximagine.Magicurve.CodeGenerator
         {
             Button button = control as Button;
 
-            string btn = string.Format(@"    <input type='button' value='{0}'/>" + newline,button.Value);
+            string btn = string.Format(@"    <input type='button' value='{0}'/>" + newline, button?.Value);
 
             return btn;
         }

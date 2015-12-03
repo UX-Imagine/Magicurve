@@ -29,7 +29,7 @@ namespace Uximagine.Magicurve.Services.BusinessServices
         #region Constants
 
         /// <summary>
-        /// Represents a value indicating whether plaintext secrets are to be used, 
+        /// Represents a value indicating whether plain text secrets are to be used, 
         /// by default.
         /// </summary>
         private const bool MustUsePlaintextSecretsByDefault = false;
@@ -59,10 +59,10 @@ namespace Uximagine.Magicurve.Services.BusinessServices
         #region Properties - Static Member
 
         /// <summary>
-        /// Gets a value indicating whether plaintext secrets are to be used.
+        /// Gets a value indicating whether plain text secrets are to be used.
         /// </summary>
         /// <value>
-        /// <c>true</c> if plaintext secrets are to be used; 
+        /// <c>true</c> if plain text secrets are to be used; 
         /// otherwise, <c>false</c>.
         /// </value>
         public static bool MustUsePlaintextSecrets
@@ -127,7 +127,7 @@ namespace Uximagine.Magicurve.Services.BusinessServices
         {
             get
             {
-                return int.Parse(ConfigurationManager.AppSettings["minSize"]);
+                return int.Parse(ConfigurationManager.AppSettings["minControlSize"]);
             }
         }
 

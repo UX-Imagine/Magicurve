@@ -2,6 +2,7 @@
 using System.Runtime.Serialization;
 using AForge;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using Uximagine.Magicurve.Core.Models;
 
 namespace Uximagine.Magicurve.Core.Shapes
@@ -19,6 +20,7 @@ namespace Uximagine.Magicurve.Core.Shapes
         /// The type.
         /// </value>
         [DataMember]
+        [JsonConverter(typeof(StringEnumConverter))]
         public virtual ControlType Type
         {
             get;

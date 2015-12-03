@@ -8,6 +8,14 @@ namespace Uximagine.Magicurve.Services.BusinessServices.UnitsOfWork
     internal sealed class TrainDataUnitOfWork : UnitOfWork
     {
         /// <summary>
+        /// Gets or sets a value indicating whether [force training].
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [force training]; otherwise, <c>false</c>.
+        /// </value>
+        public bool ForceTraining { get; set; }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="TrainDataUnitOfWork"/> class.
         /// </summary>
         /// <param name="isReadOnly"><c>true</c> if this Unit of Work is read only;
@@ -17,11 +25,22 @@ namespace Uximagine.Magicurve.Services.BusinessServices.UnitsOfWork
         }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="TrainDataUnitOfWork"/> class.
+        /// </summary>
+        public TrainDataUnitOfWork() : this(true)
+        {
+        }
+
+        /// <summary>
         /// The actual Work to be done.
         /// </summary>
         protected override void Execute()
         {
-            Trainer trainer = new Trainer();
+            Trainer trainer = new Trainer()
+            {
+                ForceTraining = ForceTraining
+            };
+
             trainer.Train(ConfigurationData.MinControlSize, ConfigurationData.SampleSize);
         }
     }

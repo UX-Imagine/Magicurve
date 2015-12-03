@@ -26,7 +26,7 @@ namespace Uximagine.Magicurve.Services
         /// The request.
         /// </param>
         /// <returns>
-        /// <c>true</c> if sucess otherwise <c>false</c>
+        /// <c>true</c> if success otherwise <c>false</c>
         /// </returns>
         FileUpdateResponse UpdateFile(FileUpdateRequest request);
 
@@ -37,7 +37,7 @@ namespace Uximagine.Magicurve.Services
         /// The request.
         /// </param>
         /// <returns>
-        /// <c>true</c> if sucess otherwise <c>false</c>
+        /// <c>true</c> if success otherwise <c>false</c>
         /// </returns>
         FileDeleteResponse DeleteFile(FileDeleteRequest request);
     }

@@ -33,9 +33,9 @@ namespace Uximagine.Magicurve.Image.Processing
             public const string BlobDetectorImplementation = @"BlobDetectorImpl";
 
             /// <summary>
-            /// The shape checker implementation plugin name.
+            /// The shape checker implementation plug-in name.
             /// </summary>
-            public const string ShapeCheckerImplementationPluginName = @"ShapeCheckerImpl";
+            public const string ShapeCheckerImplementationPlugn = @"ShapeCheckerImpl";
 
             #endregion
         }
@@ -61,7 +61,7 @@ namespace Uximagine.Magicurve.Image.Processing
         {
             get
             {
-                return ConfigurationData.PluginNames.MatcherImplementation;
+                return PluginNames.MatcherImplementation;
             }
         }
 
@@ -75,7 +75,7 @@ namespace Uximagine.Magicurve.Image.Processing
         {
             get
             {
-                return ConfigurationData.PluginNames.EdgeDetectorImplementation;
+                return PluginNames.EdgeDetectorImplementation;
             }
         }
 
@@ -89,21 +89,21 @@ namespace Uximagine.Magicurve.Image.Processing
         {
             get
             {
-                return ConfigurationData.PluginNames.BlobDetectorImplementation;
+                return PluginNames.BlobDetectorImplementation;
             }
         }
 
         /// <summary>
-        /// Gets the name of the shape checker implementation plugin.
+        /// Gets the name of the shape checker implementation plug-in.
         /// </summary>
         /// <value>
-        /// The name of the shape checker implementation plugin.
+        /// The name of the shape checker implementation plug-in.
         /// </value>
         public static string ShapeCheckerImplementationPluginName
         {
             get
             {
-                return ConfigurationData.PluginNames.ShapeCheckerImplementationPluginName;
+                return PluginNames.ShapeCheckerImplementationPlugn;
             }
         }
 
@@ -142,7 +142,7 @@ namespace Uximagine.Magicurve.Image.Processing
         {
             get
             {
-                return int.Parse(ConfigurationManager.AppSettings["minSize"]);
+                return int.Parse(ConfigurationManager.AppSettings["minControlSize"]);
             }
         }
     }

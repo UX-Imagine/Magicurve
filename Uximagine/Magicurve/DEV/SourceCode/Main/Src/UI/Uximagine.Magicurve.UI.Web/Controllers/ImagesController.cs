@@ -7,7 +7,9 @@ using System.Web.Http;
 using Uximagine.Magicurve.DataTransfer.Responses;
 using Uximagine.Magicurve.DataTransfer.Requests;
 using Uximagine.Magicurve.Services;
-using Uximagine.Magicurve.Core.Models;
+using Uximagine.Magicurve.Core.Shapes;
+using Uximagine.Magicurve.UI.Web.Models;
+
 #endregion
 
 namespace Uximagine.Magicurve.UI.Web.Controllers
@@ -25,16 +27,21 @@ namespace Uximagine.Magicurve.UI.Web.Controllers
         /// </returns>
         [Route("api/images/controls")]
         [HttpGet]
-        public List<Row> GetControls()
+        public ControlsResult GetControls()
         {
             //// const string SavedPath = "/Content/images/test2.png";
-            string imgPath = HostingEnvironment.MapPath("~/Content/images/Capture/capture.jpg");
+            string imgPath = Path.Combine(HostingEnvironment.MapPath("~/Content/Images/Upload"), "upload.jpg");
 
             IProcessingService service = ServiceFactory.GetProcessingService();
             ProcessRequestDto request = new ProcessRequestDto { ImagePath = imgPath };
             ProcessResponseDto response = service.ProcessImage(request);
 
-            var json = response.Controls;
+            var json = new ControlsResult()
+            {
+                Controls = response.Controls,
+                SourceImageWidth = response.ImageResult.Width
+            };
+
             response.ImageResult.Save(filename: HostingEnvironment.MapPath("~/Content/images/test2.png"));
             response.ImageResult.Dispose();
 
@@ -65,11 +72,37 @@ namespace Uximagine.Magicurve.UI.Web.Controllers
                 response.ImageResult.Dispose();
             }
 
-            return this.Json(new
+            return this.Json(new ImagesResult()
                                 {
-                                    url = "/Content/images/result.png",
-                                    controls = response.Controls
+                                    Url = "/Content/images/result.png",
+                                    Controls = response.Controls
                                 });
+        }
+
+        /// <summary>
+        /// Gets the image.
+        /// </summary>
+        /// <param name="controlsResult">The controls result.</param>
+        /// <returns>
+        /// The image path.
+        /// </returns>
+        [Route("api/images/code")]
+        [HttpPost]
+        public IHttpActionResult GenerateCode(ControlsResult controlsResult)
+        {
+            IProcessingService service = ServiceFactory.GetProcessingService();
+            GenerateCodeRequest request = new GenerateCodeRequest()
+            {
+                Controls = controlsResult.Controls,
+                ImageWidth = controlsResult.SourceImageWidth
+            };
+
+            GenerateCodeResponse response = service.GenerateCode(request);
+
+            return this.Json(new CodeResult()
+            {
+               Code = response.Code
+            });
         }
 
         /// <summary>
@@ -82,9 +115,9 @@ namespace Uximagine.Magicurve.UI.Web.Controllers
         /// Get API/values/5   
         /// </returns>
         [Route("api/images/{id}")]
-        public List<Row> GetById(int id)
+        public List<Control> GetById(int id)
         {
-            var result = new List<Row>();
+            var result = new List<Control>();
             string imgPath;
 
             switch (id)

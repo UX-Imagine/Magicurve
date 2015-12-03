@@ -1,4 +1,6 @@
 ﻿#region Imports
+
+using System.Threading.Tasks;
 using Uximagine.Magicurve.DataTransfer.Requests;
 using Uximagine.Magicurve.DataTransfer.Responses;
 using Uximagine.Magicurve.Services.BusinessServices.UnitsOfWork;
@@ -23,14 +25,41 @@ namespace Uximagine.Magicurve.Services.BusinessServices
         /// </returns>
         public ProcessResponseDto ProcessImage(ProcessRequestDto requestDto)
         {
-            ProcessResponseDto response = new ProcessResponseDto();
-
-            DetectEdgesUnitOfWork work = new DetectEdgesUnitOfWork { ImagePath = requestDto.ImagePath };
+            DetectControlsUnitOfWork work = new DetectControlsUnitOfWork { ImagePath = requestDto.ImagePath };
 
             this.DoWork(work);
 
-            response.Controls = work.Controls;
-            response.ImageResult = work.ImageResult;
+            ProcessResponseDto response = new ProcessResponseDto
+            {
+                Controls = work.Controls,
+                ImageResult = work.ImageResult
+            };
+
+            return response;
+        }
+
+        /// <summary>
+        /// Generates the code.
+        /// </summary>
+        /// <param name="request">
+        /// The request.
+        /// </param>
+        /// <returns>
+        /// The generated code.
+        /// </returns>
+        public GenerateCodeResponse GenerateCode(GenerateCodeRequest request)
+        {
+            GenerateCodeResponse response = new GenerateCodeResponse();
+
+            GenerateCodeUnitOfWork work = new GenerateCodeUnitOfWork()
+            {
+                Controls = request.Controls,
+                ImageWidth = request.ImageWidth
+            };
+
+            this.DoWork(work);
+
+            response.Code = work.Code;
 
             return response;
         }
@@ -38,10 +67,20 @@ namespace Uximagine.Magicurve.Services.BusinessServices
         /// <summary>
         /// Trains this instance.
         /// </summary>
-        public void Train()
+        /// <param name="request">
+        /// The request.
+        /// </param>
+        public async Task Train(TrainRequest request)
         {
-            TrainDataUnitOfWork work = new TrainDataUnitOfWork(true);
-            this.DoWork(work);
+            await Task.Run(() =>
+            {
+                TrainDataUnitOfWork work = new TrainDataUnitOfWork(true)
+                {
+                    ForceTraining = request.ForceTraining
+                };
+
+                this.DoWork(work);
+            });
         }
     }
 }

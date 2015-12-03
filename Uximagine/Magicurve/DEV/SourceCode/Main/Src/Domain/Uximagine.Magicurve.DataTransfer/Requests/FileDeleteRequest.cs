@@ -3,7 +3,7 @@
 namespace Uximagine.Magicurve.DataTransfer.Requests
 {
     /// <summary>
-    /// The fiel delete request.
+    /// The file delete request.
     /// </summary>
     public class FileDeleteRequest
     {

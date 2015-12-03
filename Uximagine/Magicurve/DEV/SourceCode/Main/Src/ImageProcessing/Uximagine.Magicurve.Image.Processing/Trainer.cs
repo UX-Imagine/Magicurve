@@ -20,6 +20,13 @@ namespace Uximagine.Magicurve.Image.Processing
     /// </summary>
     public class Trainer
     {
+        /// <summary>
+        /// Gets or sets a value indicating whether [force training].
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [force training]; otherwise, <c>false</c>.
+        /// </value>
+        public bool ForceTraining { get; set; }
 
         /// <summary>
         /// Gets or sets the operations log.
@@ -27,7 +34,7 @@ namespace Uximagine.Magicurve.Image.Processing
         /// <value>
         /// The operations log.
         /// </value>
-        public List<Operation> OperationsLog { get; set; }
+        private List<Operation> OperationsLog { get; set; }
 
         /// <summary>
         /// Gets or sets the images.
@@ -78,7 +85,10 @@ namespace Uximagine.Magicurve.Image.Processing
 
             PcaClassifier classifier = PcaClassifier.GetInstance();
 
-            classifier.TrainMachine(Images);
+            if (classifier.IsTrained == false || ForceTraining)
+            {
+                classifier.TrainMachine(Images);
+            }
 
             this.LogOperation("Training Completed");
 

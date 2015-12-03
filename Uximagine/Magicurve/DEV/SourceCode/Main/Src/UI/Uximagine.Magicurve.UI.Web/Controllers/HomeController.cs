@@ -4,7 +4,11 @@ using System.IO;
 using System.Web.Mvc;
 using System.Linq;
 using System.Threading.Tasks;
+using Uximagine.Magicurve.DataTransfer.Requests;
+using Uximagine.Magicurve.DataTransfer.Responses;
 using Uximagine.Magicurve.Services;
+using Uximagine.Magicurve.UI.Web.Common;
+using Uximagine.Magicurve.UI.Web.Models;
 
 #endregion
 
@@ -26,7 +30,10 @@ namespace Uximagine.Magicurve.UI.Web.Controllers
         public ActionResult Index()
         {
             ViewBag.Title = "Home Page";
-            this.Train();
+
+            // Do not wait for this call.
+            this.Train(force: false);
+
             return this.View();
         }
 
@@ -138,7 +145,7 @@ namespace Uximagine.Magicurve.UI.Web.Controllers
             if (Request.Files.AllKeys.Any())
             {
                 // Get the uploaded image from the Files collection
-                var file = Request.Files["UploadedImage"];
+                var file = Request.Files[ConfigurationData.UploadFileIndex];
 
                 if (ModelState.IsValid)
                 {
@@ -148,7 +155,7 @@ namespace Uximagine.Magicurve.UI.Web.Controllers
                     }
                     else if (file.ContentLength > 0)
                     {
-                        const int MaxContentLength = 1024 * 1024 * 4; // Size = 4 MB
+                        int maxContentLength = ConfigurationData.UploadMaxSize; // Size = 4 MB
 
                         string[] allowedFileExtensions =
                             {
@@ -161,20 +168,20 @@ namespace Uximagine.Magicurve.UI.Web.Controllers
                                 "File",
                                 "Please file of type: " + string.Join(", ", allowedFileExtensions));
                         }
-                        else if (file.ContentLength > MaxContentLength)
+                        else if (file.ContentLength > maxContentLength)
                         {
                             ModelState.AddModelError(
                                 "File",
-                                "Your file is too large, maximum allowed size is: " + MaxContentLength + " MB");
+                                "Your file is too large, maximum allowed size is: " + maxContentLength + " MB");
                         }
                         else
                         {
-                            const string FileName = "upload.jpg";
-                            var path = Path.Combine(Server.MapPath("~/Content/Images/Upload"), FileName);
+                            string fileName = ConfigurationData.UploadFileName;
+                            var path = Path.Combine(Server.MapPath(ConfigurationData.UploadDirectory), fileName);
                             file.SaveAs(path);
                             ModelState.Clear();
                             ViewBag.Message = "File uploaded successfully. File path :   ~/Content/Images/Upload/"
-                                              + FileName;
+                                              + fileName;
 
                             result = this.Json(new { path = path });
 
@@ -203,25 +210,34 @@ namespace Uximagine.Magicurve.UI.Web.Controllers
         /// <summary>
         /// Downloads this instance.
         /// </summary>
-        /// <param name="content">
-        /// The content.
+        /// <param name="controlsResult">
+        /// The controls result
         /// </param>
         /// <returns>
         /// The file
         /// </returns>
-        public FileResult Download(string content)
+        public FileResult Download(ControlsResult controlsResult)
         {
-            if (!string.IsNullOrEmpty(content))
+            if (controlsResult != null)
             {
-                const string FileName = "source.html";
+                IProcessingService service = ServiceFactory.GetProcessingService();
+                GenerateCodeRequest request = new GenerateCodeRequest()
+                {
+                    Controls = controlsResult.Controls,
+                    ImageWidth = controlsResult.SourceImageWidth
+                };
 
-                var path = Path.Combine(Server.MapPath("~/Content/Files"), FileName);
+                GenerateCodeResponse response = service.GenerateCode(request);
 
-                System.IO.File.WriteAllText(@path, content);
+                string fileName = ConfigurationData.DownloadFileName;
+
+                var path = Path.Combine(Server.MapPath(ConfigurationData.DownloadDirectory), fileName);
+
+                System.IO.File.WriteAllText(@path, response.Code);
 
                 byte[] fileBytes = System.IO.File.ReadAllBytes(@path);
 
-                return this.File(fileBytes, System.Net.Mime.MediaTypeNames.Text.Html, FileName); 
+                return this.File(fileBytes, System.Net.Mime.MediaTypeNames.Text.Html, fileName); 
             }
 
             return null;
@@ -230,13 +246,19 @@ namespace Uximagine.Magicurve.UI.Web.Controllers
         /// <summary>
         /// Trains this instance.
         /// </summary>
+        /// <param name="force">if set to <c>true</c> [force].</param>
         /// <returns>
         /// When task is completed.
         /// </returns>
-        private async Task Train()
+        private async Task Train(bool force)
         {
             IProcessingService service = ServiceFactory.GetProcessingService();
-            service.Train();
+            TrainRequest request = new TrainRequest()
+            {
+                ForceTraining = force
+            };
+
+            await service.Train(request);
         }
 
         /// <summary>
@@ -256,8 +278,11 @@ namespace Uximagine.Magicurve.UI.Web.Controllers
         {
             return this.View("_MenuBar");
         }
+
         #endregion
+
         #region Methods - Instance Member - (helpers)
+
         /// <summary>
         /// String_s the to_ bytes2.
         /// </summary>

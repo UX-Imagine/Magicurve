@@ -26,6 +26,14 @@ namespace Uximagine.Magicurve.UI.Web
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             log4net.Config.XmlConfigurator.Configure(new FileInfo(Server.MapPath("~/Web.config")));
+
+            HttpConfiguration config = GlobalConfiguration.Configuration;
+
+            config.Formatters.JsonFormatter.SerializerSettings.Formatting =
+                Formatting.Indented;
+
+            config.Formatters.JsonFormatter.SerializerSettings.Converters.Add(
+                new Newtonsoft.Json.Converters.StringEnumConverter());
         }
 
         /// <summary>

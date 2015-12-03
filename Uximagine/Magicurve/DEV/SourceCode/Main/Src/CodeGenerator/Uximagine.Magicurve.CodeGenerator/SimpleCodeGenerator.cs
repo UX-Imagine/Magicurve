@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Uximagine.Magicurve.Core.Models;
 using Uximagine.Magicurve.Core.Shapes;
 
 namespace Uximagine.Magicurve.CodeGenerator
@@ -69,59 +70,59 @@ namespace Uximagine.Magicurve.CodeGenerator
 
                 switch (con.Type)
                 {
-                    case Core.Models.ControlType.Button:
+                    case ControlType.Button:
                         builder.Append(this.GetButton(con));
                         break;
 
-                    case Core.Models.ControlType.CheckBox:
+                    case ControlType.CheckBox:
                         builder.Append(this.GetCheckBox(con));
                         break;
 
-                    case Core.Models.ControlType.RadioButton:
+                    case ControlType.RadioButton:
                         builder.Append(this.GetRadio(con));
                         break;
 
-                    case Core.Models.ControlType.ComboBox:
+                    case ControlType.ComboBox:
                         builder.Append(this.GetCombo(con));
                         break;
 
-                    case Core.Models.ControlType.InputText:
+                    case ControlType.InputText:
                         builder.Append(this.GetText(con));
                         break;
 
-                    case Core.Models.ControlType.InputPassword:
+                    case ControlType.InputPassword:
                         builder.Append(this.GetPassword(con));
                         break;
 
-                    case Core.Models.ControlType.DatePicker:
+                    case ControlType.DatePicker:
                         builder.Append(this.GetDatePicker(con));
                         break;
 
-                    case Core.Models.ControlType.Paragraph:
+                    case ControlType.Paragraph:
                         builder.Append(this.GetPara(con));
                         break;
 
-                    case Core.Models.ControlType.Label:
+                    case ControlType.Label:
                         builder.Append(this.GetLabel(con));
                         break;
 
-                    case Core.Models.ControlType.TextArea:
+                    case ControlType.TextArea:
                         builder.Append(this.GetTextArea(con));
                         break;
 
-                    case Core.Models.ControlType.Image:
+                    case ControlType.Image:
                         builder.Append(this.GetImage(con));
                         break;
 
-                    case Core.Models.ControlType.HyperLink:
+                    case ControlType.HyperLink:
                         builder.Append(this.GetHyperLink(con));
                         break;
 
-                    case Core.Models.ControlType.Iframe:
+                    case ControlType.Iframe:
                         builder.Append(this.GetHyperLink(con));
                         break;
 
-                    case Core.Models.ControlType.HLine:
+                    case ControlType.HLine:
                         builder.Append(this.GetHLine(con));
                         break;
 

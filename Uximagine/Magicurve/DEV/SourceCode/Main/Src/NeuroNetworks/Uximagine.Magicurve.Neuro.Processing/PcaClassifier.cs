@@ -74,7 +74,7 @@ namespace Uximagine.Magicurve.Neuro.Processing
         }
 
         /// <summary>
-        /// Builds the pca.
+        /// Builds the PCA.
         /// </summary>
         private void BuildPca()
         {
@@ -135,6 +135,7 @@ namespace Uximagine.Magicurve.Neuro.Processing
 
             this.TrainMachine(features, outputs);
 
+            Images = null;
             IsTrained = true;
         }
 
@@ -169,7 +170,9 @@ namespace Uximagine.Magicurve.Neuro.Processing
         /// <summary>
         /// Computes the specified input.
         /// </summary>
-        /// <param name="input">The input.</param>
+        /// <param name="input">
+        /// The input.
+        /// </param>
         /// <returns>
         /// The computed output.
         /// </returns>

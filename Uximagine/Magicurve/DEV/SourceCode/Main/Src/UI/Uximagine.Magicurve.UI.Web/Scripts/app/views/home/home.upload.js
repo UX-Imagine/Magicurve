@@ -38,9 +38,40 @@ function loadImage() {
         }).done(function (data) {
             $("#img_blob").attr("src", root + data.url + "?" + new Date().getTime());
             $("#img").attr("src", root + "/Content/Images/Upload/upload.jpg" + "?" + new Date().getTime());
+            window.controls = data.controls;
             console.log(data);
-        }).fail(function (error) {
+            //downloadCode();
+            generateCode();
+    }).fail(function (error) {
             $("#image_place_holder").html(error);
+            console.log(error);
+        });
+}
+
+function downloadCode() {
+    $.ajax(
+        {
+            url: root + "/Home/Download?" + JSON.stringify(window.controls),
+            type: "GET"
+        }).done(function (data) {
+          console.log(data);
+        }).fail(function (error) {
+            
+            console.log(error);
+        });
+}
+
+function generateCode() {
+    $.ajax(
+        {
+            url: root + "/api/images/code",
+            type: "POST",
+            data: { controls: window.controls }
+        }).done(function (data) {
+            console.log(data);
+            $('#code').html(JSON.stringify(data.code));
+    }).fail(function (error) {
+
             console.log(error);
         });
 }

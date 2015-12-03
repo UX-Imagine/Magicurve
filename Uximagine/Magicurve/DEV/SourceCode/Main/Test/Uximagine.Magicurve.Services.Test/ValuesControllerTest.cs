@@ -1,4 +1,5 @@
 ﻿using Uximagine.Magicurve.Core.Models;
+using Uximagine.Magicurve.UI.Web.Models;
 
 namespace Uximagine.Magicurve.Services.Test
 {
@@ -43,7 +44,7 @@ namespace Uximagine.Magicurve.Services.Test
             var imagesController = new ImagesController();
 
             //// Act
-            List<Row> image = imagesController.GetControls();
+            ControlsResult image = imagesController.GetControls();
 
             //// Assert
             Assert.IsNotNull(image);

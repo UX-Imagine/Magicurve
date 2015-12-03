@@ -5,6 +5,10 @@
 @section scripts
 {
     <script src="~/Scripts/app/views/home/home.upload.js"></script>
+    <script src="~/Scripts/fx/zebra/zebra.min.js"></script>
+    <script src="~/Scripts/app/views/home/home.Index.js"></script>
+    <script src="~/Scripts/app/views/home/magicurve.app.controller.home.js"></script>
+    <script src="~/Scripts/app/views/home/magicurve.app.service.home.js"></script>
 }
 
 <h2>Upload File</h2>
@@ -19,6 +23,9 @@
 
 <button onclick="loadImage()">Show shapes</button>
 <div class="row">
-    <img id="img" src="#" height="400" class="col-md-6" />
-    <img id="img_blob" src="#" height="400" class="col-md-6" />
+    <img id="img" src="#" height="400" class="col-md-6"/>
+    <img id="img_blob" src="#" height="400" class="col-md-6"/>
+</div>
+<div class="row">
+    <div id="code"></div>
 </div>
