@@ -31,7 +31,7 @@ namespace Uximagine.Magicurve.UI.Web.Models
         /// The width of the source image.
         /// </value>
         [DataMember]
-        [JsonProperty("image_width")]
-        public int SourceImageWidth { get; set; }
+        [JsonProperty("imageWidth")]
+        public int ImageWidth { get; set; }
     }
 }

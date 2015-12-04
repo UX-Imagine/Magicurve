@@ -39,7 +39,7 @@ namespace Uximagine.Magicurve.UI.Web.Controllers
             var json = new ControlsResult()
             {
                 Controls = response.Controls,
-                SourceImageWidth = response.ImageResult.Width
+                ImageWidth = response.SourceImageWidth
             };
 
             response.ImageResult.Save(filename: HostingEnvironment.MapPath("~/Content/images/test2.png"));
@@ -75,8 +75,9 @@ namespace Uximagine.Magicurve.UI.Web.Controllers
             return this.Json(new ImagesResult()
                                 {
                                     Url = "/Content/images/result.png",
-                                    Controls = response.Controls
-                                });
+                                    Controls = response.Controls,
+                                    SourceImageWidth = response.SourceImageWidth
+            });
         }
 
         /// <summary>
@@ -94,7 +95,7 @@ namespace Uximagine.Magicurve.UI.Web.Controllers
             GenerateCodeRequest request = new GenerateCodeRequest()
             {
                 Controls = controlsResult.Controls,
-                ImageWidth = 1755
+                ImageWidth = controlsResult.ImageWidth
             };
 
             GenerateCodeResponse response = service.GenerateCode(request);

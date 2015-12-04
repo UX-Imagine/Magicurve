@@ -46,6 +46,18 @@ namespace Uximagine.Magicurve.Image.Processing
             get; set;
         }
 
+        /// <summary>
+        /// Gets or sets the width of the image.
+        /// </summary>
+        /// <value>
+        /// The width of the image.
+        /// </value>
+        public int ImageWidth
+        {
+            get;
+            set;
+        }
+
         public List<Control> Controls
         {
             get;
@@ -65,6 +77,8 @@ namespace Uximagine.Magicurve.Image.Processing
         {
             using (Bitmap bitmap = new Bitmap(path))
             {
+                ImageWidth = bitmap.Width;
+
                 // Apply filters to get smooth image.
                 Bitmap blobReady = bitmap.GetBlobReady();
 

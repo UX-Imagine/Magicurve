@@ -40,5 +40,14 @@ namespace Uximagine.Magicurve.DataTransfer.Responses
         [DataMember]
         public string ImagePath { get; set; }
 
+        /// <summary>
+        /// Gets or sets the width of the source image.
+        /// </summary>
+        /// <value>
+        /// The width of the source image.
+        /// </value>
+        [DataMember]
+        public int SourceImageWidth { get; set; }
+
     }
 }

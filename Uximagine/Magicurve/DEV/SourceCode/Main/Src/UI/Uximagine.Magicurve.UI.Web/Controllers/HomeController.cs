@@ -216,6 +216,7 @@ namespace Uximagine.Magicurve.UI.Web.Controllers
         /// <returns>
         /// The file
         /// </returns>
+        [HttpPost]
         public FileResult Download(ControlsResult controlsResult)
         {
             if (controlsResult != null)
@@ -224,7 +225,7 @@ namespace Uximagine.Magicurve.UI.Web.Controllers
                 GenerateCodeRequest request = new GenerateCodeRequest()
                 {
                     Controls = controlsResult.Controls,
-                    ImageWidth = controlsResult.SourceImageWidth
+                    ImageWidth = controlsResult.ImageWidth
                 };
 
                 GenerateCodeResponse response = service.GenerateCode(request);

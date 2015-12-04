@@ -32,7 +32,8 @@ namespace Uximagine.Magicurve.Services.BusinessServices
             ProcessResponseDto response = new ProcessResponseDto
             {
                 Controls = work.Controls,
-                ImageResult = work.ImageResult
+                ImageResult = work.ImageResult,
+                SourceImageWidth = work.ImageWidth
             };
 
             return response;

@@ -39,6 +39,7 @@ function loadImage() {
             $("#img_blob").attr("src", root + data.url + "?" + new Date().getTime());
             $("#img").attr("src", root + "/Content/Images/Upload/upload.jpg" + "?" + new Date().getTime());
             window.controls = data.controls;
+            window.imageWidth = data.imageWidth;
             console.log(data);
             //downloadCode();
             generateCode();
@@ -51,8 +52,9 @@ function loadImage() {
 function downloadCode() {
     $.ajax(
         {
-            url: root + "/Home/Download?" + JSON.stringify(window.controls),
-            type: "GET"
+            url: root + "/Home/Download",
+            type: "POST",
+            data: { controls: window.controls, imageWidth: window.imageWidth }
         }).done(function (data) {
           console.log(data);
         }).fail(function (error) {
@@ -66,7 +68,8 @@ function generateCode() {
         {
             url: root + "/api/images/code",
             type: "POST",
-            data: { controls: window.controls }
+            data: { controls: window.controls, imageWidth: window.imageWidth },
+            dataType: "JSON"
         }).done(function (data) {
             console.log(data);
             $('#code').html(JSON.stringify(data.code));

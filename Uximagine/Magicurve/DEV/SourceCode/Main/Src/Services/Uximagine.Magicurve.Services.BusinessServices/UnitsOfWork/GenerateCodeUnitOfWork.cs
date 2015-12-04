@@ -62,8 +62,7 @@ namespace Uximagine.Magicurve.Services.BusinessServices.UnitsOfWork
         protected override void Execute()
         {
             ResponsiveCodeGenerator codeGenerator = new ResponsiveCodeGenerator();
-            string code = codeGenerator.CreateHtmlCode(Controls, ImageWidth);
-            Code = code;
+            Code = codeGenerator.CreateHtmlCode(Controls, ImageWidth);
         } 
 
         #endregion

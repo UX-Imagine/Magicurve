@@ -12,7 +12,7 @@ using Uximagine.Magicurve.Core.Shapes;
 namespace Uximagine.Magicurve.Neuro.Processing.Test
 {
     /// <summary>
-    /// Nural network tests.
+    /// Neural network tests.
     /// </summary>
     [TestFixture]
     public class NerualNetTests
@@ -249,10 +249,10 @@ namespace Uximagine.Magicurve.Neuro.Processing.Test
         }
 
         /// <summary>
-        /// Tests the classfier.
+        /// Tests the classifier.
         /// </summary>
         [Test]
-        public void TestClassfier()
+        public void TestClassifier()
         {
             double[][] inputs =
            {

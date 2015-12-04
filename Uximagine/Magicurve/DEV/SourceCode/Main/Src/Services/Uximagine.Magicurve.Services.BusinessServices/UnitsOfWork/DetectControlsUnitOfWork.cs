@@ -45,7 +45,20 @@ namespace Uximagine.Magicurve.Services.BusinessServices.UnitsOfWork
         {
             get;
             set;
-        }  
+        }
+
+        /// <summary>
+        /// Gets or sets the image width.
+        /// </summary>
+        /// <value>
+        /// The image width.
+        /// </value>
+        public int ImageWidth
+        {
+            get;
+            set;
+        }
+
         #endregion
 
         #region Methods - Instance Member - Constructors
@@ -79,6 +92,7 @@ namespace Uximagine.Magicurve.Services.BusinessServices.UnitsOfWork
             List<Control> controls = processor.Controls;
             this.Controls = controls;
             this.ImageResult = processor.ImageResult;
+            ImageWidth = processor.ImageWidth;
         }
     }
 }

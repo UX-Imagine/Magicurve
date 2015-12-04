@@ -24,6 +24,16 @@ namespace Uximagine.Magicurve.UI.Web.Models
         public string Url { get; set; }
 
         /// <summary>
+        /// Gets or sets the width of the source image.
+        /// </summary>
+        /// <value>
+        /// The width of the source image.
+        /// </value>
+        [DataMember]
+        [JsonProperty("imageWidth")]
+        public int SourceImageWidth { get; set; }
+
+        /// <summary>
         /// Gets or sets the controls.
         /// </summary>
         /// <value>

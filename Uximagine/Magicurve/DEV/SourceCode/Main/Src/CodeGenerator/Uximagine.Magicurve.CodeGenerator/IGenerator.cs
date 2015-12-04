@@ -56,11 +56,6 @@ namespace Uximagine.Magicurve.CodeGenerator
         string GetIframe(Control iframe);
 
         string GetHLine(Control hline);
-
-
-
-       
-
         
     }
 }
