@@ -73,7 +73,7 @@ namespace Uximagine.Magicurve.Core.Shapes
         public List<IntPoint> EdgePoints
         {
             get; set;
-        }
+        } 
 
         /// <summary>
         /// Gets or sets the styles.

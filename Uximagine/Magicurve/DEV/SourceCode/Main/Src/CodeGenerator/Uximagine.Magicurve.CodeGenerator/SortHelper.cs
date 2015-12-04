@@ -46,10 +46,11 @@ namespace Uximagine.Magicurve.CodeGenerator
             listOfList.Add(new Row
             {
                 Controls = new List<Control>
-                { 
+                    { 
                         list[0] 
                     },
                 RowIndex = 0,
+                TopMargin = list[0].Y,
                 Height = maxHeight
             });
 
@@ -76,6 +77,7 @@ namespace Uximagine.Magicurve.CodeGenerator
                             list[i] 
                         },
                         RowIndex = ++rowIndex,
+                        TopMargin = list[i].Y-list[i-1].Y,
                         Height = maxHeight
                     });
 
@@ -101,18 +103,34 @@ namespace Uximagine.Magicurve.CodeGenerator
 
             foreach (Row row in rowList)
             {
+
+                List<Control> finalizeControlList = new List<Control>();
+                //Dictionary<string, int> map = new Dictionary<string, int>();
                 var query =
                 from con in row.Controls
                 orderby con.X
                 select con;
 
-                List<Control> finalizeControlList = query.ToList();
+                finalizeControlList = query.ToList();
 
-                finalizeRowList.Add(new Row
+                finalizeControlList[0].Styles = new Dictionary<string, string>();
+                finalizeControlList[0].Styles.Add("margin-left",finalizeControlList[0].X+"px");
+
+                for (int i = 1; i < finalizeControlList.Count; i++)
+                {
+                    finalizeControlList[i].Styles = new Dictionary<string, string>();
+                    int x = finalizeControlList[i].X - finalizeControlList[i - 1].X;
+                    //finalizeControlList[i].Style.Add(i, x);
+                    finalizeControlList[i].Styles.Add("margin-left", x + "px");
+
+                }
+
+                    finalizeRowList.Add(new Row()
                 {
                     Controls = finalizeControlList,
                     Height = row.Height,
-                    RowIndex = row.RowIndex
+                        RowIndex = row.RowIndex,
+                        TopMargin = row.TopMargin
                 });
             }
 
@@ -124,9 +142,9 @@ namespace Uximagine.Magicurve.CodeGenerator
         {
             double value = (item.Width / pageWidth) * 12;
             int colSize = (int)(Math.Round(value));
-            if (colSize < 2)
+            if (colSize < 1)
             {
-                colSize = 2;
+                colSize = 1;
             }
             return colSize;
         }

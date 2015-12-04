@@ -49,7 +49,7 @@ namespace Uximagine.Magicurve.Image.Processing.ShapeCheckers
 
             using (Bitmap cropped = GetCroppedControl(original, edgePoints))
             {
-                cropped.Save("D:/cropped.jpg");
+                //cropped.Save("D:/cropped.jpg");
                 PcaClassifier classifier = PcaClassifier.GetInstance();
                 if (classifier.IsTrained == false)
                 {

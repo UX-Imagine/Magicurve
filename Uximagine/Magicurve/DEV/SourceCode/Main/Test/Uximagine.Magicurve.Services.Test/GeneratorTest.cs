@@ -122,7 +122,8 @@ namespace Uximagine.Magicurve.Services.Test
                 new Button(){
                     X = 142,//60,
                     Y = 170,//80,
-                    Height = 10,
+                    Height = 21,//10,
+                    Width = 68,
                     Name = "C",
                     Value="C Button"
                 },
@@ -130,7 +131,8 @@ namespace Uximagine.Magicurve.Services.Test
                 new Button(){
                     X = 30,
                     Y = 170,//85,
-                    Height = 10,
+                    Height = 21,//10,
+                    Width = 68,
                     Name = "D",
                     Value="D Button"
                 },
@@ -138,7 +140,8 @@ namespace Uximagine.Magicurve.Services.Test
                 new Button(){
                     X = 80,//50,
                     Y = 104,//55,
-                    Height = 5,
+                    Height = 21,//5,
+                    Width = 67,
                     Name = "B",
                     Value="B Button"
                 },
@@ -147,14 +150,26 @@ namespace Uximagine.Magicurve.Services.Test
                     Type = ControlType.RadioButton,
                     X = 193,
                     Y = 104,
+                    Height = 13,
+                    Width = 13
                 },
 
                 new Button(){
                     X = 10,
                     Y = 50,
-                    Height = 4,
+                    Height = 21,//4,
+                    Width = 67,
                     Name = "A",
                     Value="A Button"
+                },
+
+                new Control(){
+                    Type = ControlType.ComboBox,
+                    X = 180,
+                    Y = 104,
+                    Height = 20,
+                    Width = 84
+
                 }
             };
 
@@ -452,16 +467,22 @@ namespace Uximagine.Magicurve.Services.Test
                 }
             };
 
+            
+
             //for resposive generator page
-            string responsiveResult1 = responsiveGenerator.CreateHtmlCode(controlsSet1, 900);
+           string responsiveResult1 = responsiveGenerator.CreateHtmlCode(controlsSet1, 900);
             Debug.Write(responsiveResult1);
+            testClass.GenarateResponsiveHTMLPage(responsiveResult1, "responsiveSample-2.html");
+
+            //responsiveGenerator.CreateHtmlCode(null, 0);
 
             string responsiveResult2 = responsiveGenerator.CreateHtmlCode(controlsSet2, 900);
-            Debug.Write(responsiveResult1);
+            Debug.Write(responsiveResult2);
+            testClass.GenarateResponsiveHTMLPage(responsiveResult2, "responsiveSampleChangeImg-2.html");
            
             //testClass.GenarateResponsiveHTMLPage(responsiveResult, "ChangeImgAgain-2.html");
-            testClass.GenarateResponsiveHTMLPage(responsiveResult2, "responsiveSampleChangeImg-2.html");
-            testClass.GenarateResponsiveHTMLPage(responsiveResult1, "responsiveSample-2.html");
+            
+            
             //testClass.GenarateResponsiveHTMLPage(responsiveResult, "responsiveSample-1WithCol.html");
         }
 

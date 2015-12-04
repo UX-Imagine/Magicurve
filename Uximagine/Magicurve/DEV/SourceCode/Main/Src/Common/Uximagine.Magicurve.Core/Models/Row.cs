@@ -50,5 +50,12 @@ namespace Uximagine.Magicurve.Core.Models
             get;
             set;
         }
+
+        [DataMember]
+        public int TopMargin
+        {
+            get;
+            set;
+        }
     }
 }

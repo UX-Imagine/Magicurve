@@ -23,9 +23,9 @@ namespace Uximagine.Magicurve.CodeGenerator
 
         string StartDiv(double left, double top);
 
-        string OpenRowDiv(double height);
+        string OpenRowDiv(double height,int marginTop);
 
-        string OpenColDiv(int controlsCount);
+        string OpenColDiv(int controlsCount, Control item);
 
         string InputTag(string inputType, string inputName, string inputValue);
 

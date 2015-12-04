@@ -94,7 +94,7 @@ namespace Uximagine.Magicurve.UI.Web.Controllers
             GenerateCodeRequest request = new GenerateCodeRequest()
             {
                 Controls = controlsResult.Controls,
-                ImageWidth = controlsResult.SourceImageWidth
+                ImageWidth = 1755
             };
 
             GenerateCodeResponse response = service.GenerateCode(request);

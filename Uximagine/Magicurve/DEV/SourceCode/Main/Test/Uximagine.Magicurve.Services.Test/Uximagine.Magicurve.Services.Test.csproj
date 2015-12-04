@@ -124,6 +124,7 @@
     <Compile Include="Image\ShapeCheckerTest.cs" />
     <Compile Include="GeneratorTest.cs" />
     <Compile Include="LinqTest.cs" />
+    <Compile Include="EvaluationTest.cs" />
     <Compile Include="ValuesControllerTest.cs" />
   </ItemGroup>
   <ItemGroup>
