@@ -41,8 +41,8 @@ function loadImage() {
             window.controls = data.controls;
             window.imageWidth = data.imageWidth;
             console.log(data);
-            //downloadCode();
-            generateCode();
+            downloadCode();
+            //generateCode();
     }).fail(function (error) {
             $("#image_place_holder").html(error);
             console.log(error);
@@ -52,11 +52,12 @@ function loadImage() {
 function downloadCode() {
     $.ajax(
         {
-            url: root + "/Home/Download",
+            url: root + "api/images/download",
             type: "POST",
             data: { controls: window.controls, imageWidth: window.imageWidth }
         }).done(function (data) {
-          console.log(data);
+            console.log(data);
+            window.open(data.url, '_blank', '');
         }).fail(function (error) {
             
             console.log(error);

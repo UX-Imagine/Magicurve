@@ -8,6 +8,7 @@ using Uximagine.Magicurve.DataTransfer.Responses;
 using Uximagine.Magicurve.DataTransfer.Requests;
 using Uximagine.Magicurve.Services;
 using Uximagine.Magicurve.Core.Shapes;
+using Uximagine.Magicurve.UI.Web.Common;
 using Uximagine.Magicurve.UI.Web.Models;
 
 #endregion
@@ -104,6 +105,45 @@ namespace Uximagine.Magicurve.UI.Web.Controllers
             {
                Code = response.Code
             });
+        }
+
+        /// <summary>
+        /// Downloads this instance.
+        /// </summary>
+        /// <param name="controlsResult">
+        /// The controls result
+        /// </param>
+        /// <returns>
+        /// The file
+        /// </returns>
+        [Route("api/images/download")]
+        [HttpPost]
+        public IHttpActionResult DownloadCode(ControlsResult controlsResult)
+        {
+            if (controlsResult != null)
+            {
+                IProcessingService service = ServiceFactory.GetProcessingService();
+                GenerateCodeRequest request = new GenerateCodeRequest()
+                {
+                    Controls = controlsResult.Controls,
+                    ImageWidth = controlsResult.ImageWidth
+                };
+
+                GenerateCodeResponse response = service.GenerateCode(request);
+
+                string fileName = ConfigurationData.DownloadFileName;
+
+                var path = Path.Combine(HostingEnvironment.MapPath(ConfigurationData.DownloadDirectory), fileName);
+
+                File.WriteAllText(@path, response.Code);
+
+                return this.Json(new 
+                {
+                    url = @path
+                });
+            }
+
+            return null;
         }
 
         /// <summary>

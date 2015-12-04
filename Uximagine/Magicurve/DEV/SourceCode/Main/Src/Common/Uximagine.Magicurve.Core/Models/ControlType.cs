@@ -8,74 +8,80 @@
         /// <summary>
         /// The default type.
         /// </summary>
-        None,
+        None = 0,
 
         /// <summary>
         /// The button.
         /// </summary>
-        Button,
+        Button = 1,
 
         /// <summary>
         /// The ComboBox.
         /// </summary>
-        ComboBox,
+        ComboBox = 2,
 
         /// <summary>
         /// The paragraph.
         /// </summary>
-        Paragraph,
+        Paragraph = 3,
 
         /// <summary>
         /// The input text.
         /// </summary>
-        InputText,
+        InputText = 4,
 
         /// <summary>
         /// The radioButton.
         /// </summary>
-        RadioButton,
-
-        /// <summary>
-        /// The checkBox.
-        /// </summary>
-        CheckBox,
-
-        /// <summary>
-        /// The input password.
-        /// </summary>
-        InputPassword,
-
-        /// <summary>
-        /// The DatePicker.
-        /// </summary>
-        DatePicker,
-        /// <summary>
-        /// The label.
-        /// </summary>
-        Label,
-        /// <summary>
-        /// The text area.
-        /// </summary>
-        TextArea,
+        RadioButton = 5,
 
         /// <summary>
         /// The image.
         /// </summary>
-        Image,
+        Image = 6,
 
         /// <summary>
-        /// The hyperlink.
+        /// The input password.
         /// </summary>
-        HyperLink,
+        InputPassword = 7,
 
         /// <summary>
-        /// The iframe.
+        /// The checkBox.
         /// </summary>
-        Iframe,
+        CheckBox = 8,
+
+        /// <summary>
+        /// The DatePicker.
+        /// </summary>
+        DatePicker = 9,
+        /// <summary>
+        /// The label.
+        /// </summary>
+        Label = 10,
+
+        /// <summary>
+        /// The hyper-link.
+        /// </summary>
+        HyperLink = 11,
+
+        /// <summary>
+        /// The frame.
+        /// </summary>
+        Iframe = 12,
 
         /// <summary>
         /// The horizontal line.
         /// </summary>
-        HLine
+        HLine = 13,
+
+        /// <summary>
+        /// The Input range.
+        /// </summary>
+        Range = 14,
+
+        /// <summary>
+        /// The text area.
+        /// </summary>
+        TextArea = 15
     }
 }

@@ -2,12 +2,15 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using Accord.Math;
 using AForge.Imaging.Filters;
 using NUnit.Framework;
 using Should;
+using Uximagine.Magicurve.Core.Models;
 using Uximagine.Magicurve.Core.Shapes;
 using Uximagine.Magicurve.Image.Processing.Detectors;
 using Uximagine.Magicurve.Image.Processing.Helpers;
@@ -17,13 +20,11 @@ using Uximagine.Magicurve.Neuro.Processing;
 namespace Uximagine.Magicurve.Services.Test.Neuro
 {
     /// <summary>
-    ///     Nural network training tests.
+    ///     Neural network training tests.
     /// </summary>
     [TestFixture]
     public class PcaTrainTests
     {
-        private static int _index;
-
         private List<Tuple<Bitmap, int>> _images;
 
         private static int _sampleSize = 32;
@@ -32,6 +33,12 @@ namespace Uximagine.Magicurve.Services.Test.Neuro
         public void Setup()
         {
             _images = new List<Tuple<Bitmap, int>>();
+            Debug.WriteLine("Test Started");
+        }
+
+        public void TearDown()
+        {
+            Debug.WriteLine("Test Started");
         }
 
         [TestCase(50, 32)]
@@ -54,21 +61,33 @@ namespace Uximagine.Magicurve.Services.Test.Neuro
             Bitmap testInputParah = GetInputVector(@"D:/Data/test/inputs/paragraph/test/parah2_06.jpg", minSize);
             Bitmap testInputtext= GetInputVector(@"D:/Data/test/inputs/text/test/text_11.jpg", minSize);
             Bitmap radio = GetInputVector(@"D:/Data/test/inputs/radio/test/radio_11.jpg", minSize);
+            Bitmap image = GetInputVector(@"D:/Data/test/inputs/image/test/image2_05.jpg", minSize);
+            Bitmap image2 = GetInputVector(@"D:/Data/test/inputs/image/test/image_13.jpg", minSize);
+            Bitmap password = GetInputVector(@"D:/Data/test/inputs/password/test/password2_03.jpg", minSize);
 
             var decision = classifier.Compute(testInputButton);
-            decision.ShouldEqual(0);
+            decision.ShouldEqual(ControlType.Button.To<int>() - 1);
 
             decision = classifier.Compute(testInputCombo);
-            decision.ShouldEqual(1);
+            decision.ShouldEqual(ControlType.ComboBox.To<int>() - 1);
 
             decision = classifier.Compute(testInputParah);
-            decision.ShouldEqual(2);
+            decision.ShouldEqual(ControlType.Paragraph.To<int>() - 1);
 
             decision = classifier.Compute(testInputtext);
-            decision.ShouldEqual(3);
+            decision.ShouldEqual(ControlType.InputText.To<int>() - 1);
 
             decision = classifier.Compute(radio);
-            decision.ShouldEqual(4);
+            decision.ShouldEqual(ControlType.RadioButton.To<int>() - 1);
+
+            decision = classifier.Compute(image);
+            //decision.ShouldEqual(ControlType.Image.To<int>() - 1);
+
+            decision = classifier.Compute(image2);
+            decision.ShouldEqual(ControlType.Image.To<int>() - 1);
+
+            decision = classifier.Compute(password);
+            decision.ShouldEqual(ControlType.InputPassword.To<int>() - 1);
         }
 
         /// <summary>
@@ -82,6 +101,8 @@ namespace Uximagine.Magicurve.Services.Test.Neuro
           AddSymbols(@"D:/Data/test/inputs/paragraph", 2, minSize);
           AddSymbols(@"D:/Data/test/inputs/text", 3, minSize);
           AddSymbols(@"D:/Data/test/inputs/radio", 4, minSize);
+          AddSymbols(@"D:/Data/test/inputs/image", 5, minSize);
+          AddSymbols(@"D:/Data/test/inputs/password", 6, minSize);
         }
 
         /// <summary>
@@ -94,7 +115,6 @@ namespace Uximagine.Magicurve.Services.Test.Neuro
         {
             string[] files = Directory.GetFiles(folder);
             var samples = files.Length;
-            _index = 0;
 
             for (var i = 0; i < samples; i++)
             {
