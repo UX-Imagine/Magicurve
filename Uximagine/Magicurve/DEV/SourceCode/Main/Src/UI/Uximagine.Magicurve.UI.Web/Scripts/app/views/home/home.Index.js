@@ -1,9 +1,13 @@
 ﻿
 zebra.ready(function () {
+    getControls();
 
+});
+
+function draw(data) {
     var zCanvas = new zebra.ui.zCanvas("designer", 970, 820);
     var root = zCanvas.root; // save reference to root UI component
-    root.setBackground("black")
+    root.setBackground("black");
 
     var p = new zebra.ui.Panel(); // create panel
     p.setBounds(5, 5, 960, 810); // shape panel
@@ -13,7 +17,22 @@ zebra.ready(function () {
 
     root.add(arr[0]);
     //alert(arr[0]);
-});
+}
+
+function getControls() {
+    $.ajax(
+       {
+           url: root + "/api/images/result",
+           type: "GET"
+       }).done(function (data) {
+           window.controls = data.controls;
+           window.imageWidth = data.imageWidth;
+            draw(data);
+    }).fail(function (error) {
+          
+           console.log(error);
+       });
+}
 
 function genarateDesign() {
     //create json object array
