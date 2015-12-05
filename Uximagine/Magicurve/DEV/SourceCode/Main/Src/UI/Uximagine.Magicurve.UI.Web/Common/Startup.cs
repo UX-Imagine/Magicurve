@@ -14,8 +14,9 @@ namespace Uximagine.Magicurve.UI.Web.Common
         /// </summary>
         public static void Init()
         {
-            // Do not wait for this call.
-            new Startup().Train(force: false);
+            
+                        // Do not wait for this call.
+                        new Startup().Train(force: false);
         }
 
         /// <summary>

@@ -721,8 +721,10 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\app\views\home\context.menu.js" />
+    <Content Include="Scripts\app\views\home\home.Edit_Sample_Template.js" />
     <Content Include="Scripts\app\views\home\home.Index.js" />
     <Content Include="Scripts\app\views\home\home.upload.js" />
+    <Content Include="Scripts\app\views\home\home.Sample_Template.js" />
     <Content Include="Scripts\app\views\home\magicurve.app.controller.home.js" />
     <Content Include="Scripts\app\views\home\magicurve.app.js" />
     <Content Include="Scripts\app\views\home\magicurve.app.service.home.js" />
@@ -1561,6 +1563,8 @@
     <Content Include="Views\Home\Template.cshtml" />
     <Content Include="Scripts\fx\angular\version.json" />
     <Content Include="Views\Home\Upload.cshtml" />
+    <Content Include="Views\Home\Edit_Sample_Template.cshtml" />
+    <Content Include="Views\Home\Sample_Template.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Common\Uximagine.Magicurve.Core\Uximagine.Magicurve.Core.csproj">
