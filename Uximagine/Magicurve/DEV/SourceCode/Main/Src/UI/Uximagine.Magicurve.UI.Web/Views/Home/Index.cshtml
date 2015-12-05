@@ -1,22 +1,27 @@
 ﻿
-@{
-    ViewBag.Title = "Zebra";
-}
-
 @section scripts
 {
     <script src="~/Scripts/fx/zebra/zebra.min.js"></script>
     <script src="~/Scripts/app/views/home/home.Index.js"></script>
     <script src="~/Scripts/app/views/home/magicurve.app.controller.home.js"></script>
     <script src="~/Scripts/app/views/home/magicurve.app.service.home.js"></script>
+
+   
 }
 
 <h1>UI designer components</h1>
 <canvas id="designer"></canvas>
 
 
-<div id="demo1">
+<div data-ng-controller="homeController">Move and resize UI components using mouse {{spices}}</div>
 
-</div>
-<div data-ng-controller="homeController">Move and resize UI components using mouse {{spices.type}}</div>
    
+
+   
+   
+</div>
+
+
+       
+
+

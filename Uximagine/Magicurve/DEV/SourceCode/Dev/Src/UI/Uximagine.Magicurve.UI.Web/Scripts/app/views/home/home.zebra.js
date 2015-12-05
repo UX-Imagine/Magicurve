@@ -79,45 +79,22 @@
     root.add(texA);
 
     var butt = new drawButton(720, 760,60, 30, "submit");
-    root.add(butt);
+   // root.add(butt);
 
     var lin = new drawHyperlink(350, 780, 150, 20, "this is a hyperlink");
     root.add(lin);
 
-    var root = (new zCanvas("designerho", 970, 820)).root;
-    root.setBackground("black");
+    
 
 
-    /*
-  
-  
-       root.properties({
-            layout: new BorderLayout(4, 4),
-            border: new Border(),
-            padding: 8,
-            kids: {
-                CENTER: new BorderPan("UX panel", new Panel({
-                    //padding: 50,
-                    kids: drawButton(60,30,"test")
-                })),
-             
-                BOTTOM: new Button("Align", [
-                    function fire() {
-                        this.$super();
-                        var y = 10, c = root.findAll("//zebra.ui.designer.ShaperPan");
-                        for (var i = 0; i < c.length; i++) {
-                            c[i].toPreferredSize();
-                            c[i].setLocation(10, y);
-                            y += c[i].height + 5;
-                        }
-                    }
-                ])
-            }
-        });
-  
-  
-  
-  */
+    var botton111 = new drawButton(300, 300, 60, 30, "test");
+   // botton111.mouseDragStarted(e);
+   
+    root.add(botton111);
+    var eventxy = botton111.mouseDragStarted(MouseEvent);
+    alert(eventxy.absX);
+
+
 
 
 

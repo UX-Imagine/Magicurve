@@ -1,15 +1,15 @@
 ﻿
-@{
-    ViewBag.Title = "Zebra";
-}
-
 @section Scripts{
-<script src="~/Scripts/FX/zebra/zebra.min.js"></script>
+
+<script src="~/Scripts/app/views/home/magicurve.app.service.home.js"></script>
+<script src="~/Scripts/fx/zebra/zebra.min.js"></script>  
 <script src="~/Scripts/app/views/home/home.zebra.js"></script>
 <script src="~/Scripts/app/views/home/magicurve.app.controller.home.js"></script>
-<script src="~/Scripts/app/views/home/magicurve.app.service.home.js"></script>
     }
 <h1>UI designer components</h1>
+
+<div data-ng-controller="homeController"></div>
+
 <canvas id="designer">
    
  
@@ -17,7 +17,3 @@
 </canvas>
 
 
-<div id="demo1">
-
-</div>
-<div>Move and resize UI components using mouse {{spices}}</div>

@@ -58,8 +58,8 @@
     </CodeAnalysisDependentAssemblyPaths>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="UploadUITest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UploadUITest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Src\UI\Uximagine.Magicurve.UI.Web\Uximagine.Magicurve.UI.Web.csproj">

@@ -1,5 +1,6 @@
-﻿zebra.ready(function () {
- 
+﻿
+zebra.ready(function () {
+
     var zCanvas = new zebra.ui.zCanvas("designer", 970, 820);
     //zCanvas.setBackground("red");
     var root = zCanvas.root; // save reference to root UI component
@@ -14,10 +15,15 @@
     header.setBounds(5, 5, 950, 150); // shape panel
     header.setBackground("#F2F2F2");    // set yellow background
     p.add(header);
-    
+
     var labaleImage = new zebra.ui.Label("This is image");
-    labaleImage.setBounds(425,65,450,75)
+    labaleImage.setBounds(425, 65, 450, 75)
     header.add(labaleImage);
+
+
+    //  var ob = genarateDesign();
+    // header.add(ob[1]);
+
 
     /*
     var butto = new drawPanel(300, 50, 60, 30, "red");
@@ -45,7 +51,7 @@
     });
 
     m.setBounds(0, 110, 950, 40);
- 
+
     header.add(m);
 
     var body = new zebra.ui.Panel();
@@ -53,7 +59,7 @@
     body.setBackground("#E6E6E6");    // set yellow background
     p.add(body);
 
-    
+
 
     // fill root with UI components
     var label = new zebra.ui.Button("Label").properties({
@@ -142,7 +148,7 @@
     sideBar.add(button);
 
 
-    zebra.ui.MouseEvent ( zebra.ui.Button("Submit"),  zebra.ui.MouseEvent.DRAGGED,  100,  100 ,zebra.ui.MouseEvent.LEFT_BUTTON,  1 )
+    zebra.ui.MouseEvent(zebra.ui.Button("Submit"), zebra.ui.MouseEvent.DRAGGED, 100, 100, zebra.ui.MouseEvent.LEFT_BUTTON, 1)
 
 
 
@@ -155,18 +161,182 @@
     hyperlink.setBounds(350, 20, 150, 20);
     hyperlink.setColor("#2E64FE");
     footer.add(hyperlink);
+
+
+
     
+ 
+
+    
+
+    genarateDesign();
+
 });
-
-
-
 
 function genarateDesign() {
 
-   
+    // setResalution();
+
+    //create json object array
+    var jsonObj = [
+     {
+         "Type": 0,
+         "X": 0,
+         "Y": 0,
+         "Width": 0,
+         "Height": 0,
+         "EdgePoints": null
+     },
+     {
+         "Type": 0,
+         "X": 10,
+         "Y": 10,
+         "Width": 60,
+         "Height": 30,
+         "EdgePoints": null
+     },
+     {
+         "Type": 0,
+         "X": 0,
+         "Y": 0,
+         "Width": 0,
+         "Height": 0,
+         "EdgePoints": null
+     },
+     {
+         "Type": 0,
+         "X": 0,
+         "Y": 0,
+         "Width": 0,
+         "Height": 0,
+         "EdgePoints": null
+     },
+     {
+         "Type": 0,
+         "X": 0,
+         "Y": 0,
+         "Width": 0,
+         "Height": 0,
+         "EdgePoints": null
+     },
+     {
+         "Type": 0,
+         "X": 0,
+         "Y": 0,
+         "Width": 0,
+         "Height": 0,
+         "EdgePoints": null
+     },
+     {
+         "Type": 0,
+         "X": 0,
+         "Y": 0,
+         "Width": 0,
+         "Height": 0,
+         "EdgePoints": null
+     },
+     {
+         "Type": 0,
+         "X": 0,
+         "Y": 0,
+         "Width": 0,
+         "Height": 0,
+         "EdgePoints": null
+     },
+     {
+         "Type": 0,
+         "X": 0,
+         "Y": 0,
+         "Width": 0,
+         "Height": 0,
+         "EdgePoints": null
+     },
+     {
+         "Type": 0,
+         "X": 0,
+         "Y": 0,
+         "Width": 0,
+         "Height": 0,
+         "EdgePoints": null
+     },
+     {
+         "Type": 0,
+         "X": 0,
+         "Y": 0,
+         "Width": 0,
+         "Height": 0,
+         "EdgePoints": null
+     }];
+
+    //  alert(jsonObj);
+    var controls = [];
+    //controls.length = jsonObj.length;
+
+    var controlsValid = 0;
+
+    for (var i = 0; i < jsonObj.length; i++) {
+        if (jsonObj[i].Type == 0) {
+            controls[controlsValid] = drawButton(jsonObj[i].X, jsonObj[i].Y, jsonObj[i].Width, jsonObj[i].Height, "Button");
+            controlsValid++;
+
+        } else if (jsonObj[i].controlsName == 1) {
+            controls[controlsValid] = drawCheckBox(jsonObj[i].X, jsonObj[i].Y, jsonObj[i].Width, jsonObj[i].Height, "CheckBox");
+            controlsValid++;
+        }
+
+        else if (jsonObj[i].controlsName == 2) {
+            controls[controlsValid] = drawComboBox(jsonObj[i].X, jsonObj[i].Y, jsonObj[i].Width, jsonObj[i].Height);
+            controlsValid++;
+        }
+        else if (jsonObj[i].controlsName == 3) {
+            controls[controlsValid] = drawHorizontalLine(jsonObj[i].X, jsonObj[i].Y, jsonObj[i].Width);
+            controlsValid++;
+        }
+        else if (jsonObj[i].controlsName == 4) {
+            controls[controlsValid] = drawHyperlink(jsonObj[i].X, jsonObj[i].Y, jsonObj[i].Width, jsonObj[i].Height, "HyperLink");
+            controlsValid++;
+        }
+        else if (jsonObj[i].controlsName == 5) {
+            controls[controlsValid] = drawImageContent(jsonObj[i].X, jsonObj[i].Y, jsonObj[i].Width, jsonObj[i].Height);
+            controlsValid++;
+        }
+        else if (jsonObj[i].controlsName == 6) {
+            controls[controlsValid] = drawLable(jsonObj[i].X, jsonObj[i].Y, jsonObj[i].Width, jsonObj[i].Height, "LableCaption");
+            controlsValid++;
+        }
+        else if (jsonObj[i].controlsName == 7) {
+            controls[controlsValid] = drawMenuBar(jsonObj[i].X, jsonObj[i].Y, jsonObj[i].Width, jsonObj[i].Height);
+            controlsValid++;
+        }
+        else if (jsonObj[i].controlsName == 8) {
+            controls[controlsValid] = drawPanel(jsonObj[i].X, jsonObj[i].Y, jsonObj[i].Width, jsonObj[i].Height, "#E6E6E6");
+            controlsValid++;
+        }
+        else if (jsonObj[i].controlsName == 9) {
+            controls[controlsValid] = drawRadioButton(jsonObj[i].X, jsonObj[i].Y, jsonObj[i].Width, jsonObj[i].Height, "RadioButton");
+            controlsValid++;
+        }
+        else if (jsonObj[i].controlsName == 10) {
+            controls[controlsValid] = drawTextArea(jsonObj[i].X, jsonObj[i].Y, jsonObj[i].Width, jsonObj[i].Height);
+            controlsValid++;
+        }
+        else if (jsonObj[i].controlsName == 11) {
+            controls[controlsValid] = drawTextBox(jsonObj[i].X, jsonObj[i].Y, jsonObj[i].Width, jsonObj[i].Height);
+            controlsValid++;
+        }
+
+    }
+
+    return controls;
+
 }
 
+//////////////// cavers resalution /////////////////////
 
+function setResalution() {
+
+    // alert();
+}
 
 //////////////// method drawing non editable ///////////
 
@@ -177,7 +347,6 @@ function drawButton(bX, bY, bwidth, bheight, ButttonCaption) {
     return button;
 
 }
-
 
 //function for drawing button
 function drawPanel(px, py, pw, ph, panelColor) {
@@ -294,3 +463,4 @@ function drawImageContent(imageX, imageY, imageW, imageH) {
 
 
 ///////////////////////////////////////////////////////////////
+

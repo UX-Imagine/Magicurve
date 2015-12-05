@@ -1,1 +1,21 @@
-﻿
+﻿#canvas {
+    width: 500px;
+    height: 400px;
+    background: #ccc;
+    position: relative;
+    margin: 2em auto;
+}
+
+#box {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100px;
+    height: 100px;
+    background: green;
+    cursor: move;
+}
+
+#results {
+    text-align: center;
+}
