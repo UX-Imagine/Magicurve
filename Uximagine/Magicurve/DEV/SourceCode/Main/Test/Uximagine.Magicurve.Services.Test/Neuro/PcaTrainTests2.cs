@@ -56,7 +56,8 @@ namespace Uximagine.Magicurve.Services.Test.Neuro
         {
             Bitmap testInputButton = GetInputVector(fileName, MinSize);
             var decision = _classifier.Compute(testInputButton);
-            decision.ShouldEqual(ControlType.Button.To<int>() - 1);
+            decision.ShouldEqual(ControlType.Button.To<int>() - 1,
+                $"expected {ControlType.Button} but actual {(ControlType)(decision + 1)} ");
         }
 
         [TestCase(@"D:/Data/test/inputs/combo/test/combo2_01.jpg")]
@@ -186,10 +187,10 @@ namespace Uximagine.Magicurve.Services.Test.Neuro
           AddSymbols(@"D:/Data/test/inputs/checkbox", ControlType.CheckBox.To<int>() - 1, minSize);
           AddSymbols(@"D:/Data/test/inputs/date", ControlType.DatePicker.To<int>() - 1, minSize);
           AddSymbols(@"D:/Data/test/inputs/label", ControlType.Label.To<int>() - 1, minSize);
-          AddSymbols(@"D:/Data/test/inputs/link", ControlType.HyperLink.To<int>() - 1, minSize);
           AddSymbols(@"D:/Data/test/inputs/iframe", ControlType.Iframe.To<int>() - 1, minSize);
           AddSymbols(@"D:/Data/test/inputs/hr", ControlType.HLine.To<int>() - 1, minSize);
           AddSymbols(@"D:/Data/test/inputs/range", ControlType.Range.To<int>() - 1, minSize);
+          // AddSymbols(@"D:/Data/test/inputs/link", ControlType.HyperLink.To<int>() - 1, minSize);
         }
 
         /// <summary>

@@ -60,24 +60,24 @@
         Label = 10,
 
         /// <summary>
-        /// The hyper-link.
-        /// </summary>
-        HyperLink = 11,
-
-        /// <summary>
         /// The frame.
         /// </summary>
-        Iframe = 12,
+        Iframe = 11,
 
         /// <summary>
         /// The horizontal line.
         /// </summary>
-        HLine = 13,
+        HLine = 12,
 
         /// <summary>
         /// The Input range.
         /// </summary>
-        Range = 14,
+        Range = 13,
+
+        /// <summary>
+        /// The hyper-link.
+        /// </summary>
+        HyperLink = 14,
 
         /// <summary>
         /// The text area.

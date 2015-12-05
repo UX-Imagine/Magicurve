@@ -30,10 +30,6 @@ namespace Uximagine.Magicurve.UI.Web.Controllers
         public ActionResult Index()
         {
             ViewBag.Title = "Home Page";
-
-            // Do not wait for this call.
-            this.Train(force: false);
-
             return this.View();
         }
 
@@ -242,24 +238,6 @@ namespace Uximagine.Magicurve.UI.Web.Controllers
             }
 
             return null;
-        }
-
-        /// <summary>
-        /// Trains this instance.
-        /// </summary>
-        /// <param name="force">if set to <c>true</c> [force].</param>
-        /// <returns>
-        /// When task is completed.
-        /// </returns>
-        private async Task Train(bool force)
-        {
-            IProcessingService service = ServiceFactory.GetProcessingService();
-            TrainRequest request = new TrainRequest()
-            {
-                ForceTraining = force
-            };
-
-            await service.Train(request);
         }
 
         /// <summary>
