@@ -21,6 +21,8 @@ function getControls() {
 
 function draw(data) {
     var json = data.controls;
+    var imageWidth = data.imageWidth;
+    var imageHeight = data.imageHeight;
 
     var zCanvas = new zebra.ui.zCanvas("designer", 970, 820);
     var root = zCanvas.root; // save reference to root UI component
@@ -31,7 +33,7 @@ function draw(data) {
     p.setBackground("white");    // set yellow background
     root.add(p);                  // add panel to root
 
-    var resalutonObject = setResalution(json,data);
+    var resalutonObject = setResalution(json,imageHeight,imageWidth);
     var arrayObject = genarateDesign(resalutonObject);
 
     for (var k = 0 ; k < arrayObject.length; k++) {
@@ -41,16 +43,16 @@ function draw(data) {
 
 }
 
-function setResalution(resObject,dataObject) {
+function setResalution(resObject, height, width) {
     var setResaObje = [];
     
     for (var i = 0 ; i < resObject.length ; i++) {
         var control = {};
-        control.X = Math.round((resObject[i].X * 960) / dataObject.imageX);
-        control.Y = Math.round((resObject[i].Y * 810) / dataObject.imageH);
+        control.X = Math.round((resObject[i].X * 960) / width);
+        control.Y = Math.round((resObject[i].Y * 810) / height);
         control.Type = resObject[i].Type;
-        control.Height = Math.round((resObject[i].Height * 810) / dataObject.imageH);
-        control.Width = Math.round((resObject[i].Width * 960) / dataObject.imageX);
+        control.Height = Math.round((resObject[i].Height * 810) / height);
+        control.Width = Math.round((resObject[i].Width * 960) / width);
         setResaObje.push(control);
 
     }
@@ -118,7 +120,7 @@ function genarateDesign(jsonObj) {
             controlsValid++;
         }
         else if (jsonObj[i].Type == "InputText") {
-            controls[controlsValid] = drawTextBox(jsonObj[i].X, jsonObj[i].Y, jsonObj[i].Width, jsonObj[i].Height);
+            controls[controlsValid] = drawTextBox(jsonObj[i].X, jsonObj[i].Y, jsonObj[i].Width, 30);
             controlsValid++;
         }
 
@@ -142,6 +144,10 @@ function drawPanel(px, py, pw, ph, panelColor) {
     var panel = new zebra.ui.Panel();
     panel.setBounds(px, py, pw, ph);
     panel.setBackground(panelColor);
+    
+    var para = new zebra.ui.Label("this is test");
+    para.setColor("black");
+    panel.add(para);
 
     return panel;
 
