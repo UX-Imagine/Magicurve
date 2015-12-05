@@ -77,7 +77,7 @@ namespace Uximagine.Magicurve.CodeGenerator
                             list[i] 
                         },
                         RowIndex = ++rowIndex,
-                        TopMargin = list[i].Y-list[i-1].Y,
+                        TopMargin = list[i].Y-(list[i-1].Y+(int)list[i-1].Height),
                         Height = maxHeight
                     });
 
