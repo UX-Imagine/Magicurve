@@ -33,7 +33,7 @@ function draw(data) {
     p.setBackground("white");    // set yellow background
     root.add(p);                  // add panel to root
 
-    var resalutonObject = setResalution(json,imageHeight,imageWidth);
+    var resalutonObject = setResalution(json, imageHeight, imageWidth);
     var arrayObject = genarateDesign(resalutonObject);
 
     for (var k = 0 ; k < arrayObject.length; k++) {
@@ -41,11 +41,13 @@ function draw(data) {
 
     }
 
+
+
 }
 
 function setResalution(resObject, height, width) {
     var setResaObje = [];
-    
+
     for (var i = 0 ; i < resObject.length ; i++) {
         var control = {};
         control.X = Math.round((resObject[i].X * 960) / width);
@@ -63,12 +65,12 @@ function setResalution(resObject, height, width) {
 
 function genarateDesign(jsonObj) {
 
-    
+
     for (var k = 0 ; k < jsonObj.length; k++) {
         //root.add(arr[k]);
-     //   alert(jsonObj[k].Height + "," + jsonObj[k].Width + "," + jsonObj[k].Type + "," + jsonObj[k].X + "," + jsonObj[k].Y);
+        //   alert(jsonObj[k].Height + "," + jsonObj[k].Width + "," + jsonObj[k].Type + "," + jsonObj[k].X + "," + jsonObj[k].Y);
     }
-        
+
     var controls = [];
 
     var controlsValid = 0;
@@ -144,10 +146,6 @@ function drawPanel(px, py, pw, ph, panelColor) {
     var panel = new zebra.ui.Panel();
     panel.setBounds(px, py, pw, ph);
     panel.setBackground(panelColor);
-    
-    var para = new zebra.ui.Label("this is test");
-    para.setColor("black");
-    panel.add(para);
 
     return panel;
 
@@ -252,7 +250,7 @@ function drawImageContent(imageX, imageY, imageW, imageH) {
     var image = new zebra.ui.ImagePan();
 
     image.setBounds(imageX, imageY, imageW, imageH);
-    
+
 
     return image;
 }
