@@ -35,7 +35,7 @@ namespace Uximagine.Magicurve.CodeGenerator
         public string div = "div";
         public string newline = Environment.NewLine;
 
-        SortHelper sortHelper = new SortHelper();
+        
 
         public string CreateHtmlCode(List<Control> controls, double width)
         {
@@ -46,7 +46,7 @@ namespace Uximagine.Magicurve.CodeGenerator
             builder.Append(ApplyCss(boostrapCss));
             builder.Append(EndTag(head));
             builder.Append(GetBody());
-
+            SortHelper sortHelper = new SortHelper();
             //List<Control> sortedControls = sortHelper.SortListYProperty(controls);
             List<Row> sortedControls = sortHelper.DivAlgorithm(sortHelper.SortListYProperty(controls));
             List<Row> finalRowListControls = sortHelper.SortListXProperty(sortedControls);
@@ -195,7 +195,7 @@ namespace Uximagine.Magicurve.CodeGenerator
 
         public string OpenRowDiv(double height,int marginTop)
         {
-            string rowDiv = string.Format(@"    <div class='row' style='height: {0}px;margin-top: {1}px'>" +newline, height, marginTop);
+            string rowDiv = string.Format(@"    <div class='row' style='margin-top: {0}px'>" +newline, marginTop);
             return rowDiv;
         }
 
@@ -244,7 +244,7 @@ namespace Uximagine.Magicurve.CodeGenerator
             }
             else
             {
-                btn = string.Format(@"    <input type='button'/>" + newline);
+                btn = string.Format(@"    <input type='button' value='Button'/>" + newline);
             }
 
             return btn;
@@ -326,8 +326,12 @@ proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
             {
                 lbl = string.Format(@"          <label style='width: 100%'>{0}</label>" + newline, label.Value);
             }
+            else
+            {
+                lbl = string.Format(@"          <label style='width: 100%'></label>" + newline);
+            }
 
-            lbl = string.Format(@"          <label style='width: 100%'>{0}</label>" + newline);
+            
 
             return lbl;
         }

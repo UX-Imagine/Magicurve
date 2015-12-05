@@ -50,7 +50,7 @@ namespace Uximagine.Magicurve.CodeGenerator
                         list[0] 
                     },
                 RowIndex = 0,
-                TopMargin = list[0].Y,
+                TopMargin = list[0].Y-10,
                 Height = maxHeight
             });
 
