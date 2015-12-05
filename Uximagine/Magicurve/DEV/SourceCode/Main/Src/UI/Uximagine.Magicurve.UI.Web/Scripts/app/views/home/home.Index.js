@@ -2,7 +2,6 @@
 zebra.ready(function () {
 
     var zCanvas = new zebra.ui.zCanvas("designer", 970, 820);
-    //zCanvas.setBackground("red");
     var root = zCanvas.root; // save reference to root UI component
     root.setBackground("black")
 
@@ -19,23 +18,7 @@ zebra.ready(function () {
     var labaleImage = new zebra.ui.Label("This is image");
     labaleImage.setBounds(425, 65, 450, 75)
     header.add(labaleImage);
-
-
-    //  var ob = genarateDesign();
-    // header.add(ob[1]);
-
-
-    /*
-    var butto = new drawPanel(300, 50, 60, 30, "red");
-    header.add(butto);*/
-
-    /*
-    // insert image 
-        var image = new zebra.ui.ImagePan(); // create panel
-        image.setBounds(0, 0, 950, 150); // shape panel
-        image.setBackground("red");    // set yellow background
-        header.add(image);*/
-
+    
     var m = new zebra.ui.Menubar({
         "Item 1": {
             "Subitem 1.1": null,
@@ -58,17 +41,6 @@ zebra.ready(function () {
     body.setBounds(5, 159, 950, 600); // shape panel
     body.setBackground("#E6E6E6");    // set yellow background
     p.add(body);
-
-
-
-    // fill root with UI components
-    var label = new zebra.ui.Button("Label").properties({
-        value: true,
-        location: [90, 50]
-    });
-    //label.setBounds(10, 10, 100, 50);
-
-
 
     var sideBar = new zebra.ui.Panel();
     sideBar.setBounds(700, 0, 248, 600);
@@ -161,14 +133,7 @@ zebra.ready(function () {
     hyperlink.setBounds(350, 20, 150, 20);
     hyperlink.setColor("#2E64FE");
     footer.add(hyperlink);
-
-
-
-    
- 
-
-    
-
+   
     genarateDesign();
 
 });
@@ -279,11 +244,11 @@ function genarateDesign() {
             controls[controlsValid] = drawButton(jsonObj[i].X, jsonObj[i].Y, jsonObj[i].Width, jsonObj[i].Height, "Button");
             controlsValid++;
 
-        } else if (jsonObj[i].controlsName == 1) {
+        }
+        else if (jsonObj[i].controlsName == 1) {
             controls[controlsValid] = drawCheckBox(jsonObj[i].X, jsonObj[i].Y, jsonObj[i].Width, jsonObj[i].Height, "CheckBox");
             controlsValid++;
         }
-
         else if (jsonObj[i].controlsName == 2) {
             controls[controlsValid] = drawComboBox(jsonObj[i].X, jsonObj[i].Y, jsonObj[i].Width, jsonObj[i].Height);
             controlsValid++;
@@ -460,7 +425,4 @@ function drawImageContent(imageX, imageY, imageW, imageH) {
 
     return image;
 }
-
-
-///////////////////////////////////////////////////////////////
 
