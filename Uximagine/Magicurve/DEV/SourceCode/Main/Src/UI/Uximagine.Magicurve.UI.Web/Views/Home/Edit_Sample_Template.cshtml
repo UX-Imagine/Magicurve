@@ -1,24 +1,16 @@
-﻿
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
 @section scripts
 {
     <script src="~/Scripts/fx/zebra/zebra.min.js"></script>
     <script src="~/Scripts/app/views/home/home.Index.js"></script>
-      
+
 }
 
 <h1>UI designer components</h1>
+
+<div data-ng-controller="homeController"></div>
+
 <canvas id="designer"></canvas>
-
-
-<div data-ng-controller="homeController">Move and resize UI components using mouse</div>
-
-   
-
-   
-   
-
-
-
-       
-
-

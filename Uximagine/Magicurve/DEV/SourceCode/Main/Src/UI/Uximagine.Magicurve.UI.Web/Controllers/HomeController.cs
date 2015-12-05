@@ -258,6 +258,24 @@ namespace Uximagine.Magicurve.UI.Web.Controllers
             return this.View("_MenuBar");
         }
 
+        /// <summary>
+        /// return the Sample_Template
+        /// </summary>
+        /// <returns> the view </returns>
+        public ActionResult Sample_Template()
+        {
+            return this.View("Sample_Template");
+        }
+
+        /// <summary>
+        /// return the Edit_Sample_Template
+        /// </summary>
+        /// <returns> the view </returns>
+        public ActionResult Edit_Sample_Template()
+        {
+            return this.View("Edit_Sample_Template");
+        }
+
         #endregion
 
         #region Methods - Instance Member - (helpers)

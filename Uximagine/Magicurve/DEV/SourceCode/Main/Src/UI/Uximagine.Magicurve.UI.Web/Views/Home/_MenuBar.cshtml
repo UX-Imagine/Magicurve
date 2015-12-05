@@ -1,10 +1,17 @@
 ﻿<nav>
     <div>
         <ul class="list-inline">
-            <li class="btn btn-xs">File</li>
-            <li class="btn btn-xs">Edit</li>
+            
             <li class="dropdown btn btn-xs">
-                <a href="#" db class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">View <span class="caret"></span></a>
+                <a href="#" db class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true" style="color:white">File <span></span></a>
+
+            </li>
+            <li class="dropdown btn btn-xs">
+                <a href="#" db class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true" style="color:white">Edit <span></span></a>
+
+            </li>
+            <li class="dropdown btn btn-xs">
+                <a href="#" db class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" style="color:white" >View <span></span></a>
                 <ul class="dropdown-menu" role="menu">
                     <li><a href="@Url.Action("Design", "Home")">Design</a></li>
                     <li><a href="@Url.Action("ToolBox", "Home")">Tool Box</a></li>
@@ -13,21 +20,38 @@
                     
                 </ul>
             </li>
-            <li class="btn btn-xs">Insert</li>
             <li class="dropdown btn btn-xs">
-                <a href="#" db class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Navigate <span class="caret"></span></a>
+                <a href="#" db class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true" style="color:white">Insert <span></span></a>
+
+            </li>
+            <li class="dropdown btn btn-xs">
+                <a href="#" db class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" style="color:white" >Navigate <span></span></a>
                 <ul class="dropdown-menu" role="menu">
                     <li><a href="@Url.Action("Sample", "Home")">Sample</a></li>
                     <li><a href="@Url.Action("Template", "Home")">Template</a></li>
-                    <li><a href="@Url.Action("Upload", "Home")">Upload</a></li>
-                    
+                    <li><a href="@Url.Action("Upload", "Home")">Upload</a></li>                   
                     <li><a href="@Url.Action("Zebra", "Home")">Zebra</a></li>
                     <li><a href="@Url.Action("Index", "Home")">Home</a></li>
                 </ul>
             </li>
-            <li class="btn btn-xs">Table</li>
-            <li class="btn btn-xs">Window</li>
-            <li class="btn btn-xs">Help</li>
+            <li class="dropdown btn btn-xs">
+                <a href="#" db class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true" style="color:white">Table <span></span></a>
+
+            </li>
+            <li class="dropdown btn btn-xs">
+                <a href="#" db class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true" style="color:white">Window <span></span></a>
+                
+            </li>
+            <li class="dropdown btn btn-xs">
+                <a href="#" db class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true" style="color:white" >Help <span></span></a>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a href="@Url.Action("Sample_Template", "Home")">Sample Template</a></li>
+                    <li><a href="@Url.Action("Edit_Sample_Template", "Home")">Edit Sample Template</a></li>
+                    
+                </ul>
+            </li>
+
+
         </ul>
     </div>
 

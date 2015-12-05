@@ -1,94 +1,142 @@
-﻿zebra.ready(function () {
-    eval(zebra.Import("ui", "layout"));
-
-
-    var root = (new zCanvas("designer", 970, 820)).root;
-    root.setBackground("black");
-
-    var pn1 = new editDrawPanel(5, 5, 960, 810);
-    pn1.setBackground("white");
-    root.add(pn1);
-
-    var pn2 = new editDrawPanel(700, 155, 260, 655);
-    pn2.setBackground("#CEF6F5");
-    root.add(pn2);
-
-    var image1 = new editDrawImageContent(5, 5, 950, 150);
-    root.add(image1);
-
-    var me = new editDrawMenuBar(10, 110, 950, 40);
-    root.add(me);
-
-    var lable1 = new editDrawLable(720, 183, 80, 30, "User Name");
-    root.add(lable1);
-
-    var text = new editDrawTextBox(820, 183, 120, 30);
-    root.add(text);
-
-    var lable2 = new editDrawLable(720, 235, 80, 30, "Password");
-    root.add(lable2);
-
-    var text1 = new editDrawTextBox(820, 235, 120, 30);
-    root.add(text1);
-
-
-    var hor = new editDrawHorizontalLine(700, 330, 250);
-    root.add(hor);
-
-    var radio1 = new editDrawRadioButton(720, 370, 80, 30, "Male");
-    root.add(radio1);
-    var radio2 = new editDrawRadioButton(720, 400, 80, 30, "Female");
-    root.add(radio2);
-
-    var hor1 = new editDrawHorizontalLine(700, 450, 250);
-    root.add(hor1);
-
-    var check1 = new editDrawCheckBox(720, 470, 80, 30, "Java");
-    root.add(check1);
-
-    var check2 = new editDrawCheckBox(720, 500, 80, 30, "C#");
-    root.add(check2);
-
-    var hor2 = new editDrawHorizontalLine(700, 570, 250);
-    root.add(hor2);
-
-
-    var com = new editDrawComboBox(720, 600, 100, 30);
-    root.add(com);
-
-
-    var texA = new editDrawTextArea(720, 650, 180, 100);
-    root.add(texA);
-
-    var butt = new editDrawButton(720, 760,60, 30, "submit");
-    root.add(butt);
-
-    var lin = new editDrawHyperlink(350, 780, 150, 20, "this is a hyperlink");
-    root.add(lin);
-
-   
-    var button1 = new editDrawButton(300, 300, 60, 30, "test");
-
-    root.add(button1);
-    
-    
-
-
-
-
-
-
+﻿var path = "/Magicurve";
+zebra.ready(function () {
+    getControls();
 
 });
+
+function getControls() {
+    $.ajax(
+       {
+           url: path + "/api/images/result",
+           type: "GET"
+       }).done(function (data) {
+           window.controls = data.controls;
+           window.imageWidth = data.imageWidth;
+           draw(data);
+       }).fail(function (error) {
+
+           console.log(error);
+       });
+}
+
+function draw(data) {
+    var json = data.controls;
+    var imageWidth = data.imageWidth;
+    var imageHeight = data.imageHeight;
+
+    var zCanvas = new zebra.ui.zCanvas("designer", 970, 820);
+    var root = zCanvas.root; // save reference to root UI component
+    root.setBackground("black");
+
+    var p = new zebra.ui.Panel(); // create panel
+    p.setBounds(5, 5, 960, 810); // shape panel
+    p.setBackground("white");    // set yellow background
+    root.add(p);                  // add panel to root
+
+    var resalutonObject = setResalution(json, imageHeight, imageWidth);
+    var arrayObject = genarateDesign(resalutonObject);
+
+    for (var k = 0 ; k < arrayObject.length; k++) {
+        root.add(arrayObject[k]);
+
+    }
+
+}
+
+function setResalution(resObject, height, width) {
+    var setResaObje = [];
+
+    for (var i = 0 ; i < resObject.length ; i++) {
+        var control = {};
+        control.X = Math.round((resObject[i].X * 960) / width);
+        control.Y = Math.round((resObject[i].Y * 810) / height);
+        control.Type = resObject[i].Type;
+        control.Height = Math.round((resObject[i].Height * 810) / height);
+        control.Width = Math.round((resObject[i].Width * 960) / width);
+        setResaObje.push(control);
+
+    }
+
+    return setResaObje;
+
+}
+
+function genarateDesign(jsonObj) {
+
+
+    for (var k = 0 ; k < jsonObj.length; k++) {
+        //root.add(arr[k]);
+        //   alert(jsonObj[k].Height + "," + jsonObj[k].Width + "," + jsonObj[k].Type + "," + jsonObj[k].X + "," + jsonObj[k].Y);
+    }
+
+    var controls = [];
+
+    var controlsValid = 0;
+
+    for (var i = 0; i < jsonObj.length; i++) {
+        if (jsonObj[i].Type == "Button") {
+            controls[controlsValid] = editDrawButton(jsonObj[i].X, jsonObj[i].Y, 60, 30, "Button");
+            controlsValid++;
+
+        }
+        else if (jsonObj[i].Type == "CheckBox") {
+            controls[controlsValid] = editDrawCheckBox(jsonObj[i].X, jsonObj[i].Y, 120, 30, "CheckBox");
+            controlsValid++;
+        }
+        else if (jsonObj[i].Type == "ComboBox") {
+            controls[controlsValid] = editDrawComboBox(jsonObj[i].X, jsonObj[i].Y, jsonObj[i].Width, 40);
+            controlsValid++;
+        }
+        else if (jsonObj[i].Type == "HLine") {
+            controls[controlsValid] = editDrawHorizontalLine(jsonObj[i].X, jsonObj[i].Y, jsonObj[i].Width);
+            controlsValid++;
+        }
+        else if (jsonObj[i].Type == "HyperLink") {
+            controls[controlsValid] = editDrawHyperlink(jsonObj[i].X, jsonObj[i].Y, jsonObj[i].Width, jsonObj[i].Height, "HyperLink");
+            controlsValid++;
+        }
+        else if (jsonObj[i].Type == "Image") {
+            controls[controlsValid] = editDrawImageContent(jsonObj[i].X, jsonObj[i].Y, jsonObj[i].Width, jsonObj[i].Height);
+            controlsValid++;
+        }
+        else if (jsonObj[i].Type == "Label") {
+            controls[controlsValid] = editDrawLable(jsonObj[i].X, jsonObj[i].Y, jsonObj[i].Width, jsonObj[i].Height, "LableCaption");
+            controlsValid++;
+        }
+        else if (jsonObj[i].Type == "MenuBar") {
+            controls[controlsValid] = editDrawMenuBar(jsonObj[i].X, jsonObj[i].Y, jsonObj[i].Width, jsonObj[i].Height);
+            controlsValid++;
+        }
+        else if (jsonObj[i].Type == "Paragraph") {
+            controls[controlsValid] = editDrawPanel(jsonObj[i].X, jsonObj[i].Y, jsonObj[i].Width, jsonObj[i].Height, "#E6E6E6");
+            controlsValid++;
+        }
+        else if (jsonObj[i].Type == "RadioButton") {
+            controls[controlsValid] = editDrawRadioButton(jsonObj[i].X, jsonObj[i].Y, 120, 30, "RadioButton");
+            controlsValid++;
+        }
+        else if (jsonObj[i].Type == "TextArea") {
+            controls[controlsValid] = editDrawTextArea(jsonObj[i].X, jsonObj[i].Y, jsonObj[i].Width, jsonObj[i].Height);
+            controlsValid++;
+        }
+        else if (jsonObj[i].Type == "InputText") {
+            controls[controlsValid] = editDrawTextBox(jsonObj[i].X, jsonObj[i].Y, jsonObj[i].Width, 30);
+            controlsValid++;
+        }
+
+    }
+
+    return controls;
+}
 
 
 ///////////////////////////editable controlles ///////////////////
 
 
 //function for drawing button
-function editDrawButton(bX,bY,bwidth, bheight, ButttonCaption) {
+function editDrawButton(bX, bY, bwidth, bheight, ButttonCaption) {
     var button = new zebra.ui.Button(ButttonCaption);
-    button.setBounds(bX, bY, bwidth, bheight, ButttonCaption);   
+    button.setBounds(bX, bY, bwidth, bheight, ButttonCaption);
 
     var buttonShaperPan = new zebra.ui.designer.ShaperPan(button);
 
@@ -97,14 +145,13 @@ function editDrawButton(bX,bY,bwidth, bheight, ButttonCaption) {
 }
 
 //function for drawing button
-function editDrawPanel(px, py, pw, ph) {
+function editDrawPanel(px, py, pw, ph,panelColor) {
     var panel = new zebra.ui.Panel();
     panel.setBounds(px, py, pw, ph);
-    panel.setBackground("white");
+    panel.setBackground(panelColor);
+    var shperPanel = new zebra.ui.designer.ShaperPan(panel);
 
-    //var shperPanel = new zebra.ui.designer.ShaperPan(panel);
-
-    return panel;
+    return shperPanel;
 
 }
 
@@ -209,7 +256,7 @@ function editDrawMenuBar(menuX, menuY, menuW, menuH) {
         "CONTCT": null
     });
 
-    menu.setBounds(menuX, menuY, menuW, menuH);
+    menu.setBounds(menuX, menuY, menuW, menuH);
     var shpermenu = new zebra.ui.designer.ShaperPan(menu);
 
 
@@ -226,7 +273,4 @@ function editDrawImageContent(imageX, imageY, imageW, imageH) {
 
     return shperimage;
 }
-
-
-////////////////////non editable//////////////////////////////////
 
