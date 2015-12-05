@@ -42,7 +42,7 @@ function loadImage() {
             window.imageWidth = data.imageWidth;
             console.log(data);
             downloadCode();
-            //generateCode();
+            generateCode();
     }).fail(function (error) {
             $("#image_place_holder").html(error);
             console.log(error);

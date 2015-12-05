@@ -4,11 +4,7 @@ using System.Text.RegularExpressions;
 using System.Windows.Input;
 using System.Windows.Forms;
 using System.Drawing;
-using Microsoft.VisualStudio.TestTools.UITesting;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Microsoft.VisualStudio.TestTools.UITest.Extension;
-using Microsoft.VisualStudio.TestTools.UITesting.HtmlControls;
-using Keyboard = Microsoft.VisualStudio.TestTools.UITesting.Keyboard;
+
 
 
 namespace Uximagine.Magicurve.UI.Web.Test
