@@ -1,10 +1,27 @@
-﻿
+﻿var path = "/Magicurve";
 zebra.ready(function () {
     getControls();
 
 });
 
+function getControls() {
+    $.ajax(
+       {
+           url: path + "/api/images/result",
+           type: "GET"
+       }).done(function (data) {
+           window.controls = data.controls;
+           window.imageWidth = data.imageWidth;
+           draw(data);
+       }).fail(function (error) {
+
+           console.log(error);
+       });
+}
+
 function draw(data) {
+    var json = data.controls;
+
     var zCanvas = new zebra.ui.zCanvas("designer", 970, 820);
     var root = zCanvas.root; // save reference to root UI component
     root.setBackground("black");
@@ -13,171 +30,94 @@ function draw(data) {
     p.setBounds(5, 5, 960, 810); // shape panel
     p.setBackground("white");    // set yellow background
     root.add(p);                  // add panel to root
-    var arr = genarateDesign();
 
-    root.add(arr[0]);
-    //alert(arr[0]);
+    var resalutonObject = setResalution(json,data);
+    var arrayObject = genarateDesign(resalutonObject);
+
+    for (var k = 0 ; k < arrayObject.length; k++) {
+        root.add(arrayObject[k]);
+
+    }
+
 }
 
-function getControls() {
-    $.ajax(
-       {
-           url: root + "/api/images/result",
-           type: "GET"
-       }).done(function (data) {
-           window.controls = data.controls;
-           window.imageWidth = data.imageWidth;
-            draw(data);
-    }).fail(function (error) {
-          
-           console.log(error);
-       });
+function setResalution(resObject,dataObject) {
+    var setResaObje = [];
+    
+    for (var i = 0 ; i < resObject.length ; i++) {
+        var control = {};
+        control.X = Math.round((resObject[i].X * 960) / dataObject.imageX);
+        control.Y = Math.round((resObject[i].Y * 810) / dataObject.imageH);
+        control.Type = resObject[i].Type;
+        control.Height = Math.round((resObject[i].Height * 810) / dataObject.imageH);
+        control.Width = Math.round((resObject[i].Width * 960) / dataObject.imageX);
+        setResaObje.push(control);
+
+    }
+
+    return setResaObje;
+
 }
 
-function genarateDesign() {
-    //create json object array
-    var jsonObj = [
-     {
-         "Type": 0,
-         "X": 200,
-         "Y": 200,
-         "Width": 60,
-         "Height": 30,
-         "EdgePoints": null
-     },
-     { 
-         "Type": 8,
-         "X": 5,
-         "Y": 5,
-         "Width": 950,
-         "Height": 150,
-         "EdgePoints": null
-     },
-     {
-         "Type": 6,
-         "X": 425,
-         "Y": 65,
-         "Width": 450,
-         "Height": 75,
-         "EdgePoints": null
-     },
-     {
-         "Type": 0,
-         "X": 0,
-         "Y": 0,
-         "Width": 0,
-         "Height": 0,
-         "EdgePoints": null
-     },
-     {
-         "Type": 0,
-         "X": 0,
-         "Y": 0,
-         "Width": 0,
-         "Height": 0,
-         "EdgePoints": null
-     },
-     {
-         "Type": 0,
-         "X": 0,
-         "Y": 0,
-         "Width": 0,
-         "Height": 0,
-         "EdgePoints": null
-     },
-     {
-         "Type": 0,
-         "X": 0,
-         "Y": 0,
-         "Width": 0,
-         "Height": 0,
-         "EdgePoints": null
-     },
-     {
-         "Type": 0,
-         "X": 0,
-         "Y": 0,
-         "Width": 0,
-         "Height": 0,
-         "EdgePoints": null
-     },
-     {
-         "Type": 0,
-         "X": 0,
-         "Y": 0,
-         "Width": 0,
-         "Height": 0,
-         "EdgePoints": null
-     },
-     {
-         "Type": 0,
-         "X": 0,
-         "Y": 0,
-         "Width": 0,
-         "Height": 0,
-         "EdgePoints": null
-     },
-     {
-         "Type": 0,
-         "X": 0,
-         "Y": 0,
-         "Width": 0,
-         "Height": 0,
-         "EdgePoints": null
-     }];
+function genarateDesign(jsonObj) {
 
+    
+    for (var k = 0 ; k < jsonObj.length; k++) {
+        //root.add(arr[k]);
+     //   alert(jsonObj[k].Height + "," + jsonObj[k].Width + "," + jsonObj[k].Type + "," + jsonObj[k].X + "," + jsonObj[k].Y);
+    }
+        
     var controls = [];
-    //controls.length = jsonObj.length;
 
     var controlsValid = 0;
 
     for (var i = 0; i < jsonObj.length; i++) {
-        if (jsonObj[i].Type == 0) {
-            controls[controlsValid] = drawButton(jsonObj[i].X, jsonObj[i].Y, jsonObj[i].Width, jsonObj[i].Height, "Button");
+        if (jsonObj[i].Type == "Button") {
+            controls[controlsValid] = drawButton(jsonObj[i].X, jsonObj[i].Y, 60, 30, "Button");
             controlsValid++;
 
         }
-        else if (jsonObj[i].controlsName == 1) {
-            controls[controlsValid] = drawCheckBox(jsonObj[i].X, jsonObj[i].Y, jsonObj[i].Width, jsonObj[i].Height, "CheckBox");
+        else if (jsonObj[i].Type == "CheckBox") {
+            controls[controlsValid] = drawCheckBox(jsonObj[i].X, jsonObj[i].Y, 120, 30, "CheckBox");
             controlsValid++;
         }
-        else if (jsonObj[i].controlsName == 2) {
-            controls[controlsValid] = drawComboBox(jsonObj[i].X, jsonObj[i].Y, jsonObj[i].Width, jsonObj[i].Height);
+        else if (jsonObj[i].Type == "ComboBox") {
+            controls[controlsValid] = drawComboBox(jsonObj[i].X, jsonObj[i].Y, jsonObj[i].Width, 40);
             controlsValid++;
         }
-        else if (jsonObj[i].controlsName == 3) {
+        else if (jsonObj[i].Type == "HLine") {
             controls[controlsValid] = drawHorizontalLine(jsonObj[i].X, jsonObj[i].Y, jsonObj[i].Width);
             controlsValid++;
         }
-        else if (jsonObj[i].controlsName == 4) {
+        else if (jsonObj[i].Type == "HyperLink") {
             controls[controlsValid] = drawHyperlink(jsonObj[i].X, jsonObj[i].Y, jsonObj[i].Width, jsonObj[i].Height, "HyperLink");
             controlsValid++;
         }
-        else if (jsonObj[i].controlsName == 5) {
+        else if (jsonObj[i].Type == "Image") {
             controls[controlsValid] = drawImageContent(jsonObj[i].X, jsonObj[i].Y, jsonObj[i].Width, jsonObj[i].Height);
             controlsValid++;
         }
-        else if (jsonObj[i].controlsName == 6) {
+        else if (jsonObj[i].Type == "Label") {
             controls[controlsValid] = drawLable(jsonObj[i].X, jsonObj[i].Y, jsonObj[i].Width, jsonObj[i].Height, "LableCaption");
             controlsValid++;
         }
-        else if (jsonObj[i].controlsName == 7) {
+        else if (jsonObj[i].Type == "MenuBar") {
             controls[controlsValid] = drawMenuBar(jsonObj[i].X, jsonObj[i].Y, jsonObj[i].Width, jsonObj[i].Height);
             controlsValid++;
         }
-        else if (jsonObj[i].controlsName == 8) {
+        else if (jsonObj[i].Type == "Paragraph") {
             controls[controlsValid] = drawPanel(jsonObj[i].X, jsonObj[i].Y, jsonObj[i].Width, jsonObj[i].Height, "#E6E6E6");
             controlsValid++;
         }
-        else if (jsonObj[i].controlsName == 9) {
-            controls[controlsValid] = drawRadioButton(jsonObj[i].X, jsonObj[i].Y, jsonObj[i].Width, jsonObj[i].Height, "RadioButton");
+        else if (jsonObj[i].Type == "RadioButton") {
+            controls[controlsValid] = drawRadioButton(jsonObj[i].X, jsonObj[i].Y, 120, 30, "RadioButton");
             controlsValid++;
         }
-        else if (jsonObj[i].controlsName == 10) {
+        else if (jsonObj[i].Type == "TextArea") {
             controls[controlsValid] = drawTextArea(jsonObj[i].X, jsonObj[i].Y, jsonObj[i].Width, jsonObj[i].Height);
             controlsValid++;
         }
-        else if (jsonObj[i].controlsName == 11) {
+        else if (jsonObj[i].Type == "InputText") {
             controls[controlsValid] = drawTextBox(jsonObj[i].X, jsonObj[i].Y, jsonObj[i].Width, jsonObj[i].Height);
             controlsValid++;
         }
@@ -186,7 +126,6 @@ function genarateDesign() {
 
     return controls;
 }
-
 
 //////////////// method drawing non editable ///////////
 
@@ -307,6 +246,7 @@ function drawImageContent(imageX, imageY, imageW, imageH) {
     var image = new zebra.ui.ImagePan();
 
     image.setBounds(imageX, imageY, imageW, imageH);
+    
 
     return image;
 }
