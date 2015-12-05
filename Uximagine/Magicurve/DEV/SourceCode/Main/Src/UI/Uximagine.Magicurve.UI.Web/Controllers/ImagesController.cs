@@ -138,9 +138,11 @@ namespace Uximagine.Magicurve.UI.Web.Controllers
 
                 File.WriteAllText(@path, response.Code);
 
+                string url = Url.Content(ConfigurationData.DownloadDirectory + "/" + fileName);
+
                 return this.Json(new 
                 {
-                    url = @path
+                    url = url
                 });
             }
 

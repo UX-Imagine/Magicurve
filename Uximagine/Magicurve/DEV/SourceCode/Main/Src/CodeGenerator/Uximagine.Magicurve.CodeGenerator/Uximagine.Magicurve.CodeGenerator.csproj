@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CodeGeneratorFactory.cs" />
     <Compile Include="SimpleCodeGenerator.cs" />
     <Compile Include="ResponsiveCodeGenerator.cs" />
     <Compile Include="SortHelper.cs" />

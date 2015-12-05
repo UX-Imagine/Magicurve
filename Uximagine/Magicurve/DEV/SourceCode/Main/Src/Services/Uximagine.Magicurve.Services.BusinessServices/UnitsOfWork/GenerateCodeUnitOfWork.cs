@@ -61,7 +61,7 @@ namespace Uximagine.Magicurve.Services.BusinessServices.UnitsOfWork
         /// </summary>
         protected override void Execute()
         {
-            ResponsiveCodeGenerator codeGenerator = new ResponsiveCodeGenerator();
+            IGenerator codeGenerator = CodeGeneratorFactory.GetProcessingService();
             Code = codeGenerator.CreateHtmlCode(Controls, ImageWidth);
         } 
 
