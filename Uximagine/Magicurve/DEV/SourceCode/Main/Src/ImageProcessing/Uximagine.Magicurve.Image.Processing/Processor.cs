@@ -41,6 +41,12 @@ namespace Uximagine.Magicurve.Image.Processing
             set;
         }
 
+        /// <summary>
+        /// Gets or sets the image result.
+        /// </summary>
+        /// <value>
+        /// The image result.
+        /// </value>
         public Bitmap ImageResult
         {
             get; set;
@@ -58,11 +64,25 @@ namespace Uximagine.Magicurve.Image.Processing
             set;
         }
 
+        /// <summary>
+        /// Gets or sets the controls.
+        /// </summary>
+        /// <value>
+        /// The controls.
+        /// </value>
         public List<Control> Controls
         {
             get;
             set;
         }
+
+        /// <summary>
+        /// Gets the height of the image.
+        /// </summary>
+        /// <value>
+        /// The height of the image.
+        /// </value>
+        public int ImageHeight { get; internal set; }
 
         /// <summary>
         /// Processes the image.
@@ -78,6 +98,7 @@ namespace Uximagine.Magicurve.Image.Processing
             using (Bitmap bitmap = new Bitmap(path))
             {
                 ImageWidth = bitmap.Width;
+                ImageHeight = bitmap.Height;
 
                 // Apply filters to get smooth image.
                 Bitmap blobReady = bitmap.GetBlobReady();

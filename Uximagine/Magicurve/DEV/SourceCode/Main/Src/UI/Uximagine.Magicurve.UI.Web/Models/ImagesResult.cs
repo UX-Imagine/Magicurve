@@ -34,6 +34,16 @@ namespace Uximagine.Magicurve.UI.Web.Models
         public int SourceImageWidth { get; set; }
 
         /// <summary>
+        /// Gets or sets the height of the image.
+        /// </summary>
+        /// <value>
+        /// The height of the image.
+        /// </value>
+        [DataMember]
+        [JsonProperty("imageHeight")]
+        public int SourceImageHeight { get; set; }
+
+        /// <summary>
         /// Gets or sets the controls.
         /// </summary>
         /// <value>

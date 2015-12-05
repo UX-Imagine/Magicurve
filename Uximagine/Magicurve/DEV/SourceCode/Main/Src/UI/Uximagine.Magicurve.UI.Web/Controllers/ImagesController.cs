@@ -30,7 +30,6 @@ namespace Uximagine.Magicurve.UI.Web.Controllers
         [HttpGet]
         public ControlsResult GetControls()
         {
-            //// const string SavedPath = "/Content/images/test2.png";
             string imgPath = Path.Combine(HostingEnvironment.MapPath("~/Content/Images/Upload"), "upload.jpg");
 
             IProcessingService service = ServiceFactory.GetProcessingService();
@@ -40,7 +39,8 @@ namespace Uximagine.Magicurve.UI.Web.Controllers
             var json = new ControlsResult()
             {
                 Controls = response.Controls,
-                ImageWidth = response.SourceImageWidth
+                ImageWidth = response.SourceImageWidth,
+                ImageHeight = response.SourceImageWidth
             };
 
             response.ImageResult.Save(filename: HostingEnvironment.MapPath("~/Content/images/test2.png"));
@@ -77,7 +77,8 @@ namespace Uximagine.Magicurve.UI.Web.Controllers
                                 {
                                     Url = "/Content/images/result.png",
                                     Controls = response.Controls,
-                                    SourceImageWidth = response.SourceImageWidth
+                                    SourceImageWidth = response.SourceImageWidth,
+                                    SourceImageHeight = response.SourceImageHeight
             });
         }
 

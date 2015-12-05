@@ -33,7 +33,8 @@ namespace Uximagine.Magicurve.Services.BusinessServices
             {
                 Controls = work.Controls,
                 ImageResult = work.ImageResult,
-                SourceImageWidth = work.ImageWidth
+                SourceImageWidth = work.ImageWidth,
+                SourceImageHeight = work.ImageHeight
             };
 
             return response;

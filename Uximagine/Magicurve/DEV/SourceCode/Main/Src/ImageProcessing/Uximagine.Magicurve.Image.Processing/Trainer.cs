@@ -127,6 +127,7 @@ namespace Uximagine.Magicurve.Image.Processing
             if (folder != null)
             {
                 string[] files = Directory.GetFiles(path: HostingEnvironment.MapPath(virtualPath: folder));
+                //string[] files = Directory.GetFiles(folder);
                 var samples = files.Length;
 
                 for (var i = 0; i < samples; i++)

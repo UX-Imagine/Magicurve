@@ -58,6 +58,13 @@ namespace Uximagine.Magicurve.Services.BusinessServices.UnitsOfWork
             get;
             set;
         }
+        /// <summary>
+        /// Gets or sets the height of the image.
+        /// </summary>
+        /// <value>
+        /// The height of the image.
+        /// </value>
+        public int ImageHeight { get; internal set; }
 
         #endregion
 
@@ -93,6 +100,7 @@ namespace Uximagine.Magicurve.Services.BusinessServices.UnitsOfWork
             this.Controls = controls;
             this.ImageResult = processor.ImageResult;
             ImageWidth = processor.ImageWidth;
+            ImageHeight = processor.ImageHeight;
         }
     }
 }

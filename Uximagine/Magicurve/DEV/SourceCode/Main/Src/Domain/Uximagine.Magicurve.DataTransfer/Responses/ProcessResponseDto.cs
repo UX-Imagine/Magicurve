@@ -49,5 +49,14 @@ namespace Uximagine.Magicurve.DataTransfer.Responses
         [DataMember]
         public int SourceImageWidth { get; set; }
 
+        /// <summary>
+        /// Gets or sets the height of the source image.
+        /// </summary>
+        /// <value>
+        /// The height of the source image.
+        /// </value>
+        [DataMember]
+        public int SourceImageHeight { get; set; }
+
     }
 }
