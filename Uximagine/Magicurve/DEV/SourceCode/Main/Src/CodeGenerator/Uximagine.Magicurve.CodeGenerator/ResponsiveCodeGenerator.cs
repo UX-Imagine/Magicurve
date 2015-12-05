@@ -8,9 +8,9 @@ namespace Uximagine.Magicurve.CodeGenerator
 {
     public class ResponsiveCodeGenerator : IGenerator
     {
-        public string boostrapCss = "css/bootstrap.min.css";
-        public string boostrapMinJs = "js/bootstrap.min.js";
-        public string jquery = "js/jquery.js";
+        public string boostrapCss = "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css";
+        public string boostrapMinJs = "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js";
+        public string jquery = "https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js";
         public string html = "html";
         public string title = "title";
         public string head = "head";
