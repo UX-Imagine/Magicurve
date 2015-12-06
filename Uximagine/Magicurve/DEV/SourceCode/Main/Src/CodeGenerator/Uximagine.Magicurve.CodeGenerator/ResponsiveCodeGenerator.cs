@@ -48,7 +48,7 @@ namespace Uximagine.Magicurve.CodeGenerator
             builder.Append(GetBody());
             SortHelper sortHelper = new SortHelper();
             //List<Control> sortedControls = sortHelper.SortListYProperty(controls);
-            List<Row> sortedControls = sortHelper.DivAlgorithm(sortHelper.SortListYProperty(controls));
+            List<Row> sortedControls = sortHelper.GenerateDivision(sortHelper.SortListYProperty(controls));
             List<Row> finalRowListControls = sortHelper.SortListXProperty(sortedControls);
 
             //execute sorted list and check control types

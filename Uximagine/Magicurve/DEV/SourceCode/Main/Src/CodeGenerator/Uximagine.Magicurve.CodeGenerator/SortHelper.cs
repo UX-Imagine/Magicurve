@@ -27,7 +27,7 @@ namespace Uximagine.Magicurve.CodeGenerator
             return _controls;
         }
 
-        public List<Row> DivAlgorithm(List<Control> list)
+        public List<Row> GenerateDivision(List<Control> list)
         {
             double defaultHeight = 40;
             double maxHeight;
@@ -59,7 +59,7 @@ namespace Uximagine.Magicurve.CodeGenerator
                 int previousY = list[i - 1].Y;
                 int currentY = list[i].Y;
 
-                if (currentY > previousY + maxHeight)
+                if (currentY > previousY + defaultHeight)//if (currentY > previousY + maxHeight)
                 {
                     if (list[i].Height > defaultHeight)
                     {
@@ -77,7 +77,8 @@ namespace Uximagine.Magicurve.CodeGenerator
                             list[i] 
                         },
                         RowIndex = ++rowIndex,
-                        TopMargin = list[i].Y-(list[i-1].Y+(int)list[i-1].Height),
+                        //TopMargin = list[i].Y-(list[i-1].Y+(int)list[i-1].Height),
+                        TopMargin = list[i].Y - (list[i - 1].Y + (int)defaultHeight),
                         Height = maxHeight
                     });
 

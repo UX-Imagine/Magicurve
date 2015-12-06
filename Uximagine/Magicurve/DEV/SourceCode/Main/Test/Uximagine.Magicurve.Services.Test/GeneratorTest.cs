@@ -179,7 +179,7 @@ namespace Uximagine.Magicurve.Services.Test
             testClass.GenarateResponsiveHTMLPage(responsiveResult, "responsiveWebPage.html");
 
             //test y sorting and DivAlgorithm method without x sorting
-            List<Row> rowList = sortHelper.DivAlgorithm(sortHelper.SortListYProperty(controls));
+            List<Row> rowList = sortHelper.GenerateDivision(sortHelper.SortListYProperty(controls));
             foreach (Row row in rowList)
             {
                 foreach (Control item in row.Controls)
@@ -386,8 +386,8 @@ namespace Uximagine.Magicurve.Services.Test
                     Type = ControlType.Image,
                     Width = 143,
                     Height = 115,
-                    X = 280,
-                    Y = 59
+                    X = 350,
+                    Y = 60
                 }
             };
 
