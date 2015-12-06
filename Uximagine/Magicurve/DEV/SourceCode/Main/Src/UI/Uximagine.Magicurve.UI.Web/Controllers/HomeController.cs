@@ -276,6 +276,15 @@ namespace Uximagine.Magicurve.UI.Web.Controllers
             return this.View("Edit_Sample_Template");
         }
 
+        /// <summary>
+        /// return the testing
+        /// </summary>
+        /// <returns> the view </returns>
+        public ActionResult Testing()
+        {
+            return this.View("Testing");
+        }
+
         #endregion
 
         #region Methods - Instance Member - (helpers)

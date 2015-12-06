@@ -15,7 +15,7 @@
 <body dir="ltr" id="body" data-ng-app="magicurveApp">
 
 
-        <div class="row" id="menu-bar">
+    <div class="row" id="menu-bar">
             <div class="col-md-12">
                 @Html.Partial("_MenuBar", null)
 
@@ -31,9 +31,12 @@
         </div>
 
     </nav>
-        <div class="row" id="content-full">
+
+    <div class="row" id="content-full">
             <div class="col-md-2 " id="tool-bar">
-                <div class="acidjs-css3-treeview">
+                @Html.Partial("_SideBar")
+
+               <!-- <div class="acidjs-css3-treeview">
                     <ul>
                         <li>
                             <input type="checkbox" id="node-0" checked="checked" /><label><span></span></label><label for="node-0">HTML</label>
@@ -139,7 +142,7 @@
                         </li>
                     </ul>
                 </div>
-
+                   -->
             </div>
           
             <div class="col-md-10" id="content">
@@ -149,8 +152,6 @@
             </div>
     
         </div>
-
-
 
     <div class="row" id="footer">
         <div class="col-md-12">@Html.Partial("_Footer", null)</div>

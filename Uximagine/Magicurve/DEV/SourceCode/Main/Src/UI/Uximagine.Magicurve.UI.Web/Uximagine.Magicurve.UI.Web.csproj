@@ -728,6 +728,7 @@
     <Content Include="Scripts\app\views\home\magicurve.app.controller.home.js" />
     <Content Include="Scripts\app\views\home\magicurve.app.js" />
     <Content Include="Scripts\app\views\home\magicurve.app.service.home.js" />
+    <Content Include="Scripts\app\views\home\Penguins.jpg" />
     <Content Include="Scripts\fx\angular\angular-ui-router.js" />
     <Content Include="Scripts\fx\angular\angular-ui-router.min.js" />
     <Content Include="Scripts\app\views\home\magicurve.app.controller.main.js" />
@@ -1537,6 +1538,7 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\toaster.js" />
+    <Content Include="Views\Home\Penguins.jpg" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -1565,6 +1567,8 @@
     <Content Include="Views\Home\Upload.cshtml" />
     <Content Include="Views\Home\Edit_Sample_Template.cshtml" />
     <Content Include="Views\Home\Sample_Template.cshtml" />
+    <Content Include="Views\Home\Testing.cshtml" />
+    <Content Include="Views\Home\_SideBar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Common\Uximagine.Magicurve.Core\Uximagine.Magicurve.Core.csproj">
