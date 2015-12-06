@@ -26,7 +26,7 @@ namespace Uximagine.Magicurve.Image.Processing.ShapeCheckers
         /// The content type
         /// </returns>
         /// <exception cref="System.NotImplementedException">
-        /// This shapechecker does not implement this method.
+        /// This shape checker does not implement this method.
         /// </exception>
         public override ControlType GetControlType(List<IntPoint> edgePoints)
         {
@@ -49,7 +49,7 @@ namespace Uximagine.Magicurve.Image.Processing.ShapeCheckers
 
             using (Bitmap cropped = GetCroppedControl(original, edgePoints))
             {
-                //cropped.Save("D:/cropped.jpg");
+                cropped.Save("D:/cropped.jpg");
                 PcaClassifier classifier = PcaClassifier.GetInstance();
                 if (classifier.IsTrained == false)
                 {
@@ -58,8 +58,11 @@ namespace Uximagine.Magicurve.Image.Processing.ShapeCheckers
                 }
 
                 int decision = classifier.Compute(cropped);
+                
 
                 type = (ControlType) decision + 1;
+
+                cropped.Save("D:/cropped" + type + ".jpg");
             }
 
             return type;

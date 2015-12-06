@@ -174,7 +174,16 @@ namespace Uximagine.Magicurve.UI.Web.Controllers
                         {
                             string fileName = ConfigurationData.UploadFileName;
                             var path = Path.Combine(Server.MapPath(ConfigurationData.UploadDirectory), fileName);
-                            file.SaveAs(path);
+                            try
+                            {
+                                file.SaveAs(path);
+                            }
+                            catch (Exception exception)
+                            {
+                                
+                                throw exception;
+                            }
+                            
                             ModelState.Clear();
                             ViewBag.Message = "File uploaded successfully. File path :   ~/Content/Images/Upload/"
                                               + fileName;

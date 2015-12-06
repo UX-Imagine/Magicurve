@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using Accord.Imaging.Converters;
 using Accord.MachineLearning;
 using Accord.Statistics.Analysis;
@@ -91,7 +92,7 @@ namespace Uximagine.Magicurve.Neuro.Processing
         /// <summary>
         /// Trains the machine.
         /// </summary>
-        public void TrainMachine(List<Tuple<Bitmap, int>> images)
+        public void TrainMachine(List<Tuple<Bitmap, int>> images, int classesCount)
         {
             this.Images = images;
             this.TrainMachine();
@@ -185,7 +186,10 @@ namespace Uximagine.Magicurve.Neuro.Processing
             }
 
             double[] feature = _pca.Transform(input);
-            int output = _classifier.Compute(feature);
+            double[] distances;
+            int output = _classifier.Compute(feature, out distances);
+            double max = distances.Max();
+            double min = distances.Min();
 
             return output;
         }

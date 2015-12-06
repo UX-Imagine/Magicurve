@@ -7,7 +7,6 @@ using Uximagine.Magicurve.Core.Shapes;
 using Uximagine.Magicurve.Image.Processing.Detectors;
 using Uximagine.Magicurve.Image.Processing.Helpers;
 using Uximagine.Magicurve.Image.Processing.ShapeCheckers;
-
 #endregion
 
 namespace Uximagine.Magicurve.Image.Processing

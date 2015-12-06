@@ -50,8 +50,8 @@ namespace Uximagine.Magicurve.Services.Test.Neuro
             Debug.WriteLine("Test finished.");
         }
 
-        [TestCase(@"D:/Data/test/inputs/button/test/button_07.jpg")]
-        [TestCase(@"D:/Data/test/inputs/button/test/button_07.jpg")]
+        [TestCase(@"D:/Data/test/inputs/button/test/test1.jpg")]
+        [TestCase(@"D:/Data/test/inputs/button/test/test2.jpg")]
         public void TestButton(string fileName)
         {
             Bitmap testInputButton = GetInputVector(fileName, MinSize);
@@ -60,7 +60,7 @@ namespace Uximagine.Magicurve.Services.Test.Neuro
                 $"expected {ControlType.Button} but actual {(ControlType)(decision + 1)} ");
         }
 
-        [TestCase(@"D:/Data/test/inputs/combo/test/combo2_01.jpg")]
+        [TestCase(@"D:/Data/test/inputs/combo/test/test1.jpg")]
         public void TestCombo(string fileName)
         {
             Bitmap testInputButton = GetInputVector(fileName, MinSize);
@@ -68,7 +68,7 @@ namespace Uximagine.Magicurve.Services.Test.Neuro
             decision.ShouldEqual(ControlType.ComboBox.To<int>() - 1);
         }
 
-        [TestCase(@"D:/Data/test/inputs/paragraph/test/parah2_06.jpg")]
+        [TestCase(@"D:/Data/test/inputs/paragraph/test/test1.jpg")]
         public void TestParah(string fileName)
         {
             Bitmap testInputButton = GetInputVector(fileName, MinSize);
@@ -77,7 +77,7 @@ namespace Uximagine.Magicurve.Services.Test.Neuro
         }
 
 
-        [TestCase(@"D:/Data/test/inputs/text/test/text_11.jpg")]
+        [TestCase(@"D:/Data/test/inputs/text/test/test1.jpg")]
         public void TestText(string fileName)
         {
             Bitmap testInputButton = GetInputVector(fileName, MinSize);
@@ -85,7 +85,7 @@ namespace Uximagine.Magicurve.Services.Test.Neuro
             decision.ShouldEqual(ControlType.InputText.To<int>() - 1);
         }
 
-        [TestCase(@"D:/Data/test/inputs/radio/test/radio_11.jpg")]
+        [TestCase(@"D:/Data/test/inputs/radio/test/test1.jpg")]
         public void TestRadio(string fileName)
         {
             Bitmap testInputButton = GetInputVector(fileName, MinSize);
@@ -93,8 +93,8 @@ namespace Uximagine.Magicurve.Services.Test.Neuro
             decision.ShouldEqual(ControlType.RadioButton.To<int>() - 1);
         }
 
-        [TestCase(@"D:/Data/test/inputs/image/test/image_13.jpg")]
-        [TestCase(@"D:/Data/test/inputs/image/test/image2_08.jpg")]
+        [TestCase(@"D:/Data/test/inputs/image/test/test1.jpg")]
+        [TestCase(@"D:/Data/test/inputs/image/test/test2.jpg")]
         public void TestImage(string fileName)
         {
             Bitmap testInputButton = GetInputVector(fileName, MinSize);
@@ -102,7 +102,7 @@ namespace Uximagine.Magicurve.Services.Test.Neuro
             decision.ShouldEqual(ControlType.Image.To<int>() - 1);
         }
 
-        [TestCase(@"D:/Data/test/inputs/password/test/password2_03.jpg")]
+        [TestCase(@"D:/Data/test/inputs/password/test/test1.jpg")]
         public void TestPassword(string fileName)
         {
             Bitmap testInputButton = GetInputVector(fileName, MinSize);
@@ -110,8 +110,8 @@ namespace Uximagine.Magicurve.Services.Test.Neuro
             decision.ShouldEqual(ControlType.InputPassword.To<int>() - 1);
         }
 
-        [TestCase(@"D:/Data/test/inputs/checkbox/test/check_02.jpg")]
-        [TestCase(@"D:/Data/test/inputs/checkbox/test/check_13.jpg")]
+        [TestCase(@"D:/Data/test/inputs/checkbox/test/test1.jpg")]
+        [TestCase(@"D:/Data/test/inputs/checkbox/test/test2.jpg")]
         public void TestCheckBox(string fileName)
         {
             Bitmap testInputButton = GetInputVector(fileName, MinSize);
@@ -119,8 +119,8 @@ namespace Uximagine.Magicurve.Services.Test.Neuro
             decision.ShouldEqual(ControlType.CheckBox.To<int>() - 1);
         }
 
-        [TestCase(@"D:/Data/test/inputs/date/test/pick_06.jpg")]
-        [TestCase(@"D:/Data/test/inputs/date/test/pick_12.jpg")]
+        [TestCase(@"D:/Data/test/inputs/date/test/test2.jpg")]
+        [TestCase(@"D:/Data/test/inputs/date/test/test1.jpg")]
         public void TestDatePicker(string fileName)
         {
             Bitmap vector = GetInputVector(fileName, MinSize);
@@ -128,7 +128,7 @@ namespace Uximagine.Magicurve.Services.Test.Neuro
             decision.ShouldEqual(ControlType.DatePicker.To<int>() - 1);
         }
 
-        [TestCase(@"D:/Data/test/inputs/label/test/area2_16.jpg")]
+        [TestCase(@"D:/Data/test/inputs/label/test/test1.jpg")]
         public void TestLabel(string fileName)
         {
             Bitmap vector = GetInputVector(fileName, MinSize);
@@ -136,7 +136,7 @@ namespace Uximagine.Magicurve.Services.Test.Neuro
             decision.ShouldEqual(ControlType.Label.To<int>() - 1);
         }
 
-        [TestCase(@"D:/Data/test/inputs/link/test/link2_06.jpg")]
+        [TestCase(@"D:/Data/test/inputs/link/test/test2.jpg")]
         public void TestHyperLink(string fileName)
         {
             //Bitmap vector = GetInputVector(fileName, MinSize);
@@ -145,8 +145,8 @@ namespace Uximagine.Magicurve.Services.Test.Neuro
             //    $"expected {(ControlType)(ControlType.HyperLink.To<int>())} but actual {(ControlType) decision + 1} ");
         }
 
-        [TestCase(@"D:/Data/test/inputs/iframe/test/frame_14.jpg")]
-        [TestCase(@"D:/Data/test/inputs/iframe/test/frame2_01.jpg")]
+        [TestCase(@"D:/Data/test/inputs/iframe/test/test1.jpg")]
+        [TestCase(@"D:/Data/test/inputs/iframe/test/test2.jpg")]
         public void TestIFrame(string fileName)
         {
             Bitmap vector = GetInputVector(fileName, MinSize);
@@ -154,8 +154,8 @@ namespace Uximagine.Magicurve.Services.Test.Neuro
             decision.ShouldEqual(ControlType.Iframe.To<int>() - 1);
         }
 
-        [TestCase(@"D:/Data/test/inputs/hr/test/line_10.jpg")]
-        [TestCase(@"D:/Data/test/inputs/hr/test/line_13.jpg")]
+        [TestCase(@"D:/Data/test/inputs/hr/test/test1.jpg")]
+        [TestCase(@"D:/Data/test/inputs/hr/test/test2.jpg")]
         public void TestHr(string fileName)
         {
             Bitmap vector = GetInputVector(fileName, MinSize);
@@ -163,7 +163,7 @@ namespace Uximagine.Magicurve.Services.Test.Neuro
             decision.ShouldEqual(ControlType.HLine.To<int>() - 1);
         }
 
-        [TestCase(@"D:/Data/test/inputs/range/test/range2_12.jpg")]
+        [TestCase(@"D:/Data/test/inputs/range/test/test1.jpg")]
         public void TestRange(string fileName)
         {
             Bitmap vector = GetInputVector(fileName, MinSize);

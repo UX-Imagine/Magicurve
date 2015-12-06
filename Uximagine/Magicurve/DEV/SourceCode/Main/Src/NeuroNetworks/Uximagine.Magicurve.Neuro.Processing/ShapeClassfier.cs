@@ -47,9 +47,9 @@ namespace Uximagine.Magicurve.Neuro.Processing
         public double[][] Inputs { get; set; }
 
         /// <summary>
-        /// The classfier.
+        /// The classifier.
         /// </summary>
-        private static ShapeClassfier _classfier;
+        private static ShapeClassfier _classifier;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ShapeClassfier"/> class.
@@ -75,16 +75,16 @@ namespace Uximagine.Magicurve.Neuro.Processing
         /// </returns>
         public static IClassifer GetInstance(int nInputs, int classes)
         {
-            if (_classfier == null)
+            if (_classifier == null)
             {
-                _classfier = new ShapeClassfier(nInputs, classes);
+                _classifier = new ShapeClassfier(nInputs, classes);
             }
 
-            return _classfier;
+            return _classifier;
         }
 
         /// <summary>
-        /// Comutes the specified input.
+        /// Computes the specified input.
         /// </summary>
         /// <param name="input">
         /// The input.

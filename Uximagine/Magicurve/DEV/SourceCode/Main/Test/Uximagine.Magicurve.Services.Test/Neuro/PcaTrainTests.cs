@@ -56,14 +56,14 @@ namespace Uximagine.Magicurve.Services.Test.Neuro
             PcaClassifier classifier = PcaClassifier.GetInstance();
             classifier.TrainMachine(_images);
 
-            Bitmap testInputButton = GetInputVector(@"D:/Data/test/inputs/button/test/button_07.jpg", minSize);
-            Bitmap testInputCombo = GetInputVector(@"D:/Data/test/inputs/combo/test/combo2_01.jpg", minSize);
-            Bitmap testInputParah = GetInputVector(@"D:/Data/test/inputs/paragraph/test/parah2_06.jpg", minSize);
-            Bitmap testInputtext= GetInputVector(@"D:/Data/test/inputs/text/test/text_11.jpg", minSize);
-            Bitmap radio = GetInputVector(@"D:/Data/test/inputs/radio/test/radio_11.jpg", minSize);
-            Bitmap image = GetInputVector(@"D:/Data/test/inputs/image/test/image2_05.jpg", minSize);
-            Bitmap image2 = GetInputVector(@"D:/Data/test/inputs/image/test/image_13.jpg", minSize);
-            Bitmap password = GetInputVector(@"D:/Data/test/inputs/password/test/password2_03.jpg", minSize);
+            Bitmap testInputButton = GetInputVector(@"D:/Data/test/inputs/button/test/test1.jpg", minSize);
+            Bitmap testInputCombo = GetInputVector(@"D:/Data/test/inputs/combo/test/test1.jpg", minSize);
+            Bitmap testInputParah = GetInputVector(@"D:/Data/test/inputs/paragraph/test/test1.jpg", minSize);
+            Bitmap testInputtext= GetInputVector(@"D:/Data/test/inputs/text/test/test1.jpg", minSize);
+            Bitmap radio = GetInputVector(@"D:/Data/test/inputs/radio/test/test1.jpg", minSize);
+            Bitmap image = GetInputVector(@"D:/Data/test/inputs/image/test/test1.jpg", minSize);
+            Bitmap image2 = GetInputVector(@"D:/Data/test/inputs/image/test/test2.jpg", minSize);
+            Bitmap password = GetInputVector(@"D:/Data/test/inputs/password/test/test1.jpg", minSize);
 
             var decision = classifier.Compute(testInputButton);
             decision.ShouldEqual(ControlType.Button.To<int>() - 1);

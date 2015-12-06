@@ -29,6 +29,14 @@ namespace Uximagine.Magicurve.Image.Processing
         public bool ForceTraining { get; set; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether this instance is testing.
+        /// </summary>
+        /// <value>
+        /// <c>true</c> if this instance is testing; otherwise, <c>false</c>.
+        /// </value>
+        public static bool IsTesting { get; set; }
+
+        /// <summary>
         /// Gets or sets the operations log.
         /// </summary>
         /// <value>
@@ -52,6 +60,11 @@ namespace Uximagine.Magicurve.Image.Processing
         /// The sample size
         /// </summary>
         private static int _sampleSize = 32;
+
+        /// <summary>
+        /// The classes count.
+        /// </summary>
+        private int _classesCount;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Trainer"/> class.
@@ -87,7 +100,16 @@ namespace Uximagine.Magicurve.Image.Processing
 
             if (classifier.IsTrained == false || ForceTraining)
             {
-                classifier.TrainMachine(Images);
+                try
+                {
+                    classifier.TrainMachine(Images, _classesCount);
+                }
+                catch (Exception exception)
+                {
+                    
+                    throw exception;
+                }
+                
             }
 
             this.LogOperation("Training Completed");
@@ -109,9 +131,12 @@ namespace Uximagine.Magicurve.Image.Processing
 
                 if (values == null) continue;
 
+                
+
                 foreach (string value in values)
                 {
                     AddSymbols(value, int.Parse(key), minSize);
+                    _classesCount++;
                 }
             }
         }
@@ -126,8 +151,10 @@ namespace Uximagine.Magicurve.Image.Processing
         {
             if (folder != null)
             {
-                string[] files = Directory.GetFiles(path: HostingEnvironment.MapPath(virtualPath: folder));
-                //string[] files = Directory.GetFiles(folder);
+                string[] files;
+
+                files = Directory.GetFiles(IsTesting ? folder : HostingEnvironment.MapPath(virtualPath: folder));
+
                 var samples = files.Length;
 
                 for (var i = 0; i < samples; i++)

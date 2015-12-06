@@ -79,6 +79,7 @@
     <Compile Include="PcaClassifier.cs" />
     <Compile Include="ShapeClassfier.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SvmClassifier.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -99,5 +100,3 @@
   </Target>
   -->
 </Project>
-
-

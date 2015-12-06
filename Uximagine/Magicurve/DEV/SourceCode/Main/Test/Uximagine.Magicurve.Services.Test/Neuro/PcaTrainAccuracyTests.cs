@@ -22,7 +22,7 @@ namespace Uximagine.Magicurve.Services.Test.Neuro
         [TestFixtureSetUp]
         public void Setup()
         {
-           
+            Trainer.IsTesting = true;
         }
 
         [TestFixtureTearDown]

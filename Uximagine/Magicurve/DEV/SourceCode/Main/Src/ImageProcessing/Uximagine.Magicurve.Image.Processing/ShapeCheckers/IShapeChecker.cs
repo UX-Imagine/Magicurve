@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
-using System.Security.Cryptography.X509Certificates;
 using AForge;
 using Uximagine.Magicurve.Core.Models;
 
@@ -80,5 +79,6 @@ namespace Uximagine.Magicurve.Image.Processing.ShapeCheckers
         /// The edge points.
         /// </param>
         void SetProperties(List<IntPoint> edgePoints);
+
     }
 }
