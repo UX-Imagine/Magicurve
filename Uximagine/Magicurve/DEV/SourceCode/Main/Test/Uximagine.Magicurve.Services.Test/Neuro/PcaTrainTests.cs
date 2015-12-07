@@ -25,45 +25,66 @@ namespace Uximagine.Magicurve.Services.Test.Neuro
     [TestFixture]
     public class PcaTrainTests
     {
-        private List<Tuple<Bitmap, int>> _images;
+        /// <summary>
+        /// The _sample size.
+        /// </summary>
+        private static int sampleSize = 32;
 
-        private static int _sampleSize = 32;
+        /// <summary>
+        /// The images.
+        /// </summary>
+        private List<Tuple<Bitmap, int>> images;
 
+        /// <summary>
+        /// The setup.
+        /// </summary>
         [TestFixtureSetUp]
         public void Setup()
         {
-            _images = new List<Tuple<Bitmap, int>>();
+            this.images = new List<Tuple<Bitmap, int>>();
             Debug.WriteLine("Test Started");
         }
 
+        /// <summary>
+        /// The tear down.
+        /// </summary>
         public void TearDown()
         {
             Debug.WriteLine("Test Started");
         }
 
+        /// <summary>
+        /// The train.
+        /// </summary>
+        /// <param name="minSize">
+        /// The min size.
+        /// </param>
+        /// <param name="size">
+        /// The sample size.
+        /// </param>
         [TestCase(50, 32)]
         [TestCase(50, 40)]
         [TestCase(75, 32)]
         [TestCase(75, 40)]
         [TestCase(100, 32)]
         [TestCase(100, 40)]
-        public void Train(int minSize, int sampleSize)
+        public void Train(int minSize, int size)
         {
-            _sampleSize = sampleSize;
+            sampleSize = size;
 
-            GetInputsOutputs(minSize);
+            this.GetInputsOutputs(minSize);
 
             PcaClassifier classifier = PcaClassifier.GetInstance();
-            classifier.TrainMachine(_images, 0);
+            classifier.TrainMachine(this.images, 0);
 
-            Bitmap testInputButton = GetInputVector(@"D:/Data/test/inputs/button/test/test1.jpg", minSize);
-            Bitmap testInputCombo = GetInputVector(@"D:/Data/test/inputs/combo/test/test1.jpg", minSize);
-            Bitmap testInputParah = GetInputVector(@"D:/Data/test/inputs/paragraph/test/test1.jpg", minSize);
-            Bitmap testInputtext= GetInputVector(@"D:/Data/test/inputs/text/test/test1.jpg", minSize);
-            Bitmap radio = GetInputVector(@"D:/Data/test/inputs/radio/test/test1.jpg", minSize);
-            Bitmap image = GetInputVector(@"D:/Data/test/inputs/image/test/test1.jpg", minSize);
-            Bitmap image2 = GetInputVector(@"D:/Data/test/inputs/image/test/test2.jpg", minSize);
-            Bitmap password = GetInputVector(@"D:/Data/test/inputs/password/test/test1.jpg", minSize);
+            Bitmap testInputButton = this.GetInputVector(@"D:/Data/test/inputs/button/test/test1.jpg", minSize);
+            Bitmap testInputCombo = this.GetInputVector(@"D:/Data/test/inputs/combo/test/test1.jpg", minSize);
+            Bitmap testInputParah = this.GetInputVector(@"D:/Data/test/inputs/paragraph/test/test1.jpg", minSize);
+            Bitmap testInputtext = this.GetInputVector(@"D:/Data/test/inputs/text/test/test1.jpg", minSize);
+            Bitmap radio = this.GetInputVector(@"D:/Data/test/inputs/radio/test/test1.jpg", minSize);
+            Bitmap image = this.GetInputVector(@"D:/Data/test/inputs/image/test/test1.jpg", minSize);
+            Bitmap image2 = this.GetInputVector(@"D:/Data/test/inputs/image/test/test2.jpg", minSize);
+            Bitmap password = this.GetInputVector(@"D:/Data/test/inputs/password/test/test1.jpg", minSize);
 
             var decision = classifier.Compute(testInputButton);
             decision.ShouldEqual(ControlType.Button.To<int>() - 1);
@@ -81,7 +102,7 @@ namespace Uximagine.Magicurve.Services.Test.Neuro
             decision.ShouldEqual(ControlType.RadioButton.To<int>() - 1);
 
             decision = classifier.Compute(image);
-            //decision.ShouldEqual(ControlType.Image.To<int>() - 1);
+            decision.ShouldEqual(ControlType.Image.To<int>() - 1);
 
             decision = classifier.Compute(image2);
             decision.ShouldEqual(ControlType.Image.To<int>() - 1);
@@ -96,13 +117,20 @@ namespace Uximagine.Magicurve.Services.Test.Neuro
         /// <param name="minSize">The minimum size.</param>
         private void GetInputsOutputs(int minSize)
         {
-          AddSymbols(@"D:/Data/test/inputs/button", 0, minSize);
-          AddSymbols(@"D:/Data/test/inputs/combo", 1, minSize);
-          AddSymbols(@"D:/Data/test/inputs/paragraph", 2, minSize);
-          AddSymbols(@"D:/Data/test/inputs/text", 3, minSize);
-          AddSymbols(@"D:/Data/test/inputs/radio", 4, minSize);
-          AddSymbols(@"D:/Data/test/inputs/image", 5, minSize);
-          AddSymbols(@"D:/Data/test/inputs/password", 6, minSize);
+            this.AddSymbols(@"D:/Data/test/inputs/button", ControlType.Button.To<int>() - 1, minSize);
+            this.AddSymbols(@"D:/Data/test/inputs/combo", ControlType.ComboBox.To<int>() - 1, minSize);
+            this.AddSymbols(@"D:/Data/test/inputs/paragraph", ControlType.Paragraph.To<int>() - 1, minSize);
+            this.AddSymbols(@"D:/Data/test/inputs/text", ControlType.InputText.To<int>() - 1, minSize);
+            this.AddSymbols(@"D:/Data/test/inputs/radio", ControlType.RadioButton.To<int>() - 1, minSize);
+            this.AddSymbols(@"D:/Data/test/inputs/image", ControlType.Image.To<int>() - 1, minSize);
+            this.AddSymbols(@"D:/Data/test/inputs/password", ControlType.InputPassword.To<int>() - 1, minSize);
+            this.AddSymbols(@"D:/Data/test/inputs/checkbox", ControlType.CheckBox.To<int>() - 1, minSize);
+            this.AddSymbols(@"D:/Data/test/inputs/date", ControlType.DatePicker.To<int>() - 1, minSize);
+            this.AddSymbols(@"D:/Data/test/inputs/label", ControlType.Label.To<int>() - 1, minSize);
+            this.AddSymbols(@"D:/Data/test/inputs/iframe", ControlType.Iframe.To<int>() - 1, minSize);
+            this.AddSymbols(@"D:/Data/test/inputs/hr", ControlType.HLine.To<int>() - 1, minSize);
+            this.AddSymbols(@"D:/Data/test/inputs/range", ControlType.Range.To<int>() - 1, minSize);
+            this.AddSymbols(@"D:/Data/test/inputs/link", ControlType.HyperLink.To<int>() - 1, minSize);
         }
 
         /// <summary>
@@ -118,10 +146,10 @@ namespace Uximagine.Magicurve.Services.Test.Neuro
 
             for (var i = 0; i < samples; i++)
             {
-                Bitmap cropped = Crop(files[i], minSize);
+                Bitmap cropped = this.Crop(files[i], minSize);
                 if (cropped != null)
                 {
-                    _images.Add(new Tuple<Bitmap, int>(cropped, label));
+                    this.images.Add(new Tuple<Bitmap, int>(cropped, label));
                 }
             }
         }
@@ -129,23 +157,34 @@ namespace Uximagine.Magicurve.Services.Test.Neuro
         /// <summary>
         /// Gets the input vector.
         /// </summary>
-        /// <param name="fileName">Name of the file.</param>
-        /// <param name="minSize">The minimum size.</param>
-        /// <returns></returns>
+        /// <param name="fileName">
+        /// Name of the file.
+        /// </param>
+        /// <param name="minSize">
+        /// The minimum size.
+        /// </param>
+        /// <returns>
+        /// The cropped image.
+        /// </returns>
         public Bitmap GetInputVector(string fileName, int minSize)
         {
-            Bitmap cropped = Crop(fileName, minSize);
+            Bitmap cropped = this.Crop(fileName, minSize);
 
             return cropped;
         }
 
-
         /// <summary>
         /// Crops the specified file name.
         /// </summary>
-        /// <param name="fileName">Name of the file.</param>
-        /// <param name="minSize">The minimum size.</param>
-        /// <returns></returns>
+        /// <param name="fileName">
+        /// Name of the file.
+        /// </param>
+        /// <param name="minSize">
+        /// The minimum size.
+        /// </param>
+        /// <returns>
+        /// The cropped image.
+        /// </returns>
         private Bitmap Crop(string fileName, int minSize)
         {
             Bitmap image = new Bitmap(fileName); // Lena's picture
@@ -174,7 +213,7 @@ namespace Uximagine.Magicurve.Services.Test.Neuro
            
             Bitmap cropped = image.Crop(control.EdgePoints);
 
-            cropped = cropped.Resize(_sampleSize, _sampleSize);
+            cropped = cropped.Resize(sampleSize, sampleSize);
 
             return cropped;
         }

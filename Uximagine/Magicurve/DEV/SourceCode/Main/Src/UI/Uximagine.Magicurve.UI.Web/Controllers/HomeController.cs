@@ -14,6 +14,10 @@ using Uximagine.Magicurve.UI.Web.Models;
 
 namespace Uximagine.Magicurve.UI.Web.Controllers
 {
+    using System.Drawing;
+    using System.Net;
+    using System.Web;
+
     /// <summary>
     /// The Default controller for the web application.
     /// </summary>
@@ -178,7 +182,7 @@ namespace Uximagine.Magicurve.UI.Web.Controllers
 
                             try
                             {
-                                file.SaveAs(path);
+                                this.SaveAs(path, file.InputStream);
                             }
                             catch (Exception exception)
                             {
@@ -319,6 +323,23 @@ namespace Uximagine.Magicurve.UI.Web.Controllers
             }
 
             return bytes;
+        }
+
+        /// <summary>
+        /// Saves as.
+        /// </summary>
+        /// <param name="filename">The filename.</param>
+        /// <param name="stream">The stream.</param>
+        private void SaveAs(string filename, Stream stream)
+        {
+            using (Bitmap src = Image.FromStream(stream) as Bitmap)
+            {
+                if (src != null)
+                {
+                    src.Save(filename);
+                    src.Dispose();
+                }
+            }
         }
 
         #endregion
