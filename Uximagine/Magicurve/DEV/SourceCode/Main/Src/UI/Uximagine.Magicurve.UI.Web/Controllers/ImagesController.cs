@@ -85,7 +85,9 @@ namespace Uximagine.Magicurve.UI.Web.Controllers
         /// <summary>
         /// Gets the image.
         /// </summary>
-        /// <param name="controlsResult">The controls result.</param>
+        /// <param name="controlsResult">
+        /// The controls result.
+        /// </param>
         /// <returns>
         /// The image path.
         /// </returns>
@@ -97,7 +99,8 @@ namespace Uximagine.Magicurve.UI.Web.Controllers
             GenerateCodeRequest request = new GenerateCodeRequest()
             {
                 Controls = controlsResult.Controls,
-                ImageWidth = controlsResult.ImageWidth
+                ImageWidth = controlsResult.ImageWidth,
+                ImageHeight = controlsResult.ImageHeight
             };
 
             GenerateCodeResponse response = service.GenerateCode(request);
@@ -127,7 +130,8 @@ namespace Uximagine.Magicurve.UI.Web.Controllers
                 GenerateCodeRequest request = new GenerateCodeRequest()
                 {
                     Controls = controlsResult.Controls,
-                    ImageWidth = controlsResult.ImageWidth
+                    ImageWidth = controlsResult.ImageWidth,
+                    ImageHeight = controlsResult.ImageHeight
                 };
 
                 GenerateCodeResponse response = service.GenerateCode(request);

@@ -54,7 +54,7 @@ namespace Uximagine.Magicurve.Services.Test.Neuro
             GetInputsOutputs(minSize);
 
             PcaClassifier classifier = PcaClassifier.GetInstance();
-            classifier.TrainMachine(_images);
+            classifier.TrainMachine(_images, 0);
 
             Bitmap testInputButton = GetInputVector(@"D:/Data/test/inputs/button/test/test1.jpg", minSize);
             Bitmap testInputCombo = GetInputVector(@"D:/Data/test/inputs/combo/test/test1.jpg", minSize);

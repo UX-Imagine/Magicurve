@@ -36,7 +36,7 @@ namespace Uximagine.Magicurve.Services.Test.Neuro
             int[] outputs;
             GetInputsOutputs(minSize, out inputs, out outputs);
 
-            IClassifer classifier = ShapeClassfier.GetInstance(3, 2);
+            IClassifier classifier = ShapeClassfier.GetInstance(3, 2);
             classifier.TrainMachine(inputs, outputs);
 
             double[] testInputButton = GetInputVector(@"D:/Data/test/inputs/button/test/button_07.jpg", minSize, 4.3f);

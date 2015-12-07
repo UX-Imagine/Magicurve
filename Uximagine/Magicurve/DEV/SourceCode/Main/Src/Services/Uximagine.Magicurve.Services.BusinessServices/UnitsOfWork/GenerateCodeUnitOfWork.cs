@@ -34,6 +34,15 @@ namespace Uximagine.Magicurve.Services.BusinessServices.UnitsOfWork
         /// The code.
         /// </value>
         public string Code { get; set; }
+
+        /// <summary>
+        /// Gets or sets the height of the image.
+        /// </summary>
+        /// <value>
+        /// The height of the image.
+        /// </value>
+        public int ImageHeight { get; internal set; }
+
         #endregion
 
         #region Methods - Instance Member

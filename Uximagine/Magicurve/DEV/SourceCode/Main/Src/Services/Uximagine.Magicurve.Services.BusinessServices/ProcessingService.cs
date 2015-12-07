@@ -56,7 +56,8 @@ namespace Uximagine.Magicurve.Services.BusinessServices
             GenerateCodeUnitOfWork work = new GenerateCodeUnitOfWork()
             {
                 Controls = request.Controls,
-                ImageWidth = request.ImageWidth
+                ImageWidth = request.ImageWidth,
+                ImageHeight = request.ImageHeight
             };
 
             this.DoWork(work);

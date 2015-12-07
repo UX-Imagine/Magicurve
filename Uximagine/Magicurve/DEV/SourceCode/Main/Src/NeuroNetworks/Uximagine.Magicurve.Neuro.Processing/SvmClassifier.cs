@@ -1,16 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using Accord.Imaging.Converters;
 using Accord.MachineLearning.VectorMachines;
 using Accord.MachineLearning.VectorMachines.Learning;
 using Accord.Statistics.Kernels;
 
 namespace Uximagine.Magicurve.Neuro.Processing
 {
-    public class SvmClassifier : IClassifer
+    /// <summary>
+    /// The SVM classifier.
+    /// </summary>
+    public class SvmClassifier : IClassifier
     {
-        // Sample input data
-        // pointsCount, linesCount, DistinctAngleCount, horizantalLineCount, VerticalLineCount 
+        /// <summary>
+        /// Gets or sets the machine.
+        /// </summary>
         private MulticlassSupportVectorMachine Machine { get; set; }
 
         /// <summary>
@@ -32,7 +37,7 @@ namespace Uximagine.Magicurve.Neuro.Processing
         /// <summary>
         /// The classifier.
         /// </summary>
-        private static SvmClassifier _classifier;
+        private static SvmClassifier classifier;
 
         /// <summary>
         /// Gets or sets the samples.
@@ -44,14 +49,6 @@ namespace Uximagine.Magicurve.Neuro.Processing
         {
             get; set;
         }
-
-        /// <summary>
-        /// Gets or sets the size of the sample.
-        /// </summary>
-        /// <value>
-        /// The size of the sample.
-        /// </value>
-        public int SampleSize = 32;
 
         /// <summary>
         /// Gets or sets the class count.
@@ -70,7 +67,12 @@ namespace Uximagine.Magicurve.Neuro.Processing
         public bool IsTrained { get; set; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ShapeClassfier"/> class.
+        /// The inputs count.
+        /// </summary>
+        private int inputsCount;
+        
+        /// <summary>
+        /// Prevents a default instance of the <see cref="SvmClassifier"/> class from being created.
         /// </summary>
         private SvmClassifier()
         {
@@ -84,12 +86,12 @@ namespace Uximagine.Magicurve.Neuro.Processing
         /// </returns>
         public static SvmClassifier GetInstance()
         {
-            if (_classifier == null)
+            if (classifier == null)
             {
-                _classifier = new SvmClassifier();
+                classifier = new SvmClassifier();
             }
 
-            return _classifier;
+            return classifier;
         }
 
         /// <summary>
@@ -104,8 +106,8 @@ namespace Uximagine.Magicurve.Neuro.Processing
         public int Compute(Bitmap image)
         {
             // Compute the decision output for one of the input vectors
-            double[] input = Extract(image);
-            int decision = Machine.Compute(input);
+            double[] input = this.Extract(image);
+            int decision = this.Machine.Compute(input);
             return decision;
         }
 
@@ -121,48 +123,53 @@ namespace Uximagine.Magicurve.Neuro.Processing
         public int Compute(double[] input)
         {
             // Compute the decision output for one of the input vectors
-            int decision = Machine.Compute(input);
+            int decision = this.Machine.Compute(input);
             return decision;
         }
 
+        /// <summary>
+        /// Trains the machine.
+        /// </summary>
+        /// <param name="data">The data.</param>
+        /// <param name="classCount">The class count.</param>
         public void TrainMachine(List<Tuple<Bitmap, int>> data, int classCount)
         {
-            Inputs = new List<double[]>();
-            Outputs = new List<int>();
+            this.Inputs = new List<double[]>();
+            this.Outputs = new List<int>();
 
             foreach (Tuple<Bitmap, int> tuple in data)
             {
-                double[] features = Extract(tuple.Item1);
+                double[] features = this.Extract(tuple.Item1);
                 if (features != null && features.Length != 0)
                 {
-                    Inputs.Add(features);
-                    Outputs.Add(tuple.Item2);
+                    this.Inputs.Add(features);
+                    this.Outputs.Add(tuple.Item2);
                 }
             }
 
             this.ClassCount = classCount;
            
-            this.TrainMachine(Inputs.ToArray(), Outputs.ToArray());
+            this.TrainMachine(this.Inputs.ToArray(), this.Outputs.ToArray());
         }
 
 
         /// <summary>
         /// Extracts the specified BMP.
         /// </summary>
-        /// <param name="bmp">
-        /// The BMP.
-        /// </param>
+        /// <param name="image">The image.</param>
         /// <returns>
         /// Extracted features.
         /// </returns>
-        private double[] Extract(Bitmap bmp)
+        private double[] Extract(Bitmap image)
         {
-            double[] features = new double[SampleSize * SampleSize];
-            for (int i = 0; i < SampleSize; i++)
-                for (int j = 0; j < SampleSize; j++)
-                    features[i * SampleSize + j] = (bmp.GetPixel(j, i).R == 255) ? 0 : 1;
+            ImageToArray converter = new ImageToArray(min: -1, max: +1);
 
-            return features;
+            double[] input;
+            converter.Convert(image, out input);
+
+            this.inputsCount = input.Length;
+
+            return input;
         }
 
         /// <summary>
@@ -170,12 +177,19 @@ namespace Uximagine.Magicurve.Neuro.Processing
         /// </summary>
         public void TrainMachine()
         {
-            TrainMachine(Samples, ClassCount);
+            this.TrainMachine(this.Samples, this.ClassCount);
         }
 
         /// <summary>
         /// Trains the Machine.
         /// </summary>
+        /// <param name="inputs">The inputs.</param>
+        /// <param name="outputs">The outputs.</param>
+        /// <exception cref="System.ArgumentException">
+        /// Inputs cannot be null
+        /// or
+        /// outputs cannot be null
+        /// </exception>
         public void TrainMachine(double[][] inputs, int[] outputs)
         {
             if (inputs == null)
@@ -193,15 +207,13 @@ namespace Uximagine.Magicurve.Neuro.Processing
 
             // Create a new Multi-class Support Vector Machine with one input,
             //  using the linear kernel and for four disjoint classes.
-            if (Machine == null)
+            if (this.Machine == null)
             {
-                int inputCount = inputs.GetUpperBound(0) + 1;
-                int inputCount2 = inputs.GetUpperBound(1) + 1;
-                Machine = new MulticlassSupportVectorMachine(inputs: inputCount, kernel: kernel, classes: ClassCount);
+                this.Machine = new MulticlassSupportVectorMachine(inputs: this.inputsCount, kernel: kernel, classes: this.ClassCount);
             }
 
             // Create the Multi-class learning algorithm for the Machine
-            var teacher = new MulticlassSupportVectorLearning(Machine, inputs, outputs);
+            var teacher = new MulticlassSupportVectorLearning(this.Machine, inputs, outputs);
 
             // Configure the learning algorithm to use SMO to train the
             //  underlying SVMs in each of the binary class subproblems.
@@ -211,9 +223,9 @@ namespace Uximagine.Magicurve.Neuro.Processing
             // Run the learning algorithm
             teacher.Run();
 
-            Machine.Save("machine.nn");
+            this.Machine.Save("E:/machine.nn");
 
-            IsTrained = true;
+            this.IsTrained = true;
 
         }
     }

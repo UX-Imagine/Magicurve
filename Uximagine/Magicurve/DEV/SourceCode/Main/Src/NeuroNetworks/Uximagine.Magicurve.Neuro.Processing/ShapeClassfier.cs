@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Drawing;
 using Accord.MachineLearning.VectorMachines;
 using Accord.MachineLearning.VectorMachines.Learning;
 using Accord.Statistics.Kernels;
@@ -8,7 +10,7 @@ namespace Uximagine.Magicurve.Neuro.Processing
     /// <summary>
     /// The shape classifier.
     /// </summary>
-    public class ShapeClassfier : IClassifer
+    public class ShapeClassfier : IClassifier
     {
         // Sample input data
         // pointsCount, linesCount, DistinctAngleCount, horizantalLineCount, VerticalLineCount 
@@ -73,7 +75,7 @@ namespace Uximagine.Magicurve.Neuro.Processing
         /// <returns>
         /// The instance.
         /// </returns>
-        public static IClassifer GetInstance(int nInputs, int classes)
+        public static IClassifier GetInstance(int nInputs, int classes)
         {
             if (_classifier == null)
             {
@@ -81,6 +83,11 @@ namespace Uximagine.Magicurve.Neuro.Processing
             }
 
             return _classifier;
+        }
+
+        public void TrainMachine(List<Tuple<Bitmap, int>> images, int classesCount)
+        {
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -99,6 +106,11 @@ namespace Uximagine.Magicurve.Neuro.Processing
             return decision;
         }
 
+        public int Compute(Bitmap input)
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         /// Trains the machine.
         /// </summary>
@@ -114,6 +126,8 @@ namespace Uximagine.Magicurve.Neuro.Processing
             this.Outputs = outputs;
             this.TrainMachine();
         }
+
+        public bool IsTrained { get; set; }
 
         /// <summary>
         /// Trains the Machine.

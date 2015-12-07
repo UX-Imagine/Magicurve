@@ -1,4 +1,5 @@
 ﻿using Uximagine.Magicurve.Image.Processing.ShapeCheckers;
+using Uximagine.Magicurve.Neuro.Processing;
 
 namespace Uximagine.Magicurve.Image.Processing
 {
@@ -57,6 +58,17 @@ namespace Uximagine.Magicurve.Image.Processing
         {
             return ObjectFactory.GetInstance<IShapeChecker>(
                  ConfigurationData.ShapeCheckerImplementationPluginName);
+        }
+
+        /// <summary>
+        /// Gets the classifier.
+        /// </summary>
+        /// <returns>
+        /// The classifier.
+        /// </returns>
+        public static IClassifier GetClassifier()
+        {
+            return SvmClassifier.GetInstance();
         }
     }
 }

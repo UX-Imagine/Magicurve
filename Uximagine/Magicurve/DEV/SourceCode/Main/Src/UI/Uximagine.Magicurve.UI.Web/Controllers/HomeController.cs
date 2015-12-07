@@ -158,6 +158,7 @@ namespace Uximagine.Magicurve.UI.Web.Controllers
                                 ".jpg", ".bmp", ".png", ".jpeg", ".JPG", ".BMP", ".PNG",
                                 ".JPEG"
                             };
+
                         if (!allowedFileExtensions.Contains(file.FileName.Substring(file.FileName.LastIndexOf('.'))))
                         {
                             ModelState.AddModelError(
@@ -174,13 +175,13 @@ namespace Uximagine.Magicurve.UI.Web.Controllers
                         {
                             string fileName = ConfigurationData.UploadFileName;
                             var path = Path.Combine(Server.MapPath(ConfigurationData.UploadDirectory), fileName);
+
                             try
                             {
                                 file.SaveAs(path);
                             }
                             catch (Exception exception)
                             {
-                                
                                 throw exception;
                             }
                             

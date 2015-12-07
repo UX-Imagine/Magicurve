@@ -49,8 +49,8 @@ namespace Uximagine.Magicurve.Image.Processing.ShapeCheckers
 
             using (Bitmap cropped = GetCroppedControl(original, edgePoints))
             {
-                //cropped.Save("D:/cropped.jpg");
-                PcaClassifier classifier = PcaClassifier.GetInstance();
+                IClassifier classifier = ProcessingFactory.GetClassifier();
+
                 if (classifier.IsTrained == false)
                 {
                     Trainer trainer = new Trainer();
@@ -59,10 +59,7 @@ namespace Uximagine.Magicurve.Image.Processing.ShapeCheckers
 
                 int decision = classifier.Compute(cropped);
                 
-
                 type = (ControlType) decision + 1;
-
-                //cropped.Save("D:/cropped" + type + ".jpg");
             }
 
             return type;
@@ -78,7 +75,6 @@ namespace Uximagine.Magicurve.Image.Processing.ShapeCheckers
         /// </returns>
         private Bitmap GetCroppedControl(Bitmap image, List<IntPoint> edgePoints)
         {
-
             if (edgePoints != null)
             {
                 Bitmap cropped = image.Crop(edgePoints);
@@ -87,11 +83,8 @@ namespace Uximagine.Magicurve.Image.Processing.ShapeCheckers
 
                 return cropped;
             }
-            else
-            {
+
                 return null;
             }
-        }
-
     }
 }

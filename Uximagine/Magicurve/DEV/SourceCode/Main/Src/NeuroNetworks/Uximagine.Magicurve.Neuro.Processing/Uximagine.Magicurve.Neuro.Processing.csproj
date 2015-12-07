@@ -75,7 +75,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IClassifer.cs" />
+    <Compile Include="IClassifier.cs" />
     <Compile Include="PcaClassifier.cs" />
     <Compile Include="ShapeClassfier.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

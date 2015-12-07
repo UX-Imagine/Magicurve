@@ -96,7 +96,7 @@ namespace Uximagine.Magicurve.Image.Processing
 
             this.LogOperation("PCA Completed");
 
-            PcaClassifier classifier = PcaClassifier.GetInstance();
+            IClassifier classifier = ProcessingFactory.GetClassifier();
 
             if (classifier.IsTrained == false || ForceTraining)
             {
