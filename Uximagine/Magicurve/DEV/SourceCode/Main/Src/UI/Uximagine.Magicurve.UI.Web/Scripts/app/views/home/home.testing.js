@@ -1,77 +1,167 @@
 ﻿zebra.ready(function () {
     eval(zebra.Import("ui", "layout"));
 
-    var canvas = new zCanvas("test", 600, 400);
-    var content = new List();
+    //create json object array
+    var jsonObj = [{ "controlsName": "Button", "width": 50, "height": 60 }, { "controlsName": "CheckBox", "width": 100, "height": 60 }];
 
-    var tree = new zebra.ui.tree.Tree({
-        value: "Root",
-        kids: [
-            "Item 1",
-            "Item 2",
-            {
-                value: "Item 3",
-                kids: [
-                    "Item 3.1",
-                    "Item 3.2",
-                    "Item 3.3"
-                ]
-            }
-        ]
-    },
-    [
-        function mouseDragStarted(e) {
-            if (this.selected != null && this.getItemAt(this.selected, e.x, e.y) == this.selected) {
-                var view = this.provider.getView(this, this.selected);
+    var controls = [];
+    //controls.length = jsonObj.length;
 
-                this.viewComp = new ViewPan().properties({
-                    view: new CompRender(this),
-                    padding: 4,
-                    border: "plain",
-                    background: "red",
-                    location: [e.x, e.y]
-                });
 
-                this.viewComp.toPreferredSize();
-                this.getCanvas().getLayer("pop").add(this.viewComp);
 
-                this.cdx = e.x;
-                this.cdy = e.y;
-            }
-        },
+    //function for drawing checkbox
+    function drawCheckBox(cwidth, cheight) {
+        var checkbox = new zebra.ui.Checkbox("CheckBox");
+        checkbox.properties({
+            width: cwidth,
+            height: cheight,
+        });
+        var checkboxShaperPan = new zebra.ui.designer.ShaperPan(checkbox);
+        checkboxShaperPan.properties({
+            value: true,
+            location: [10, 10]
 
+        });
+        checkboxShaperPan.extend([
         function mouseDragged(e) {
-            if (this.viewComp) {
-                var dx = e.x - this.cdx;
-                var dy = e.y - this.cdy;
-                this.cdy = e.y;
-                this.cdx = e.x;
-                this.viewComp.setLocation(this.viewComp.x + dx, this.viewComp.y + dy);
+
+            var dy = (e.absY - this.py),
+                    dx = (e.absX - this.px),
+                    s = this.state,
+                    nw = this.width - dx * s.left + dx * s.right,
+                    nh = this.height - dy * s.top + dy * s.bottom;
+
+            var controls_width = nw - 14;
+            var controls_height = nh - 14;
+
+            var width_differ = Math.abs(this.width - nw);
+            var height_differ = Math.abs(this.height - nh);
+
+            var newXlocation = (this.x + dx * s.left) + 7;
+            var newYlocation = (this.y + dy * s.top) + 7;
+
+            if (dx != 0 || dy != 0) {
+                console.log("shaper xlocation" + " " + (this.x + dx * s.left) + " " + "shaper ylocation" + " " + (this.y + dy * s.top));
+                console.log("controller xlocation" + " " + newXlocation + " " + "controller ylocation" + " " + newYlocation);
+            } else {
+                console.log("Location Not Changed");
             }
-        },
 
-        function mouseDragEnded(e) {
-            if (this.viewComp != null) {
-                this.viewComp.removeMe();
-                this.viewComp = null;
+            if (width_differ != 0 || height_differ != 0) {
+                console.log("shaper width" + " " + nw + " " + "shaper height" + " " + nh);
+                console.log("controller width" + " " + controls_width + " " + "controller height" + " " + controls_height);
+            } else {
+                console.log("Size Not Changed");
 
-                var a = zebra.layout.toParentOrigin(e.x, e.y, this);
-                var c = this.getCanvas().getComponentAt(a.x, a.y);
-
-                if (c != this && zebra.instanceOf(c, List)) {
-                    c.model.add("" + this.selected.value);
-                }
             }
+            //console.log("dy " + dy);
+            //console.log("e.absY " + e.absY);
+            //console.log("this.py " + this.py);
+            //console.log("dx " + dx);
+            //console.log("e.absX " + e.absX);
+            //console.log("this.px " + this.px);
+            //console.log("state " + s);
+            //console.log("state left " + s.left);
+
+            this.$super(e);;
         }
-    ]);
+
+        ]);
+        return checkboxShaperPan;
+
+    }
 
 
-    canvas.root.setLayout(new BorderLayout());
-    canvas.root.setBorder(new Border("black", 1, 6));
-    canvas.root.setPadding(4);
+    //function for drawing button
+    function drawButton(bwidth, bheight) {
+        var button = new zebra.ui.Button("Button");
+        button.properties({
+            width: bwidth,
+            height: bheight
 
-    canvas.root.add(CENTER, new SplitPan(tree, content).properties({
-        gripperLoc: 150
-    }));
+        });
+        var buttonShaperPan = new zebra.ui.designer.ShaperPan(button);
+        buttonShaperPan.properties({
+            value: true,
+            location: [90, 50]
+
+        });
+
+        buttonShaperPan.extend([
+        function mouseDragged(e) {
+            this.$super(e);
+
+            var dy = (e.absY - this.py),
+                    dx = (e.absX - this.px),
+                    s = this.state,
+                    nw = this.width - dx * s.left + dx * s.right,
+                    nh = this.height - dy * s.top + dy * s.bottom;
+            //console.log(nw + " " + nh);
+            //var buttonWidth = e.kids.width;
+            //console.log(buttonWidth);
+            //console.log(e);
+        }
+
+        ]);
+
+        return buttonShaperPan;
+
+    }
+
+    function drawComboBox() {
+        var combo = new zebra.ui.Combo(new zebra.ui.List([
+       "Item 1",
+       "Item 2",
+       "Item 3"
+        ]));
+
+    }
+
+    var controlsValid = 0;
+
+    for (var i = 0; i < jsonObj.length; i++) {
+        if (jsonObj[i].controlsName == "Button") {
+            controls[controlsValid] = drawButton(jsonObj[i].width, jsonObj[i].height);
+            controlsValid++;
+        } else if (jsonObj[i].controlsName == "CheckBox") {
+            controls[controlsValid] = drawCheckBox(jsonObj[i].width, jsonObj[i].height);
+            controlsValid++;
+        }
+    }
+
+
+
+
+    var root = (new zCanvas("test", 1000, 400)).root;
+    //var p = new zebra.ui.Button("Test");
+    //var testShaperPan = new zebra.ui.designer.ShaperPan(p);
+    //var drawCheckBox = drawCheckBox();
+    // var drawButton = drawButton();
+
+    root.properties({
+        layout: new BorderLayout(4, 4),
+        border: new Border(),
+        padding: 8,
+        kids: {
+            CENTER: new BorderPan("Designer panel", new Panel({
+                padding: 6,
+                kids: controls
+            })),
+
+            BOTTOM: new Button("Align", [
+                function fire() {
+                    this.$super();
+                    var y = 10, c = root.findAll("//zebra.ui.designer.ShaperPan");
+                    for (var i = 0; i < c.length; i++) {
+                        c[i].toPreferredSize();
+                        c[i].setLocation(10, y);
+                        y += c[i].height + 5;
+                    }
+                }
+            ])
+        }
+    });
+
+
 
 });
