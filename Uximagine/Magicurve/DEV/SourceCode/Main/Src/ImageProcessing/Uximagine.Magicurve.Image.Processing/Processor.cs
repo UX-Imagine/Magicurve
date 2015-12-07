@@ -86,18 +86,13 @@ namespace Uximagine.Magicurve.Image.Processing
         /// <summary>
         /// Processes the image.
         /// </summary>
-        /// <param name="path">
-        /// The bitmap path.
-        /// </param>
-        /// <returns>
-        /// The Processed output.
-        /// </returns>
+        /// <param name="path">The bitmap path.</param>
         public void ProcessImage(string path)
         {
             using (Bitmap bitmap = new Bitmap(path))
             {
-                ImageWidth = bitmap.Width;
-                ImageHeight = bitmap.Height;
+                this.ImageWidth = bitmap.Width;
+                this.ImageHeight = bitmap.Height;
 
                 // Apply filters to get smooth image.
                 Bitmap blobReady = bitmap.GetBlobReady();
@@ -122,7 +117,7 @@ namespace Uximagine.Magicurve.Image.Processing
                     control.Type = type;
                 }
 
-                Controls = controls;
+                this.Controls = controls;
             }
         }
     }

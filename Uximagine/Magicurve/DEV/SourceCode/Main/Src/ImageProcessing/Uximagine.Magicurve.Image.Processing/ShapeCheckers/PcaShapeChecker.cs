@@ -9,7 +9,7 @@ using Uximagine.Magicurve.Neuro.Processing;
 namespace Uximagine.Magicurve.Image.Processing.ShapeCheckers
 {
     /// <summary>
-    /// The shape checker implemented using Pca classifier.
+    /// The shape checker implemented using PCA classifier.
     /// </summary>
     public class PcaShapeChecker : AdvancedShapeChecker
     {
@@ -41,13 +41,13 @@ namespace Uximagine.Magicurve.Image.Processing.ShapeCheckers
         /// <returns>
         /// The control type.
         /// </returns>
-        public override ControlType GetControlType(Bitmap original, List<IntPoint> edgePoints )
+        public override ControlType GetControlType(Bitmap original, List<IntPoint> edgePoints)
         {
             ControlType type = ControlType.None;
 
             this.SetProperties(edgePoints);
 
-            using (Bitmap cropped = GetCroppedControl(original, edgePoints))
+            using (Bitmap cropped = original.Vectorize(edgePoints, 1, SampleSize))
             {
                 IClassifier classifier = ProcessingFactory.GetClassifier();
 
@@ -59,32 +59,12 @@ namespace Uximagine.Magicurve.Image.Processing.ShapeCheckers
 
                 int decision = classifier.Compute(cropped);
                 
-                type = (ControlType) decision + 1;
-            }
+                type = (ControlType)(decision + 1);
 
+                cropped.Save("E:/Data/identified/cropped" + type + ".jpg");
+            }
+            
             return type;
         }
-
-        /// <summary>
-        /// Crops the specified image.
-        /// </summary>
-        /// <param name="image">The image.</param>
-        /// <param name="edgePoints">The edge points.</param>
-        /// <returns>
-        /// The cropped image.
-        /// </returns>
-        private Bitmap GetCroppedControl(Bitmap image, List<IntPoint> edgePoints)
-        {
-            if (edgePoints != null)
-            {
-                Bitmap cropped = image.Crop(edgePoints);
-
-                cropped = cropped.Resize(SampleSize, SampleSize);
-
-                return cropped;
-            }
-
-                return null;
-            }
     }
 }

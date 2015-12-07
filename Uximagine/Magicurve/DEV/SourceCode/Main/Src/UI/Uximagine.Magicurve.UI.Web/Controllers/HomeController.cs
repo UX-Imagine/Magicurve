@@ -3,7 +3,7 @@ using System;
 using System.IO;
 using System.Web.Mvc;
 using System.Linq;
-using System.Threading.Tasks;
+using System.Drawing;
 using Uximagine.Magicurve.DataTransfer.Requests;
 using Uximagine.Magicurve.DataTransfer.Responses;
 using Uximagine.Magicurve.Services;
@@ -14,10 +14,6 @@ using Uximagine.Magicurve.UI.Web.Models;
 
 namespace Uximagine.Magicurve.UI.Web.Controllers
 {
-    using System.Drawing;
-    using System.Net;
-    using System.Web;
-
     /// <summary>
     /// The Default controller for the web application.
     /// </summary>

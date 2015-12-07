@@ -25,25 +25,25 @@ namespace Uximagine.Magicurve.Services.Test.Neuro
     [TestFixture]
     public class SvmTrainTests
     {
-        private List<Tuple<Bitmap, int>> _images;
+        private List<Tuple<Bitmap, int>> images;
 
         private const int SampleSize = 32;
 
-        private SvmClassifier _classifier;
+        private SvmClassifier classifier;
 
         private const int MinSize = 50;
 
-        private int _classesCount = 0;
+        private int classesCount = 0;
 
         [TestFixtureSetUp]
         public void Setup()
         {
-            _images = new List<Tuple<Bitmap, int>>();
+            this.images = new List<Tuple<Bitmap, int>>();
             Debug.WriteLine("Test Started");
             GetInputsOutputs(50);
 
-            _classifier = SvmClassifier.GetInstance();
-            _classifier.TrainMachine(_images, _classesCount);
+            this.classifier = SvmClassifier.GetInstance();
+            this.classifier.TrainMachine(this.images, this.classesCount);
         }
 
         [TestFixtureTearDown]
@@ -57,7 +57,7 @@ namespace Uximagine.Magicurve.Services.Test.Neuro
         public void TestButton(string fileName)
         {
             Bitmap testInputButton = GetInputVector(fileName, MinSize);
-            var decision = _classifier.Compute(testInputButton);
+            var decision = this.classifier.Compute(testInputButton);
             decision.ShouldEqual(ControlType.Button.To<int>() - 1,
                 $"expected {ControlType.Button} but actual {(ControlType)(decision + 1)} ");
         }
@@ -66,7 +66,7 @@ namespace Uximagine.Magicurve.Services.Test.Neuro
         public void TestCombo(string fileName)
         {
             Bitmap testInputButton = GetInputVector(fileName, MinSize);
-            var decision = _classifier.Compute(testInputButton);
+            var decision = this.classifier.Compute(testInputButton);
             decision.ShouldEqual(ControlType.ComboBox.To<int>() - 1);
         }
 
@@ -74,7 +74,7 @@ namespace Uximagine.Magicurve.Services.Test.Neuro
         public void TestParah(string fileName)
         {
             Bitmap testInputButton = GetInputVector(fileName, MinSize);
-            var decision = _classifier.Compute(testInputButton);
+            var decision = this.classifier.Compute(testInputButton);
             decision.ShouldEqual(ControlType.Paragraph.To<int>() - 1);
         }
 
@@ -83,7 +83,7 @@ namespace Uximagine.Magicurve.Services.Test.Neuro
         public void TestText(string fileName)
         {
             Bitmap testInputButton = GetInputVector(fileName, MinSize);
-            var decision = _classifier.Compute(testInputButton);
+            var decision = this.classifier.Compute(testInputButton);
             decision.ShouldEqual(ControlType.InputText.To<int>() - 1);
         }
 
@@ -91,7 +91,7 @@ namespace Uximagine.Magicurve.Services.Test.Neuro
         public void TestRadio(string fileName)
         {
             Bitmap testInputButton = GetInputVector(fileName, MinSize);
-            var decision = _classifier.Compute(testInputButton);
+            var decision = this.classifier.Compute(testInputButton);
             decision.ShouldEqual(ControlType.RadioButton.To<int>() - 1);
         }
 
@@ -100,7 +100,7 @@ namespace Uximagine.Magicurve.Services.Test.Neuro
         public void TestImage(string fileName)
         {
             Bitmap testInputButton = GetInputVector(fileName, MinSize);
-            var decision = _classifier.Compute(testInputButton);
+            var decision = this.classifier.Compute(testInputButton);
             decision.ShouldEqual(ControlType.Image.To<int>() - 1);
         }
 
@@ -108,7 +108,7 @@ namespace Uximagine.Magicurve.Services.Test.Neuro
         public void TestPassword(string fileName)
         {
             Bitmap testInputButton = GetInputVector(fileName, MinSize);
-            var decision = _classifier.Compute(testInputButton);
+            var decision = this.classifier.Compute(testInputButton);
             decision.ShouldEqual(ControlType.InputPassword.To<int>() - 1);
         }
 
@@ -117,7 +117,7 @@ namespace Uximagine.Magicurve.Services.Test.Neuro
         public void TestCheckBox(string fileName)
         {
             Bitmap testInputButton = GetInputVector(fileName, MinSize);
-            var decision = _classifier.Compute(testInputButton);
+            var decision = this.classifier.Compute(testInputButton);
             decision.ShouldEqual(ControlType.CheckBox.To<int>() - 1);
         }
 
@@ -126,7 +126,7 @@ namespace Uximagine.Magicurve.Services.Test.Neuro
         public void TestDatePicker(string fileName)
         {
             Bitmap vector = GetInputVector(fileName, MinSize);
-            var decision = _classifier.Compute(vector);
+            var decision = this.classifier.Compute(vector);
             decision.ShouldEqual(ControlType.DatePicker.To<int>() - 1);
         }
 
@@ -134,7 +134,7 @@ namespace Uximagine.Magicurve.Services.Test.Neuro
         public void TestLabel(string fileName)
         {
             Bitmap vector = GetInputVector(fileName, MinSize);
-            var decision = _classifier.Compute(vector);
+            var decision = this.classifier.Compute(vector);
             decision.ShouldEqual(ControlType.Label.To<int>() - 1);
         }
 
@@ -143,7 +143,7 @@ namespace Uximagine.Magicurve.Services.Test.Neuro
         public void TestIFrame(string fileName)
         {
             Bitmap vector = GetInputVector(fileName, MinSize);
-            var decision = _classifier.Compute(vector);
+            var decision = this.classifier.Compute(vector);
             decision.ShouldEqual(ControlType.Iframe.To<int>() - 1);
         }
 
@@ -152,7 +152,7 @@ namespace Uximagine.Magicurve.Services.Test.Neuro
         public void TestHr(string fileName)
         {
             Bitmap vector = GetInputVector(fileName, MinSize);
-            var decision = _classifier.Compute(vector);
+            var decision = this.classifier.Compute(vector);
             decision.ShouldEqual(ControlType.HLine.To<int>() - 1);
         }
 
@@ -160,7 +160,7 @@ namespace Uximagine.Magicurve.Services.Test.Neuro
         public void TestRange(string fileName)
         {
             Bitmap vector = GetInputVector(fileName, MinSize);
-            var decision = _classifier.Compute(vector);
+            var decision = this.classifier.Compute(vector);
             decision.ShouldEqual(ControlType.Range.To<int>() - 1);
         }
 
@@ -183,7 +183,7 @@ namespace Uximagine.Magicurve.Services.Test.Neuro
           AddSymbols(@"D:/Data/test/inputs/iframe", ControlType.Iframe.To<int>() - 1, minSize);
           AddSymbols(@"D:/Data/test/inputs/hr", ControlType.HLine.To<int>() - 1, minSize);
           AddSymbols(@"D:/Data/test/inputs/range", ControlType.Range.To<int>() - 1, minSize);
-          // AddSymbols(@"D:/Data/test/inputs/link", ControlType.HyperLink.To<int>() - 1, minSize);
+          AddSymbols(@"D:/Data/test/inputs/link", ControlType.HyperLink.To<int>() - 1, minSize);
         }
 
         /// <summary>
@@ -201,11 +201,11 @@ namespace Uximagine.Magicurve.Services.Test.Neuro
                 Bitmap cropped = Crop(files[i], minSize);
                 if (cropped != null)
                 {
-                    _images.Add(new Tuple<Bitmap, int>(cropped, label));
+                    this.images.Add(new Tuple<Bitmap, int>(cropped, label));
                 }
             }
 
-            _classesCount++;
+            this.classesCount++;
         }
 
         /// <summary>
@@ -213,7 +213,9 @@ namespace Uximagine.Magicurve.Services.Test.Neuro
         /// </summary>
         /// <param name="fileName">Name of the file.</param>
         /// <param name="minSize">The minimum size.</param>
-        /// <returns></returns>
+        /// <returns>
+        /// The input vector.
+        /// </returns>
         public Bitmap GetInputVector(string fileName, int minSize)
         {
             Bitmap cropped = Crop(fileName, minSize);
@@ -227,7 +229,9 @@ namespace Uximagine.Magicurve.Services.Test.Neuro
         /// </summary>
         /// <param name="fileName">Name of the file.</param>
         /// <param name="minSize">The minimum size.</param>
-        /// <returns></returns>
+        /// <returns>
+        /// The cropped control.
+        /// </returns>
         private Bitmap Crop(string fileName, int minSize)
         {
             Bitmap image = new Bitmap(fileName); // Lena's picture
@@ -254,9 +258,7 @@ namespace Uximagine.Magicurve.Services.Test.Neuro
 
             Control control = controls.Where(t => t.Width > minSize && t.Height > minSize).ToList()[0];
            
-            Bitmap cropped = image.Crop(control.EdgePoints);
-
-            cropped = cropped.Resize(SampleSize, SampleSize);
+            Bitmap cropped = image.Vectorize(control.EdgePoints, 1, SampleSize);
 
             return cropped;
         }

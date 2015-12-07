@@ -59,12 +59,12 @@ namespace Uximagine.Magicurve.Image.Processing
         /// <summary>
         /// The sample size
         /// </summary>
-        private static int _sampleSize = 32;
+        private static int sampleSize = 32;
 
         /// <summary>
         /// The classes count.
         /// </summary>
-        private int _classesCount;
+        private int classesCount;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Trainer"/> class.
@@ -81,14 +81,14 @@ namespace Uximagine.Magicurve.Image.Processing
         /// <param name="minSize">
         /// The minimum size.
         /// </param>
-        /// <param name="sampleSize">
+        /// <param name="samplesize">
         /// Size of the sample.
         /// </param>
-        public void Train(int minSize, int sampleSize)
+        public void Train(int minSize, int samplesize)
         {
             this.LogOperation("Training started");
 
-            _sampleSize = Math.Max(sampleSize, _sampleSize);
+            Trainer.sampleSize = Math.Max(samplesize, Trainer.sampleSize);
 
             this.LogOperation("PCA Started");
 
@@ -102,12 +102,12 @@ namespace Uximagine.Magicurve.Image.Processing
             {
                 try
                 {
-                    classifier.TrainMachine(Images, _classesCount);
+                    classifier.TrainMachine(Images, this.classesCount);
                 }
-                catch (Exception exception)
+                catch (Exception)
                 {
                     
-                    throw exception;
+                    throw;
                 }
                 
             }
@@ -129,14 +129,15 @@ namespace Uximagine.Magicurve.Image.Processing
             {
                 string[] values = ConfigurationData.TrainDataInfo.GetValues(key);
 
-                if (values == null) continue;
-
-                
+                if (values == null)
+                {
+                    continue;
+                }
 
                 foreach (string value in values)
                 {
                     AddSymbols(value, int.Parse(key), minSize);
-                    _classesCount++;
+                    this.classesCount++;
                 }
             }
         }
@@ -151,9 +152,7 @@ namespace Uximagine.Magicurve.Image.Processing
         {
             if (folder != null)
             {
-                string[] files;
-
-                files = Directory.GetFiles(IsTesting ? folder : HostingEnvironment.MapPath(virtualPath: folder));
+                string[] files = Directory.GetFiles(IsTesting ? folder : HostingEnvironment.MapPath(folder));
 
                 var samples = files.Length;
 
@@ -169,30 +168,10 @@ namespace Uximagine.Magicurve.Image.Processing
         }
 
         /// <summary>
-        /// Gets the input vector.
+        /// Crops the specified file name.
         /// </summary>
         /// <param name="fileName">Name of the file.</param>
         /// <param name="minSize">The minimum size.</param>
-        /// <returns>
-        /// The input vector.
-        /// </returns>
-        public Bitmap GetInputVector(string fileName, int minSize)
-        {
-            Bitmap cropped = Crop(fileName, minSize);
-
-            return cropped;
-        }
-
-
-        /// <summary>
-        /// Crops the specified file name.
-        /// </summary>
-        /// <param name="fileName">
-        /// Name of the file.
-        /// </param>
-        /// <param name="minSize">
-        /// The minimum size.
-        /// </param>
         /// <returns>
         /// The cropped symbol.
         /// </returns>
@@ -211,9 +190,7 @@ namespace Uximagine.Magicurve.Image.Processing
 
             if (control != null)
             {
-                Bitmap cropped = image.Crop(control.EdgePoints);
-
-                cropped = cropped.Resize(_sampleSize, _sampleSize);
+                Bitmap cropped = image.Vectorize(control.EdgePoints, 1, sampleSize);
 
                 return cropped;
             }
@@ -231,13 +208,16 @@ namespace Uximagine.Magicurve.Image.Processing
         {
             if (ConfigurationData.MustLogOperationalPerformance)
             {
-                Operation operation = new Operation();
+                Operation operation = new Operation
+                                          {
+                                              Timestamp = DateTimeHelper.Now,
+                                              Message =
+                                                  string.Format(
+                                                      CultureInfo.InvariantCulture,
+                                                      message,
+                                                      this.GetType().Name)
+                                          };
 
-                operation.Timestamp = DateTimeHelper.Now;
-                operation.Message = string.Format(
-                    CultureInfo.InvariantCulture,
-                    message,
-                    this.GetType().Name);
 
                 this.OperationsLog.Add(operation);
             }
@@ -255,7 +235,7 @@ namespace Uximagine.Magicurve.Image.Processing
                     LogManager.Log(
                     this.GetType(),
                     ErrorSeverity.Information,
-                    string.Format("{0} at {1}", o.Message, o.Timestamp));
+                        $"{o.Message} at {o.Timestamp}");
                 });
             }
         }
