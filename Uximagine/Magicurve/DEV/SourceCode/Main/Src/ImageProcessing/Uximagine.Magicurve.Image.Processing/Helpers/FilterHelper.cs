@@ -456,5 +456,45 @@ namespace Uximagine.Magicurve.Image.Processing.Helpers
 
             return image;
         }
+
+        /// <summary>
+        /// Gets the BLOB ready.
+        /// </summary>
+        /// <param name="image">The image.</param>
+        /// <returns>
+        /// The filtered image.
+        /// </returns>
+        public static Bitmap GetCleaned(this Bitmap image)
+        {
+            image = AForge.Imaging.Filters.Grayscale.CommonAlgorithms.BT709.Apply(image);
+
+            Threshold threshold = new Threshold();
+            threshold.ApplyInPlace(image);
+
+            Median median = new Median();
+            median.ApplyInPlace(image);
+
+            return image;
+        }
+
+        /// <summary>
+        /// Gets the BLOB ready.
+        /// </summary>
+        /// <param name="sourceData">The source data.</param>
+        /// <returns>
+        /// The filtered image.
+        /// </returns>
+        public static Bitmap GetCleaned(this BitmapData sourceData)
+        {
+            Bitmap image = AForge.Imaging.Filters.Grayscale.CommonAlgorithms.BT709.Apply(sourceData);
+
+            Threshold threshold = new Threshold();
+            threshold.ApplyInPlace(image);
+
+            Median median = new Median();
+            median.ApplyInPlace(image);
+
+            return image;
+        }
     }
 }

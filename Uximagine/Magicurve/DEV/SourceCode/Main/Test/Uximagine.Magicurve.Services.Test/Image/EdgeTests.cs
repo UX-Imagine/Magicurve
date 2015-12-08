@@ -204,6 +204,7 @@ namespace Uximagine.Magicurve.Services.Test.Image
                 {1, 1, 1},
                 {0, 0, 0}
             };
+
             // create filter
             HitAndMiss filter = new HitAndMiss(se, HitAndMiss.Modes.HitAndMiss);
             // apply the filter
