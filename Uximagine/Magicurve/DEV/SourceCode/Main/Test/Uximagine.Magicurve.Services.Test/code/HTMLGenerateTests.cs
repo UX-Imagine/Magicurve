@@ -17,9 +17,9 @@
     public class HtmlGenerateTests
     {
         /// <summary>
-        /// The directory.
+        /// The Directory.
         /// </summary>
-        private string directory = @"E:/Data";
+        private const string Directory = @"D:/Data/test/outputs";
 
         /// <summary>
         /// Setups this instance.
@@ -37,6 +37,7 @@
         /// </summary>
         /// <param name="fileName">Name of the file.</param>
         [TestCase(@"D:/Data/test/inputs/template4.jpg")]
+        [TestCase(@"D:\Data\test\inputs\classify/test1.jpg")]
         public void GenerateHtmlTest(string fileName)
         {
             Processor processor = new Processor();
@@ -44,9 +45,27 @@
             List<Control> controls = processor.Controls;
 
             IGenerator generator = new ResponsiveCodeGenerator();
-            string html = generator.CreateHtmlCode(processor.Controls, processor.ImageWidth);
+            string html = generator.CreateHtmlCode(processor.Controls, processor.ImageWidth, processor.ImageHeight);
 
-            File.WriteAllText(Path.Combine(this.directory, fileName.Split('/').Last().Split('.').FirstOrDefault() + ".html"), html);
+            File.WriteAllText(Path.Combine(Directory, fileName.Split('/').Last().Split('.').FirstOrDefault() + ".html"), html);
+        }
+
+
+        /// <summary>
+        /// Generates the HTML test.
+        /// </summary>
+        /// <param name="fileName">Name of the file.</param>
+        [TestCase(@"D:/Data/test/inputs/template4.jpg")]
+        [TestCase(@"D:\Data\test\inputs\classify/test1.jpg")]
+        public void SimpleGenerateHtmlTest(string fileName)
+        {
+            Processor processor = new Processor();
+            processor.ProcessImage(fileName);
+
+            IGenerator generator = new SimpleCodeGenerator();
+            string html = generator.CreateHtmlCode(processor.Controls, processor.ImageWidth, processor.ImageHeight);
+
+            File.WriteAllText(Path.Combine(Directory, fileName.Split('/').Last().Split('.').FirstOrDefault() + ".html"), html);
         }
     }
 }

@@ -71,7 +71,7 @@ namespace Uximagine.Magicurve.Services.BusinessServices.UnitsOfWork
         protected override void Execute()
         {
             IGenerator codeGenerator = CodeGeneratorFactory.GetProcessingService();
-            Code = codeGenerator.CreateHtmlCode(Controls, ImageWidth);
+            this.Code = codeGenerator.CreateHtmlCode(this.Controls, this.ImageWidth, this.ImageHeight);
         } 
 
         #endregion

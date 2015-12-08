@@ -90,26 +90,38 @@ namespace Uximagine.Magicurve.Image.Processing
 
             Trainer.sampleSize = Math.Max(samplesize, Trainer.sampleSize);
 
-            this.LogOperation("PCA Started");
-
-            GetFeatures(minSize);
-
-            this.LogOperation("PCA Completed");
-
             IClassifier classifier = ProcessingFactory.GetClassifier();
 
-            if (classifier.IsTrained == false || ForceTraining)
+            if (ConfigurationData.LoadMachineFromFile)
             {
-                try
+                this.LogOperation("Loading started.");
+
+                classifier.TrainMachine();
+
+                this.LogOperation("Loading Finished.");
+            }
+            else
+            {
+
+                this.LogOperation("PCA Started");
+
+                GetFeatures(minSize);
+
+                this.LogOperation("PCA Completed");
+
+                if (classifier.IsTrained == false || ForceTraining)
                 {
-                    classifier.TrainMachine(Images, this.classesCount);
+                    try
+                    {
+                        classifier.TrainMachine(Images, this.classesCount);
+                    }
+                    catch (Exception)
+                    {
+
+                        throw;
+                    }
+
                 }
-                catch (Exception)
-                {
-                    
-                    throw;
-                }
-                
             }
 
             this.LogOperation("Training Completed");

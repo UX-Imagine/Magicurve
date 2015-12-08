@@ -1,6 +1,7 @@
 ﻿namespace Uximagine.Magicurve.Services.Test.Image
 {
     using System;
+    using System.Collections.Generic;
     using System.Drawing;
     using System.Drawing.Imaging;
     using System.Linq;
@@ -16,6 +17,8 @@
     using NUnit.Framework;
     using Should;
     using Uximagine.Magicurve.Image.Processing.Helpers;
+
+    using Point = DotImaging.Primitives2D.Point;
 
     /// <summary>
     /// The hough line tests.
@@ -67,6 +70,7 @@
         /// </summary>
         /// <param name="fileName">Name of the file.</param>
         [TestCase(@"D:\Data\test\inputs\label/text_12.jpg")]
+        [TestCase(@"D:\Data\test\inputs/sample15.png")]
         public void TestDraw(string fileName)
         {
             Bitmap sourceImage = new Bitmap(fileName);
@@ -78,6 +82,9 @@
 
             Median median = new Median();
             median.ApplyInPlace(sourceImage);
+
+            Invert invert = new Invert();
+            invert.ApplyInPlace(sourceImage);
 
             HoughLineTransformation lineTransform = new HoughLineTransformation();
 
@@ -93,6 +100,100 @@
 
             //// get lines using relative intensity
             HoughLine[] lines = lineTransform.GetLinesByRelativeIntensity(0.5);
+
+            foreach (HoughLine line in lines)
+            {
+                // get line's radius and theta values
+                int r = line.Radius;
+                double t = line.Theta;
+
+                // check if line is in lower part of the image
+                if (r < 0)
+                {
+                    t += 180;
+                    r = -r;
+                }
+
+                // convert degrees to radians
+                t = (t / 180) * Math.PI;
+
+                // get image centers (all coordinate are measured relative
+                // to center)
+                int w2 = sourceImage.Width / 2;
+                int h2 = sourceImage.Height / 2;
+
+                double x0, x1, y0, y1;
+
+                if (line.Theta != 0)
+                {
+                    continue;
+                    // none-vertical line
+                    x0 = -w2; // most left point
+                    x1 = w2; // most right point
+
+                    // calculate corresponding y values
+                    y0 = (-Math.Cos(t) * x0 + r) / Math.Sin(t);
+                    y1 = (-Math.Cos(t) * x1 + r) / Math.Sin(t);
+                }
+                else
+                {
+                    // vertical line
+                    x0 = line.Radius;
+                    x1 = line.Radius;
+
+                    y0 = h2;
+                    y1 = -h2;
+                }
+
+                // draw line on the image
+                Drawing.Line(
+                    sourceData,
+                    new IntPoint((int)x0 + w2, h2 - (int)y0),
+                    new IntPoint((int)x1 + w2, h2 - (int)y1),
+                    Color.Red);
+                
+            }
+
+            sourceImage.UnlockBits(sourceData);
+
+            sourceImage.Save(@"D:/Data/test/outputs/hough_" + fileName.Split('/').Last());
+        }
+
+        /// <summary>
+        /// Tests the draw.
+        /// </summary>
+        /// <param name="fileName">Name of the file.</param>
+        [TestCase(@"D:\Data\test\inputs\label/text_12.jpg")]
+        [TestCase(@"D:\Data\test\inputs/sample15.png")]
+        public void TestMostSensitiveLines(string fileName)
+        {
+            Bitmap sourceImage = new Bitmap(fileName);
+
+            sourceImage = Grayscale.CommonAlgorithms.BT709.Apply(sourceImage);
+
+            Threshold threshold = new Threshold();
+            threshold.ApplyInPlace(sourceImage);
+
+            Median median = new Median();
+            median.ApplyInPlace(sourceImage);
+
+            Invert invert = new Invert();
+            invert.ApplyInPlace(sourceImage);
+
+            HoughLineTransformation lineTransform = new HoughLineTransformation();
+
+            //// apply Hough line transform
+            lineTransform.ProcessImage(sourceImage);
+
+            BitmapData sourceData = sourceImage.LockBits(
+               new Rectangle(0, 0, sourceImage.Width, sourceImage.Height),
+               ImageLockMode.ReadWrite,
+               sourceImage.PixelFormat);
+
+            Bitmap houghLineImage = lineTransform.ToBitmap();
+
+            //// get lines using relative intensity
+            HoughLine[] lines = lineTransform.GetMostIntensiveLines(10);
 
             foreach (HoughLine line in lines)
             {
@@ -143,12 +244,103 @@
                     new IntPoint((int)x0 + w2, h2 - (int)y0),
                     new IntPoint((int)x1 + w2, h2 - (int)y1),
                     Color.Red);
-                
+
             }
 
             sourceImage.UnlockBits(sourceData);
 
-            sourceImage.Save(@"D:/Data/test/outputs/hough_" + fileName.Split('/').Last());
+            sourceImage.Save(@"D:/Data/test/outputs/hough_most_" + fileName.Split('/').Last());
+        }
+
+        /// <summary>
+        /// Tests the draw.
+        /// </summary>
+        /// <param name="fileName">Name of the file.</param>
+        [TestCase(@"D:\Data\test\inputs\label/text_12.jpg")]
+        [TestCase(@"D:\Data\test\inputs/sample15.png")]
+        [TestCase(@"D:\Data\test\inputs/download (1).png")]
+        public void TestMostSensitiveLinesNonInvert(string fileName)
+        {
+            Bitmap sourceImage = new Bitmap(fileName);
+
+            sourceImage = Grayscale.CommonAlgorithms.BT709.Apply(sourceImage.ConvertToFormat(PixelFormat.Format24bppRgb));
+
+            Threshold threshold = new Threshold();
+            threshold.ApplyInPlace(sourceImage);
+
+            Median median = new Median();
+            median.ApplyInPlace(sourceImage);
+
+            HoughLineTransformation lineTransform = new HoughLineTransformation();
+
+            //// apply Hough line transform
+            lineTransform.ProcessImage(sourceImage);
+
+            BitmapData sourceData = sourceImage.LockBits(
+               new Rectangle(0, 0, sourceImage.Width, sourceImage.Height),
+               ImageLockMode.ReadWrite,
+               sourceImage.PixelFormat);
+
+            Bitmap houghLineImage = lineTransform.ToBitmap();
+
+            //// get lines using relative intensity
+            HoughLine[] lines = lineTransform.GetMostIntensiveLines(10);
+
+            foreach (HoughLine line in lines)
+            {
+                // get line's radius and theta values
+                int r = line.Radius;
+                double t = line.Theta;
+
+                // check if line is in lower part of the image
+                if (r < 0)
+                {
+                    t += 180;
+                    r = -r;
+                }
+
+                // convert degrees to radians
+                t = (t / 180) * Math.PI;
+
+                // get image centers (all coordinate are measured relative
+                // to center)
+                int w2 = sourceImage.Width / 2;
+                int h2 = sourceImage.Height / 2;
+
+                double x0, x1, y0, y1;
+
+                if (line.Theta != 0)
+                {
+                    // none-vertical line
+                    x0 = -w2; // most left point
+                    x1 = w2; // most right point
+
+                    // calculate corresponding y values
+                    y0 = (-Math.Cos(t) * x0 + r) / Math.Sin(t);
+                    y1 = (-Math.Cos(t) * x1 + r) / Math.Sin(t);
+                }
+                else
+                {
+                    // vertical line
+                    x0 = line.Radius;
+                    x1 = line.Radius;
+
+                    y0 = h2;
+                    y1 = -h2;
+                }
+
+                // draw line on the image
+                Drawing.Line(
+                    sourceData,
+                    new IntPoint((int)x0 + w2, h2 - (int)y0),
+                    new IntPoint((int)x1 + w2, h2 - (int)y1),
+                    Color.Red);
+
+            }
+
+            sourceImage.UnlockBits(sourceData);
+
+            sourceImage.Save(@"D:/Data/test/outputs/hough_most_ninvert_" + fileName.Split('/').Last());
         }
 
         /// <summary>
@@ -160,7 +352,17 @@
         {
             Bgr<byte>[,] image = ImageIO.LoadColor(fileName).Clone();
             Gray<byte>[,] grays = image.ToGray().CorrectContrast().Canny();
+            List<Point> corners = grays.HarrisCorners<byte>();
+            
             grays.Save(@"D:/Data/test/outputs/canny_" + fileName.Split('/').Last());
+        }
+
+        /// <summary>
+        /// Tests the erode.
+        /// </summary>
+        public void TestErrorde()
+        {
+            
         }
     }
 }

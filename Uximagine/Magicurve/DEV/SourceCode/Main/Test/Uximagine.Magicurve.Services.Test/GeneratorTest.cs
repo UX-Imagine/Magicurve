@@ -66,39 +66,39 @@ namespace Uximagine.Magicurve.Services.Test
             List<Control> controls = new List<Control>()
             {
                 new Control(){  
-                    Type = Core.Models.ControlType.ComboBox,
-                    X = 50,
+                    Type = Core.Models.ControlType.ComboBox, 
+                    X = 50, 
                     Y = 128
-                },
+                }, 
                 new Control(){ 
-                    Type = Core.Models.ControlType.InputText,
-                    X = 50,
+                    Type = Core.Models.ControlType.InputText, 
+                    X = 50, 
                     Y = 100
-                },
+                }, 
                 new Button(){
-                    X = 50,
-                    Y = 72,
+                    X = 50, 
+                    Y = 72, 
                     Value = "Click Me"
 
-                },
+                }, 
                 new Control(){
-                    Type = Core.Models.ControlType.CheckBox,
-                    Width = 28,
-                    Height = 28,
-                    X = 50,
+                    Type = Core.Models.ControlType.CheckBox, 
+                    Width = 28, 
+                    Height = 28, 
+                    X = 50, 
                     Y = 150
 
                 }
 
             };
 
-            //without applying custom css file
-            string result = generator.CreateHtmlCode(controls,900);
+            //// without applying custom CSS file
+            string result = generator.CreateHtmlCode(controls, 900, 768);
             Debug.Write(result);
             testClass.GenarateSimpleHTMLPage(result);
 
-            //for style generator page
-            string styleResult = styleGenerator.CreateHtmlCode(controls,900);
+            //// for style generator page
+            string styleResult = styleGenerator.CreateHtmlCode(controls, 900, 768);
             Debug.Write(styleResult);
             testClass.GenarateCssHTMLPage(styleResult);
         }
@@ -174,7 +174,7 @@ namespace Uximagine.Magicurve.Services.Test
             };
 
             //for resposive generator page
-            string responsiveResult = responsiveGenerator.CreateHtmlCode(controls,900);
+            string responsiveResult = responsiveGenerator.CreateHtmlCode(controls,900, 768);
             Debug.Write(responsiveResult);
             testClass.GenarateResponsiveHTMLPage(responsiveResult, "responsiveWebPage.html");
 
@@ -298,7 +298,7 @@ namespace Uximagine.Magicurve.Services.Test
             };
 
             //for resposive generator page
-            string responsiveResult = responsiveGenerator.CreateHtmlCode(controls,900);
+            string responsiveResult = responsiveGenerator.CreateHtmlCode(controls, 900, 768);
             Debug.Write(responsiveResult);
             testClass.GenarateResponsiveHTMLPage(responsiveResult, "responsiveSample-1.html");
         }
@@ -470,13 +470,13 @@ namespace Uximagine.Magicurve.Services.Test
             
 
             //for resposive generator page
-           string responsiveResult1 = responsiveGenerator.CreateHtmlCode(controlsSet1, 900);
+           string responsiveResult1 = responsiveGenerator.CreateHtmlCode(controlsSet1, 900, 768);
             Debug.Write(responsiveResult1);
             testClass.GenarateResponsiveHTMLPage(responsiveResult1, "responsiveSample-2.html");
 
             //responsiveGenerator.CreateHtmlCode(null, 0);
 
-            string responsiveResult2 = responsiveGenerator.CreateHtmlCode(controlsSet2, 900);
+            string responsiveResult2 = responsiveGenerator.CreateHtmlCode(controlsSet2, 900, 768);
             Debug.Write(responsiveResult2);
             testClass.GenarateResponsiveHTMLPage(responsiveResult2, "responsiveSampleChangeImg-2.html");
            
@@ -624,7 +624,7 @@ namespace Uximagine.Magicurve.Services.Test
             };
 
             //for resposive generator page
-            string responsiveResult = responsiveGenerator.CreateHtmlCode(controls, 900);
+            string responsiveResult = responsiveGenerator.CreateHtmlCode(controls, 900, 768);
             Debug.Write(responsiveResult);
 
             testClass.GenarateResponsiveHTMLPage(responsiveResult, "Sample-3-ChangeAlgos.html");

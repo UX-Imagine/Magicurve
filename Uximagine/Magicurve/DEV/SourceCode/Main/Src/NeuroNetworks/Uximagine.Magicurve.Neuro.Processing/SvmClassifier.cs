@@ -130,6 +130,22 @@ namespace Uximagine.Magicurve.Neuro.Processing
         /// <summary>
         /// Trains the machine.
         /// </summary>
+        public void TrainMachine()
+        {
+            if (ConfigurationData.LoadMachineFromFile)
+            {
+                this.Machine = MulticlassSupportVectorMachine.Load(ConfigurationData.MachineUrl);
+                this.IsTrained = true;
+            }
+            else
+            {
+                this.TrainMachine(this.Samples, this.ClassCount);
+            }
+        }
+
+        /// <summary>
+        /// Trains the machine.
+        /// </summary>
         /// <param name="data">The data.</param>
         /// <param name="classCount">The class count.</param>
         public void TrainMachine(List<Tuple<Bitmap, int>> data, int classCount)
@@ -150,34 +166,6 @@ namespace Uximagine.Magicurve.Neuro.Processing
             this.ClassCount = classCount;
            
             this.TrainMachine(this.Inputs.ToArray(), this.Outputs.ToArray());
-        }
-
-
-        /// <summary>
-        /// Extracts the specified BMP.
-        /// </summary>
-        /// <param name="image">The image.</param>
-        /// <returns>
-        /// Extracted features.
-        /// </returns>
-        private double[] Extract(Bitmap image)
-        {
-            ImageToArray converter = new ImageToArray(min: -1, max: +1);
-
-            double[] input;
-            converter.Convert(image, out input);
-
-            this.inputsCount = input.Length;
-
-            return input;
-        }
-
-        /// <summary>
-        /// Trains the machine.
-        /// </summary>
-        public void TrainMachine()
-        {
-            this.TrainMachine(this.Samples, this.ClassCount);
         }
 
         /// <summary>
@@ -227,6 +215,25 @@ namespace Uximagine.Magicurve.Neuro.Processing
 
             this.IsTrained = true;
 
+        }
+
+        /// <summary>
+        /// Extracts the specified BMP.
+        /// </summary>
+        /// <param name="image">The image.</param>
+        /// <returns>
+        /// Extracted features.
+        /// </returns>
+        private double[] Extract(Bitmap image)
+        {
+            ImageToArray converter = new ImageToArray(min: -1, max: +1);
+
+            double[] input;
+            converter.Convert(image, out input);
+
+            this.inputsCount = input.Length;
+
+            return input;
         }
     }
 }

@@ -35,9 +35,22 @@ namespace Uximagine.Magicurve.CodeGenerator
         public string div = "div";
         public string newline = Environment.NewLine;
 
-        
-
-        public string CreateHtmlCode(List<Control> controls, double width)
+        /// <summary>
+        /// The create html code.
+        /// </summary>
+        /// <param name="controls">
+        /// The controls.
+        /// </param>
+        /// <param name="width">
+        /// The width.
+        /// </param>
+        /// <param name="height">
+        /// The height.
+        /// </param>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
+        public string CreateHtmlCode(List<Control> controls, double width, double height)
         {
             StringBuilder builder = new StringBuilder();
 

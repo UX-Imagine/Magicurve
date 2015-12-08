@@ -49,6 +49,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CodeGeneratorFactory.cs" />
+    <Compile Include="Common\CommonTags.cs" />
+    <Compile Include="Common\ConfigurationData.cs" />
     <Compile Include="SimpleCodeGenerator.cs" />
     <Compile Include="ResponsiveCodeGenerator.cs" />
     <Compile Include="SortHelper.cs" />
@@ -74,4 +76,3 @@
   </Target>
   -->
 </Project>
-

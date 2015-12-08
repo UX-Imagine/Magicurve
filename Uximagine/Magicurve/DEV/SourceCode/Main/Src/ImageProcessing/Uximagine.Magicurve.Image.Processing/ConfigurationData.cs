@@ -130,7 +130,7 @@ namespace Uximagine.Magicurve.Image.Processing
         /// <value>
         /// <c>true</c> if [must log operational performance]; otherwise, <c>false</c>.
         /// </value>
-        public static bool MustLogOperationalPerformance { get { return true; } }
+        public static bool MustLogOperationalPerformance => true;
 
         /// <summary>
         /// Gets the minimum size.
@@ -138,11 +138,20 @@ namespace Uximagine.Magicurve.Image.Processing
         /// <value>
         /// The minimum size.
         /// </value>
-        public static int MinSize
+        public static int MinSize => int.Parse(ConfigurationManager.AppSettings["minControlSize"]);
+
+        /// <summary>
+        /// Gets a value indicating whether [load machine from file].
+        /// </summary>
+        /// <value>
+        /// <c>true</c> if [load machine from file]; otherwise, <c>false</c>.
+        /// </value>
+        public static bool LoadMachineFromFile
         {
             get
             {
-                return int.Parse(ConfigurationManager.AppSettings["minControlSize"]);
+                string load = ConfigurationManager.AppSettings["loadMachine"];
+                return load == "true";
             }
         }
     }

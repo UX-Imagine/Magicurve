@@ -52,7 +52,7 @@ namespace Uximagine.Magicurve.Services.Test
             };
 
             //for resposive generator page
-            string test_1 = responsiveGenerator.CreateHtmlCode(test_1_sample, 900);
+            string test_1 = responsiveGenerator.CreateHtmlCode(test_1_sample, 900, 768);
             Debug.Write(test_1);
 
             evaluation.GenerateSampleHTML(test_1, "test-1-sample.html");
@@ -103,7 +103,7 @@ namespace Uximagine.Magicurve.Services.Test
             };
 
             //for resposive generator page
-            string test_2 = responsiveGenerator.CreateHtmlCode(test_2_sample, 900);
+            string test_2 = responsiveGenerator.CreateHtmlCode(test_2_sample, 900, 768);
             Debug.Write(test_2);
 
             evaluation.GenerateSampleHTML(test_2, "test-2-sample.html");
@@ -170,7 +170,7 @@ namespace Uximagine.Magicurve.Services.Test
             };
 
             //for resposive generator page
-            string test_3 = responsiveGenerator.CreateHtmlCode(test_3_sample, 900);
+            string test_3 = responsiveGenerator.CreateHtmlCode(test_3_sample, 900, 768);
             Debug.Write(test_3);
 
             evaluation.GenerateSampleHTML(test_3, "test-3-sample.html");
@@ -253,7 +253,7 @@ namespace Uximagine.Magicurve.Services.Test
             };
 
             //for resposive generator page
-            string test_4 = responsiveGenerator.CreateHtmlCode(test_4_sample, 900);
+            string test_4 = responsiveGenerator.CreateHtmlCode(test_4_sample, 900, 768);
             Debug.Write(test_4);
 
             evaluation.GenerateSampleHTML(test_4, "test-4-sample.html");
