@@ -1,19 +1,15 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
-using Uximagine.Magicurve.DataTransfer.Requests;
-using Uximagine.Magicurve.Services;
+using System.IO;
 using Uximagine.Magicurve.UI.Web.Common;
 
 namespace Uximagine.Magicurve.UI.Web
 {
-    using System.IO;
-
     /// <summary>
     /// The web application.
     /// </summary>

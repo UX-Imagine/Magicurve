@@ -7,16 +7,14 @@ namespace Uximagine.Magicurve.UI.Web.Common
     /// <summary>
     /// Start up point for training.
     /// </summary>
-    public class Startup
+    public static class Startup
     {
         /// <summary>
         /// Initializes this instance.
         /// </summary>
         public static void Init()
         {
-            
-                        // Do not wait for this call.
-                        new Startup().Train(force: false);
+            Train(force: false);
         }
 
         /// <summary>
@@ -26,7 +24,7 @@ namespace Uximagine.Magicurve.UI.Web.Common
         /// <returns>
         /// When task is completed.
         /// </returns>
-        private async Task Train(bool force)
+        private static async Task Train(bool force)
         {
             IProcessingService service = ServiceFactory.GetProcessingService();
             TrainRequest request = new TrainRequest()

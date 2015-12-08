@@ -54,7 +54,7 @@
     <Compile Include="Common\ConfigurationData.cs" />
     <Compile Include="SimpleCodeGenerator.cs" />
     <Compile Include="ResponsiveCodeGenerator.cs" />
-    <Compile Include="SortHelper.cs" />
+    <Compile Include="Helpers\SortHelper.cs" />
     <Compile Include="StylizedCodeGenerator.cs" />
     <Compile Include="IGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

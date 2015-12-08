@@ -10,6 +10,8 @@ using Uximagine.Magicurve.Core.Shapes;
 
 namespace Uximagine.Magicurve.Services.Test
 {
+    using Uximagine.Magicurve.CodeGenerator.Helpers;
+
     [TestClass]
     public class GeneratorTest
     {
@@ -113,8 +115,6 @@ namespace Uximagine.Magicurve.Services.Test
 
             IGenerator responsiveGenerator = new ResponsiveCodeGenerator();
 
-            SortHelper sortHelper = new SortHelper();
-
             List<Control> controls = new List<Control>()
             {
                     
@@ -178,13 +178,13 @@ namespace Uximagine.Magicurve.Services.Test
             Debug.Write(responsiveResult);
             testClass.GenarateResponsiveHTMLPage(responsiveResult, "responsiveWebPage.html");
 
-            //test y sorting and DivAlgorithm method without x sorting
-            List<Row> rowList = sortHelper.GenerateDivision(sortHelper.SortListYProperty(controls));
+            //// test y sorting and DivAlgorithm method without x sorting
+            List<Row> rowList = controls.SortByY().GenerateDivisions();
             foreach (Row row in rowList)
             {
                 foreach (Control item in row.Controls)
                 {
-                    Console.WriteLine("{0} {1} {2} {3}", item.Type, item.X, item.Y, item.Height);
+                    Console.WriteLine(@"{0} {1} {2} {3}", item.Type, item.X, item.Y, item.Height);
                 }
 
             }
@@ -196,7 +196,7 @@ namespace Uximagine.Magicurve.Services.Test
             Assert.AreEqual(2, rowList[2].Controls.Count);
 
             // test after x sorting
-            List<Row> rowListX = sortHelper.SortListXProperty(rowList);
+            List<Row> rowListX = rowList.SortListXProperty();
             foreach (Row row in rowListX)
             {
                 foreach (Control item in row.Controls)
@@ -224,8 +224,6 @@ namespace Uximagine.Magicurve.Services.Test
             var testClass = new GeneratorTest();
 
             IGenerator responsiveGenerator = new ResponsiveCodeGenerator();
-
-            SortHelper sortHelper = new SortHelper();
 
             List<Control> controls = new List<Control>()
             {
@@ -312,8 +310,6 @@ namespace Uximagine.Magicurve.Services.Test
             var testClass = new GeneratorTest();
 
             IGenerator responsiveGenerator = new ResponsiveCodeGenerator();
-
-            SortHelper sortHelper = new SortHelper();
 
             List<Control> controlsSet1 = new List<Control>()
             {
@@ -495,8 +491,6 @@ namespace Uximagine.Magicurve.Services.Test
             var testClass = new GeneratorTest();
 
             IGenerator responsiveGenerator = new ResponsiveCodeGenerator();
-
-            SortHelper sortHelper = new SortHelper();
 
             List<Control> controls = new List<Control>()
             {

@@ -13,6 +13,21 @@ namespace Uximagine.Magicurve.CodeGenerator.Common
         public static class HtmlTags
         {
             /// <summary>
+            /// The bootstrap CSS.
+            /// </summary>
+            public const string BootstrapCss = "bootstrap.min.css";
+
+            /// <summary>
+            /// The bootstrap min JS.
+            /// </summary>
+            public const string BootstrapJs = "bootstrap.min.js";
+
+            /// <summary>
+            /// The JQUERY JS.
+            /// </summary>
+            public const string Jquery = "jquery.min.js";
+
+            /// <summary>
             /// The custom CSS.
             /// </summary>
             public const string CustomCss = "selected-css.css";
@@ -25,17 +40,17 @@ namespace Uximagine.Magicurve.CodeGenerator.Common
             /// <summary>
             /// The Title.
             /// </summary>
-            public const string Title = "<Title>";
+            public const string Title = "title";
 
             /// <summary>
             /// The Head.
             /// </summary>
-            public const string Head = "Head";
+            public const string Head = "head";
 
             /// <summary>
             /// The Body.
             /// </summary>
-            public const string Body = "Body";
+            public const string Body = "body";
 
             /// <summary>
             /// The para or label tag.
@@ -118,14 +133,9 @@ namespace Uximagine.Magicurve.CodeGenerator.Common
             public const string HorizontalTag = "hr";
 
             /// <summary>
-            /// The Div.
+            /// The Division.
             /// </summary>
-            public const string Div = "Div";
-
-            /// <summary>
-            /// The Newline.
-            /// </summary>
-            public static string Newline = Environment.NewLine;
+            public const string Div = "div";
         }
     }
 }

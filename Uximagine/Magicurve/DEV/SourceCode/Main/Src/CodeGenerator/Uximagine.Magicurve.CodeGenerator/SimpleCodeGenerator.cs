@@ -145,7 +145,7 @@ namespace Uximagine.Magicurve.CodeGenerator
         /// </returns>
         private string GetFooter()
         {
-            string footer = string.Format(@"</body>" + CommonTags.HtmlTags.Newline + "</Html>");
+            string footer = $@"</body> {Environment.NewLine} </Html>";
             return footer;
         }
 
@@ -339,11 +339,8 @@ namespace Uximagine.Magicurve.CodeGenerator
         {
             Button button = control as Button;
 
-            string btn = string.Format(
-                @"    <input type='button' value='{0}' style='left:{1}px;top:{2}px;position:absolute'/>" + Environment.NewLine ,
-                "Click Me",
-                button?.X,
-                button?.Y);
+            string btn =
+                $"<input type='button' value='{button?.Value} Click Me' style='left:{control.X}px;top:{control.Y}px;position:absolute;'/>{Environment.NewLine}";
 
             return btn;
         }
@@ -377,7 +374,7 @@ namespace Uximagine.Magicurve.CodeGenerator
         /// </returns>
         public string GetRadio(Control radio)
         {
-            return $"<div style='left:{radio.X}px;top:{radio.Y}px;position:absolute'><input type='radio' value='radio' >Radio</input></div>";
+            return $"<div style='left:{radio.X}px;top:{radio.Y}px;position:absolute'><input type='radio' value='radio' > Radio</input></div>";
         }
 
         /// <summary>
@@ -408,11 +405,9 @@ namespace Uximagine.Magicurve.CodeGenerator
         /// </returns>
         public string GetText(Control text)
         {
-            string txt = string.Format(@"    <input type='text' style='left:{0}px;top:{1}px;position:absolute'/>" + Environment.NewLine,
-                                           text.X,
-                                           text.Y);
-
-
+            string txt =
+                $"<input type='text' style='left:{text.X}px;top:{text.Y}px;position:absolute' placeholder='text input'/> {Environment.NewLine}";
+                                           
             return txt;
         }
 
@@ -425,7 +420,7 @@ namespace Uximagine.Magicurve.CodeGenerator
         /// </returns>
         public string GetPassword(Control password)
         {
-            string pass = $@"    <input type='password' style='left:{password.X}px;top:{password.Y}px;position:absolute;'/>";
+            string pass = $@"    <input type='password' style='left:{password.X}px;top:{password.Y}px;position:absolute;'  placeholder='password input'/>";
             return pass;
         }
 
@@ -520,7 +515,7 @@ namespace Uximagine.Magicurve.CodeGenerator
         /// </returns>
         public string GetIframe(Control iframe)
         {
-            return $"<iframe src='#' style='left:{iframe.X}px;top:{iframe.Y}px;position:absolute;'></iframe>";
+            return $"<iframe src='#' style='left:{iframe.X}px;top:{iframe.Y}px;position:absolute;width:{iframe.Width}px;height:{iframe.Height}px;'></iframe>";
         }
 
         /// <summary>

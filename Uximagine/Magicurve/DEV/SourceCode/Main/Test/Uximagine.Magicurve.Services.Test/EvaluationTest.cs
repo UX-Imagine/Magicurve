@@ -9,6 +9,8 @@ using Uximagine.Magicurve.Core.Shapes;
 
 namespace Uximagine.Magicurve.Services.Test
 {
+    using Uximagine.Magicurve.CodeGenerator.Helpers;
+
     [TestClass]
     public class EvaluationTest
     {
@@ -29,8 +31,6 @@ namespace Uximagine.Magicurve.Services.Test
             EvaluationTest evaluation = new EvaluationTest();
 
             IGenerator responsiveGenerator = new ResponsiveCodeGenerator();
-
-            SortHelper sortHelper = new SortHelper();
 
             List<Control> test_1_sample = new List<Control>() { 
 
@@ -64,8 +64,6 @@ namespace Uximagine.Magicurve.Services.Test
             EvaluationTest evaluation = new EvaluationTest();
 
             IGenerator responsiveGenerator = new ResponsiveCodeGenerator();
-
-            SortHelper sortHelper = new SortHelper();
 
             List<Control> test_2_sample = new List<Control>() { 
 
@@ -115,8 +113,6 @@ namespace Uximagine.Magicurve.Services.Test
             EvaluationTest evaluation = new EvaluationTest();
 
             IGenerator responsiveGenerator = new ResponsiveCodeGenerator();
-
-            SortHelper sortHelper = new SortHelper();
 
             List<Control> test_3_sample = new List<Control>() { 
 
@@ -182,8 +178,6 @@ namespace Uximagine.Magicurve.Services.Test
             EvaluationTest evaluation = new EvaluationTest();
 
             IGenerator responsiveGenerator = new ResponsiveCodeGenerator();
-
-            SortHelper sortHelper = new SortHelper();
 
             List<Control> test_4_sample = new List<Control>() { 
 

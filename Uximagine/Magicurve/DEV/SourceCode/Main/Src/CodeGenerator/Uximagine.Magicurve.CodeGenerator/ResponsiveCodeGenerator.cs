@@ -1,42 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Text;
 using Uximagine.Magicurve.Core.Models;
 using Uximagine.Magicurve.Core.Shapes;
+using Uximagine.Magicurve.CodeGenerator.Common;
+using Uximagine.Magicurve.CodeGenerator.Helpers;
+using System;
 
 namespace Uximagine.Magicurve.CodeGenerator
 {
+    /// <summary>
+    /// The responsive code generator.
+    /// </summary>
     public class ResponsiveCodeGenerator : IGenerator
     {
-        public string boostrapCss = "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css";
-        public string boostrapMinJs = "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js";
-        public string jquery = "https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js";
-        public string html = "html";
-        public string title = "title";
-        public string head = "head";
-        public string body = "body";
-        public string paraOrLabelTag = "p";
-        public string formTag = "form";
-        public string inputTag = "input";
-        public string textInput = "text";
-        public string submitInput = "submit";
-        public string resetInput = "clear";
-        public string passwordInput = "password";
-        public string radioInput = "radio";
-        public string checkboxInput = "checkbox";
-        public string buttonInput = "button";
-        public string dateInput = "date";
-        public string textAreaTag = "textarea";
-        public string imageTag = "img";
-        public string hyperLinkTag = "a";
-        public string iframeTag = "iframe";
-        public string groupTag = "div";
-        public string horizontalTag = "hr";
-        public string div = "div";
-        public string newline = Environment.NewLine;
-
         /// <summary>
-        /// The create html code.
+        /// The create HTML code.
         /// </summary>
         /// <param name="controls">
         /// The controls.
@@ -54,30 +32,33 @@ namespace Uximagine.Magicurve.CodeGenerator
         {
             StringBuilder builder = new StringBuilder();
 
-            builder.Append(NormalStartTag(html));
-            builder.Append(NormalStartTag(head));
-            builder.Append(ApplyCss(boostrapCss));
-            builder.Append(EndTag(head));
-            builder.Append(GetBody());
-            SortHelper sortHelper = new SortHelper();
-            //List<Control> sortedControls = sortHelper.SortListYProperty(controls);
-            List<Row> sortedControls = sortHelper.GenerateDivision(sortHelper.SortListYProperty(controls));
-            List<Row> finalRowListControls = sortHelper.SortListXProperty(sortedControls);
+            builder.Append(this.NormalStartTag(CommonTags.HtmlTags.Html));
+            builder.Append(this.NormalStartTag(CommonTags.HtmlTags.Head));
+            builder.Append(this.ApplyCss(CommonTags.HtmlTags.BootstrapCss));
+            builder.Append(this.EndTag(CommonTags.HtmlTags.Head));
+            builder.Append(this.GetBody());
 
-            //execute sorted list and check control types
+            //controls.ForEach(
+            //    c =>
+            //    {
+            //        c.Width = c.Width / width * ConfigurationData.DefaultPageWidth;
+            //        c.Height = c.Height / height * ConfigurationData.DefaultPageHeight;
+            //        c.X = (int)(c.X / width * ConfigurationData.DefaultPageWidth);
+            //        c.Y = (int)(c.Y / height * ConfigurationData.DefaultPageHeight);
+            //    });
+
+            List<Row> sortedControls = controls.SortByY().GenerateDivisions();
+            List<Row> finalRowListControls = sortedControls.SortListXProperty();
+
+            //// execute sorted list and check control types
             foreach (Row row in finalRowListControls)
             {
-                //openrow(row.Height)
-                builder.Append(OpenRowDiv(row.Height,row.TopMargin));
+                builder.Append(this.OpenRowDiv(row.Height, row.TopMargin));
 
                 foreach (Control item in row.Controls)
                 {
-                    //openColums(row.controls.Count)
-                    //builder.Append(OpenColDiv(row.Controls.Count));
-                    //builder.Append(OpenColDiv(sortHelper.GenerateColSizeAlgo(item,width),item));
-                    builder.Append(OpenColDiv(sortHelper.GenerateColSizeAlgo(item, width),item));
+                    builder.Append(this.OpenColDiv(item.GetColumnSize(width), item));
 
-                //Console.Write(((Button)con).Name);
                     switch (item.Type)
                     {
                         case ControlType.Button:
@@ -129,7 +110,7 @@ namespace Uximagine.Magicurve.CodeGenerator
                             break;
 
                         case ControlType.Iframe:
-                            builder.Append(this.GetHyperLink(item));
+                            builder.Append(this.GetIframe(item));
                             break;
 
                         case ControlType.HLine:
@@ -137,61 +118,74 @@ namespace Uximagine.Magicurve.CodeGenerator
                             break;
 
                     }
-                    //close col div
-                    builder.Append(EndTag(div));
+
+                    //// close col div
+                    builder.Append(this.EndTag(CommonTags.HtmlTags.Div));
                 }
-                //close row div
-                builder.Append(EndTag(div));
-                builder.Append(newline);
+
+                //// close row div
+                builder.Append(this.EndTag(CommonTags.HtmlTags.Div));
+                builder.Append(Environment.NewLine);
             }
 
-            builder.Append(ApplyScript(jquery));
-            builder.Append(ApplyScript(boostrapMinJs));
-            builder.Append(GetFooter());
+            builder.Append(this.ApplyScript(CommonTags.HtmlTags.Jquery));
+            builder.Append(this.ApplyScript(CommonTags.HtmlTags.BootstrapJs));
+            builder.Append(this.GetFooter());
 
-            return builder.ToString();//return generated html code as string
-
+            return builder.ToString(); //// return generated HTML code as string
         }
 
+        /// <summary>
+        /// The get footer.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
         private string GetFooter()
         {
-            string footer = string.Format(@"</div> </body>"+newline+"</html>");
+            string footer = string.Format(@"</div> </body>" + Environment.NewLine + "</html>");
             return footer;
         }
 
-        //public string GetHeader(string href)
+        /* public string GetHeader(string href)
         //{
         //    string header = string.Format(@"<html>"+newline+"<head>"+newline+"<link href='{0}' rel='stylesheet'>"+newline+"</head>"+newline,href);
         //    return header;
-        //}
+        //} */
 
+        /// <summary>
+        /// The get body.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
         public string GetBody()
         {
-            string body = string.Format(@"<body>" + newline + "<div class=container style='margin-top: 10px;'>" + newline);
+            string body = $"<body>{Environment.NewLine}<div class='container' style='margin-top:{ConfigurationData.DefaultMarginTop}px;'>{Environment.NewLine}";
             return body;
         }
 
         public string ApplyCss(string src)
         {
-            string content = string.Format(@"<link rel='stylesheet' type='text/css' href='{0}'>" + newline, src);
+            string content = $"<link rel='stylesheet' type='text/css' href='{src}'/> {Environment.NewLine}";
             return content;
         }
 
         public string ApplyScript(string src)
         {
-            string script = string.Format(@"<script src='{0}'></script>" + newline, src);
+            string script =$"<script src='{src}'></script> {Environment.NewLine}";
             return script;
         }
 
         public string NormalStartTag(string tagName)
         {
-            string startTag = "<" + tagName + ">" + newline;
+            string startTag = $"<{tagName}>{Environment.NewLine}";
             return startTag;
         }
 
         public string EndTag(string tagName)
         {
-            string endTag = string.Format(@"    </" + tagName + ">" + "\n");
+            string endTag = $"</{tagName}>{Environment.NewLine}";
             return endTag;
         }
 
@@ -202,13 +196,13 @@ namespace Uximagine.Magicurve.CodeGenerator
 
         public string StartDiv(double left, double top)
         {
-            string div = string.Format(@"  <div style='margin-left:{0}px;margin-top:{1}px' />" +newline, left, top);
+            string div =$"<div style='margin-left:{left}px;margin-top:{top}px'>";
             return div;
         }
 
         public string OpenRowDiv(double height,int marginTop)
         {
-            string rowDiv = string.Format(@"    <div class='row' style='margin-top: {0}px'>" +newline, marginTop);
+            string rowDiv = $"<div class='row' style='margin-top:{marginTop}px'>";
             return rowDiv;
         }
 
@@ -216,13 +210,15 @@ namespace Uximagine.Magicurve.CodeGenerator
         {
             string value; 
             item.Styles.TryGetValue("margin-left", out value);
-            string colDiv = string.Format(@"<div class='col-md-{0}' style='margin-left: {1}'>" + newline, colSize, value);
+
+            //// string colDiv = $"<div class='col-md-{colSize}' style='margin-left: {value}'>";
+            string colDiv = $"<div class='col-md-{colSize}'>";
             return colDiv;
         }
 
         //public string OpenColDiv(int colSize)
         //{
-            
+
         //    string colDiv = string.Format(@"      <div class='col-md-{0}' >" + newline, colSize);
         //    return colDiv;
         //}
@@ -241,138 +237,244 @@ namespace Uximagine.Magicurve.CodeGenerator
         //    return colDiv;
         //}
 
-
+        /// <summary>
+        /// Inputs the tag.
+        /// </summary>
+        /// <param name="inputType">Type of the input.</param>
+        /// <param name="inputName">Name of the input.</param>
+        /// <param name="inputValue">The input value.</param>
+        /// <returns>
+        /// The input tag.
+        /// </returns>
         public string InputTag(string inputType, string inputName, string inputValue)
         {
-            return string.Empty;
+            return $"<input type='{inputType}' name='{inputName}' value='{inputValue}'>{inputValue}</input>";
         }
 
         public string GetButton(Control control)
         {
             Button button = control as Button;
             string btn;
-            if (button != null && button.Value != null)
+            if (button?.Value != null)
             {
-                 btn = string.Format(@"    <input type='button' value='{0}'/>" + newline, button.Value);
+                 btn = $"<input type='button' value='{button.Value}'/>{Environment.NewLine}";
             }
             else
             {
-                btn = string.Format(@"    <input type='button' value='Button'/>" + newline);
+                btn = $"<input type='button' value='Button'/>{Environment.NewLine}";
             }
 
             return btn;
         }
 
+        /// <summary>
+        /// Gets the CheckBox.
+        /// </summary>
+        /// <param name="checkbox">The check box.</param>
+        /// <returns>
+        /// The check box code.
+        /// </returns>
         public string GetCheckBox(Control checkbox)
         {
-            string check = string.Format(@"          <input type='checkbox' style='width: 100%'/>" + newline);
-           
+            string check = $"<div style='width: 100%'><input type='checkbox'/>Check this.</div>{Environment.NewLine}";
             return check;
         }
 
+        /// <summary>
+        /// Gets the radio.
+        /// </summary>
+        /// <param name="radio">
+        /// The radio.
+        /// </param>
+        /// <returns>
+        /// The radio code.
+        /// </returns>
         public string GetRadio(Control radio)
         {
-            string radioBtn = string.Format(@"          <input type='radio' style='width: 100%'/>" + newline);
+            string radioBtn = $"<div style='width: 100%'><input type='radio'> Radio</input></div>{Environment.NewLine}";
             return radioBtn;
         }
 
+        /// <summary>
+        /// Gets the combo.
+        /// </summary>
+        /// <param name="combo">
+        /// The combo.
+        /// </param>
+        /// <returns>
+        /// The combo code.
+        /// </returns>
         public string GetCombo(Control combo)
         {
-            string select = string.Format(
-                            @"          <select>
-        <option value='yourMom'>Mom</option>
-        <option value='myMom'>My Mom</option>
-   </select>" + newline);
-
+            string select =
+                            $@"<select>
+                                    <option value='value'>Select</option>
+                                    <option value='value1'>Value1</option>
+                               </select>";
             return select;
         }
 
+        /// <summary>
+        /// Gets the text.
+        /// </summary>
+        /// <param name="text">
+        /// The text.
+        /// </param>
+        /// <returns>
+        /// The text code.
+        /// </returns>
         public string GetText(Control text)
         {
-            string txt = string.Format(@"          <input type='text' style='width: 100%'/>" + newline);
-            
+            string txt = $"<input type='text' style='width: 100%' placeholder='text input'/>{Environment.NewLine}";
+
             return txt;
         }
 
+        /// <summary>
+        /// Gets the password.
+        /// </summary>
+        /// <param name="password">
+        /// The password.
+        /// </param>
+        /// <returns>
+        /// The password text.
+        /// </returns>
         public string GetPassword(Control password)
         {
-            string pass = string.Format(@"          <input type='password' style='width: 100%'/>" + newline);
+            string pass = $"<input type='password' style='width: 100%' placeholder='password'/>{Environment.NewLine}";
             return pass;
         }
 
+        /// <summary>
+        /// Gets the date picker.
+        /// </summary>
+        /// <param name="datepicker">
+        /// The date picker.
+        /// </param>
+        /// <returns>
+        /// The data picker code.
+        /// </returns>
         public string GetDatePicker(Control datepicker)
         {
-            string date = string.Format(@"          <input type='date' style='width: 100%'/>",
-                                          datepicker.X,
-                                          datepicker.Y);
+            string date = $"<input type='date' style='width: 100%'/>";
             return date;
         }
 
+        /// <summary>
+        /// Gets the para.
+        /// </summary>
+        /// <param name="para">
+        /// The para.
+        /// </param>
+        /// <returns>
+        /// The paragraph code.
+        /// </returns>
         public string GetPara(Control para) // for paragraph 
         {
-            string paragraph = string.Empty;
+            string paragraph;
+
             Paragraph content = para as Paragraph;
-            string dummy = string.Format(@"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
 
             if (content != null)
             {
-                paragraph = string.Format(@"          <p style='width: 100%'>{0}</p>", content.Content);
+                paragraph = $@"<p style='width: 100%'>{content.Content}</p>";
             }
             else
             {
-                paragraph = string.Format(@"          <p style='width: 100%'>{0}</p>",dummy);
+                paragraph = $@"<p style='width: 100%'>This is a sample paragraph. use the interactive tool to edit the content.</p>";
             }
-                return paragraph;
+            return paragraph;
         }
 
+        /// <summary>
+        /// Gets the label.
+        /// </summary>
+        /// <param name="control">
+        /// The control.
+        /// </param>
+        /// <returns>
+        /// The label code.
+        /// </returns>
         public string GetLabel(Control control)
         {
-            string lbl = string.Empty;
+            string lbl;
             Label label = control as Label;
 
-            if (label != null && label.Value != null)
+            if (label?.Value != null)
             {
-                lbl = string.Format(@"          <label style='width: 100%'>{0}</label>" + newline, label.Value);
+                lbl = $@"<label style='width: 100%'>{label.Value}</label> {Environment.NewLine}";
             }
             else
             {
-                lbl = string.Format(@"          <label style='width: 100%'></label>" + newline);
+                lbl = $@"<label style='width: 100%'>Label Value</label> {Environment.NewLine}";
             }
-
-            
 
             return lbl;
         }
 
+        /// <summary>
+        /// Gets the text area.
+        /// </summary>
+        /// <param name="textarea">
+        /// The text area.
+        /// </param>
+        /// <returns>
+        /// The text area code.
+        /// </returns>
         public string GetTextArea(Control textarea)
         {
-            return string.Empty;
+            return $"<textarea style='width: 100%'>The text area.</textarea>";
         }
 
+        /// <summary>
+        /// Gets the image.
+        /// </summary>
+        /// <param name="img">The image.</param>
+        /// <returns>
+        /// The image code.
+        /// </returns>
         public string GetImage(Control img)
         {
-            string image = string.Format(@"          <img src='img.jpg' style='width: 100%' />" + newline);
+            string image = $"<img src='#' style='width: 100%' />{Environment.NewLine}";
             return image;
         }
 
+        /// <summary>
+        /// Gets the hyper link.
+        /// </summary>
+        /// <param name="hyperlink">The hyper link.</param>
+        /// <returns>
+        /// The hyper link code.
+        /// </returns>
         public string GetHyperLink(Control hyperlink)
         {
-            return string.Empty;
+            return $"<a href='#'>The Link</a>{Environment.NewLine}";
         }
 
+        /// <summary>
+        /// Gets the i frame.
+        /// </summary>
+        /// <param name="iframe">The i frame.</param>
+        /// <returns>
+        /// The i frame.
+        /// </returns>
         public string GetIframe(Control iframe)
         {
-            return string.Empty;
+            return $"<iframe src='#' style='width:100%'></iframe>{Environment.NewLine}";
         }
 
+        /// <summary>
+        /// Gets the h line.
+        /// </summary>
+        /// <param name="hline">
+        /// The horizontal line.
+        /// </param>
+        /// <returns>
+        /// The horizontal line code.
+        /// </returns>
         public string GetHLine(Control hline)
         {
-            return string.Empty;
+            return $"<div style='width: 100%'><hr></div>";
         }
 
     }

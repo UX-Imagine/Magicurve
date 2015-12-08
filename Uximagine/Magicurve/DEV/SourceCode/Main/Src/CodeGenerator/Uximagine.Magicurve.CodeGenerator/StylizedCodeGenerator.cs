@@ -57,7 +57,7 @@ namespace Uximagine.Magicurve.CodeGenerator
 
             builder.Append(NormalStartTag(html));
             builder.Append(NormalStartTag(head));
-            //builder.Append(ApplyCss(boostrapCss));
+            //builder.Append(ApplyCss(BoostrapCss));
             builder.Append(ApplyCss(customCss));
             builder.Append(EndTag(head));
             builder.Append(GetBody());
