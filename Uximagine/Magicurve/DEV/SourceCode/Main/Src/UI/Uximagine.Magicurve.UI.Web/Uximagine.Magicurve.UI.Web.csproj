@@ -177,7 +177,6 @@
     </Content>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\Images\result.png" />
     <Content Include="Content\Images\test2.png" />
     <Content Include="Content\Images\Train\button\test\test1.jpg" />
     <Content Include="Content\Images\Train\button\test\test2.jpg" />
