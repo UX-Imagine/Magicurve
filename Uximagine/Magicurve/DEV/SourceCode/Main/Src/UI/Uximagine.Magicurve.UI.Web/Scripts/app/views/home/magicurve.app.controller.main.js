@@ -254,10 +254,7 @@
             $scope.content = {type:'button', x:20, y:30};
 
             $scope.download = function () {
-
-                var url = $rootScope.rootUrl + "/Home/Download?content=" + JSON.stringify($scope.content);
-
-                window.open(url, '_blank', '');
+                downloadSource();
             }
 
             $scope.uploadFile = function($event) {

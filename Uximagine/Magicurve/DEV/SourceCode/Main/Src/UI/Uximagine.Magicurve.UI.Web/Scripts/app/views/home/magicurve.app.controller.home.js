@@ -5,7 +5,7 @@
          jsonObject = $scope.spices;
        //control = genarateDesign(jsonObject);
         // alert("test this");
-         drawButton(300,300,60,30,"test");
+         //drawButton(300,300,60,30,"test");
        // alert(control[0]);
       //  drawDesign();
        //alert();

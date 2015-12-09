@@ -140,7 +140,7 @@ zebra.ready(function () {
 
 function genarateDesign() {
 
-    // setResalution();
+    // ajustToCanvasSize();
 
     //create json object array
     var jsonObj = [
@@ -298,7 +298,7 @@ function genarateDesign() {
 
 //////////////// cavers resalution /////////////////////
 
-function setResalution() {
+function ajustToCanvasSize() {
 
     // alert();
 }

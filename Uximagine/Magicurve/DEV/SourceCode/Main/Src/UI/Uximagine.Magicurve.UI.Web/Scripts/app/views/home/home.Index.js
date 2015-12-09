@@ -33,19 +33,15 @@ function draw(data) {
     p.setBackground("white");    // set yellow background
     root.add(p);                  // add panel to root
 
-    var resalutonObject = setResalution(json, imageHeight, imageWidth);
+    var resalutonObject = ajustToCanvasSize(json, imageHeight, imageWidth);
     var arrayObject = genarateDesign(resalutonObject);
 
     for (var k = 0 ; k < arrayObject.length; k++) {
         root.add(arrayObject[k]);
-
-    }
-
-
-
+        }
 }
 
-function setResalution(resObject, height, width) {
+function ajustToCanvasSize(resObject, height, width) {
     var setResaObje = [];
 
     for (var i = 0 ; i < resObject.length ; i++) {
@@ -56,15 +52,11 @@ function setResalution(resObject, height, width) {
         control.Height = Math.round((resObject[i].Height * 810) / height);
         control.Width = Math.round((resObject[i].Width * 960) / width);
         setResaObje.push(control);
-
     }
-
     return setResaObje;
-
 }
 
 function genarateDesign(jsonObj) {
-
 
     for (var k = 0 ; k < jsonObj.length; k++) {
         //root.add(arr[k]);
@@ -76,52 +68,51 @@ function genarateDesign(jsonObj) {
     var controlsValid = 0;
 
     for (var i = 0; i < jsonObj.length; i++) {
-        if (jsonObj[i].Type == "Button") {
+        if (jsonObj[i].Type === "Button") {
             controls[controlsValid] = drawButton(jsonObj[i].X, jsonObj[i].Y, 60, 30, "Button");
             controlsValid++;
-
         }
-        else if (jsonObj[i].Type == "CheckBox") {
+        else if (jsonObj[i].Type === "CheckBox") {
             controls[controlsValid] = drawCheckBox(jsonObj[i].X, jsonObj[i].Y, 120, 30, "CheckBox");
             controlsValid++;
         }
-        else if (jsonObj[i].Type == "ComboBox") {
+        else if (jsonObj[i].Type === "ComboBox") {
             controls[controlsValid] = drawComboBox(jsonObj[i].X, jsonObj[i].Y, jsonObj[i].Width, 40);
             controlsValid++;
         }
-        else if (jsonObj[i].Type == "HLine") {
+        else if (jsonObj[i].Type === "HLine") {
             controls[controlsValid] = drawHorizontalLine(jsonObj[i].X, jsonObj[i].Y, jsonObj[i].Width);
             controlsValid++;
         }
-        else if (jsonObj[i].Type == "HyperLink") {
+        else if (jsonObj[i].Type === "HyperLink") {
             controls[controlsValid] = drawHyperlink(jsonObj[i].X, jsonObj[i].Y, jsonObj[i].Width, jsonObj[i].Height, "HyperLink");
             controlsValid++;
         }
-        else if (jsonObj[i].Type == "Image") {
+        else if (jsonObj[i].Type === "Image") {
             controls[controlsValid] = drawImageContent(jsonObj[i].X, jsonObj[i].Y, jsonObj[i].Width, jsonObj[i].Height);
             controlsValid++;
         }
-        else if (jsonObj[i].Type == "Label") {
+        else if (jsonObj[i].Type === "Label") {
             controls[controlsValid] = drawLable(jsonObj[i].X, jsonObj[i].Y, jsonObj[i].Width, jsonObj[i].Height, "LableCaption");
             controlsValid++;
         }
-        else if (jsonObj[i].Type == "MenuBar") {
+        else if (jsonObj[i].Type === "MenuBar") {
             controls[controlsValid] = drawMenuBar(jsonObj[i].X, jsonObj[i].Y, jsonObj[i].Width, jsonObj[i].Height);
             controlsValid++;
         }
-        else if (jsonObj[i].Type == "Paragraph") {
+        else if (jsonObj[i].Type === "Paragraph") {
             controls[controlsValid] = drawPanel(jsonObj[i].X, jsonObj[i].Y, jsonObj[i].Width, jsonObj[i].Height, "#E6E6E6");
             controlsValid++;
         }
-        else if (jsonObj[i].Type == "RadioButton") {
+        else if (jsonObj[i].Type === "RadioButton") {
             controls[controlsValid] = drawRadioButton(jsonObj[i].X, jsonObj[i].Y, 120, 30, "RadioButton");
             controlsValid++;
         }
-        else if (jsonObj[i].Type == "TextArea") {
+        else if (jsonObj[i].Type === "TextArea") {
             controls[controlsValid] = drawTextArea(jsonObj[i].X, jsonObj[i].Y, jsonObj[i].Width, jsonObj[i].Height);
             controlsValid++;
         }
-        else if (jsonObj[i].Type == "InputText") {
+        else if (jsonObj[i].Type === "InputText") {
             controls[controlsValid] = drawTextBox(jsonObj[i].X, jsonObj[i].Y, jsonObj[i].Width, 30);
             controlsValid++;
         }

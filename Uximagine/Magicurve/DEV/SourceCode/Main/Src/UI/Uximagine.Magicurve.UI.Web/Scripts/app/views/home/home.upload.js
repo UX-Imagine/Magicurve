@@ -74,7 +74,7 @@ function generateCode() {
             dataType: "JSON"
         }).done(function (data) {
             console.log(data);
-            $('#code').html(JSON.stringify(data.code));
+            //$('#code').html(JSON.stringify(data.code));
     }).fail(function (error) {
 
             console.log(error);

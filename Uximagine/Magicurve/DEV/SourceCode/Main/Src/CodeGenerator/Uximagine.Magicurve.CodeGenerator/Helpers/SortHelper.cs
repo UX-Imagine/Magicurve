@@ -69,17 +69,10 @@
                 int currentY = list[i].Y;
 
                 //// if (currentY > previousY + maxHeight)
-                if (currentY > previousY + defaultHeight) 
+                if (currentY > previousY + defaultHeight)
                 {
-                    if (list[i].Height > defaultHeight)
-                    {
-                        maxHeight = list[i].Height;
-                    }
-                    else
-                    {
-                        maxHeight = defaultHeight;
-                    }
-                    
+                    maxHeight = list[i].Height > defaultHeight ? list[i].Height : defaultHeight;
+
                     listOfList.Add(new Row
                     {
                         Controls = new List<Control>
@@ -91,7 +84,6 @@
                         TopMargin = list[i].Y - (list[i - 1].Y + (int)defaultHeight),
                         Height = maxHeight
                     });
-
                 }
                 else
                 {
@@ -184,7 +176,6 @@
 
             return colSize;
         }
-
 
     }
 }

@@ -72,9 +72,9 @@
 
 
 //function for drawing button
-function editDrawButton(bX, bY, bwidth, bheight, ButttonCaption) {
-    var button = new zebra.ui.Button(ButttonCaption);
-    button.setBounds(bX, bY, bwidth, bheight, ButttonCaption);
+function editDrawButton(bX, bY, bwidth, bheight, butttonCaption) {
+    var button = new zebra.ui.Button(butttonCaption);
+    button.setBounds(bX, bY, bwidth, bheight, butttonCaption);
 
     var buttonShaperPan = new zebra.ui.designer.ShaperPan(button);
 
