@@ -167,7 +167,7 @@ namespace Uximagine.Magicurve.Image.Processing.Helpers
 
             cropped = cropped.Resize(sampleSize, sampleSize);
 
-            cropped.Save("E:/Data/identified/cropped" + ".jpg");
+            //cropped.Save("E:/Data/identified/cropped" + ".jpg");
 
             return cropped;
         }

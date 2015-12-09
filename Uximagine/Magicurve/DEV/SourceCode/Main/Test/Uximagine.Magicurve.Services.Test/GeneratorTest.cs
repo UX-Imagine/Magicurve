@@ -616,7 +616,6 @@ namespace Uximagine.Magicurve.Services.Test
                     Y = 60
                 }
             };
-
             //for resposive generator page
             string responsiveResult = responsiveGenerator.CreateHtmlCode(controls, 900, 768);
             Debug.Write(responsiveResult);

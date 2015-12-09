@@ -61,7 +61,7 @@ namespace Uximagine.Magicurve.Image.Processing.ShapeCheckers
                 
                 type = (ControlType)(decision + 1);
 
-                cropped.Save("E:/Data/identified/cropped" + type + ".jpg");
+               // cropped.Save("E:/Data/identified/cropped" + type + ".jpg");
             }
             
             return type;

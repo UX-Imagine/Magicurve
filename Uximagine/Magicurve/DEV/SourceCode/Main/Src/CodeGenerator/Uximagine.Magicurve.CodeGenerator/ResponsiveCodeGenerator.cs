@@ -202,7 +202,7 @@ namespace Uximagine.Magicurve.CodeGenerator
 
         public string OpenRowDiv(double height,int marginTop)
         {
-            string rowDiv = $"<div class='row' style='margin-top:{marginTop}px'>";
+            string rowDiv = $"<div class='row' style='margin-top:{marginTop}px'>{Environment.NewLine}";
             return rowDiv;
         }
 
@@ -211,7 +211,7 @@ namespace Uximagine.Magicurve.CodeGenerator
             string value; 
             item.Styles.TryGetValue("margin-left", out value);
 
-            //// string colDiv = $"<div class='col-md-{colSize}' style='margin-left: {value}'>";
+            ////string colDiv = $"<div class='col-md-{colSize}' style='margin-left: {value}'>";
             string colDiv = $"<div class='col-md-{colSize}'>";
             return colDiv;
         }
@@ -435,7 +435,7 @@ namespace Uximagine.Magicurve.CodeGenerator
         /// </returns>
         public string GetImage(Control img)
         {
-            string image = $"<img src='#' style='width: 100%' />{Environment.NewLine}";
+            string image = $"<img src='#' class='img-responsive' style='max-width: 90%' />{Environment.NewLine}";
             return image;
         }
 
@@ -460,7 +460,7 @@ namespace Uximagine.Magicurve.CodeGenerator
         /// </returns>
         public string GetIframe(Control iframe)
         {
-            return $"<iframe src='#' style='width:100%'></iframe>{Environment.NewLine}";
+            return $"<div class='embed-responsive embed-responsive-4by3'>{Environment.NewLine}<iframe src='#' class='embed-responsive-item' style='width:100%'></iframe>{Environment.NewLine}</div>{Environment.NewLine}";
         }
 
         /// <summary>
