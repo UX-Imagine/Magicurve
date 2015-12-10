@@ -555,7 +555,7 @@
                 for (int x = image.Width / 2; x < (image.Width / 2) + 1; x++)
                 {
                     int byteOffset = (y * data.Stride) + (x * Channels);
-                    Debug.WriteLine($"{buffer[byteOffset]} {x} {y}");
+                    //// Debug.WriteLine($"{buffer[byteOffset]} {x} {y}");
                     if (buffer[byteOffset] == 255)
                     {
                         foundLine = true;
@@ -580,6 +580,7 @@
             Marshal.Copy(buffer, 0, data.Scan0, buffer.Length);
             image.UnlockBits(data);
         }
+
         /// <summary>
         /// Gets the lines count.
         /// </summary>
@@ -606,7 +607,7 @@
                 for (int x = 0; x < image.Width; x++)
                 {
                     int byteOffset = (y * data.Stride) + (x * Channels);
-                    Debug.WriteLine($"{buffer[byteOffset]} {x} {y}");
+                    //// Debug.WriteLine($"{buffer[byteOffset]} {x} {y}");
                     if (buffer[byteOffset] == 255)
                     {
                         foundLine = true;
@@ -631,5 +632,94 @@
             Marshal.Copy(buffer, 0, data.Scan0, buffer.Length);
             image.UnlockBits(data);
         }
+
+        /// <summary>
+        /// Gets the lines count.
+        /// </summary>
+        /// <param name="image">The image.</param>
+        /// <param name="count">The count.</param>
+        public static void GetHorizontalLinesCountV2(this Bitmap image, out int count)
+        {
+            count = 0;
+            int lineStart = -1;
+            bool foundLine = false;
+            int lineLenght = 0;
+            int longestLineLenth = 0;
+
+            BitmapData data = image.LockBits(
+                new Rectangle(0, 0, image.Width, image.Height),
+                ImageLockMode.ReadWrite,
+                PixelFormat.Format24bppRgb);
+
+            byte[] buffer = new byte[data.Stride * image.Height];
+
+            Marshal.Copy(data.Scan0, buffer, 0, buffer.Length);
+
+            const int Channels = 3;
+
+            for (int y = 0; y < image.Height; y++)
+            {
+                for (int x = image.Width / 2; x < (image.Width / 2) + 1; x++)
+                {
+                    int byteOffset = (y * data.Stride) + (x * Channels);
+
+                    if (buffer[byteOffset] == 255)
+                    {
+                        if (!foundLine)
+                        {
+                            lineStart = y;
+                        }
+
+                        foundLine = true;
+                    }
+                    else
+                    {
+                        if (foundLine)
+                        {
+                            int middleOfLine = (y - lineStart) / 2;
+                            for (int i = middleOfLine; i < middleOfLine + 1; i++)
+                            {
+                                for (int j = 0; j < image.Width; j += Channels)
+                                {
+                                    byteOffset = (i * data.Stride) + (j * Channels);
+                                    int byteOffsetPrevious = ((i - 1) * data.Stride) + (j * Channels);
+                                    int byteOffsetNext = ((i - 1) * data.Stride) + (j * Channels);
+                                    if (buffer[byteOffset] == 255 || buffer[byteOffsetPrevious] == 255 || buffer[byteOffsetNext] == 255)
+                                    {
+                                        lineLenght++;
+                                    }
+                                    else
+                                    {
+                                        if (longestLineLenth < lineLenght)
+                                        {
+                                            longestLineLenth = lineLenght;
+                                        }
+
+                                        lineLenght = 0;
+                                    }
+                                }
+                            }
+
+                            if (longestLineLenth > 50)
+                            {
+                                count++;
+                            }
+
+                            foundLine = false;
+                        }
+                    }
+                }
+            }
+
+            if (foundLine)
+            {
+                count++;
+            }
+
+            //// Finally
+            Marshal.Copy(buffer, 0, data.Scan0, buffer.Length);
+            image.UnlockBits(data);
+        }
+
     }
 }

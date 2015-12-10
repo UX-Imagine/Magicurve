@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.Drawing;
+    using System.IO;
     using System.Linq;
 
     using NUnit.Framework;
@@ -19,6 +20,64 @@
     /// </summary>
     public class LineCounterTests
     {
+        /// <summary>
+        /// Gets the horizontal line count.
+        /// </summary>
+        /// <param name="fileName">Name of the file.</param>
+        /// <returns>
+        /// The horizontal lines count.
+        /// </returns>
+        public int GetHorizontalLineCount(string fileName)
+        {
+            int count;
+            Bitmap image = new Bitmap(fileName);
+
+            image = image.GetBlobReady();
+
+            IBlobDetector blobDetector = new HullBlobDetector();
+            blobDetector.ProcessImage(image);
+
+            List<Control> controls = blobDetector.GetShapes();
+            image = image.Crop(controls.Where(c => c.Width > 50 && c.Height > 50).ToList()[0].EdgePoints);
+
+            image.ConvolutionFilter(FilterMatrix.Prewitt3x3Horizontal);
+
+            image.ToBinary();
+
+            image.GetHorizontalLinesCount(out count);
+
+            return count;
+        }
+
+        /// <summary>
+        /// Gets the vertical line count.
+        /// </summary>
+        /// <param name="fileName">Name of the file.</param>
+        /// <returns>
+        /// The vertical lines count.
+        /// </returns>
+        public int GetVerticalLineCount(string fileName)
+        {
+            int count;
+            Bitmap image = new Bitmap(fileName);
+
+            image = image.GetBlobReady();
+
+            IBlobDetector blobDetector = new HullBlobDetector();
+            blobDetector.ProcessImage(image);
+
+            List<Control> controls = blobDetector.GetShapes();
+            image = image.Crop(controls.Where(c => c.Width > 50 && c.Height > 50).ToList()[0].EdgePoints);
+
+            image.ConvolutionFilter(FilterMatrix.Prewitt3x3Vertical);
+
+            image.ToBinary();
+
+            image.GetVerticalLinesCount(out count);
+
+            return count;
+        }
+
         [TestCase(@"D:/Data/test/inputs/button/test/test1.jpg", 2, 2)]
         [TestCase(@"D:\Data\test\inputs\password\test/test1.jpg", 2, 4)]
         [TestCase(@"D:\Data\test\inputs\combo\test/test1.jpg", 2, 2)]
@@ -263,6 +322,64 @@
             Debug.WriteLine($"vCount : {vCount}");
 
             vCount.ShouldEqual(count);
+        }
+
+        /// <summary>
+        /// Tests the horizontal count accuracy.
+        /// </summary>
+        /// <param name="directoryName">Name of the directory.</param>
+        /// <param name="count">The count.</param>
+        [TestCase(@"D:/Data/test/inputs/button", 2)]
+        [TestCase(@"D:\Data\test\inputs\password", 2)]
+        [TestCase(@"D:\Data\test\inputs\combo", 2)]
+        [TestCase(@"D:\Data\test\inputs\checkbox", 3)]
+        [TestCase(@"D:\Data\test\inputs\date", 2)]
+        [TestCase(@"D:\Data\test\inputs\hr", 1)]
+        [TestCase(@"D:\Data\test\inputs\iframe", 2)]
+        [TestCase(@"D:\Data\test\inputs\image", 4)]
+        [TestCase(@"D:\Data\test\inputs\label", 3)]
+        [TestCase(@"D:\Data\test\inputs\link", 3)]
+        [TestCase(@"D:\Data\test\inputs\paragraph", 3)]
+        [TestCase(@"D:\Data\test\inputs\radio", 2)]
+        [TestCase(@"D:\Data\test\inputs\text", 2)]
+        [TestCase(@"D:\Data\test\inputs\range", 1)]
+        public void TestHorizontalCountAccuracy(string directoryName, int count )
+        {
+            string[] images = Directory.GetFiles(directoryName);
+            foreach (string image in images)
+            {
+                int acctual = GetHorizontalLineCount(image);
+                acctual.ShouldEqual(count);
+            }
+        }
+
+        /// <summary>
+        /// Tests the horizontal count accuracy.
+        /// </summary>
+        /// <param name="directoryName">Name of the directory.</param>
+        /// <param name="count">The count.</param>
+        [TestCase(@"D:/Data/test/inputs/button", 2)]
+        [TestCase(@"D:\Data\test\inputs\password", 5)]
+        [TestCase(@"D:\Data\test\inputs\combo", 2)]
+        [TestCase(@"D:\Data\test\inputs\checkbox", 3)]
+        [TestCase(@"D:\Data\test\inputs\date", 4)]
+        [TestCase(@"D:\Data\test\inputs\hr", 2)]
+        [TestCase(@"D:\Data\test\inputs\iframe", 2)]
+        [TestCase(@"D:\Data\test\inputs\image", 4)]
+        [TestCase(@"D:\Data\test\inputs\label", 2)]
+        [TestCase(@"D:\Data\test\inputs\link", 3)]
+        [TestCase(@"D:\Data\test\inputs\paragraph", 3)]
+        [TestCase(@"D:\Data\test\inputs\range", 2)]
+        [TestCase(@"D:\Data\test\inputs\radio", 2)]
+        [TestCase(@"D:\Data\test\inputs\text", 3)]
+        public void TestVerticalCountAccuracy(string directoryName, int count)
+        {
+            string[] images = Directory.GetFiles(directoryName);
+            foreach (string image in images)
+            {
+                int acctual = this.GetVerticalLineCount(image);
+                acctual.ShouldEqual(count);
+            }
         }
     }
 }
