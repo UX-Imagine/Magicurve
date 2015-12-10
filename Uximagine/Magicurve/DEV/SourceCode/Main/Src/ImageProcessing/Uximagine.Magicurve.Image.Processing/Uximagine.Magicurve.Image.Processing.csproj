@@ -110,6 +110,7 @@
     <Compile Include="ConfigurationData.cs" />
     <Compile Include="Detectors\BlobDetector.cs" />
     <Compile Include="Detectors\CannyDetector.cs" />
+    <Compile Include="Detectors\LineCounter.cs" />
     <Compile Include="Detectors\SobelDetector.cs" />
     <Compile Include="Detectors\HullBlobDetector.cs" />
     <Compile Include="Detectors\IBlobDetector.cs" />

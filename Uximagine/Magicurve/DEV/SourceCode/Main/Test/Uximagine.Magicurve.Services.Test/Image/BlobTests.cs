@@ -159,7 +159,7 @@ namespace Uximagine.Magicurve.Services.Test.Image
 
             Bitmap edgeResult = edgeDetector.GetImage(bitmap);
 
-            //var correctFormatImage = edgeResult.ConvertToFormat(PixelFormat.Format24bppRgb);
+            //// var correctFormatImage = edgeResult.ConvertToFormat(PixelFormat.Format24bppRgb);
 
             HoughLineTransformation lineTransform = new HoughLineTransformation();
 

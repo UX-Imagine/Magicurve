@@ -1,76 +1,419 @@
-﻿using System;
-using System.Drawing;
-using System.Drawing.Imaging;
-using AForge.Imaging;
-using AForge.Imaging.Filters;
-using Uximagine.Magicurve.Image.Processing.Common;
-
-namespace Uximagine.Magicurve.Image.Processing.Helpers
+﻿namespace Uximagine.Magicurve.Image.Processing.Helpers
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Diagnostics;
+    using System.Drawing;
+    using System.Drawing.Imaging;
+    using System.Runtime.InteropServices;
+
+    using AForge;
+    using AForge.Imaging.Filters;
+
+    using Uximagine.Magicurve.Image.Processing.Common;
+
     /// <summary>
-    /// The common filters are implemented here using c# pointers.
+    ///     The common filters are implemented here using c# pointers.
     /// </summary>
     public static class FilterHelper
     {
         /// <summary>
-        /// Sets the color filter.
+        ///     Brightens the specified amount.
+        /// </summary>
+        /// <param name="image">The image.</param>
+        /// <param name="brightness">The brightness amount.</param>
+        /// <returns>
+        ///     The result image.
+        /// </returns>
+        public static Bitmap Brighten(this Bitmap image, int brightness)
+        {
+            Bitmap bmap = (Bitmap)image.Clone();
+
+            BitmapData data = bmap.LockBits(
+                new Rectangle(0, 0, bmap.Width, bmap.Height), 
+                ImageLockMode.ReadWrite, 
+                PixelFormat.Format24bppRgb);
+
+            int stride = data.Stride;
+            int offset = stride - (bmap.Width * 3);
+            int width = bmap.Width * 3;
+            IntPtr scan0 = data.Scan0;
+
+            unsafe
+            {
+                byte* ptr = (byte*)(void*)scan0;
+
+                for (int y = 0; y < bmap.Height; ++y)
+                {
+                    for (int x = 0; x < width; ++x)
+                    {
+                        int val = ptr[0] + brightness;
+
+                        val = Math.Max(val, 0);
+                        val = Math.Min(255, val);
+
+                        ptr[0] = (byte)val;
+
+                        ++ptr;
+                    }
+
+                    ptr += offset;
+                }
+            }
+
+            bmap.UnlockBits(data);
+
+            return bmap;
+        }
+
+        /// <summary>
+        ///     Contrasts the specified contrast.
         /// </summary>
         /// <param name="image">
-        /// The image.
+        ///     The image.
+        /// </param>
+        /// <param name="contrast">
+        ///     The contrast.
+        /// </param>
+        /// <returns>
+        ///     The contrast result.
+        /// </returns>
+        public static Bitmap Contrast(this Bitmap image, int contrast)
+        {
+            Bitmap bmap = (Bitmap)image.Clone();
+
+            BitmapData data = bmap.LockBits(
+                new Rectangle(0, 0, bmap.Width, bmap.Height), 
+                ImageLockMode.ReadWrite, 
+                PixelFormat.Format24bppRgb);
+
+            int width = bmap.Width * 3;
+            int stride = data.Stride;
+            int offset = stride - width;
+            IntPtr scan0 = data.Scan0;
+            unsafe
+            {
+                byte* ptr = (byte*)(void*)scan0;
+                int red;
+                double pixel;
+
+                for (int y = 0; y < bmap.Height; ++y)
+                {
+                    for (int x = 0; x < bmap.Width; ++x)
+                    {
+                        red = ptr[2];
+                        pixel = red / 255.0;
+                        pixel -= 0.5;
+                        pixel *= contrast;
+                        pixel += 0.5;
+                        pixel *= 255;
+
+                        pixel = Math.Max(pixel, 0);
+                        pixel = Math.Min(255, pixel);
+
+                        ptr[2] = (byte)pixel;
+
+                        ptr += 3;
+                    }
+
+                    ptr += offset;
+                }
+            }
+
+            bmap.UnlockBits(data);
+            return bmap;
+        }
+
+        /// <summary>
+        ///     Gammas the specified image.
+        /// </summary>
+        /// <param name="image">
+        ///     The image.
+        /// </param>
+        /// <param name="red">
+        ///     Red Value
+        /// </param>
+        /// <param name="green">
+        ///     Green Value
+        /// </param>
+        /// <param name="blue">
+        ///     Blue Value
+        /// </param>
+        /// <returns>
+        ///     The gamma applied image.
+        /// </returns>
+        public static Bitmap Gamma(this Bitmap image, double red, double green, double blue)
+        {
+            if (red < .2 || red > 5)
+            {
+                throw new ArgumentException("Invalid Red Value");
+            }
+
+            if (green < .2 || green > 5)
+            {
+                throw new ArgumentException("Invalid Green Value");
+            }
+
+            if (blue < .2 || blue > 5)
+            {
+                throw new ArgumentException("Invalid Blue Value");
+            }
+
+            Bitmap bmap = (Bitmap)image.Clone();
+            BitmapData data = bmap.LockBits(
+                new Rectangle(0, 0, bmap.Width, bmap.Width), 
+                ImageLockMode.ReadWrite, 
+                PixelFormat.Format24bppRgb);
+
+            int stride = data.Stride;
+            int width = data.Width * 3;
+            int offset = stride - width;
+            IntPtr scan0 = data.Scan0;
+
+            byte[] redGamma = new byte[256];
+            byte[] greenGamma = new byte[256];
+            byte[] blueGamma = new byte[256];
+
+            for (int i = 0; i < 256; ++i)
+            {
+                redGamma[i] = (byte)Math.Min(255, (int)((255.0 * Math.Pow((i / 255.0), (1.0 / red))) + 0.5));
+                greenGamma[i] = (byte)Math.Min(255, (int)((255.0 * Math.Pow((i / 255.0), (1.0 / green))) + 0.5));
+                blueGamma[i] = (byte)Math.Min(255, (int)((255.0 * Math.Pow((i / 255.0), (1.0 / blue))) + 0.5));
+            }
+
+            unsafe
+            {
+                byte* ptr = (byte*)(void*)scan0;
+
+                for (int y = 0; y < bmap.Height; ++y)
+                {
+                    for (int x = 0; x < bmap.Width; ++x)
+                    {
+                        ptr[0] = redGamma[ptr[0]];
+                        ptr[1] = redGamma[ptr[1]];
+                        ptr[2] = redGamma[ptr[2]];
+
+                        ptr += 3;
+                    }
+
+                    ptr += offset;
+                }
+            }
+
+            bmap.UnlockBits(data);
+
+            return bmap;
+        }
+
+        /// <summary>
+        ///     Gets the BLOB ready.
+        /// </summary>
+        /// <param name="image">The image.</param>
+        /// <returns>
+        ///     The filtered image.
+        /// </returns>
+        public static Bitmap GetBlobReady(this Bitmap image)
+        {
+            image = AForge.Imaging.Filters.Grayscale.CommonAlgorithms.BT709.Apply(image);
+
+            Threshold threshold = new Threshold();
+            threshold.ApplyInPlace(image);
+
+            Median median = new Median();
+            median.ApplyInPlace(image);
+
+            Invert invert = new Invert();
+            invert.ApplyInPlace(image);
+
+            return image;
+        }
+
+        /// <summary>
+        ///     Gets the BLOB ready.
+        /// </summary>
+        /// <param name="image">The image.</param>
+        /// <returns>
+        ///     The filtered image.
+        /// </returns>
+        public static Bitmap GetCleaned(this Bitmap image)
+        {
+            image = AForge.Imaging.Filters.Grayscale.CommonAlgorithms.BT709.Apply(image);
+
+            Threshold threshold = new Threshold();
+            threshold.ApplyInPlace(image);
+
+            Median median = new Median();
+            median.ApplyInPlace(image);
+
+            return image;
+        }
+
+        /// <summary>
+        ///     Gets the BLOB ready.
+        /// </summary>
+        /// <param name="sourceData">The source data.</param>
+        /// <returns>
+        ///     The filtered image.
+        /// </returns>
+        public static Bitmap GetCleaned(this BitmapData sourceData)
+        {
+            Bitmap image = AForge.Imaging.Filters.Grayscale.CommonAlgorithms.BT709.Apply(sourceData);
+
+            Threshold threshold = new Threshold();
+            threshold.ApplyInPlace(image);
+
+            Median median = new Median();
+            median.ApplyInPlace(image);
+
+            return image;
+        }
+
+        /// <summary>
+        ///     Gray-scales the specified image.
+        /// </summary>
+        /// <param name="image">
+        ///     The image.
+        /// </param>
+        /// <returns>
+        ///     The gray-scaled image.
+        /// </returns>
+        public static Bitmap Grayscale(this Bitmap image)
+        {
+            Bitmap bmap = (Bitmap)image.Clone();
+
+            BitmapData data = bmap.LockBits(
+                new Rectangle(0, 0, bmap.Width, bmap.Height), 
+                ImageLockMode.ReadWrite, 
+                PixelFormat.Format24bppRgb);
+
+            int stride = data.Stride;
+            int offset = stride - (data.Width * 3);
+            IntPtr scan0 = data.Scan0;
+
+            unsafe
+            {
+                byte* ptr = (byte*)(void*)scan0;
+
+                for (int y = 0; y < bmap.Height; ++y)
+                {
+                    for (int x = 0; x < bmap.Width; ++x)
+                    {
+                        byte blue = ptr[0];
+                        byte green = ptr[1];
+                        byte red = ptr[2];
+
+                        ptr[0] = ptr[1] = ptr[2] = (byte)((.299 * red) + (.587 * green) + (.114 * blue));
+
+                        ptr += 3;
+                    }
+
+                    ptr += offset;
+                }
+            }
+
+            bmap.UnlockBits(data);
+
+            return bmap;
+        }
+
+        /// <summary>
+        ///     Inverts the specified image.
+        /// </summary>
+        /// <param name="image">
+        ///     The image.
+        /// </param>
+        /// <returns>
+        ///     The inverted image.
+        /// </returns>
+        public static Bitmap Invert(this Bitmap image)
+        {
+            Bitmap bmap = (Bitmap)image.Clone();
+
+            // GDI+ still lies to us - the return format is BGR, NOT RGB. 
+            BitmapData data = bmap.LockBits(
+                new Rectangle(0, 0, bmap.Width, bmap.Height), 
+                ImageLockMode.ReadWrite, 
+                PixelFormat.Format24bppRgb);
+
+            int stride = data.Stride; // width of single line.
+            IntPtr scan0 = data.Scan0; // Pointer to the data.
+
+            unsafe
+            {
+                byte* ptr = (byte*)(void*)scan0;
+                int offset = stride - (bmap.Width * 3); // calculate the padding.
+                int width = bmap.Width * 3; // steps for width * BGR
+                for (int y = 0; y < bmap.Height; ++y)
+                {
+                    for (int x = 0; x < width; ++x)
+                    {
+                        ptr[0] = (byte)(255 - ptr[0]);
+                        ++ptr;
+                    }
+
+                    ptr += offset; // skip the padding.
+                }
+            }
+
+            bmap.UnlockBits(data);
+
+            return bmap;
+        }
+
+        /// <summary>
+        ///     Sets the color filter.
+        /// </summary>
+        /// <param name="image">
+        ///     The image.
         /// </param>
         /// <param name="filterType">
-        /// Type of the filter.
+        ///     Type of the filter.
         /// </param>
-        /// <returns> 
-        /// The filtered image.
+        /// <returns>
+        ///     The filtered image.
         /// </returns>
         public static Bitmap SetColorFilter(this Bitmap image, ColorFilterType filterType)
         {
             Bitmap bmap = (Bitmap)image.Clone();
 
-            Color color;
-
             for (int i = 0; i < bmap.Width; i++)
             {
                 for (int j = 0; j < bmap.Height; j++)
                 {
-                    color = bmap.GetPixel(i, j);
-                    int nPixelR = 0;
-                    int nPixelG = 0;
-                    int nPixelB = 0;
+                    Color color = bmap.GetPixel(i, j);
+                    int pixelR = 0;
+                    int pixelG = 0;
+                    int pixelB = 0;
 
                     if (filterType == ColorFilterType.Red)
                     {
-                        nPixelR = color.R;
-                        nPixelG = color.G - 255;
-                        nPixelB = color.B - 255;
+                        pixelR = color.R;
+                        pixelG = color.G - 255;
+                        pixelB = color.B - 255;
                     }
                     else if (filterType == ColorFilterType.Green)
                     {
-                        nPixelR = color.R - 255;
-                        nPixelG = color.G;
-                        nPixelB = color.B - 255;
+                        pixelR = color.R - 255;
+                        pixelG = color.G;
+                        pixelB = color.B - 255;
                     }
                     else if (filterType == ColorFilterType.Blue)
                     {
-                        nPixelR = color.R - 255;
-                        nPixelG = color.G - 255;
-                        nPixelB = color.B;
+                        pixelR = color.R - 255;
+                        pixelG = color.G - 255;
+                        pixelB = color.B;
                     }
 
-                    nPixelR = Math.Max(nPixelR, 0);
-                    nPixelR = Math.Min(255, nPixelR);
+                    pixelR = Math.Max(pixelR, 0);
+                    pixelR = Math.Min(255, pixelR);
 
-                    nPixelG = Math.Max(nPixelG, 0);
-                    nPixelG = Math.Min(255, nPixelG);
+                    pixelG = Math.Max(pixelG, 0);
+                    pixelG = Math.Min(255, pixelG);
 
-                    nPixelB = Math.Max(nPixelB, 0);
-                    nPixelB = Math.Min(255, nPixelB);
+                    pixelB = Math.Max(pixelB, 0);
+                    pixelB = Math.Min(255, pixelB);
 
-                    bmap.SetPixel(i, j, Color.FromArgb(
-                        (byte)nPixelR,
-                        (byte)nPixelG,
-                        (byte)nPixelB));
+                    bmap.SetPixel(i, j, Color.FromArgb((byte)pixelR, (byte)pixelG, (byte)pixelB));
                 }
             }
 
@@ -78,28 +421,28 @@ namespace Uximagine.Magicurve.Image.Processing.Helpers
         }
 
         /// <summary>
-        /// Sets the color filter v2.
+        ///     Sets the color filter v2.
         /// </summary>
         /// <param name="image">
-        /// The image.
+        ///     The image.
         /// </param>
         /// <param name="filterType">
-        /// Type of the filter.
+        ///     Type of the filter.
         /// </param>
         /// <returns>
-        /// The filtered image.
+        ///     The filtered image.
         /// </returns>
         public static Bitmap SetColorFilterV2(this Bitmap image, ColorFilterType filterType)
         {
             Bitmap bmap = (Bitmap)image.Clone();
             BitmapData data = bmap.LockBits(
-                new Rectangle(0, 0, bmap.Width, bmap.Height),
-                ImageLockMode.ReadWrite,
+                new Rectangle(0, 0, bmap.Width, bmap.Height), 
+                ImageLockMode.ReadWrite, 
                 PixelFormat.Format24bppRgb);
 
             int stride = data.Stride;
-            int nWdith = data.Width * 3;
-            int nOffset = stride - nWdith;
+            int wdith = data.Width * 3;
+            int offset = stride - wdith;
             IntPtr scan0 = data.Scan0;
 
             unsafe
@@ -145,7 +488,8 @@ namespace Uximagine.Magicurve.Image.Processing.Helpers
 
                         ptr += 3;
                     }
-                    ptr += nOffset;
+
+                    ptr += offset;
                 }
             }
 
@@ -154,347 +498,138 @@ namespace Uximagine.Magicurve.Image.Processing.Helpers
         }
 
         /// <summary>
-        /// Inverts the specified image.
-        /// </summary>
-        /// <param name="image">
-        /// The image.
-        /// </param>
-        /// <returns>
-        /// The inverted image.
-        /// </returns>
-        public static Bitmap Invert(this Bitmap image)
-        {
-            Bitmap bmap = (Bitmap)image.Clone();
-
-            // GDI+ still lies to us - the return format is BGR, NOT RGB. 
-            BitmapData data = bmap.LockBits(new Rectangle(0, 0, bmap.Width, bmap.Height),
-                ImageLockMode.ReadWrite, PixelFormat.Format24bppRgb);
-
-            int stride = data.Stride;   // width of single line.
-            IntPtr scan0 = data.Scan0;  // Pointer to the data.
-
-            unsafe
-            {
-                byte* ptr = (byte*)(void*)scan0;
-                int nOffset = stride - bmap.Width * 3;    // calculate the padding.
-                int nWidth = bmap.Width * 3;              // steps for width * BGR
-                for (int y = 0; y < bmap.Height; ++y)
-                {
-                    for (int x = 0; x < nWidth; ++x)
-                    {
-                        ptr[0] = (byte)(255 - ptr[0]);
-                        ++ptr;
-                    }
-
-                    ptr += nOffset;     // skip the padding.
-                }
-            }
-
-            bmap.UnlockBits(data);
-
-            return bmap;
-        }
-
-        /// <summary>
-        /// Grayscales the specified image.
-        /// </summary>
-        /// <param name="image">
-        /// The image.
-        /// </param>
-        /// <returns>
-        /// The grayscaled image.
-        /// </returns>
-        public static Bitmap Grayscale(this Bitmap image)
-        {
-            Bitmap bmap = (Bitmap)image.Clone();
-
-            BitmapData data = bmap.LockBits(
-                new Rectangle(0, 0, bmap.Width, bmap.Height),
-                ImageLockMode.ReadWrite,
-                PixelFormat.Format24bppRgb);
-
-            int stride = data.Stride;
-            int nOffset = stride - data.Width * 3;
-            IntPtr scan0 = data.Scan0;
-
-            unsafe
-            {
-                byte* ptr = (byte*)(void*)scan0;
-                byte red, green, blue;
-
-                for (int y = 0; y < bmap.Height; ++y)
-                {
-                    for (int x = 0; x < bmap.Width; ++x)
-                    {
-                        blue = ptr[0];
-                        green = ptr[1];
-                        red = ptr[1];
-
-                        ptr[0] = ptr[1] = ptr[2] =
-                            (byte)(.299 * red + .587 * green + .114 * blue);
-
-                        ptr += 3;
-                    }
-                    ptr += nOffset;
-                }
-            }
-
-            bmap.UnlockBits(data);
-
-            return bmap;
-        }
-
-        /// <summary>
-        /// Brightens the specified amount.
-        /// </summary>
-        /// <param name="image">
-        /// The image.
-        /// </param>
-        /// <param name="nBrightness">
-        /// The brightness amount.
-        /// </param>
-        /// <returns>
-        /// The result image.
-        /// </returns>
-        public static Bitmap Brighten(this Bitmap image, int nBrightness)
-        {
-            Bitmap bmap = (Bitmap)image.Clone();
-
-            BitmapData data = bmap.LockBits(
-                new Rectangle(0, 0, bmap.Width, bmap.Height),
-                ImageLockMode.ReadWrite,
-                PixelFormat.Format24bppRgb);
-
-            int nVal;
-            int stride = data.Stride;
-            int nOffset = stride - bmap.Width * 3;
-            int nWidth = bmap.Width * 3;
-            IntPtr scan0 = data.Scan0;
-
-            unsafe
-            {
-                byte* ptr = (byte*)(void*)scan0;
-
-                for (int y = 0; y < bmap.Height; ++y)
-                {
-                    for (int x = 0; x < nWidth; ++x)
-                    {
-                        nVal = ptr[0] + nBrightness;
-
-                        nVal = Math.Max(nVal, 0);
-                        nVal = Math.Min(255, nVal);
-
-                        ptr[0] = (byte)nVal;
-
-                        ++ptr;
-                    }
-
-                    ptr += nOffset;
-                }
-            }
-
-            bmap.UnlockBits(data);
-
-            return bmap;
-        }
-
-        /// <summary>
-        /// Contrasts the specified contrast.
-        /// </summary>
-        /// <param name="image">
-        /// The image.
-        /// </param>
-        /// <param name="contrast">
-        /// The contrast.
-        /// </param>
-        /// <returns>
-        /// The contrast result.
-        /// </returns>
-        public static Bitmap Contrast(this Bitmap image, int contrast)
-        {
-            Bitmap bmap = (Bitmap)image.Clone();
-
-            BitmapData data = bmap.LockBits(
-                new Rectangle(0, 0, bmap.Width, bmap.Height),
-                ImageLockMode.ReadWrite,
-                PixelFormat.Format24bppRgb);
-
-            int nWidth = bmap.Width * 3;
-            int stride = data.Stride;
-            int nOffset = stride - nWidth;
-            IntPtr scan0 = data.Scan0;
-            unsafe
-            {
-                byte* ptr = (byte*)(void*)scan0;
-                int red;
-                double pixel;
-
-                for (int y = 0; y < bmap.Height; ++y)
-                {
-                    for (int x = 0; x < bmap.Width; ++x)
-                    {
-                        red = ptr[2];
-                        pixel = red / 255.0;
-                        pixel -= 0.5;
-                        pixel *= contrast;
-                        pixel += 0.5;
-                        pixel *= 255;
-
-                        pixel = Math.Max(pixel, 0);
-                        pixel = Math.Min(255, pixel);
-
-                        ptr[2] = (byte)pixel;
-
-                        ptr += 3;
-                    }
-
-                    ptr += nOffset;
-                }
-            }
-
-            bmap.UnlockBits(data);
-            return bmap;
-        }
-
-        /// <summary>
-        /// Gammas the specified image.
-        /// </summary>
-        /// <param name="image">
-        /// The image.
-        /// </param>
-        /// <param name="red"> 
-        /// Red Value 
-        /// </param>
-        /// <param name="green">
-        ///  Green Value 
-        /// </param>
-        /// <param name="blue">
-        ///  Blue Value 
-        /// </param>
-        /// <returns>
-        /// The gamma applied image.
-        /// </returns>
-        public static Bitmap Gamma(this Bitmap image, double red, double green, double blue)
-        {
-            if (red < .2 || red > 5) throw new ArgumentException("Invalid Red Value");
-            if (green < .2 || green > 5) throw new ArgumentException("Invalid Green Value");
-            if (blue < .2 || blue > 5) throw new ArgumentException("Invalid Blue Value");
-
-            Bitmap bmap = (Bitmap)image.Clone();
-            BitmapData data = bmap.LockBits(
-                new Rectangle(0, 0, bmap.Width, bmap.Width),
-                ImageLockMode.ReadWrite,
-                PixelFormat.Format24bppRgb);
-
-            int stride = data.Stride;
-            int nWidth = data.Width * 3;
-            int nOffset = stride - nWidth;
-            IntPtr scan0 = data.Scan0;
-
-            byte[] redGamma = new byte[256];
-            byte[] greenGamma = new byte[256];
-            byte[] blueGamma = new byte[256];
-
-            for (int i = 0; i < 256; ++i)
-            {
-                redGamma[i] = (byte)Math.Min(
-                    255,
-                    (int)((255.0 * Math.Pow(i / 255.0, 1.0 / red)) + 0.5));
-                greenGamma[i] = (byte)Math.Min(
-                    255,
-                    (int)((255.0 * Math.Pow(i / 255.0, 1.0 / green)) + 0.5));
-                blueGamma[i] = (byte)Math.Min(
-                    255,
-                    (int)((255.0 * Math.Pow(i / 255.0, 1.0 / blue)) + 0.5));
-
-            }
-
-            unsafe
-            {
-                byte* ptr = (byte*)(void*)scan0;
-
-                for (int y = 0; y < bmap.Height; ++y)
-                {
-                    for (int x = 0; x < bmap.Width; ++x)
-                    {
-
-                        ptr[0] = redGamma[ptr[0]];
-                        ptr[1] = redGamma[ptr[1]];
-                        ptr[2] = redGamma[ptr[2]];
-
-                        ptr += 3;
-                    }
-
-                    ptr += nOffset;
-                }
-            }
-
-            bmap.UnlockBits(data);
-
-            return bmap;
-        }
-
-        /// <summary>
-        /// Gets the BLOB ready.
+        /// Binaries the specified image.
         /// </summary>
         /// <param name="image">The image.</param>
-        /// <returns>
-        /// The filtered image.
-        /// </returns>
-        public static Bitmap GetBlobReady(this Bitmap image)
+        /// <param name="threshold">The threshold.</param>
+        public static void ToBinary(this Bitmap image, byte threshold = 127)
         {
-            image = AForge.Imaging.Filters.Grayscale.CommonAlgorithms.BT709.Apply(image);
+            BitmapData data = image.LockBits(
+                new Rectangle(0, 0, image.Width, image.Height),
+                ImageLockMode.ReadWrite,
+                PixelFormat.Format32bppArgb);
+            byte[] buffer = new byte[data.Stride * image.Height];
+            Marshal.Copy(data.Scan0, buffer, 0, buffer.Length);
 
-            Threshold threshold = new Threshold();
-            threshold.ApplyInPlace(image);
+            int channels = 4;
 
-            Median median = new Median();
-            median.ApplyInPlace(image);
+            for (int k = 0; k < buffer.Length; k += channels)
+            {
+                byte gray = (byte)((.299 * buffer[k + 2]) + (.587 * buffer[k + 1]) + (.114 * buffer[k]));
+                byte binary = (byte)(gray > threshold ? 255 : 0);
+                buffer[k] = binary;
+                buffer[k + 1] = binary;
+                buffer[k + 2] = binary;
+                buffer[k + 3] = 255;
+            }
 
-            Invert invert = new Invert();
-            invert.ApplyInPlace(image);
+            Marshal.Copy(buffer, 0, data.Scan0, buffer.Length);
 
-            return image;
+            image.UnlockBits(data);
+
         }
 
         /// <summary>
-        /// Gets the BLOB ready.
+        /// Gets the lines count.
         /// </summary>
         /// <param name="image">The image.</param>
-        /// <returns>
-        /// The filtered image.
-        /// </returns>
-        public static Bitmap GetCleaned(this Bitmap image)
+        /// <param name="count">The count.</param>
+        public static void GetHorizontalLinesCount(this Bitmap image, out int count)
         {
-            image = AForge.Imaging.Filters.Grayscale.CommonAlgorithms.BT709.Apply(image);
+            count = 0;
+            bool foundLine = false;
 
-            Threshold threshold = new Threshold();
-            threshold.ApplyInPlace(image);
+            BitmapData data = image.LockBits(
+                new Rectangle(0, 0, image.Width, image.Height),
+                ImageLockMode.ReadWrite,
+                PixelFormat.Format24bppRgb);
 
-            Median median = new Median();
-            median.ApplyInPlace(image);
+            byte[] buffer = new byte[data.Stride * image.Height];
 
-            return image;
+            Marshal.Copy(data.Scan0, buffer, 0, buffer.Length);
+
+            const int Channels = 3;
+
+            for (int y = 0; y < image.Height; y++)
+            {
+                for (int x = image.Width / 2; x < (image.Width / 2) + 1; x++)
+                {
+                    int byteOffset = (y * data.Stride) + (x * Channels);
+                    Debug.WriteLine($"{buffer[byteOffset]} {x} {y}");
+                    if (buffer[byteOffset] == 255)
+                    {
+                        foundLine = true;
+                    }
+                    else
+                    {
+                        if (foundLine)
+                        {
+                            count++;
+                            foundLine = false;
+                        }
+                    }
+                }
+            }
+
+            if (foundLine)
+            {
+                count++;
+            }
+
+            //// Finally
+            Marshal.Copy(buffer, 0, data.Scan0, buffer.Length);
+            image.UnlockBits(data);
         }
-
         /// <summary>
-        /// Gets the BLOB ready.
+        /// Gets the lines count.
         /// </summary>
-        /// <param name="sourceData">The source data.</param>
-        /// <returns>
-        /// The filtered image.
-        /// </returns>
-        public static Bitmap GetCleaned(this BitmapData sourceData)
+        /// <param name="image">The image.</param>
+        /// <param name="count">The count.</param>
+        public static void GetVerticalLinesCount(this Bitmap image, out int count)
         {
-            Bitmap image = AForge.Imaging.Filters.Grayscale.CommonAlgorithms.BT709.Apply(sourceData);
+            count = 0;
+            bool foundLine = false;
 
-            Threshold threshold = new Threshold();
-            threshold.ApplyInPlace(image);
+            BitmapData data = image.LockBits(
+                new Rectangle(0, 0, image.Width, image.Height),
+                ImageLockMode.ReadWrite,
+                PixelFormat.Format24bppRgb);
 
-            Median median = new Median();
-            median.ApplyInPlace(image);
+            byte[] buffer = new byte[data.Stride * image.Height];
 
-            return image;
+            Marshal.Copy(data.Scan0, buffer, 0, buffer.Length);
+
+            const int Channels = 3;
+
+            for (int y = image.Height / 2; y < (image.Height / 2) + 1; y++)
+            {
+                for (int x = 0; x < image.Width; x++)
+                {
+                    int byteOffset = (y * data.Stride) + (x * Channels);
+                    Debug.WriteLine($"{buffer[byteOffset]} {x} {y}");
+                    if (buffer[byteOffset] == 255)
+                    {
+                        foundLine = true;
+                    }
+                    else
+                    {
+                        if (foundLine)
+                        {
+                            count++;
+                            foundLine = false;
+                        }
+                    }
+                }
+
+                if (foundLine)
+                {
+                    count++;
+                }
+            }
+
+            //// Finally
+            Marshal.Copy(buffer, 0, data.Scan0, buffer.Length);
+            image.UnlockBits(data);
         }
     }
 }

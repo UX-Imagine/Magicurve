@@ -260,5 +260,81 @@ namespace Uximagine.Magicurve.Services.Test.Image
             result.ShouldBeTrue();
             gray.Save(@"D:/Data/test/outputs/enhanced_" + fileName.Split('/').Last());
         }
+
+        /// <summary>
+        /// Tests the enhance edge.
+        /// </summary>
+        /// <param name="fileName">Name of the file.</param>
+        /// <param name="threshold">The threshold.</param>
+        [TestCase(@"D:\Data\test\inputs\button\test/test2.jpg", (byte)0)]
+        public void TestConvolution(string fileName, byte threshold)
+        {
+            Bitmap bmap = new Bitmap(fileName);
+            Bitmap result = bmap.ConvolutionFilter(new double[,]
+                                                       {
+                                                         { -1, -1, -1, },
+                                                         { -1,  8, -1, },
+                                                         { -1, -1, -1, },
+                                                       });
+            result.Save(@"D:/Data/test/outputs/convoluted_" + fileName.Split('/').Last());
+        }
+
+        /// <summary>
+        /// Tests the enhance edge.
+        /// </summary>
+        /// <param name="fileName">Name of the file.</param>
+        [TestCase(@"D:\Data\test\inputs\iframe\test/test1.jpg")]
+        [TestCase(@"D:\Data\test\inputs\button\test/test2.jpg")]
+        [TestCase(@"D:\Data\test\inputs\image\test/test2.jpg")]
+        [TestCase(@"D:\Data\test\inputs\checkbox\test/test2.jpg")]
+        public void TestConvolutionPrewitt(string fileName)
+        {
+            Bitmap bmap = new Bitmap(fileName);
+            Bitmap result = bmap.ConvolutionFilter(FilterMatrix.Prewitt3x3Vertical);
+            result.Save(@"D:/Data/test/outputs/prewitt_v_" + fileName.Split('/').Last());
+        }
+
+        /// <summary>
+        /// Tests the enhance edge.
+        /// </summary>
+        /// <param name="fileName">Name of the file.</param>
+        [TestCase(@"D:\Data\test\inputs\button\test/test2.jpg")]
+        [TestCase(@"D:\Data\test\inputs\iframe\test/test1.jpg")]
+        [TestCase(@"D:\Data\test\inputs\checkbox\test/test2.jpg")]
+        public void TestConvolutionPrewittHorizontal(string fileName)
+        {
+            Bitmap bmap = new Bitmap(fileName);
+            Bitmap result = bmap.ConvolutionFilter(FilterMatrix.Prewitt3x3Horizontal);
+            result.Save(@"D:/Data/test/outputs/prewitt_h_" + fileName.Split('/').Last());
+        }
+
+        /// <summary>
+        /// Tests the enhance edge.
+        /// </summary>
+        /// <param name="fileName">Name of the file.</param>
+        [TestCase(@"D:\Data\test\inputs\button\test/test2.jpg")]
+        [TestCase(@"D:\Data\test\inputs\iframe\test/test1.jpg")]
+        [TestCase(@"D:\Data\test\inputs\checkbox\test/test2.jpg")]
+        public void TestConvolutionPrewittHorizontalGaussian(string fileName)
+        {
+            Bitmap bmap = new Bitmap(fileName);
+            Bitmap result = bmap.ConvolutionFilter(FilterMatrix.Prewitt3x3Horizontal);
+            result = result.ConvolutionFilter(FilterMatrix.Gaussian5x5Type1);
+            result.Save(@"D:/Data/test/outputs/prewitt_h_gaussian_" + fileName.Split('/').Last());
+        }
+
+        /// <summary>
+        /// Tests the enhance edge.
+        /// </summary>
+        /// <param name="fileName">Name of the file.</param>
+        [TestCase(@"D:\Data\test\inputs\button\test/test2.jpg")]
+        [TestCase(@"D:\Data\test\inputs\iframe\test/test1.jpg")]
+        [TestCase(@"D:\Data\test\inputs\checkbox\test/test2.jpg")]
+        public void TestConvolutionPrewittHorizontalVertical(string fileName)
+        {
+            Bitmap bmap = new Bitmap(fileName);
+            Bitmap result = bmap.ConvolutionFilter(FilterMatrix.Prewitt3x3Horizontal, FilterMatrix.Prewitt3x3Vertical);
+            result.Save(@"D:/Data/test/outputs/prewitt_h_v_" + fileName.Split('/').Last());
+        }
     }
 }

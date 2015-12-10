@@ -150,6 +150,7 @@
     <Compile Include="Image\ImageProcessorTest.cs" />
     <Compile Include="Image\CornerTests.cs" />
     <Compile Include="Image\EdgeTests.cs" />
+    <Compile Include="Image\LineCounterTests.cs" />
     <Compile Include="Image\ResizeTests.cs" />
     <Compile Include="Neuro\NerualNetTests.cs" />
     <Compile Include="Neuro\PcaTrainAccuracyTests.cs" />

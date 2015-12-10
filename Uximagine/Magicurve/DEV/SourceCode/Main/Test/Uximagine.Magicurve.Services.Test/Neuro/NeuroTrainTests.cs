@@ -140,10 +140,16 @@ namespace Uximagine.Magicurve.Services.Test.Neuro
             return cornersCount;
         }
 
+        /// <summary>
+        /// Gets the lines count.
+        /// </summary>
+        /// <param name="cropped">The cropped.</param>
+        /// <param name="hLinesCount">The h lines count.</param>
+        /// <param name="vLinesCount">The v lines count.</param>
         private static void GetLinesCount(Bitmap cropped, out int hLinesCount, out int vLinesCount)
         {
-            Bitmap horizontal = ((Bitmap) cropped.Clone()).HorizontalEdges();
-            Bitmap vertical = ((Bitmap) cropped.Clone()).VerticalEdges();
+            Bitmap horizontal = ((Bitmap)cropped.Clone()).HorizontalEdges();
+            Bitmap vertical = ((Bitmap)cropped.Clone()).VerticalEdges();
 
             horizontal = Grayscale.CommonAlgorithms.BT709.Apply(horizontal);
             vertical = Grayscale.CommonAlgorithms.BT709.Apply(vertical);

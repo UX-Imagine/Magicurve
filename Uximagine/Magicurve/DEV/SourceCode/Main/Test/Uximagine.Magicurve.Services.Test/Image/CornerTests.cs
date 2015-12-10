@@ -20,6 +20,11 @@ namespace Uximagine.Magicurve.Services.Test.Image
     [TestFixture]
     public class CornerTests
     {
+        /// <summary>
+        /// Tests the susan.
+        /// </summary>
+        /// <param name="fileName">Name of the file.</param>
+        /// <param name="cornerCount">The corner count.</param>
         [TestCase(@"D:/Data/test/inputs/combo_10.jpg", 6)]
         public void TestSusan(string fileName, int cornerCount)
         {
@@ -37,7 +42,7 @@ namespace Uximagine.Magicurve.Services.Test.Image
             Median median = new Median();
             median.ApplyInPlace(image);
 
-            //var correctFormatImage = image.ConvertToFormat(PixelFormat.Format24bppRgb);
+            //// var correctFormatImage = image.ConvertToFormat(PixelFormat.Format24bppRgb);
 
             Invert invert = new Invert();
             invert.ApplyInPlace(image);
