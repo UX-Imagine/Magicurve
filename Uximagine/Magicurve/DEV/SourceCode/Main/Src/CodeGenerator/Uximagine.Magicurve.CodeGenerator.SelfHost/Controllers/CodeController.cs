@@ -5,6 +5,7 @@
 
     using Uximagine.Magicurve.Core.Models;
     using Uximagine.Magicurve.Core.Shapes;
+    using Uximagine.Magicurve.DataTransfer.Common;
     using Uximagine.Magicurve.DataTransfer.Requests;
 
     /// <summary>
@@ -39,7 +40,7 @@
         /// The <see cref="List"/>.
         /// </returns>
         [Route("controls")]
-        public List<Control> GetFakeControls()
+        public ControlsResult GetFakeControls()
         {
             List<Control> controls = new List<Control>()
                                          {
@@ -60,7 +61,9 @@
                                                      Type = ControlType.CheckBox
                                                  }
                                          };
-            return controls;
+
+            ControlsResult result = new ControlsResult() { Controls = controls, ImageHeight = 100, ImageWidth = 100 };
+            return result;
         }
     }
 }
