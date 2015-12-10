@@ -70,7 +70,7 @@ namespace Uximagine.Magicurve.Services.BusinessServices.UnitsOfWork
         /// </summary>
         protected override void Execute()
         {
-            IGenerator codeGenerator = CodeGeneratorFactory.GetProcessingService();
+            IGenerator codeGenerator = CodeGeneratorFactory.GetCodeGenerator();
             this.Code = codeGenerator.CreateHtmlCode(this.Controls, this.ImageWidth, this.ImageHeight);
         } 
 

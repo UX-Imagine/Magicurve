@@ -1,11 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Runtime.Serialization;
-using Newtonsoft.Json;
-using Uximagine.Magicurve.Core.Shapes;
-
-namespace Uximagine.Magicurve.UI.Web.Models
+﻿namespace Uximagine.Magicurve.DataTransfer.Common
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Runtime.Serialization;
+
+    using Newtonsoft.Json;
+
+    using Uximagine.Magicurve.Core.Shapes;
+
     /// <summary>
     /// The images result.
     /// </summary>

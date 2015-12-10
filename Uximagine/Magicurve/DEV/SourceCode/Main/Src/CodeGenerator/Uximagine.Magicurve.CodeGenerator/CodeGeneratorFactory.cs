@@ -7,6 +7,9 @@ namespace Uximagine.Magicurve.CodeGenerator
     /// </summary>
     public static class CodeGeneratorFactory
     {
+        /// <summary>
+        /// The generator implementation.
+        /// </summary>
         public const string GeneratorImplementation = @"GenImpel";
 
         /// <summary>
@@ -15,7 +18,7 @@ namespace Uximagine.Magicurve.CodeGenerator
         /// <returns>
         /// The code generator.
         /// </returns>
-        public static IGenerator GetProcessingService()
+        public static IGenerator GetCodeGenerator()
         {
             return ObjectFactory.GetInstance<IGenerator>(
                 GeneratorImplementation);

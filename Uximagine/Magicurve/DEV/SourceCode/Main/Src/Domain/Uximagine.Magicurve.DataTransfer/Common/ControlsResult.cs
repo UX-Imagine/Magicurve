@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Runtime.Serialization;
-using Newtonsoft.Json.Serialization;
-using Uximagine.Magicurve.Core.Shapes;
-using Newtonsoft.Json;
-
-namespace Uximagine.Magicurve.UI.Web.Models
+﻿namespace Uximagine.Magicurve.DataTransfer.Common
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Runtime.Serialization;
+
+    using Newtonsoft.Json;
+
+    using Uximagine.Magicurve.Core.Shapes;
+
     /// <summary>
     /// The controls result.
     /// </summary>

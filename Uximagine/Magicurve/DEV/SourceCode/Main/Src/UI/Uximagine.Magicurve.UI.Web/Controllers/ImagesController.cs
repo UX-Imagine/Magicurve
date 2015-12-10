@@ -9,12 +9,13 @@ using Uximagine.Magicurve.DataTransfer.Requests;
 using Uximagine.Magicurve.Services;
 using Uximagine.Magicurve.Core.Shapes;
 using Uximagine.Magicurve.UI.Web.Common;
-using Uximagine.Magicurve.UI.Web.Models;
 
 #endregion
 
 namespace Uximagine.Magicurve.UI.Web.Controllers
 {
+    using Uximagine.Magicurve.DataTransfer.Common;
+
     /// <summary>
     /// The API controller.
     /// </summary>

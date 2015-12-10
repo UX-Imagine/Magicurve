@@ -154,6 +154,7 @@
     <Folder Include="Content\Images\Capture\" />
     <Folder Include="Content\Images\Train\link\test\" />
     <Folder Include="Content\Images\Upload\" />
+    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -167,9 +168,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\CodeResult.cs" />
-    <Compile Include="Models\ControlsResult.cs" />
-    <Compile Include="Models\ImagesResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -1,9 +1,10 @@
-﻿using System;
-using System.Runtime.Serialization;
-using Newtonsoft.Json;
-
-namespace Uximagine.Magicurve.UI.Web.Models
+﻿namespace Uximagine.Magicurve.DataTransfer.Common
 {
+    using System;
+    using System.Runtime.Serialization;
+
+    using Newtonsoft.Json;
+
     /// <summary>
     /// The code result.
     /// </summary>

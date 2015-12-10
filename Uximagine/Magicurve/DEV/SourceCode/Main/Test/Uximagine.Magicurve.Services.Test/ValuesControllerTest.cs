@@ -1,5 +1,4 @@
 ﻿using Uximagine.Magicurve.Core.Models;
-using Uximagine.Magicurve.UI.Web.Models;
 
 namespace Uximagine.Magicurve.Services.Test
 {
@@ -9,6 +8,7 @@ namespace Uximagine.Magicurve.Services.Test
     using Uximagine.Magicurve.UI.Web.Controllers;
     using System.Collections.Generic;
     using Uximagine.Magicurve.Core.Shapes;
+    using Uximagine.Magicurve.DataTransfer.Common;
 
     /// <summary>
     /// Values controller test.
