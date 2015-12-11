@@ -211,7 +211,7 @@ namespace Uximagine.Magicurve.Neuro.Processing
             // Run the learning algorithm
             teacher.Run();
 
-            this.Machine.Save("E:/machine.nn");
+            this.Machine.Save(ConfigurationData.MachineUrl);
 
             this.IsTrained = true;
 
