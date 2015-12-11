@@ -1,16 +1,23 @@
 ﻿var domain = "/Magicurve";
-var canvasWidth = 960;
-var canvasHeight = 810;
+var canvasWidth = screen.width * 80 / 144;
+var canvasHeight = screen.height * .5;
 var stage = new Stage();
 stage.controlUrl = domain + "/api/images/result";
 stage.codeUrl = domain + "/api/images/download";
-
+var zCanvas;
+var root;
 zebra.ready(function () {
+    zCanvas = new zebra.ui.zCanvas("designer", canvasWidth, canvasHeight);
+    root = zCanvas.root; // save reference to root UI component
+    root.setBackground("black");
+    getControls();
+});
+
+function getControls() {
     stage.getControls(function() {
         draw();
     });
-});
-
+}
 
 function onSelectItem(index) {
     var x = document.getElementById("left");
@@ -28,20 +35,14 @@ function onSelectItem(index) {
 }
 
 function draw() {
-    var controls = stage.controls;
-    var imageWidth = stage.imageWidth;
-    var imageHeight = stage.imageHeight;
-
-    var zCanvas = new zebra.ui.zCanvas("designer", 970, 820);
-    var root = zCanvas.root; // save reference to root UI component
-    root.setBackground("black");
+    root.removeAll();
 
     var p = new zebra.ui.Panel(); // create panel
     p.setBounds(5, 5, canvasWidth, canvasHeight); // shape panel
     p.setBackground("white");    // set yellow background
     root.add(p);                  // add panel to root
 
-    var ajustedControls = ajustToCanvasSize(controls, imageHeight, imageWidth);
+    var ajustedControls = ajustToCanvasSize(stage.controls, stage.imageHeight, stage.imageWidth);
     var controlItems = genarateDesign(ajustedControls);
 
     for (var k = 0 ; k < controlItems.length; k++) {

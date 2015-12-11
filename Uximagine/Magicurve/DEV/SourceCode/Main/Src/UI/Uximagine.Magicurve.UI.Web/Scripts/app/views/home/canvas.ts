@@ -8,6 +8,13 @@ interface IControl {
     Type: string;
 }
 
+interface IControlResult {
+    controls: IControl[];
+    imageWidth: number;
+    imageHeight: number;
+    imagesUrl: string;
+}
+
 class ControlItem {
     public index: number;
     public control: any;

@@ -29,7 +29,7 @@
     .service('messagingService',
          function (toaster, canvasService) {
              this.UploadSuccess = function () {
-
+                 toaster.success("hello");
                  toaster.pop("success", "upload success");
                  canvasService.populateCanvas();
                  
@@ -49,7 +49,10 @@
                 if (window.zebra === 'undefined') {
                     toaster.pop("error", "Zebra not loaded");
                 } else {
-                    toaster.pop("success", "Zebra not loaded");
+                    toaster.pop("success", "File Uploaded.");
+                    if (typeof getControls == "function") {
+                        getControls();
+                    }
                 }
 
             }
@@ -82,6 +85,10 @@
             $scope.message = "Hello Magicurve";
 
             $rootScope.rootUrl = "/Magicurve";
+
+            $rootScope.stage = window.stage;
+
+            
 
             $scope.initUpload = function($event) {
                 var input = window.angular.element($event.target.children[0]);

@@ -20,25 +20,25 @@
             <div class="form-group">
                 <label for="left" class="col-sm-2 control-label">Left</label>
                 <div class="col-sm-10">
-                    <input type="number" class="form-control" id="left" placeholder="Left">
+                    <input type="number" class="form-control" id="left" placeholder="Left" ng-change="changed()" ng-model="control.left">
                 </div>
             </div>
             <div class="form-group">
                 <label for="top" class="col-sm-2 control-label">Top</label>
                 <div class="col-sm-10">
-                    <input type="number" class="form-control" id="top" placeholder="Top">
+                    <input type="number" class="form-control" id="top" placeholder="Top" ng-change="changed()" ng-model="control.top">
                 </div>
             </div>
             <div class="form-group">
                 <label for="width" class="col-sm-2 control-label">Width</label>
                 <div class="col-sm-10">
-                    <input type="number" class="form-control" id="width" placeholder="Width">
+                    <input type="number" class="form-control" id="width" placeholder="Width" ng-change="changed()" ng-model="control.width">
                 </div>
             </div>
             <div class="form-group">
                 <label for="height" class="col-sm-2 control-label">Height</label>
                 <div class="col-sm-10">
-                    <input type="number" class="col-sm-10 form-control" id="height" placeholder="Height">
+                    <input type="number" class="col-sm-10 form-control" id="height" placeholder="Height" ng-change="changed()" ng-model="control.height">
                 </div>
             </div>
             <div class="form-group">
@@ -48,4 +48,5 @@
             </div>
         </form>
     </div>
+    
 </div>

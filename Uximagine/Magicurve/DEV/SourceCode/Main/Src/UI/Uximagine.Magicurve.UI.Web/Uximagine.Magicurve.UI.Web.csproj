@@ -512,7 +512,7 @@
     <Content Include="Scripts\fx\angular-ui\ui-bootstrap.min.js" />
     <Content Include="Scripts\fx\angular\angular.js" />
     <Content Include="Scripts\fx\angular\angular.min.js" />
-    <Content Include="Scripts\app\views\home\context.menu.js" />
+    <Content Include="Scripts\fx\context.menu.js" />
     <Content Include="Scripts\app\views\home\home.Edit_Sample_Template.js" />
     <Content Include="Scripts\app\views\home\home.Index.js" />
     <Content Include="Scripts\app\views\home\home.testing.js" />
