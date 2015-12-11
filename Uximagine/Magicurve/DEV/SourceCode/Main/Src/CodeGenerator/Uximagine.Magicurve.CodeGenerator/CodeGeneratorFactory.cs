@@ -2,6 +2,10 @@
 
 namespace Uximagine.Magicurve.CodeGenerator
 {
+    using System;
+
+    using Uximagine.Magicurve.Core.Models;
+
     /// <summary>
     /// Code generator Factory
     /// </summary>
@@ -22,6 +26,30 @@ namespace Uximagine.Magicurve.CodeGenerator
         {
             return ObjectFactory.GetInstance<IGenerator>(
                 GeneratorImplementation);
+        }
+
+        /// <summary>
+        /// The get code generator.
+        /// </summary>
+        /// <param name="style">
+        /// The style.
+        /// </param>
+        /// <returns>
+        /// The <see cref="IGenerator"/>.
+        /// </returns>
+        public static IGenerator GetCodeGenerator(CodeStyle style)
+        {
+            switch (style)
+            {
+                case CodeStyle.Simple:
+                    return new SimpleCodeGenerator();
+                case CodeStyle.Responsive:
+                    return new ResponsiveCodeGenerator();
+                case CodeStyle.Ionic:
+                    throw new NotImplementedException();
+                default:
+                    return new SimpleCodeGenerator();
+            }
         }
     }
 }

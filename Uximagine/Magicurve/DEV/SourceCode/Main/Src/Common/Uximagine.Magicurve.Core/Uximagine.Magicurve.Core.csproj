@@ -86,6 +86,7 @@
     <Compile Include="Diagnostics\Logging\LoggerCollection.cs" />
     <Compile Include="Diagnostics\Logging\LogManager.cs" />
     <Compile Include="Diagnostics\Operation.cs" />
+    <Compile Include="Models\CodeStyle.cs" />
     <Compile Include="Models\IModel.cs" />
     <Compile Include="Models\IControl.cs" />
     <Compile Include="Models\ControlType.cs" />

@@ -54,6 +54,7 @@
         /// The DatePicker.
         /// </summary>
         DatePicker = 9,
+
         /// <summary>
         /// The label.
         /// </summary>

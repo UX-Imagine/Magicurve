@@ -12,6 +12,21 @@ zebra.ready(function () {
 });
 
 
+function onSelectItem(index) {
+    var x = document.getElementById("left");
+    x.value = stage.controls[index].X;
+
+    var y = document.getElementById("top");
+    y.value = stage.controls[index].Y;
+
+    var width = document.getElementById("width");
+    width.value = stage.controls[index].Width;
+
+    var height = document.getElementById("height");
+    height.value = stage.controls[index].Height;
+
+}
+
 function draw() {
     var controls = stage.controls;
     var imageWidth = stage.imageWidth;
@@ -131,6 +146,21 @@ function genarateDesign(sourceControls) {
                 editable(drawTextArea(sourceControls[i].X, sourceControls[i].Y, sourceControls[i].Width, sourceControls[i].Height), i));
         }
         else if (sourceControls[i].Type === "InputText") {
+            controls[controlsValid++] = new ControlItem(
+                i,
+                editable(drawTextBox(sourceControls[i].X, sourceControls[i].Y, sourceControls[i].Width, 30), i));
+        }
+        else if (sourceControls[i].Type === "Iframe") {
+            controls[controlsValid++] = new ControlItem(
+                i,
+                editable(drawTextBox(sourceControls[i].X, sourceControls[i].Y, sourceControls[i].Width, 30), i));
+        }
+        else if (sourceControls[i].Type === "DatePicker") {
+            controls[controlsValid++] = new ControlItem(
+                i,
+                editable(drawTextBox(sourceControls[i].X, sourceControls[i].Y, sourceControls[i].Width, 30), i));
+        }
+        else if (sourceControls[i].Type === "Range") {
             controls[controlsValid++] = new ControlItem(
                 i,
                 editable(drawTextBox(sourceControls[i].X, sourceControls[i].Y, sourceControls[i].Width, 30), i));

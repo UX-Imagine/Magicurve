@@ -3,6 +3,9 @@ function editable(control, index) {
     var shaperPan = new zebra.ui.designer.ShaperPan(control, [
        function mousePressed(e) {
            stage.activeControlIndex = index;
+           if (typeof onSelectItem == "function") {
+               onSelectItem(index);
+           }
        },
        function mouseReleased(e) {
            stage.controls[index].X = shaperPan.x;
@@ -36,30 +39,39 @@ function drawPanel(px, py, pw, ph, panelColor) {
 
 }
 
-//function for drawing lable
+//function for drawing label
 function drawLable(lx, ly, lw, lh, labaleCaption) {
-    var lable = new zebra.ui.Label(labaleCaption);
-    lable.setBounds(lx, ly, lw, lh);
-    lable.setColor("black");
-
-    return lable;
-
+    var label = new zebra.ui.Label(labaleCaption);
+    label.setBounds(lx, ly, lw, lh);
+    label.setColor("black");
+    return label;
 }
 
 //function for drawing text box
 function drawTextBox(tx, ty, tw, th) {
     var textBox = new zebra.ui.TextField("type here...");
     textBox.setBounds(tx, ty, tw, th);
+    return textBox;
+}
 
+//function for drawing text box
+function drawRange(tx, ty, tw, th) {
+    var textBox = new zebra.ui.Range("type here...");
+    textBox.setBounds(tx, ty, tw, th);
+    return textBox;
+}
+
+//function for drawing text box
+function drawRange(tx, ty, tw, th) {
+    var textBox = new zebra.ui.Range("type here...");
+    textBox.setBounds(tx, ty, tw, th);
     return textBox;
 }
 
 //function for drawing Horizontal Line
 function drawHorizontalLine(hx, hy, hw) {
-
     var horizontal = new zebra.ui.Line();
     horizontal.setBounds(hx, hy, hw, 3);
-
     return horizontal;
 }
 
