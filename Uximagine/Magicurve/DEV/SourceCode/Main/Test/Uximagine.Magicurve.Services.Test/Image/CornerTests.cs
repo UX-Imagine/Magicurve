@@ -152,7 +152,7 @@ namespace Uximagine.Magicurve.Services.Test.Image
             // algorithm. The default corners detection method used is the FAST
             // corners detection. So, let's start creating this detector first:
             // 
-            var detector = new FastCornersDetector(20);
+            var detector = new FastCornersDetector(60);
 
             // Now that we have a corners detector, we can pass it to the FREAK
             // feature extraction algorithm. Please note that if we leave this

@@ -165,9 +165,11 @@ namespace Uximagine.Magicurve.Image.Processing.Helpers
         {
             Bitmap cropped = image.Crop(edgePoints, frame);
 
+            cropped.ToBinary();
+
             cropped = cropped.Resize(sampleSize, sampleSize);
 
-            //cropped.Save("E:/Data/identified/cropped" + ".jpg");
+            //// cropped.Save("E:/Data/identified/cropped" + ".jpg");
 
             return cropped;
         }
