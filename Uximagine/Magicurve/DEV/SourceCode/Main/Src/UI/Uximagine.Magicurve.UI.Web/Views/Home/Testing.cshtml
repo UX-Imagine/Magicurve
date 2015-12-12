@@ -1,32 +1,16 @@
-﻿@{
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
-
-
-
-@section scripts
-{
-
-
-    @*<script src="~/Scripts/app/views/home/home.testing.js"></script>*@
+﻿
+@section Scripts{
+    <script src="~/Scripts/app/views/home/magicurve.app.service.home.js"></script>
     <script src="~/Scripts/fx/zebra/zebra.min.js"></script>
-
+    <script src="~/Scripts/app/views/home/canvas.js"></script>
+    <script src="~/Scripts/app/views/home/zebra.draw.js"></script>
+    
+<script src="~/Scripts/app/views/home/home.testing.js"></script>
+    <script src="~/Scripts/app/views/home/magicurve.app.controller.home.js"></script>
 
     <script>
 
-    zebra.ready(function () {
-        eval(zebra.Import("ui", "layout"));
 
-        window.root = (new zCanvas("desi", 970, 820)).root;
-        root.setBackground("black");
-        var pn = new zebra.ui.Panel();
-        pn.setBounds(5, 5, 960, 810);
-        pn.setBackground("darkgray");
-
-        root.add(pn);
-
-
-    });
 
     var pos;
     function allowDrop(ev) {
@@ -162,7 +146,7 @@
 
 
         zebra.ready(function () {
-            
+
             var button = new zebra.ui.Button("Button");
             button.setBounds(bx, by, 80, 30);
            // button.setBackground("red");
@@ -198,6 +182,8 @@
         });
     }
     function drawDatePicker(bx, by) {
+
+
         zebra.ready(function () {
 
 
@@ -282,9 +268,17 @@
 
 
     </script>
+
 }
 
+<div  data-ng-controller="homeController">
+   
+        <canvas id="designer" ondrop="drop(event)" ondragover="allowDrop(event)" draggable="true">
+            This Browser does not support canvas element.
+        </canvas>
+    
+    
+        
+  
 
-<canvas id="desi" ondrop="drop(event)" ondragover="allowDrop(event)" draggable="true"></canvas>
-
-
+</div>
