@@ -15,17 +15,17 @@ namespace Uximagine.Magicurve.CodeGenerator.Common
             /// <summary>
             /// The bootstrap CSS.
             /// </summary>
-            public const string BootstrapCss = "bootstrap.min.css";
+            public const string BootstrapCss = "http://localhost/Magicurve/Content/bootstrap.min.css";
 
             /// <summary>
             /// The bootstrap min JS.
             /// </summary>
-            public const string BootstrapJs = "bootstrap.min.js";
+            public const string BootstrapJs = "http://localhost/Magicurve/Scripts/bootstrap.min.js";
 
             /// <summary>
             /// The JQUERY JS.
             /// </summary>
-            public const string Jquery = "jquery.min.js";
+            public const string Jquery = "http://localhost/Magicurve/Scripts/jquery-1.10.2.min.js";
 
             /// <summary>
             /// The custom CSS.
