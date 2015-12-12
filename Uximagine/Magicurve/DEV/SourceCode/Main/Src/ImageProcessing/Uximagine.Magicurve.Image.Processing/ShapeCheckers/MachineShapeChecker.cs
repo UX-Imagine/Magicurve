@@ -54,7 +54,7 @@ namespace Uximagine.Magicurve.Image.Processing.ShapeCheckers
                 if (classifier.IsTrained == false)
                 {
                     Trainer trainer = new Trainer();
-                    trainer.Train(ConfigurationData.MinSize, 32);
+                    trainer.Train(ConfigurationData.MinSize, SampleSize);
                 }
 
                 int decision = classifier.Compute(cropped);

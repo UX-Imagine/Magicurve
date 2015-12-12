@@ -23,7 +23,7 @@ namespace Uximagine.Magicurve.Services.Test.Neuro
     ///     Neural network training tests.
     /// </summary>
     [TestFixture]
-    public class SvmTrainTestPercentage
+    public class SvmTrainTests
     {
         private List<Tuple<Bitmap, int>> images;
 
@@ -52,44 +52,116 @@ namespace Uximagine.Magicurve.Services.Test.Neuro
             Debug.WriteLine("Test finished.");
         }
 
-        [TestCase(@"D:/Data/test/inputs/button", ControlType.Button)]
-        [TestCase(@"D:/Data/test/inputs/text", ControlType.InputText)]
-        [TestCase(@"D:/Data/test/inputs/combo", ControlType.ComboBox)]
-        [TestCase(@"D:/Data/test/inputs/password", ControlType.InputPassword)]
-        [TestCase(@"D:/Data/test/inputs/paragraph", ControlType.Paragraph)]
-        [TestCase(@"D:/Data/test/inputs/label", ControlType.Label)]
-        [TestCase(@"D:/Data/test/inputs/iframe", ControlType.Iframe)]
-        [TestCase(@"D:/Data/test/inputs/hr", ControlType.HLine)]
-        [TestCase(@"D:/Data/test/inputs/range", ControlType.Range)]
-        [TestCase(@"D:/Data/test/inputs/checkbox", ControlType.CheckBox)]
-        [TestCase(@"D:/Data/test/inputs/date", ControlType.DatePicker)]
-        [TestCase(@"D:/Data/test/inputs/link", ControlType.HyperLink)]
-        [TestCase(@"D:/Data/test/inputs/image", ControlType.Image)]
-        [TestCase(@"D:/Data/test/inputs/radio", ControlType.RadioButton)]
-        public void TestAccuracy(string directory, ControlType type)
+        [TestCase(@"D:/Data/test/inputs/button/test/test1.jpg")]
+        [TestCase(@"D:/Data/test/inputs/button/test/test2.jpg")]
+        public void TestButton(string fileName)
         {
-            string[] files = Directory.GetFiles(directory);
+            Bitmap testInputButton = GetInputVector(fileName, MinSize);
+            var decision = this.classifier.Compute(testInputButton);
+            decision.ShouldEqual(ControlType.Button.To<int>() - 1,
+                $"expected {ControlType.Button} but actual {(ControlType)(decision + 1)} ");
+        }
 
-            int index = 0;
-            int passCount = 0;
+        [TestCase(@"D:/Data/test/inputs/combo/test/test1.jpg")]
+        public void TestCombo(string fileName)
+        {
+            Bitmap testInputButton = GetInputVector(fileName, MinSize);
+            var decision = this.classifier.Compute(testInputButton);
+            decision.ShouldEqual(ControlType.ComboBox.To<int>() - 1);
+        }
 
-            foreach (var image in files)
-            {
-                Bitmap testInputButton = GetInputVector(image, MinSize);
-                var decision = this.classifier.Compute(testInputButton);
-                Debug.WriteLine($"expected {type} but actual {(ControlType)(decision + 1)} ");
+        [TestCase(@"D:/Data/test/inputs/paragraph/test/test1.jpg")]
+        public void TestParah(string fileName)
+        {
+            Bitmap testInputButton = GetInputVector(fileName, MinSize);
+            var decision = this.classifier.Compute(testInputButton);
+            decision.ShouldEqual(ControlType.Paragraph.To<int>() - 1);
+        }
 
-                if (decision == type.To<int>() - 1)
-                {
-                    passCount++;
-                }
 
-                index++;
-            }
+        [TestCase(@"D:/Data/test/inputs/text/test/test1.jpg")]
+        public void TestText(string fileName)
+        {
+            Bitmap testInputButton = GetInputVector(fileName, MinSize);
+            var decision = this.classifier.Compute(testInputButton);
+            decision.ShouldEqual(ControlType.InputText.To<int>() - 1);
+        }
 
-            double percentage = ((passCount / (index * 1.0)) * 100);
-            Debug.WriteLine($"accuracy : {percentage}");
-            percentage.ShouldBeGreaterThan(80);
+        [TestCase(@"D:/Data/test/inputs/radio/test/test1.jpg")]
+        public void TestRadio(string fileName)
+        {
+            Bitmap testInputButton = GetInputVector(fileName, MinSize);
+            var decision = this.classifier.Compute(testInputButton);
+            decision.ShouldEqual(ControlType.RadioButton.To<int>() - 1);
+        }
+
+        [TestCase(@"D:/Data/test/inputs/image/test/test1.jpg")]
+        [TestCase(@"D:/Data/test/inputs/image/test/test2.jpg")]
+        public void TestImage(string fileName)
+        {
+            Bitmap testInputButton = GetInputVector(fileName, MinSize);
+            var decision = this.classifier.Compute(testInputButton);
+            decision.ShouldEqual(ControlType.Image.To<int>() - 1);
+        }
+
+        [TestCase(@"D:/Data/test/inputs/password/test/test1.jpg")]
+        public void TestPassword(string fileName)
+        {
+            Bitmap testInputButton = GetInputVector(fileName, MinSize);
+            var decision = this.classifier.Compute(testInputButton);
+            decision.ShouldEqual(ControlType.InputPassword.To<int>() - 1);
+        }
+
+        [TestCase(@"D:/Data/test/inputs/checkbox/test/test1.jpg")]
+        [TestCase(@"D:/Data/test/inputs/checkbox/test/test2.jpg")]
+        public void TestCheckBox(string fileName)
+        {
+            Bitmap testInputButton = GetInputVector(fileName, MinSize);
+            var decision = this.classifier.Compute(testInputButton);
+            decision.ShouldEqual(ControlType.CheckBox.To<int>() - 1);
+        }
+
+        [TestCase(@"D:/Data/test/inputs/date/test/test2.jpg")]
+        [TestCase(@"D:/Data/test/inputs/date/test/test1.jpg")]
+        public void TestDatePicker(string fileName)
+        {
+            Bitmap vector = GetInputVector(fileName, MinSize);
+            var decision = this.classifier.Compute(vector);
+            decision.ShouldEqual(ControlType.DatePicker.To<int>() - 1);
+        }
+
+        [TestCase(@"D:/Data/test/inputs/label/test/test1.jpg")]
+        public void TestLabel(string fileName)
+        {
+            Bitmap vector = GetInputVector(fileName, MinSize);
+            var decision = this.classifier.Compute(vector);
+            decision.ShouldEqual(ControlType.Label.To<int>() - 1);
+        }
+
+        [TestCase(@"D:/Data/test/inputs/iframe/test/test1.jpg")]
+        [TestCase(@"D:/Data/test/inputs/iframe/test/test2.jpg")]
+        public void TestIFrame(string fileName)
+        {
+            Bitmap vector = GetInputVector(fileName, MinSize);
+            var decision = this.classifier.Compute(vector);
+            decision.ShouldEqual(ControlType.Iframe.To<int>() - 1);
+        }
+
+        [TestCase(@"D:/Data/test/inputs/hr/test/test1.jpg")]
+        [TestCase(@"D:/Data/test/inputs/hr/test/test2.jpg")]
+        public void TestHr(string fileName)
+        {
+            Bitmap vector = GetInputVector(fileName, MinSize);
+            var decision = this.classifier.Compute(vector);
+            decision.ShouldEqual(ControlType.HLine.To<int>() - 1);
+        }
+
+        [TestCase(@"D:/Data/test/inputs/range/test/test1.jpg")]
+        public void TestRange(string fileName)
+        {
+            Bitmap vector = GetInputVector(fileName, MinSize);
+            var decision = this.classifier.Compute(vector);
+            decision.ShouldEqual(ControlType.Range.To<int>() - 1);
         }
 
         /// <summary>

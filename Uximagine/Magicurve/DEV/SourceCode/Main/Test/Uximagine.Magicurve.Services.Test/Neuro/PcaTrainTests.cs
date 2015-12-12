@@ -84,7 +84,7 @@ namespace Uximagine.Magicurve.Services.Test.Neuro
             Bitmap radio = this.GetInputVector(@"D:/Data/test/inputs/radio/test/test1.jpg", minSize);
             Bitmap image = this.GetInputVector(@"D:/Data/test/inputs/image/test/test1.jpg", minSize);
             Bitmap image2 = this.GetInputVector(@"D:/Data/test/inputs/image/test/test2.jpg", minSize);
-            Bitmap password = this.GetInputVector(@"D:/Data/test/inputs/password/test/test1.jpg", minSize);
+            Bitmap password = this.GetInputVector(@"D:/Data/test/inputs/password2/test/test1.jpg", minSize);
 
             var decision = classifier.Compute(testInputButton);
             decision.ShouldEqual(ControlType.Button.To<int>() - 1);

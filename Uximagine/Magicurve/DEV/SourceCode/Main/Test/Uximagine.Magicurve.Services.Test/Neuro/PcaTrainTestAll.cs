@@ -23,27 +23,25 @@ namespace Uximagine.Magicurve.Services.Test.Neuro
     ///     Neural network training tests.
     /// </summary>
     [TestFixture]
-    public class SvmTrainTestPercentage
+    public class PcaTrainTestsAll
     {
         private List<Tuple<Bitmap, int>> images;
 
         private const int SampleSize = 32;
 
-        private SvmClassifier classifier;
+        private PcaClassifier classifier;
 
         private const int MinSize = 50;
-
-        private int classesCount = 0;
 
         [TestFixtureSetUp]
         public void Setup()
         {
             this.images = new List<Tuple<Bitmap, int>>();
             Debug.WriteLine("Test Started");
-            GetInputsOutputs(50);
+            GetInputsOutputs(MinSize);
 
-            this.classifier = SvmClassifier.GetInstance();
-            this.classifier.TrainMachine(this.images, this.classesCount);
+            this.classifier = PcaClassifier.GetInstance();
+            this.classifier.TrainMachine(this.images, 0);
         }
 
         [TestFixtureTearDown]
@@ -66,31 +64,20 @@ namespace Uximagine.Magicurve.Services.Test.Neuro
         [TestCase(@"D:/Data/test/inputs/link", ControlType.HyperLink)]
         [TestCase(@"D:/Data/test/inputs/image", ControlType.Image)]
         [TestCase(@"D:/Data/test/inputs/radio", ControlType.RadioButton)]
-        public void TestAccuracy(string directory, ControlType type)
+        public void TestAcurracy(string directory, ControlType type)
         {
             string[] files = Directory.GetFiles(directory);
-
-            int index = 0;
-            int passCount = 0;
 
             foreach (var image in files)
             {
                 Bitmap testInputButton = GetInputVector(image, MinSize);
                 var decision = this.classifier.Compute(testInputButton);
-                Debug.WriteLine($"expected {type} but actual {(ControlType)(decision + 1)} ");
-
-                if (decision == type.To<int>() - 1)
-                {
-                    passCount++;
-                }
-
-                index++;
+                decision.ShouldEqual(type.To<int>() - 1,
+                    $"expected {type} but actual {(ControlType)(decision + 1)} ");
             }
-
-            double percentage = ((passCount / (index * 1.0)) * 100);
-            Debug.WriteLine($"accuracy : {percentage}");
-            percentage.ShouldBeGreaterThan(80);
+           
         }
+        
 
         /// <summary>
         /// Gets the inputs outputs.
@@ -132,8 +119,6 @@ namespace Uximagine.Magicurve.Services.Test.Neuro
                     this.images.Add(new Tuple<Bitmap, int>(cropped, label));
                 }
             }
-
-            this.classesCount++;
         }
 
         /// <summary>
@@ -141,9 +126,7 @@ namespace Uximagine.Magicurve.Services.Test.Neuro
         /// </summary>
         /// <param name="fileName">Name of the file.</param>
         /// <param name="minSize">The minimum size.</param>
-        /// <returns>
-        /// The input vector.
-        /// </returns>
+        /// <returns></returns>
         public Bitmap GetInputVector(string fileName, int minSize)
         {
             Bitmap cropped = Crop(fileName, minSize);
@@ -157,9 +140,7 @@ namespace Uximagine.Magicurve.Services.Test.Neuro
         /// </summary>
         /// <param name="fileName">Name of the file.</param>
         /// <param name="minSize">The minimum size.</param>
-        /// <returns>
-        /// The cropped control.
-        /// </returns>
+        /// <returns></returns>
         private Bitmap Crop(string fileName, int minSize)
         {
             Bitmap image = new Bitmap(fileName); // Lena's picture
@@ -186,7 +167,7 @@ namespace Uximagine.Magicurve.Services.Test.Neuro
 
             Control control = controls.Where(t => t.Width > minSize && t.Height > minSize).ToList()[0];
            
-            Bitmap cropped = image.Vectorize(control.EdgePoints, 1, SampleSize);
+            Bitmap cropped = image.Vectorize(control.EdgePoints, 1);
 
             return cropped;
         }

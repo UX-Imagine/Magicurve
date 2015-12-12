@@ -191,9 +191,9 @@
     }
     function drawImageContent(bx, by) {
         zebra.ready(function () {
+            var bg = zebra.ui.loadImage("/Magicurve/Content/Images/Icon/button.jpg");
 
-
-            var image = new zebra.ui.ImagePan();
+            var image = new zebra.ui.ImagePan(bg);
 
             image.setBounds(bx, by, 200, 200);
 

@@ -14,7 +14,7 @@ using Uximagine.Magicurve.Core.Models;
 using Uximagine.Magicurve.Core.Shapes;
 using Uximagine.Magicurve.Image.Processing.Detectors;
 using Uximagine.Magicurve.Image.Processing.Helpers;
-using Uximagine.Magicurve.Neuro.Processing; 
+using Uximagine.Magicurve.Neuro.Processing;
 #endregion
 
 namespace Uximagine.Magicurve.Services.Test.Neuro
@@ -23,27 +23,25 @@ namespace Uximagine.Magicurve.Services.Test.Neuro
     ///     Neural network training tests.
     /// </summary>
     [TestFixture]
-    public class SvmTrainTestPercentage
+    public class PcaTrainTestsAllPercentage
     {
         private List<Tuple<Bitmap, int>> images;
 
         private const int SampleSize = 32;
 
-        private SvmClassifier classifier;
+        private PcaClassifier classifier;
 
         private const int MinSize = 50;
-
-        private int classesCount = 0;
 
         [TestFixtureSetUp]
         public void Setup()
         {
             this.images = new List<Tuple<Bitmap, int>>();
             Debug.WriteLine("Test Started");
-            GetInputsOutputs(50);
+            GetInputsOutputs(MinSize);
 
-            this.classifier = SvmClassifier.GetInstance();
-            this.classifier.TrainMachine(this.images, this.classesCount);
+            this.classifier = PcaClassifier.GetInstance();
+            this.classifier.TrainMachine(this.images, 0);
         }
 
         [TestFixtureTearDown]
@@ -66,7 +64,7 @@ namespace Uximagine.Magicurve.Services.Test.Neuro
         [TestCase(@"D:/Data/test/inputs/link", ControlType.HyperLink)]
         [TestCase(@"D:/Data/test/inputs/image", ControlType.Image)]
         [TestCase(@"D:/Data/test/inputs/radio", ControlType.RadioButton)]
-        public void TestAccuracy(string directory, ControlType type)
+        public void TestButton(string directory, ControlType type)
         {
             string[] files = Directory.GetFiles(directory);
 
@@ -92,26 +90,27 @@ namespace Uximagine.Magicurve.Services.Test.Neuro
             percentage.ShouldBeGreaterThan(80);
         }
 
+
         /// <summary>
         /// Gets the inputs outputs.
         /// </summary>
         /// <param name="minSize">The minimum size.</param>
         private void GetInputsOutputs(int minSize)
         {
-          AddSymbols(@"D:/Data/test/inputs/button", ControlType.Button.To<int>() - 1, minSize);
-          AddSymbols(@"D:/Data/test/inputs/combo", ControlType.ComboBox.To<int>() - 1, minSize);
-          AddSymbols(@"D:/Data/test/inputs/paragraph", ControlType.Paragraph.To<int>() - 1, minSize);
-          AddSymbols(@"D:/Data/test/inputs/text", ControlType.InputText.To<int>() - 1, minSize);
-          AddSymbols(@"D:/Data/test/inputs/radio", ControlType.RadioButton.To<int>() - 1, minSize);
-          AddSymbols(@"D:/Data/test/inputs/image", ControlType.Image.To<int>() - 1, minSize);
-          AddSymbols(@"D:/Data/test/inputs/password", ControlType.InputPassword.To<int>() - 1, minSize);
-          AddSymbols(@"D:/Data/test/inputs/checkbox", ControlType.CheckBox.To<int>() - 1, minSize);
-          AddSymbols(@"D:/Data/test/inputs/date", ControlType.DatePicker.To<int>() - 1, minSize);
-          AddSymbols(@"D:/Data/test/inputs/label", ControlType.Label.To<int>() - 1, minSize);
-          AddSymbols(@"D:/Data/test/inputs/iframe", ControlType.Iframe.To<int>() - 1, minSize);
-          AddSymbols(@"D:/Data/test/inputs/hr", ControlType.HLine.To<int>() - 1, minSize);
-          AddSymbols(@"D:/Data/test/inputs/range", ControlType.Range.To<int>() - 1, minSize);
-          AddSymbols(@"D:/Data/test/inputs/link", ControlType.HyperLink.To<int>() - 1, minSize);
+            AddSymbols(@"D:/Data/test/inputs/button", ControlType.Button.To<int>() - 1, minSize);
+            AddSymbols(@"D:/Data/test/inputs/combo", ControlType.ComboBox.To<int>() - 1, minSize);
+            AddSymbols(@"D:/Data/test/inputs/paragraph", ControlType.Paragraph.To<int>() - 1, minSize);
+            AddSymbols(@"D:/Data/test/inputs/text", ControlType.InputText.To<int>() - 1, minSize);
+            AddSymbols(@"D:/Data/test/inputs/radio", ControlType.RadioButton.To<int>() - 1, minSize);
+            AddSymbols(@"D:/Data/test/inputs/image", ControlType.Image.To<int>() - 1, minSize);
+            AddSymbols(@"D:/Data/test/inputs/password", ControlType.InputPassword.To<int>() - 1, minSize);
+            AddSymbols(@"D:/Data/test/inputs/checkbox", ControlType.CheckBox.To<int>() - 1, minSize);
+            AddSymbols(@"D:/Data/test/inputs/date", ControlType.DatePicker.To<int>() - 1, minSize);
+            AddSymbols(@"D:/Data/test/inputs/label", ControlType.Label.To<int>() - 1, minSize);
+            AddSymbols(@"D:/Data/test/inputs/iframe", ControlType.Iframe.To<int>() - 1, minSize);
+            AddSymbols(@"D:/Data/test/inputs/hr", ControlType.HLine.To<int>() - 1, minSize);
+            AddSymbols(@"D:/Data/test/inputs/range", ControlType.Range.To<int>() - 1, minSize);
+            AddSymbols(@"D:/Data/test/inputs/link", ControlType.HyperLink.To<int>() - 1, minSize);
         }
 
         /// <summary>
@@ -132,8 +131,6 @@ namespace Uximagine.Magicurve.Services.Test.Neuro
                     this.images.Add(new Tuple<Bitmap, int>(cropped, label));
                 }
             }
-
-            this.classesCount++;
         }
 
         /// <summary>
@@ -141,9 +138,7 @@ namespace Uximagine.Magicurve.Services.Test.Neuro
         /// </summary>
         /// <param name="fileName">Name of the file.</param>
         /// <param name="minSize">The minimum size.</param>
-        /// <returns>
-        /// The input vector.
-        /// </returns>
+        /// <returns></returns>
         public Bitmap GetInputVector(string fileName, int minSize)
         {
             Bitmap cropped = Crop(fileName, minSize);
@@ -157,9 +152,7 @@ namespace Uximagine.Magicurve.Services.Test.Neuro
         /// </summary>
         /// <param name="fileName">Name of the file.</param>
         /// <param name="minSize">The minimum size.</param>
-        /// <returns>
-        /// The cropped control.
-        /// </returns>
+        /// <returns></returns>
         private Bitmap Crop(string fileName, int minSize)
         {
             Bitmap image = new Bitmap(fileName); // Lena's picture
@@ -185,8 +178,8 @@ namespace Uximagine.Magicurve.Services.Test.Neuro
             }
 
             Control control = controls.Where(t => t.Width > minSize && t.Height > minSize).ToList()[0];
-           
-            Bitmap cropped = image.Vectorize(control.EdgePoints, 1, SampleSize);
+
+            Bitmap cropped = image.Vectorize(control.EdgePoints, 1);
 
             return cropped;
         }

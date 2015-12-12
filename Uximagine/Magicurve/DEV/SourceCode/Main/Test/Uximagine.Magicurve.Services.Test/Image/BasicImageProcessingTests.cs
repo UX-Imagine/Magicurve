@@ -7,6 +7,8 @@ using Uximagine.Magicurve.Image.Processing.Helpers;
 
 namespace Uximagine.Magicurve.Services.Test.Image
 {
+    using AForge.Imaging.Filters;
+
     /// <summary>
     /// Basic Image Processing Tests
     /// </summary>
@@ -16,6 +18,8 @@ namespace Uximagine.Magicurve.Services.Test.Image
         /// <summary>
         /// Tests the color filter.
         /// </summary>
+        /// <param name="fileName">Name of the file.</param>
+        /// <param name="filterType">Type of the filter.</param>
         [TestCase(@"D:/Data/test/inputs/template.jpg", ColorFilterType.Red)]
         public void TestColorFilter(string fileName, ColorFilterType filterType)
         {
@@ -175,7 +179,7 @@ namespace Uximagine.Magicurve.Services.Test.Image
         }
 
         /// <summary>
-        /// Tests the embose filter.
+        /// Tests the emboss filter.
         /// </summary>
         /// <param name="fileName">
         /// Name of the file.
@@ -191,6 +195,15 @@ namespace Uximagine.Magicurve.Services.Test.Image
             result.Save(@"D:/Data/test/outputs/sobel" + fileName.Split('/').Last());
         }
 
+        /// <summary>
+        /// The test homogeneity filter.
+        /// </summary>
+        /// <param name="fileName">
+        /// The file name.
+        /// </param>
+        /// <param name="threshold">
+        /// The threshold.
+        /// </param>
         [TestCase(@"D:/Data/test/inputs/template4.jpg", (byte)127)]
         [TestCase(@"D:/Data/test/inputs/template.jpg", (byte)0)]
         public void TestHomogenityFilter(string fileName, byte threshold)
@@ -335,6 +348,34 @@ namespace Uximagine.Magicurve.Services.Test.Image
             Bitmap bmap = new Bitmap(fileName);
             Bitmap result = bmap.ConvolutionFilter(FilterMatrix.Prewitt3x3Horizontal, FilterMatrix.Prewitt3x3Vertical);
             result.Save(@"D:/Data/test/outputs/prewitt_h_v_" + fileName.Split('/').Last());
+        }
+
+        /// <summary>
+        /// Medians the test.
+        /// </summary>
+        /// <param name="fileName">Name of the file.</param>
+        /// <param name="size">The size.</param>
+        [TestCase(@"D:\Data\test\inputs\classify/test9.jpg", 25)]
+        [TestCase(@"D:\Data\test\inputs\classify/test9.jpg", 20)]
+        [TestCase(@"D:\Data\test\inputs\classify/test9.jpg", 15)]
+        [TestCase(@"D:\Data\test\inputs\classify/test9.jpg", 10)]
+        [TestCase(@"D:\Data\test\inputs\classify/test9.jpg", 6)]
+        [TestCase(@"D:\Data\test\inputs\classify/test9.jpg", 7)]
+        [TestCase(@"D:\Data\test\inputs\classify/test9.jpg", 5)]
+        public void MedianTest(string fileName, int size)
+        {
+            Bitmap image = new Bitmap(fileName);
+            image = Grayscale.CommonAlgorithms.BT709.Apply(image);
+
+            Threshold threshold = new Threshold();
+            threshold.ApplyInPlace(image);
+
+            Median median = new Median(size);
+            median.ApplyInPlace(image);
+
+            Invert invert = new Invert();
+            invert.ApplyInPlace(image);
+            image.Save(@"D:/Data/test/outputs/median_" + size + "_" + fileName.Split('/').Last());
         }
     }
 }

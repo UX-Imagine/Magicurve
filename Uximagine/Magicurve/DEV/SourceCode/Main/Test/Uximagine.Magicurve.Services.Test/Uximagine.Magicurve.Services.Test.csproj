@@ -157,6 +157,9 @@
     <Compile Include="Image\ResizeTests.cs" />
     <Compile Include="Neuro\NerualNetTests.cs" />
     <Compile Include="Neuro\PcaTrainAccuracyTests.cs" />
+    <Compile Include="Neuro\PcaTrainTestAllPecentage.cs" />
+    <Compile Include="Neuro\PcaTrainTestAll.cs" />
+    <Compile Include="Neuro\SvmTrainTestsPercentage.cs" />
     <Compile Include="Neuro\SvmTrainTests.cs" />
     <Compile Include="Neuro\PcaTrainTests2.cs" />
     <Compile Include="Neuro\PcaTrainTests.cs" />

@@ -150,7 +150,8 @@ function drawMenuBar(menuX, menuY, menuW, menuH) {
 
 //function for drawing image
 function drawImageContent(imageX, imageY, imageW, imageH) {
-    var image = new zebra.ui.ImagePan();
+    var bg = zebra.ui.loadImage("/Magicurve/Content/Images/Icon/button.jpg");
+    var image = new zebra.ui.ImagePan(bg);
     image.setBounds(imageX, imageY, imageW, imageH);
     return image;
 }

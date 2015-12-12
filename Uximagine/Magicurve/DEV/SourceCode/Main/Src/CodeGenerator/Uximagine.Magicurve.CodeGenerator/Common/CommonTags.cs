@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Uximagine.Magicurve.CodeGenerator.Common
+﻿namespace Uximagine.Magicurve.CodeGenerator.Common
 {
     /// <summary>
     /// The common tags.

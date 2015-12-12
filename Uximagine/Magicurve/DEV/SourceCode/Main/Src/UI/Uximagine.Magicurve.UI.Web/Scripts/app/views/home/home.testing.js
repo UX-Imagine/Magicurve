@@ -48,6 +48,8 @@ function draw() {
     for (var k = 0 ; k < controlItems.length; k++) {
         root.add(controlItems[k].control);
     }
+
+    root.add(editable(drawImageContent(20, 20, 50, 100), 15));
 }
 
 /*
