@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics;
     using System.Linq;
 
     using Uximagine.Magicurve.CodeGenerator.Common;
@@ -13,6 +14,8 @@
     /// </summary>
     public static class SortHelper
     {
+        public static double PreviousMapWidth { get; set; }
+
         /// <summary>
         /// The sort by y.
         /// </summary>
@@ -122,21 +125,20 @@
 
                 List<Control> finalizeControlList = query.ToList();
 
-                finalizeControlList[0].Styles = new Dictionary<string, string>
+                finalizeControlList[0].Styles = new Dictionary<string, int>
                                                     {
                                                         {
-                                                            "margin-left",
-                                                            finalizeControlList[0].X + "px"
+                                                            "col-md-offset",
+                                                            finalizeControlList[0].X 
                                                         }
                                                     };
 
                 for (int i = 1; i < finalizeControlList.Count; i++)
                 {
-                    finalizeControlList[i].Styles = new Dictionary<string, string>();
+                    finalizeControlList[i].Styles = new Dictionary<string, int>();
                     int x = finalizeControlList[i].X - finalizeControlList[i - 1].X;
 
-                    //// finalizeControlList[i].Style.Add(i, x);
-                    finalizeControlList[i].Styles.Add("margin-left", x + "px");
+                    finalizeControlList[i].Styles.Add("col-md-offset", x);
 
                 }
 
@@ -165,15 +167,22 @@
         /// <returns>
         /// The <see cref="int"/>.
         /// </returns>
-        public static int GetColumnSize(this Control item, double pageWidth)
+        public static int GetColumnSize(this Control item)
         {
-            double value = (item.Width / pageWidth) * 12;
+            double value = (item.Width / ConfigurationData.DefaultPageWidth) * 12;
             int colSize = (int)(Math.Round(value));
             if (colSize <= 1)
             {
                 colSize = 2;
             }
 
+            double mappedWidth = (colSize /12.0) * ConfigurationData.DefaultPageWidth; 
+            int offset;
+            item.Styles.TryGetValue("col-md-offset", out offset);
+            double actualLeft =(offset - PreviousMapWidth)/ConfigurationData.DefaultPageWidth*12;
+            int roundOffset = (int)(Math.Round(actualLeft));
+            item.Styles["col-md-offset"] = roundOffset;
+            PreviousMapWidth = mappedWidth;
             return colSize;
         }
 

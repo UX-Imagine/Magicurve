@@ -41,9 +41,9 @@ namespace Uximagine.Magicurve.CodeGenerator
             controls.ForEach(
                 c =>
                 {
-                    //c.Width = c.Width / width * ConfigurationData.DefaultPageWidth;
-                    //c.Height = c.Height / height * ConfigurationData.DefaultPageHeight;
-                   // c.X = (int)(c.X / width * ConfigurationData.DefaultPageWidth);
+                    c.Width = c.Width / width * ConfigurationData.DefaultPageWidth;
+                    c.Height = c.Height / height * ConfigurationData.DefaultPageHeight;
+                    c.X = (int)(c.X / width * ConfigurationData.DefaultPageWidth);
                     c.Y = (int)(c.Y / height * ConfigurationData.DefaultPageHeight);
                 });
 
@@ -54,10 +54,10 @@ namespace Uximagine.Magicurve.CodeGenerator
             foreach (Row row in finalRowListControls)
             {
                 builder.Append(this.OpenRowDiv(row.Height, row.TopMargin));
-
+                SortHelper.PreviousMapWidth = 0;
                 foreach (Control item in row.Controls)
                 {
-                    builder.Append(this.OpenColDiv(item.GetColumnSize(width), item));
+                    builder.Append(this.OpenColDiv(item.GetColumnSize(), item));
 
                     switch (item.Type)
                     {
@@ -146,13 +146,7 @@ namespace Uximagine.Magicurve.CodeGenerator
             string footer = string.Format(@"</div> </body>" + Environment.NewLine + "</html>");
             return footer;
         }
-
-        /* public string GetHeader(string href)
-        //{
-        //    string header = string.Format(@"<html>"+newline+"<head>"+newline+"<link href='{0}' rel='stylesheet'>"+newline+"</head>"+newline,href);
-        //    return header;
-        //} */
-
+        
         /// <summary>
         /// The get body.
         /// </summary>
@@ -208,34 +202,13 @@ namespace Uximagine.Magicurve.CodeGenerator
 
         public string OpenColDiv(int colSize, Control item)
         {
-            string value; 
-            item.Styles.TryGetValue("margin-left", out value);
+            int value; 
+            item.Styles.TryGetValue("col-md-offset", out value);
 
-            ////string colDiv = $"<div class='col-md-{colSize}' style='margin-left: {value}'>";
-            string colDiv = $"<div class='col-md-{colSize}'>";
+            string colDiv = $"<div class='col-md-{colSize} col-md-offset-{value}'>";
+            ////string colDiv = $"<div class='col-md-{colSize}'>";
             return colDiv;
         }
-
-        //public string OpenColDiv(int colSize)
-        //{
-
-        //    string colDiv = string.Format(@"      <div class='col-md-{0}' >" + newline, colSize);
-        //    return colDiv;
-        //}
-
-        //public string OpenColDiv(Control item)
-        //{
-        //    double pageWidth = 900;
-        //    double value = (item.Width / pageWidth)*12;
-        //    int colSize = (int)(Math.Round(value));
-        //    if (colSize < 2)
-        //    {
-        //        colSize = 2;
-        //    }
-        //    string colDiv = string.Format(@"<div class='col-md-{0}'>" + newline, colSize);
-
-        //    return colDiv;
-        //}
 
         /// <summary>
         /// Inputs the tag.
@@ -257,11 +230,11 @@ namespace Uximagine.Magicurve.CodeGenerator
             string btn;
             if (button?.Value != null)
             {
-                 btn = $"<input type='button' value='{button.Value}'/>{Environment.NewLine}";
+                 btn = $"<input type='button' class='btn btn-default' value='{button.Value}'/>{Environment.NewLine}";
             }
             else
             {
-                btn = $"<input type='button' value='Button'/>{Environment.NewLine}";
+                btn = $"<input type='button' class='btn btn-default' value='Button'/>{Environment.NewLine}";
             }
 
             return btn;
@@ -325,7 +298,7 @@ namespace Uximagine.Magicurve.CodeGenerator
         /// </returns>
         public string GetText(Control text)
         {
-            string txt = $"<input type='text' style='width: 100%' placeholder='text input'/>{Environment.NewLine}";
+            string txt = $"<input type='text' class='form-control' style='width: 100%' placeholder='text input'/>{Environment.NewLine}";
 
             return txt;
         }
@@ -341,7 +314,7 @@ namespace Uximagine.Magicurve.CodeGenerator
         /// </returns>
         public string GetPassword(Control password)
         {
-            string pass = $"<input type='password' style='width: 100%' placeholder='password'/>{Environment.NewLine}";
+            string pass = $"<input type='password' class='form-control' style='width: 100%' placeholder='password'/>{Environment.NewLine}";
             return pass;
         }
 
@@ -356,7 +329,7 @@ namespace Uximagine.Magicurve.CodeGenerator
         /// </returns>
         public string GetDatePicker(Control datepicker)
         {
-            string date = $"<input type='date' style='width: 100%'/>";
+            string date = $"<input type='date' class='form-control' style='width: 100%'/>";
             return date;
         }
 
@@ -402,11 +375,11 @@ namespace Uximagine.Magicurve.CodeGenerator
 
             if (label?.Value != null)
             {
-                lbl = $@"<label style='width: 100%'>{label.Value}</label> {Environment.NewLine}";
+                lbl = $@"<label class='control-label' style='width: 100%'>{label.Value}</label> {Environment.NewLine}";
             }
             else
             {
-                lbl = $@"<label style='width: 100%'>Label Value</label> {Environment.NewLine}";
+                lbl = $@"<label class='control-label' style='width: 100%'>Label Value</label> {Environment.NewLine}";
             }
 
             return lbl;

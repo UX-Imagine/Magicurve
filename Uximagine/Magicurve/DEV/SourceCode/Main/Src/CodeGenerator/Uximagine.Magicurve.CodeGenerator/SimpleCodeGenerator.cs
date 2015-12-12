@@ -148,13 +148,7 @@ namespace Uximagine.Magicurve.CodeGenerator
             string footer = $@"</body> {Environment.NewLine} </Html>";
             return footer;
         }
-
-        /*public string GetHeader(string href)
-        //{
-        //    string header = string.Format(@"<Html>" + newline + "<head>" + newline + "<link href='{0}' rel='stylesheet'>" + newline + "</head>" + newline, href);
-        //    return header;
-        //} */
-
+        
         /// <summary>
         /// The get body.
         /// </summary>
@@ -255,56 +249,6 @@ namespace Uximagine.Magicurve.CodeGenerator
             string div = string.Format(@" <div style='margin-left:{0}px;margin-top:{1}px' />" + Environment.NewLine, left, top);
             return div;
         }
-
-        /// <summary>
-        /// The open row div.
-        /// </summary>
-        /// <param name="height">
-        /// The height.
-        /// </param>
-        /// <param name="marginTop">
-        /// The margin top.
-        /// </param>
-        /// <returns>
-        /// The <see cref="string"/>.
-        /// </returns>
-        public string OpenRowDiv(double height, int marginTop)
-        {
-            string rowDiv = string.Format(@"<div class='row' style='height: {0}px;margin-top: {1}px'>" + Environment.NewLine, height, marginTop);
-            return rowDiv;
-        }
-
-        /// <summary>
-        /// The open col div.
-        /// </summary>
-        /// <param name="colSize">
-        /// The col size.
-        /// </param>
-        /// <param name="item">
-        /// The item.
-        /// </param>
-        /// <returns>
-        /// The <see cref="string"/>.
-        /// </returns>
-        public string OpenColDiv(int colSize, Control item)
-        {
-            string value;
-            item.Styles.TryGetValue("margin-left", out value);
-
-            string colDiv = string.Format(
-                @"<div class='col-md-{0}' style='margin-top: {1}px'>" + Environment.NewLine, 
-                colSize,
-                value);
-
-            return colDiv;
-        }
-
-        //// public string OpenColDiv(int controlsCount)
-        //// {
-        ////    int colDivider = 12 / controlsCount;
-        ////    string colDiv = string.Format(@"<div class='col-md-{0}'>" + newline, colDivider);
-        ////    return colDiv;
-        //// }
 
         /// <summary>
         /// The input tag.

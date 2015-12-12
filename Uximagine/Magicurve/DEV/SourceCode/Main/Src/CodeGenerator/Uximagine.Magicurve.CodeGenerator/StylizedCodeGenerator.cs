@@ -193,33 +193,7 @@ namespace Uximagine.Magicurve.CodeGenerator
         {
             return string.Empty;
         }
-
-        //public string OpenRowDiv(double height)
-        //{
-        //    string rowDiv = string.Format(@"<div class='row' style='height: {0}px'>" + height + newline);
-        //    return rowDiv;
-        //}
-
-        public string OpenRowDiv(double height, int marginTop)
-        {
-            string rowDiv = string.Format(@"<div class='row' style='height: {0}px;margin-top: {1}px'>" + newline, height, marginTop);
-            return rowDiv;
-        }
-
-        public string OpenColDiv(int colSize, Control item)
-        {
-            string value;
-            string colDiv = string.Format(@"<div class='col-md-{0}' style='margin-top: {1}px'>" + newline, colSize, item.Styles.TryGetValue("margin-left", out value));
-            return colDiv;
-        }
-
-        //public string OpenColDiv(int controlsCount)
-        //{
-        //    int colDivider = 12 / controlsCount;
-        //    string colDiv = string.Format(@"<div class='col-md-{0}'>" + newline, colDivider);
-        //    return colDiv;
-        //}
-
+        
         public string InputTag(string inputType, string inputName, string inputValue)
         {
             return string.Empty;
