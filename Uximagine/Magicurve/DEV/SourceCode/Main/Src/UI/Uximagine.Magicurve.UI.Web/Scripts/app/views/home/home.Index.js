@@ -116,7 +116,20 @@ function genarateDesign(jsonObj) {
             controls[controlsValid] = drawTextBox(jsonObj[i].X, jsonObj[i].Y, jsonObj[i].Width, 30);
             controlsValid++;
         }
+        else if (jsonObj[i].Type === "InputPassword") {
+            controls[controlsValid] = drawTextBox(jsonObj[i].X, jsonObj[i].Y, jsonObj[i].Width, 30);
+            controlsValid++;
+        }
 
+        else if (jsonObj[i].Type === "DatePicker") {
+           
+        }
+        else if (jsonObj[i].Type === "Iframe") {
+
+        }
+          else if (jsonObj[i].Type === "Range") {
+
+        }
     }
 
     return controls;
@@ -154,7 +167,7 @@ function drawLable(lx, ly, lw, lh, labaleCaption) {
 
 //function for drawing text box
 function drawTextBox(tx, ty, tw, th) {
-    var textBox = new zebra.ui.TextField("type here...");
+    var textBox = new zebra.ui.TextField("Type Here...");
     textBox.setBounds(tx, ty, tw, th);
 
     return textBox;
