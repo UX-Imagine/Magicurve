@@ -38,14 +38,14 @@ namespace Uximagine.Magicurve.CodeGenerator
             builder.Append(this.EndTag(CommonTags.HtmlTags.Head));
             builder.Append(this.GetBody());
 
-            //controls.ForEach(
-            //    c =>
-            //    {
-            //        c.Width = c.Width / width * ConfigurationData.DefaultPageWidth;
-            //        c.Height = c.Height / height * ConfigurationData.DefaultPageHeight;
-            //        c.X = (int)(c.X / width * ConfigurationData.DefaultPageWidth);
-            //        c.Y = (int)(c.Y / height * ConfigurationData.DefaultPageHeight);
-            //    });
+            controls.ForEach(
+                c =>
+                {
+                    //c.Width = c.Width / width * ConfigurationData.DefaultPageWidth;
+                    //c.Height = c.Height / height * ConfigurationData.DefaultPageHeight;
+                   // c.X = (int)(c.X / width * ConfigurationData.DefaultPageWidth);
+                    c.Y = (int)(c.Y / height * ConfigurationData.DefaultPageHeight);
+                });
 
             List<Row> sortedControls = controls.SortByY().GenerateDivisions();
             List<Row> finalRowListControls = sortedControls.SortListXProperty();
