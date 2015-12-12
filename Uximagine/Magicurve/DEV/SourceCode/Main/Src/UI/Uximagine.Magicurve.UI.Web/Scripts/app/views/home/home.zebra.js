@@ -1,6 +1,6 @@
 ﻿var domain = "/Magicurve";
 var canvasWidth = screen.width * 80 / 144;
-var canvasHeight = screen.height * .5;
+var canvasHeight = screen.height * .6;
 var stage = new Stage();
 stage.controlUrl = domain + "/api/images/result";
 stage.codeUrl = domain + "/api/images/download";
@@ -35,10 +35,10 @@ function onSelectItem(index) {
 }
 
 function draw() {
-    root.removeAll();
+ root.removeAll();
 
     var p = new zebra.ui.Panel(); // create panel
-    p.setBounds(5, 5, canvasWidth, canvasHeight); // shape panel
+    p.setBounds(5, 5, canvasWidth-10, canvasHeight-10); // shape panel
     p.setBackground("white");    // set yellow background
     root.add(p);                  // add panel to root
 
