@@ -381,5 +381,85 @@
                 acctual.ShouldEqual(count);
             }
         }
+
+        /// <summary>
+        /// Tests the horizontal count accuracy.
+        /// </summary>
+        /// <param name="directoryName">Name of the directory.</param>
+        /// <param name="count">The count.</param>
+        [TestCase(@"D:/Data/test/inputs/button", 2)]
+        [TestCase(@"D:\Data\test\inputs\password", 2)]
+        [TestCase(@"D:\Data\test\inputs\combo", 2)]
+        [TestCase(@"D:\Data\test\inputs\checkbox", 3)]
+        [TestCase(@"D:\Data\test\inputs\date", 2)]
+        [TestCase(@"D:\Data\test\inputs\hr", 1)]
+        [TestCase(@"D:\Data\test\inputs\iframe", 2)]
+        [TestCase(@"D:\Data\test\inputs\image", 4)]
+        [TestCase(@"D:\Data\test\inputs\label", 3)]
+        [TestCase(@"D:\Data\test\inputs\link", 3)]
+        [TestCase(@"D:\Data\test\inputs\paragraph", 3)]
+        [TestCase(@"D:\Data\test\inputs\radio", 2)]
+        [TestCase(@"D:\Data\test\inputs\text", 2)]
+        [TestCase(@"D:\Data\test\inputs\range", 1)]
+        public void TestHorizontalCountAccuracyPercnentage(string directoryName, int count)
+        {
+            string[] images = Directory.GetFiles(directoryName);
+            int index = 0;
+            int passCount = 0;
+            foreach (string image in images)
+            {
+                int acctual = GetHorizontalLineCount(image);
+                if (acctual == count)
+                {
+                    passCount++;
+                }
+
+                index++;
+            }
+
+            double percentage = ((passCount / (index * 1.0)) * 100);
+            Debug.WriteLine($"accuracy : {percentage}");
+            percentage.ShouldBeGreaterThan(80);
+        }
+
+        /// <summary>
+        /// Tests the horizontal count accuracy.
+        /// </summary>
+        /// <param name="directoryName">Name of the directory.</param>
+        /// <param name="count">The count.</param>
+        [TestCase(@"D:/Data/test/inputs/button", 2)]
+        [TestCase(@"D:\Data\test\inputs\password", 5)]
+        [TestCase(@"D:\Data\test\inputs\combo", 2)]
+        [TestCase(@"D:\Data\test\inputs\checkbox", 3)]
+        [TestCase(@"D:\Data\test\inputs\date", 4)]
+        [TestCase(@"D:\Data\test\inputs\hr", 2)]
+        [TestCase(@"D:\Data\test\inputs\iframe", 2)]
+        [TestCase(@"D:\Data\test\inputs\image", 4)]
+        [TestCase(@"D:\Data\test\inputs\label", 2)]
+        [TestCase(@"D:\Data\test\inputs\link", 3)]
+        [TestCase(@"D:\Data\test\inputs\paragraph", 3)]
+        [TestCase(@"D:\Data\test\inputs\range", 1)]
+        [TestCase(@"D:\Data\test\inputs\radio", 2)]
+        [TestCase(@"D:\Data\test\inputs\text", 3)]
+        public void TestVerticalCountAccuracyPercnentage(string directoryName, int count)
+        {
+            string[] images = Directory.GetFiles(directoryName);
+            int index = 0;
+            int passCount = 0;
+            foreach (string image in images)
+            {
+                int acctual = this.GetVerticalLineCount(image);
+                if (acctual == count)
+                {
+                    passCount++;
+                }
+
+                index++;
+            }
+
+            double percentage = ((passCount / (index * 1.0)) * 100);
+            Debug.WriteLine($"accuracy : {percentage}");
+            percentage.ShouldBeGreaterThan(80);
+        }
     }
 }

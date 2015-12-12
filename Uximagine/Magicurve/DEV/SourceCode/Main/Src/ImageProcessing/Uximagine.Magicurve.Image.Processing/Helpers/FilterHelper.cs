@@ -1,13 +1,10 @@
 ﻿namespace Uximagine.Magicurve.Image.Processing.Helpers
 {
     using System;
-    using System.Collections.Generic;
-    using System.Diagnostics;
     using System.Drawing;
     using System.Drawing.Imaging;
     using System.Runtime.InteropServices;
 
-    using AForge;
     using AForge.Imaging.Filters;
 
     using Uximagine.Magicurve.Image.Processing.Common;

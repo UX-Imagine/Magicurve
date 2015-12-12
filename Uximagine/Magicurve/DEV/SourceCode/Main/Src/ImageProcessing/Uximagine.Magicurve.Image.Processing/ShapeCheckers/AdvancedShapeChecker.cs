@@ -76,12 +76,12 @@ namespace Uximagine.Magicurve.Image.Processing.ShapeCheckers
         /// <summary>
         /// Gets the type of the control.
         /// </summary>
-        /// <param name="control">The control.</param>
+        /// <param name="source">The source.</param>
         /// <param name="edgePoints">The edge points.</param>
         /// <returns>
         /// The control type.
         /// </returns>
-        public abstract ControlType GetControlType(Bitmap control, List<IntPoint> edgePoints);
+        public abstract ControlType GetControlType(Bitmap source, List<IntPoint> edgePoints);
 
         /// <summary>
         /// Sets the properties.

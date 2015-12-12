@@ -3,6 +3,8 @@ using System.Configuration;
 
 namespace Uximagine.Magicurve.Image.Processing
 {
+    using Uximagine.Magicurve.Image.Processing.Common;
+
     /// <summary>
     /// Provides access to configuration data.
     /// </summary>
@@ -47,6 +49,54 @@ namespace Uximagine.Magicurve.Image.Processing
             /// </summary>
             public const string TrainDataSectionName = @"TrainData";
 
+        }
+
+        /// <summary>
+        /// The parameter configuration class.
+        /// </summary>
+        public static class ParameterConfig
+        {
+            public static Feature Button
+                            => new Feature() { CornersCount = 0, HorizontalCount = 2, VerticalLineCount = 2 };
+
+            public static Feature InputPassword
+                            => new Feature() { CornersCount = 0, HorizontalCount = 2, VerticalLineCount = 5 };
+
+            public static Feature ComboBox
+                            => new Feature() { CornersCount = 0, HorizontalCount = 2, VerticalLineCount = 2 };
+
+            public static Feature CheckBox
+                            => new Feature() { CornersCount = 0, HorizontalCount = 3, VerticalLineCount = 3 };
+
+            public static Feature DatePicker
+                            => new Feature() { CornersCount = 0, HorizontalCount = 2, VerticalLineCount = 4 };
+
+            public static Feature HorizontalLine
+                            => new Feature() { CornersCount = 0, HorizontalCount = 1, VerticalLineCount = 2 };
+
+            public static Feature Iframe
+                            => new Feature() { CornersCount = 0, HorizontalCount = 2, VerticalLineCount = 2 };
+
+            public static Feature Image
+                            => new Feature() { CornersCount = 0, HorizontalCount = 4, VerticalLineCount = 4 };
+
+            public static Feature Label
+                            => new Feature() { CornersCount = 0, HorizontalCount = 3, VerticalLineCount = 2 };
+
+            public static Feature HyperLink
+                            => new Feature() { CornersCount = 0, HorizontalCount = 3, VerticalLineCount = 3 };
+
+            public static Feature Patagraph
+                            => new Feature() { CornersCount = 0, HorizontalCount = 3, VerticalLineCount = 3 };
+
+            public static Feature Radio
+                            => new Feature() { CornersCount = 0, HorizontalCount = 2, VerticalLineCount = 2 };
+
+            public static Feature InputText
+                            => new Feature() { CornersCount = 0, HorizontalCount = 2, VerticalLineCount = 3 };
+
+            public static Feature Range
+                            => new Feature() { CornersCount = 0, HorizontalCount = 1, VerticalLineCount = 1 };
         }
 
         #endregion
@@ -99,13 +149,7 @@ namespace Uximagine.Magicurve.Image.Processing
         /// <value>
         /// The name of the shape checker implementation plug-in.
         /// </value>
-        public static string ShapeCheckerImplementationPluginName
-        {
-            get
-            {
-                return PluginNames.ShapeCheckerImplementationPlugn;
-            }
-        }
+        public static string ShapeCheckerImplementationPluginName => PluginNames.ShapeCheckerImplementationPlugn;
 
         /// <summary>
         /// Gets the train data directory.

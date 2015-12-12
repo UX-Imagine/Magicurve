@@ -106,6 +106,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\ConvolutionMatrix.cs" />
+    <Compile Include="Common\Feature.cs" />
     <Compile Include="Common\FilterMatrix.cs" />
     <Compile Include="ConfigurationData.cs" />
     <Compile Include="Detectors\BlobDetector.cs" />
@@ -132,9 +133,9 @@
     <Compile Include="ShapeCheckers\AdvancedShapeChecker.cs" />
     <Compile Include="ShapeCheckers\ControlsChecker.cs" />
     <Compile Include="ShapeCheckers\IShapeChecker.cs" />
-    <Compile Include="ShapeCheckers\PcaShapeChecker.cs" />
+    <Compile Include="ShapeCheckers\MachineShapeChecker.cs" />
     <Compile Include="ShapeCheckers\SvmShapeChecker.cs" />
-    <Compile Include="ShapeCheckers\UiShapeChecker.cs" />
+    <Compile Include="ShapeCheckers\RuleBasedShapeChecker.cs" />
     <Compile Include="Trainer.cs" />
   </ItemGroup>
   <ItemGroup>

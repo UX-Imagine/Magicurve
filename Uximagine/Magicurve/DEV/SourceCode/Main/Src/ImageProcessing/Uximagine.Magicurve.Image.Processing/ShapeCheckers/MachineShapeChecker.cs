@@ -11,7 +11,7 @@ namespace Uximagine.Magicurve.Image.Processing.ShapeCheckers
     /// <summary>
     /// The shape checker implemented using PCA classifier.
     /// </summary>
-    public class PcaShapeChecker : AdvancedShapeChecker
+    public class MachineShapeChecker : AdvancedShapeChecker
     {
         /// <summary>
         /// The sample size.

@@ -20,7 +20,7 @@ namespace Uximagine.Magicurve.Services.Test.Image
         public void AdvancedShapeCheckerTest()
         {
             //Arrange
-            var checker = new UiShapeChecker();
+            var checker = new RuleBasedShapeChecker();
             List<IntPoint> edgePoints = new List<IntPoint>
             {
                 new IntPoint(1,1),
