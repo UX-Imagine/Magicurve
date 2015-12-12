@@ -132,7 +132,51 @@ function editDrawCheckBox(checkX, checkY, checkW, checkH, checkValue) {
     var checkBox = new zebra.ui.Checkbox(checkValue);
     checkBox.setBounds(checkX, checkY, checkW, checkH);
     var shpercheckBox = new zebra.ui.designer.ShaperPan(checkBox);
+    shpercheckBox.extend([
+function mouseDragged(e) {
 
+    var dy = (e.absY - this.py),
+        dx = (e.absX - this.px),
+        s = this.state,
+        nw = this.width - dx * s.left + dx * s.right,
+        nh = this.height - dy * s.top + dy * s.bottom;
+
+    var controls_width = nw - 14;
+    var controls_height = nh - 14;
+
+    var width_differ = Math.abs(this.width - nw);
+    var height_differ = Math.abs(this.height - nh);
+
+    var newXlocation = (this.x + dx * s.left) + 7;
+    var newYlocation = (this.y + dy * s.top) + 7;
+
+    if (dx != 0 || dy != 0) {
+        console.log("shaper xlocation" + " " + (this.x + dx * s.left) + " " + "shaper ylocation" + " " + (this.y + dy * s.top));
+        console.log("controller xlocation" + " " + newXlocation + " " + "controller ylocation" + " " + newYlocation);
+    } else {
+        console.log("Location Not Changed");
+    }
+
+    if (width_differ != 0 || height_differ != 0) {
+        console.log("shaper width" + " " + nw + " " + "shaper height" + " " + nh);
+        console.log("controller width" + " " + controls_width + " " + "controller height" + " " + controls_height);
+    } else {
+        console.log("Size Not Changed");
+
+    }
+    //console.log("dy " + dy);
+    //console.log("e.absY " + e.absY);
+    //console.log("this.py " + this.py);
+    //console.log("dx " + dx);
+    //console.log("e.absX " + e.absX);
+    //console.log("this.px " + this.px);
+    //console.log("state " + s);
+    //console.log("state left " + s.left);
+
+    this.$super(e);;
+}
+
+    ])
     return shpercheckBox;
 }
 
