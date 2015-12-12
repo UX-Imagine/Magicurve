@@ -54,14 +54,31 @@ html, body
 }
 
 #tool-bar {
-    background-color: lighten(@color, 25);
+  //  background-color: lighten(@color, 25);
     overflow: auto;
     height: 100%;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
-    color: white;
+    border : solid;
+    border-color :black;
+    color: burlywood;
+}
+
+#propertyBar{
+    overflow: auto;
+    height: 100%;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    padding:-50px; 
+    border : solid;
+    border-color :black;
+    color: black;
+
+
 }
 
 #footer {
@@ -104,6 +121,14 @@ a:hover, a:focus {
 
 // tree view
 
+div#tipDiv {
+    font-size:11px; line-height:1.2;
+    color:#000; background-color:#E1E5F1; 
+    border:1px solid #667295; padding:4px;
+    width:250px; 
+}
+
+
 .acidjs-css3-treeview,
 .acidjs-css3-treeview * {
     padding: 0;
@@ -120,7 +145,7 @@ a:hover, a:focus {
     height: 13px;
     vertical-align: top;
     text-align: center;
-    color: #e74c3c;
+    color:#e74c3c ;
     font-size: 8px;
     line-height: 13px;
 }
