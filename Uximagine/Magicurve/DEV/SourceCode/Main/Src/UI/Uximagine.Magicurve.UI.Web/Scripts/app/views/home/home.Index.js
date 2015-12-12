@@ -58,11 +58,7 @@ function ajustToCanvasSize(resObject, height, width) {
 
 function genarateDesign(jsonObj) {
 
-    for (var k = 0 ; k < jsonObj.length; k++) {
-        //root.add(arr[k]);
-        //   alert(jsonObj[k].Height + "," + jsonObj[k].Width + "," + jsonObj[k].Type + "," + jsonObj[k].X + "," + jsonObj[k].Y);
-    }
-
+ 
     var controls = [];
 
     var controlsValid = 0;
@@ -122,7 +118,8 @@ function genarateDesign(jsonObj) {
         }
 
         else if (jsonObj[i].Type === "DatePicker") {
-           
+            controls[controlsValid] = drawDatePic(jsonObj[i].X, jsonObj[i].Y);
+            controlsValid++;
         }
         else if (jsonObj[i].Type === "Iframe") {
 
@@ -136,6 +133,21 @@ function genarateDesign(jsonObj) {
 }
 
 //////////////// method drawing non editable ///////////
+
+//function for drawing button
+function drawDatePic(dX, dY) {
+    var datePic = zebra.ui.loadImage("/Magicurve/Content/Images/Icon/button.jpg");
+    var imageDatePic = new zebra.ui.ImagePan(datePic);
+    imageDatePic.setBounds(dX, dY, 70, 30);
+
+    var shperData = new zebra.ui.designer.ShaperPan(imageDatePic);
+   
+    return shperData;
+
+}
+
+
+
 
 //function for drawing button
 function drawButton(bX, bY, bwidth, bheight, ButttonCaption) {

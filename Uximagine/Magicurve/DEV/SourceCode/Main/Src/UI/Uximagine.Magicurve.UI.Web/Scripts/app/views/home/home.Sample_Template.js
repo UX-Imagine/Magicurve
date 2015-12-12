@@ -42,6 +42,17 @@ zebra.ready(function () {
     body.setBackground("#E6E6E6");    // set yellow background
     p.add(body);
 
+    var bg = zebra.ui.loadImage("/Magicurve/Content/Images/Icon/button.jpg");
+    var image = new zebra.ui.ImagePan(bg);
+    image.setBounds(400, 400, 60, 30);
+
+    var shp = new zebra.ui.designer.ShaperPan(image);
+    root.add(shp);
+
+    //var button = new zebra.ui.Button("button");
+    //button.setBounds(400,400,60,30);
+    //p.add(button);
+
     var sideBar = new zebra.ui.Panel();
     sideBar.setBounds(700, 0, 248, 600);
     sideBar.setBackground("#CEF6F5");
@@ -143,95 +154,95 @@ function genarateDesign() {
     // ajustToCanvasSize();
 
     //create json object array
-    var jsonObj = [
-     {
-         "Type": 0,
-         "X": 0,
-         "Y": 0,
-         "Width": 0,
-         "Height": 0,
-         "EdgePoints": null
-     },
-     {
-         "Type": 0,
-         "X": 10,
-         "Y": 10,
-         "Width": 60,
-         "Height": 30,
-         "EdgePoints": null
-     },
-     {
-         "Type": 0,
-         "X": 0,
-         "Y": 0,
-         "Width": 0,
-         "Height": 0,
-         "EdgePoints": null
-     },
-     {
-         "Type": 0,
-         "X": 0,
-         "Y": 0,
-         "Width": 0,
-         "Height": 0,
-         "EdgePoints": null
-     },
-     {
-         "Type": 0,
-         "X": 0,
-         "Y": 0,
-         "Width": 0,
-         "Height": 0,
-         "EdgePoints": null
-     },
-     {
-         "Type": 0,
-         "X": 0,
-         "Y": 0,
-         "Width": 0,
-         "Height": 0,
-         "EdgePoints": null
-     },
-     {
-         "Type": 0,
-         "X": 0,
-         "Y": 0,
-         "Width": 0,
-         "Height": 0,
-         "EdgePoints": null
-     },
-     {
-         "Type": 0,
-         "X": 0,
-         "Y": 0,
-         "Width": 0,
-         "Height": 0,
-         "EdgePoints": null
-     },
-     {
-         "Type": 0,
-         "X": 0,
-         "Y": 0,
-         "Width": 0,
-         "Height": 0,
-         "EdgePoints": null
-     },
-     {
-         "Type": 0,
-         "X": 0,
-         "Y": 0,
-         "Width": 0,
-         "Height": 0,
-         "EdgePoints": null
-     },
-     {
-         "Type": 0,
-         "X": 0,
-         "Y": 0,
-         "Width": 0,
-         "Height": 0,
-         "EdgePoints": null
-     }];
+    //var jsonObj = [
+    // {
+    //     "Type": 0,
+    //     "X": 0,
+    //     "Y": 0,
+    //     "Width": 0,
+    //     "Height": 0,
+    //     "EdgePoints": null
+    // },
+    // {
+    //     "Type": 0,
+    //     "X": 10,
+    //     "Y": 10,
+    //     "Width": 60,
+    //     "Height": 30,
+    //     "EdgePoints": null
+    // },
+    // {
+    //     "Type": 0,
+    //     "X": 0,
+    //     "Y": 0,
+    //     "Width": 0,
+    //     "Height": 0,
+    //     "EdgePoints": null
+    // },
+    // {
+    //     "Type": 0,
+    //     "X": 0,
+    //     "Y": 0,
+    //     "Width": 0,
+    //     "Height": 0,
+    //     "EdgePoints": null
+    // },
+    // {
+    //     "Type": 0,
+    //     "X": 0,
+    //     "Y": 0,
+    //     "Width": 0,
+    //     "Height": 0,
+    //     "EdgePoints": null
+    // },
+    // {
+    //     "Type": 0,
+    //     "X": 0,
+    //     "Y": 0,
+    //     "Width": 0,
+    //     "Height": 0,
+    //     "EdgePoints": null
+    // },
+    // {
+    //     "Type": 0,
+    //     "X": 0,
+    //     "Y": 0,
+    //     "Width": 0,
+    //     "Height": 0,
+    //     "EdgePoints": null
+    // },
+    // {
+    //     "Type": 0,
+    //     "X": 0,
+    //     "Y": 0,
+    //     "Width": 0,
+    //     "Height": 0,
+    //     "EdgePoints": null
+    // },
+    // {
+    //     "Type": 0,
+    //     "X": 0,
+    //     "Y": 0,
+    //     "Width": 0,
+    //     "Height": 0,
+    //     "EdgePoints": null
+    // },
+    // {
+    //     "Type": 0,
+    //     "X": 0,
+    //     "Y": 0,
+    //     "Width": 0,
+    //     "Height": 0,
+    //     "EdgePoints": null
+    // },
+    // {
+    //     "Type": 0,
+    //     "X": 0,
+    //     "Y": 0,
+    //     "Width": 0,
+    //     "Height": 0,
+    //     "EdgePoints": null
+    // }];
 
     //  alert(jsonObj);
     var controls = [];

@@ -62,24 +62,17 @@ function drawLable(lx, ly, lw, lh, labaleCaption) {
 
 //function for drawing text box
 function drawTextBox(tx, ty, tw, th) {
-    var textBox = new zebra.ui.TextField("type here...");
+    var textBox = new zebra.ui.TextField("Type Here...");
     textBox.setBounds(tx, ty, tw, th);
     return textBox;
 }
 
 //function for drawing text box
 function drawRange(tx, ty, tw, th) {
-    var textBox = new zebra.ui.Range("type here...");
-    textBox.setBounds(tx, ty, tw, th);
-    return textBox;
+  
 }
 
-//function for drawing text box
-function drawRange(tx, ty, tw, th) {
-    var textBox = new zebra.ui.Range("type here...");
-    textBox.setBounds(tx, ty, tw, th);
-    return textBox;
-}
+
 
 //function for drawing Horizontal Line
 function drawHorizontalLine(hx, hy, hw) {

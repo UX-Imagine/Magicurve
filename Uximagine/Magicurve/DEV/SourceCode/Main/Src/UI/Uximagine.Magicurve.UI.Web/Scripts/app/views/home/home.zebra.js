@@ -1,13 +1,16 @@
 ﻿var domain = "/Magicurve";
-var canvasWidth = screen.width * 80 / 144;
-var canvasHeight = screen.height * .6;
+//var canvasWidth = screen.width * 80 / 144;
+//var canvasHeight = screen.height * .6;
+
+var canvasWidth = 960;
+var canvasHeight = 810;
 var stage = new Stage();
 stage.controlUrl = domain + "/api/images/result";
 stage.codeUrl = domain + "/api/images/download";
 var zCanvas;
 var root;
 zebra.ready(function () {
-    zCanvas = new zebra.ui.zCanvas("designer", canvasWidth, canvasHeight);
+    zCanvas = new zebra.ui.zCanvas("designer", 970, 820);
     root = zCanvas.root; // save reference to root UI component
     root.setBackground("black");
     getControls();
@@ -38,7 +41,7 @@ function draw() {
  root.removeAll();
 
     var p = new zebra.ui.Panel(); // create panel
-    p.setBounds(5, 5, canvasWidth-10, canvasHeight-10); // shape panel
+    p.setBounds(5, 5, 960, 810); // shape panel
     p.setBackground("white");    // set yellow background
     root.add(p);                  // add panel to root
 
@@ -152,19 +155,19 @@ function genarateDesign(sourceControls) {
                 editable(drawTextBox(sourceControls[i].X, sourceControls[i].Y, sourceControls[i].Width, 30), i));
         }
         else if (sourceControls[i].Type === "Iframe") {
-            controls[controlsValid++] = new ControlItem(
-                i,
-                editable(drawTextBox(sourceControls[i].X, sourceControls[i].Y, sourceControls[i].Width, 30), i));
+            //controls[controlsValid++] = new ControlItem(
+            //    i,
+            //    editable(drawTextBox(sourceControls[i].X, sourceControls[i].Y, sourceControls[i].Width, 30), i));
         }
         else if (sourceControls[i].Type === "DatePicker") {
-            controls[controlsValid++] = new ControlItem(
-                i,
-                editable(drawTextBox(sourceControls[i].X, sourceControls[i].Y, sourceControls[i].Width, 30), i));
+            //controls[controlsValid++] = new ControlItem(
+            //    i,
+            //    editable(drawTextBox(sourceControls[i].X, sourceControls[i].Y, sourceControls[i].Width, 30), i));
         }
         else if (sourceControls[i].Type === "Range") {
-            controls[controlsValid++] = new ControlItem(
-                i,
-                editable(drawTextBox(sourceControls[i].X, sourceControls[i].Y, sourceControls[i].Width, 30), i));
+            //controls[controlsValid++] = new ControlItem(
+            //    i,
+            //    editable(drawTextBox(sourceControls[i].X, sourceControls[i].Y, sourceControls[i].Width, 30), i));
         }
     }
 
