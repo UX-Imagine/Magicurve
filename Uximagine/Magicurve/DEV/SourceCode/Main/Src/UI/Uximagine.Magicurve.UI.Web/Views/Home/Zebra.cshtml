@@ -32,18 +32,15 @@
         var offset = ev.dataTransfer.getData("text/plain").split(',');
         var data = ev.dataTransfer.getData("Text");
 
-
-
-
         // document.getElementById("desi").getContext("2d").drawImage(document.getElementById(data), ev.pageX - dx, ev.pageY - dy);
 
-        if (data == "button") {
+             if (data == "button") {
             var but = canvas = document.getElementById("button");
             var dx = pos[0] - but.offsetLeft;
             var dy = pos[1] - but.offsetTop;
             var X = ev.pageX - dx;
             var Y = ev.pageY - dy;
-            drawButton(X, Y);
+            dragButton(X, Y);
         }
         else if (data == "check"){
 
@@ -52,9 +49,8 @@
             var dy = pos[1] - but.offsetTop;
             var X = ev.pageX - dx;
             var Y = ev.pageY - dy;
-            drawCheckBox(X,Y);
+            dragCheckBox(X,Y);
         }
-
         else if (data == "combo") {
 
             var combo = canvas = document.getElementById("combo");
@@ -62,7 +58,7 @@
             var dy = pos[1] - combo.offsetTop;
             var X = ev.pageX - dx;
             var Y = ev.pageY - dy;
-            drawCombo(X,Y);
+            dragCombo(X,Y);
         }
         else if (data == "datepic"){
             var datepic = canvas = document.getElementById("datepic");
@@ -70,9 +66,8 @@
             var dy = pos[1] - datepic.offsetTop;
             var X = ev.pageX - dx;
             var Y = ev.pageY - dy;
-            drawDatePicker(X,Y);
+            dragDatePicker(X,Y);
         }
-
         else if (data == "image"){
 
             var img = canvas = document.getElementById("image");
@@ -80,55 +75,49 @@
             var dy = pos[1] - img.offsetTop;
             var X = ev.pageX - dx;
             var Y = ev.pageY - dy;
-            drawImageContent(X,Y);
+            dragImageContent(X,Y);
         }
-
         else if (data == "radio"){
             var radi = canvas = document.getElementById("radio");
             var dx = pos[0] - radi.offsetLeft;
             var dy = pos[1] - radi.offsetTop;
             var X = ev.pageX - dx;
             var Y = ev.pageY - dy;
-            drawRadioButton(X,Y);
+            dragRadioButton(X,Y);
         }
-
         else if (data == "inputtext"){
             var text = canvas = document.getElementById("inputtext");
             var dx = pos[0] - text.offsetLeft;
             var dy = pos[1] - text.offsetTop;
             var X = ev.pageX - dx;
             var Y = ev.pageY - dy;
-            drawInputText(X,Y);
+            dragInputText(X,Y);
         }
-
         else if (data == "lable"){
             var lab = canvas = document.getElementById("lable");
             var dx = pos[0] - lab.offsetLeft;
             var dy = pos[1] - lab.offsetTop;
             var X = ev.pageX - dx;
             var Y = ev.pageY - dy;
-            drawLable(X,Y);
+            dragLable(X,Y);
         }
-
         else if (data == "menu"){
             var men = canvas = document.getElementById("menu");
             var dx = pos[0] - men.offsetLeft;
             var dy = pos[1] - men.offsetTop;
             var X = ev.pageX - dx;
             var Y = ev.pageY - dy;
-            drawMenuBar(X,Y);
+            dragMenuBar(X,Y);
         }
-
         else if (data == "para"){
             var parag = canvas = document.getElementById("para");
             var dx = pos[0] - parag.offsetLeft;
             var dy = pos[1] - parag.offsetTop;
             var X = ev.pageX - dx;
             var Y = ev.pageY - dy;
-            drawPara(X,Y);
+            dragPara(X,Y);
 
         }
-
         else if (data == "rang") {
 
             var ran = canvas = document.getElementById("rang");
@@ -136,13 +125,97 @@
             var dy = pos[1] - ran.offsetTop;
             var X = ev.pageX - dx;
             var Y = ev.pageY - dy;
-            drawRange(X, Y);
+            dragRange(X, Y);
+        }
+        else if (data == "hori") {
+
+            var ran = canvas = document.getElementById("hori");
+            var dx = pos[0] - ran.offsetLeft;
+            var dy = pos[1] - ran.offsetTop;
+            var X = ev.pageX - dx;
+            var Y = ev.pageY - dy;
+            dragHorizo(X, Y);
+        }
+        else if (data == "link") {
+
+            var ran = canvas = document.getElementById("link");
+            var dx = pos[0] - ran.offsetLeft;
+            var dy = pos[1] - ran.offsetTop;
+            var X = ev.pageX - dx;
+            var Y = ev.pageY - dy;
+            dragLink(X, Y);
+        }
+        else if (data == "iframe") {
+
+            var ran = canvas = document.getElementById("iframe");
+            var dx = pos[0] - ran.offsetLeft;
+            var dy = pos[1] - ran.offsetTop;
+            var X = ev.pageX - dx;
+            var Y = ev.pageY - dy;
+            dragIframe(X, Y);
+        }
+        else if (data == "password") {
+
+            var ran = canvas = document.getElementById("password");
+            var dx = pos[0] - ran.offsetLeft;
+            var dy = pos[1] - ran.offsetTop;
+            var X = ev.pageX - dx;
+            var Y = ev.pageY - dy;
+            dragInputText(X, Y);
+        }
+        else if (data == "textArea") {
+
+            var ran = canvas = document.getElementById("textArea");
+            var dx = pos[0] - ran.offsetLeft;
+            var dy = pos[1] - ran.offsetTop;
+            var X = ev.pageX - dx;
+            var Y = ev.pageY - dy;
+            dragTextArea(X, Y);
         }
 
-       // document.getElementById("desi").getContext("2d").drawImage(document.getElementById(data), ev.pageX - dx, ev.pageY - dy);
     }
 
-    function drawButton(bx,by) {
+    function dragIframe(ix, iy) {
+        zebra.ready(function () {
+            var iframePic = zebra.ui.loadImage("/Magicurve/Content/Images/Icon/picker.png");
+            var imageIfreme = new zebra.ui.ImagePan(iframePic);
+            imageIfreme.setBounds(ix, iy, 100, 100);
+
+            var shperIframe = new zebra.ui.designer.ShaperPan(imageIfreme);
+            window.root.add(shperIframe);
+        });
+    }
+    function dragTextArea(textAreaX, textAreaY) {
+        var textArea = new zebra.ui.TextArea();
+        textArea.setBounds(textAreaX, textAreaY, 100, 50);
+        var shpertextArea = new zebra.ui.designer.ShaperPan(textArea);
+        window.root.add(shpertextArea);
+    }
+    function dragLink(lx, ly) {
+        zebra.ready(function () {
+
+            var link = new zebra.ui.Line();
+            horizontal.setBounds(lx, ly, 150, 3);
+
+
+            var horiShaperPan = new zebra.ui.designer.ShaperPan(horizontal);
+            window.root.add(horiShaperPan);
+
+        });
+    }
+    function dragHorizo(lx, ly) {
+        zebra.ready(function () {
+
+            var horizontal = new zebra.ui.Line();
+            horizontal.setBounds(lx, ly, 150, 3);
+
+         
+            var horiShaperPan = new zebra.ui.designer.ShaperPan(horizontal);
+            window.root.add(horiShaperPan);
+
+        });
+    }
+    function dragButton(bx,by) {
 
 
         zebra.ready(function () {
@@ -155,7 +228,7 @@
 
         });
     }
-    function drawCheckBox(cx,cy) {
+    function dragCheckBox(cx, cy) {
         zebra.ready(function () {
 
 
@@ -166,7 +239,7 @@
 
         });
     }
-    function drawCombo(bx, by) {
+    function dragCombo(bx, by) {
         zebra.ready(function () {
             var combo = new zebra.ui.Combo(new zebra.ui.List([
               "Item 1",
@@ -181,26 +254,29 @@
 
         });
     }
-    function drawDatePicker(bx, by) {
+    function dragDatePicker(bx, by) {
         zebra.ready(function () {
+            var datePic = zebra.ui.loadImage("/Magicurve/Content/Images/Icon/picker.png");
+            var imageDatePic = new zebra.ui.ImagePan(datePic);
+            imageDatePic.setBounds(bx, by, 140, 40);
 
-
+            var shperDatePic = new zebra.ui.designer.ShaperPan(imageDatePic);
+            window.root.add(shperDatePic);
         });
     }
-    function drawImageContent(bx, by) {
+    function dragImageContent(bx, by) {
         zebra.ready(function () {
 
+            var image = zebra.ui.loadImage("/Magicurve/Content/Images/Icon/image.png");
+            var imageImage = new zebra.ui.ImagePan(image);
+            imageImage.setBounds(bx, by, 200, 100);
 
-            var image = new zebra.ui.ImagePan();
-
-            image.setBounds(bx, by, 200, 200);
-
-            var shperimage = new zebra.ui.designer.ShaperPan(image);
+            var shperimage = new zebra.ui.designer.ShaperPan(imageImage);
             window.root.add(shperimage);
 
         });
     }
-    function drawRadioButton(bx, by) {
+    function dragRadioButton(bx, by) {
         zebra.ready(function () {
 
             var radioButton = new zebra.ui.Radiobox("Radio Button");
@@ -211,7 +287,7 @@
 
         });
     }
-    function drawInputText(bx, by) {
+    function dragInputText(bx, by) {
         zebra.ready(function () {
 
 
@@ -222,7 +298,7 @@
 
         });
     }
-    function drawLable(bx, by) {
+    function dragLable(bx, by) {
         zebra.ready(function () {
 
 
@@ -233,7 +309,7 @@
 
         });
     }
-    function drawMenuBar(bx, by) {
+    function dragMenuBar(bx, by) {
         zebra.ready(function () {
             var menu = new zebra.ui.Menubar({
                 "HOME": {
@@ -255,15 +331,26 @@
 
         });
     }
-    function drawRange(bx, by) {
+    function dragRange(bx, by) {
         zebra.ready(function () {
-            var horizontal = new zebra.ui.Line();
-            horizontal.setBounds(bx, by, 400, 3);
-            var shperhorizontal = new zebra.ui.designer.ShaperPan(horizontal);
-            window.root.add(shperhorizontal);
+
+            var rangePic = zebra.ui.loadImage("/Magicurve/Content/Images/Icon/range.png");
+            var imageRangePic = new zebra.ui.ImagePan(rangePic);
+            imageRangePic.setBounds(bx, by, 140, 30);
+            var shperRange = new zebra.ui.designer.ShaperPan(imageRangePic);
+            window.root.add(shperRange);
         });
     }
+    function dragPara(bx, by) {
+        zebra.ready(function () {
 
+            var paraPic = zebra.ui.loadImage("/Magicurve/Content/Images/Icon/paragrap.png");
+            var imageParaPic = new zebra.ui.ImagePan(paraPic);
+            imageParaPic.setBounds(bx, by, 100, 50);
+            var shperPara = new zebra.ui.designer.ShaperPan(imageParaPic);
+            window.root.add(shperPara);
+        });
+    }
 
 </script>
 
@@ -276,9 +363,5 @@
     <canvas id="designer" ondrop="drop(event)" ondragover="allowDrop(event)" draggable="true">
         This Browser does not support canvas element.
     </canvas>
-
-
-
-
 
 </div>
