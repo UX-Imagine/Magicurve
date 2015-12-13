@@ -1,57 +1,71 @@
-﻿<ul class="nav navbar-nav">
+﻿<ul class="nav navbar-nav" >
+
     <li>
-        <a href="#"><span class="glyphicon glyphicon-folder-open"></span> </a>
+        <a href="#"><span class="glyphicon glyphicon-home"></span> </a>
+    </li>
+    <li >
+        <a href="#" class="btn-file"><span class="glyphicon glyphicon-folder-open ">
+                
+                       
+                           <input type="file" file-model="originaImage">
+                                         
+            </span> 
+        </a>
     </li>
     
     <li>
-        <a href="#"><span class="glyphicon glyphicon-floppy-save" ></span> </a>
+        <a href="#">
+            <span class="glyphicon glyphicon-download-alt" ng-click="download()">
+
+            </span>
+            </a>
+</li>
+    <li>
+        <a href="#"><span class="glyphicon glyphicon-picture"></span> </a>
     </li>
     <li>
-        <a href="#"><span class="glyphicon glyphicon-zoom-in"></span> </a>
+        <a href="#"><span class="glyphicon glyphicon-font"></span> </a>
     </li>
     <li>
-        <a href="#"><span class="glyphicon glyphicon-zoom-out"></span> </a>
+        <a href="#"><span class="glyphicon glyphicon-pencil"></span> </a>
+    </li>
+   
+
+    <li>
+        <a href="#"><span class="glyphicon glyphicon-refresh"></span> </a>
     </li>
     <li>
-        <a href="#"><span><input style="height:20px;width:140px" type="text" class="form-control" id="exampleInputName2" placeholder="arial"></span> </a>
+        <a href="#"><span class="glyphicon glyphicon-repeat"></span> </a>
     </li>
+
+ 
     <li>
-        <a href="#"><span><input style="height:20px;width:120px" type="text" class="form-control" id="exampleInputName2" placeholder="14px"></span> </a>
-    </li>
-    <li>
-        <a href="#"><span class="glyphicon glyphicon-arrow-left"></span> </a>
-    </li>
-    <li>
-        <a href="#"><span class="glyphicon glyphicon-arrow-right"></span> </a>
-    </li>
-    <li>
-        <a href="#"><span class="glyphicon glyphicon-align-left"></span> </a>
-    </li>
-    <li>
-        <a href="#"><span class="glyphicon glyphicon-align-right"></span> </a>
-    </li>
-    <li>
-        <a href="#"><span class="glyphicon glyphicon-align-center"></span> </a>
-    </li>
-    <li>
-        <a href="#"><span class="glyphicon glyphicon-list"></span> </a>
+        <a href="#"><span class="glyphicon glyphicon-ok"></span> </a>
     </li>
 
      <li>
-        <a href="#"><span class="glyphicon glyphicon-list"></span> </a>
+        <a href="#"><span class="glyphicon glyphicon-remove"></span> </a>
     </li>
-
+    <li>
+        <a href="#"><span class="glyphicon glyphicon-resize-small"></span> </a>
+    </li>
+    <li>
+        <a href="#"><span class="glyphicon glyphicon-trash"></span> </a>
+    </li>
 </ul>
 
 
 <span id="fileUpload" class="nav navbar-nav navbar-right">
+
     <span class="btn btn-success btn-file">
         <span class="glyphicon glyphicon-picture">
         </span> Pick Image <input type="file" file-model="originaImage">
     </span>
-    <span class="btn btn-primary" ng-click="download()">
+
+
+    @*<span class="btn btn-primary" ng-click="download()">
         <i class="glyphicon glyphicon-download-alt"></i>
         Save
-    </span>
+    </span>*@
 
 </span>
