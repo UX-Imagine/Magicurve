@@ -137,9 +137,9 @@ function genarateDesign(jsonObj) {
 
 //function for drawing i frame
 function drawIframe(dX, dY) {
-    var iframePic = zebra.ui.loadImage("/Magicurve/Content/Images/Icon/picker.png");
+    var iframePic = zebra.ui.loadImage("/Magicurve/Content/Images/Icon/.png");
     var imageIframe = new zebra.ui.ImagePan(iframePic);
-    imageDatePic.setBounds(dX, dY, 100, 100);
+    imageIframe.setBounds(dX, dY, 100, 100);
 
     // var shperData = new zebra.ui.designer.ShaperPan(imageDatePic);
 

@@ -204,11 +204,14 @@
     <Content Include="Content\Images\Icon\Check.png" />
     <Content Include="Content\Images\Icon\como.png" />
     <Content Include="Content\Images\Icon\datepic.png" />
+    <Content Include="Content\Images\Icon\hori.png" />
     <Content Include="Content\Images\Icon\HTML5.png" />
+    <Content Include="Content\Images\Icon\iframe.png" />
     <Content Include="Content\Images\Icon\image.png" />
     <Content Include="Content\Images\Icon\image2.png" />
     <Content Include="Content\Images\Icon\images %281%29.png" />
     <Content Include="Content\Images\Icon\lable.png" />
+    <Content Include="Content\Images\Icon\link.png" />
     <Content Include="Content\Images\Icon\menu.png" />
     <Content Include="Content\Images\Icon\para.png" />
     <Content Include="Content\Images\Icon\paragrap.png" />
