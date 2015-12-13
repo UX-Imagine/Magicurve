@@ -102,12 +102,12 @@ function genarateDesign(sourceControls) {
         else if (sourceControls[i].Type === "CheckBox") {
             controls[controlsValid++] = new ControlItem(
                 i,
-                editable(drawCheckBox(sourceControls[i].X, sourceControls[i].Y, 120, 30, "CheckBox"),i));
+                editable(drawCheckBox(sourceControls[i].X, sourceControls[i].Y, 120, 30, "CheckBox"), i));
         }
         else if (sourceControls[i].Type === "ComboBox") {
             controls[controlsValid++] = new ControlItem(
                 i,
-                editable(drawComboBox(sourceControls[i].X, sourceControls[i].Y, sourceControls[i].Width, 40), i));
+                editable(drawComboBox(sourceControls[i].X, sourceControls[i].Y, sourceControls[i].Width, 30), i));
         }
         else if (sourceControls[i].Type === "HLine") {
             controls[controlsValid++] = new ControlItem(
@@ -122,12 +122,12 @@ function genarateDesign(sourceControls) {
         else if (sourceControls[i].Type === "Image") {
             controls[controlsValid++] = new ControlItem(
                 i,
-                editable(drawImageContent(sourceControls[i].X, sourceControls[i].Y, sourceControls[i].Width, sourceControls[i].Height),i));
+                editable(drawImageContent(sourceControls[i].X, sourceControls[i].Y, sourceControls[i].Width, sourceControls[i].Height), i));
         }
         else if (sourceControls[i].Type === "Label") {
             controls[controlsValid++] = new ControlItem(
                 i,
-                editable(drawLable(sourceControls[i].X, sourceControls[i].Y, sourceControls[i].Width, sourceControls[i].Height, "LableCaption"), i));
+                editable(drawLable(sourceControls[i].X, sourceControls[i].Y, sourceControls[i].Width, sourceControls[i].Height, "Lable Caption"), i));
         }
         else if (sourceControls[i].Type === "MenuBar") {
             controls[controlsValid++] = new ControlItem(
@@ -137,7 +137,7 @@ function genarateDesign(sourceControls) {
         else if (sourceControls[i].Type === "Paragraph") {
             controls[controlsValid++] = new ControlItem(
                 i,
-                editable(drawPanel(sourceControls[i].X, sourceControls[i].Y, sourceControls[i].Width, sourceControls[i].Height, "#E6E6E6"), i));
+                editable(drawPara(sourceControls[i].X, sourceControls[i].Y, sourceControls[i].Width, sourceControls[i].Height), i));
         }
         else if (sourceControls[i].Type === "RadioButton") {
             controls[controlsValid++] = new ControlItem(
@@ -160,14 +160,24 @@ function genarateDesign(sourceControls) {
             //    editable(drawTextBox(sourceControls[i].X, sourceControls[i].Y, sourceControls[i].Width, 30), i));
         }
         else if (sourceControls[i].Type === "DatePicker") {
-            //controls[controlsValid++] = new ControlItem(
-            //    i,
-            //    editable(drawTextBox(sourceControls[i].X, sourceControls[i].Y, sourceControls[i].Width, 30), i));
+            controls[controlsValid++] = new ControlItem(
+                i,
+                editable(drawDatePic(sourceControls[i].X, sourceControls[i].Y), i));
         }
         else if (sourceControls[i].Type === "Range") {
-            //controls[controlsValid++] = new ControlItem(
-            //    i,
-            //    editable(drawTextBox(sourceControls[i].X, sourceControls[i].Y, sourceControls[i].Width, 30), i));
+            controls[controlsValid++] = new ControlItem(
+                i,
+                editable(drawRage(sourceControls[i].X, sourceControls[i].Y), i));
+        }
+        else if (sourceControls[i].Type === "InputPassword") {
+            controls[controlsValid++] = new ControlItem(
+                i,
+                editable(drawTextArea(sourceControls[i].X, sourceControls[i].Y), i));
+        }
+        else if (sourceControls[i].Type === "Iframe") {
+            controls[controlsValid++] = new ControlItem(
+                i,
+                editable(drawIframe(sourceControls[i].X, sourceControls[i].Y), i));
         }
     }
 
