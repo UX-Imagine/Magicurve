@@ -138,11 +138,11 @@ function genarateDesign(jsonObj) {
 
 //////////////// method drawing non editable ///////////
 
-//function for drawing i fream
+//function for drawing i frame
 function drawIframe(dX, dY) {
     var iframePic = zebra.ui.loadImage("/Magicurve/Content/Images/Icon/picker.png");
     var imageIframe = new zebra.ui.ImagePan(iframePic);
-    imageDatePic.setBounds(dX, dY, 140, 40);
+    imageDatePic.setBounds(dX, dY, 100, 100);
 
     // var shperData = new zebra.ui.designer.ShaperPan(imageDatePic);
 
