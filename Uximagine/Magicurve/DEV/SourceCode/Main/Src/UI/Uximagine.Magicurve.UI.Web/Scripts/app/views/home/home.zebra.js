@@ -1,4 +1,4 @@
-﻿var domain = "";
+﻿var domain = "/Magicurve";
 //var canvasWidth = screen.width * 80 / 144;
 //var canvasHeight = screen.height * .6;
 
@@ -155,9 +155,9 @@ function genarateDesign(sourceControls) {
                 editable(drawTextBox(sourceControls[i].X, sourceControls[i].Y, sourceControls[i].Width, 30), i));
         }
         else if (sourceControls[i].Type === "Iframe") {
-            //controls[controlsValid++] = new ControlItem(
-            //    i,
-            //    editable(drawTextBox(sourceControls[i].X, sourceControls[i].Y, sourceControls[i].Width, 30), i));
+            controls[controlsValid++] = new ControlItem(
+                i,
+                editable(drawIframe(sourceControls[i].X, sourceControls[i].Y, sourceControls[i].Width, 30), i));
         }
         else if (sourceControls[i].Type === "DatePicker") {
             controls[controlsValid++] = new ControlItem(
@@ -174,11 +174,7 @@ function genarateDesign(sourceControls) {
                 i,
                 editable(drawTextArea(sourceControls[i].X, sourceControls[i].Y), i));
         }
-        else if (sourceControls[i].Type === "Iframe") {
-            controls[controlsValid++] = new ControlItem(
-                i,
-                editable(drawIframe(sourceControls[i].X, sourceControls[i].Y), i));
-        }
+
     }
 
     return controls;
