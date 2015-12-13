@@ -120,5 +120,43 @@ namespace Uximagine.Magicurve.Image.Processing
                 this.Controls = controls;
             }
         }
+
+        /// <summary>
+        /// The process image.
+        /// </summary>
+        /// <param name="bitmap">
+        /// The bitmap.
+        /// </param>
+        public void ProcessImage(Bitmap bitmap)
+        {
+           
+                this.ImageWidth = bitmap.Width;
+                this.ImageHeight = bitmap.Height;
+
+                // Apply filters to get smooth image.
+                Bitmap blobReady = bitmap.GetBlobReady();
+
+                // Detect Shapes.
+                IBlobDetector blobDetector = ProcessingFactory.GetBlobDetector();
+                blobDetector.ProcessImage(blobReady);
+
+                List<Control> controls = blobDetector.GetShapes();
+                this.ImageResult = blobDetector.GetImage();
+
+                // Identify control type.
+                IShapeChecker shapeChecker = ProcessingFactory.GetShapeChecker();
+
+                controls =
+                    controls.Where(c => c.Width > ConfigurationData.MinSize && c.Height > ConfigurationData.MinSize)
+                        .ToList();
+
+                foreach (Control control in controls)
+                {
+                    ControlType type = shapeChecker.GetControlType(blobReady, control.EdgePoints);
+                    control.Type = type;
+                }
+
+                this.Controls = controls;
+        }
     }
 }

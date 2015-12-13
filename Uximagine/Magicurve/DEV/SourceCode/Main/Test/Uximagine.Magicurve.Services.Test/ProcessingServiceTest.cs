@@ -27,8 +27,8 @@
             this.service = new Mock<IProcessingService>();
             var request = new Mock<ProcessRequestDto>();
             var response = new Mock<ProcessResponseDto>();
-            this.service.Setup(ser => ser.ProcessImage(request.Object))
-                .Returns(response.Object);
+          /*  this.service.Setup(ser => ser.ProcessImage(request.Object))
+                .Returns(response.Object);*/
         }
 
         /// <summary>

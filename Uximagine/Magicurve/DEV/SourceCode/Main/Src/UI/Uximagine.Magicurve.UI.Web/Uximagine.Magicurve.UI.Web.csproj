@@ -270,6 +270,48 @@
     <Content Include="Content\Images\Train\hr\line_16.jpg" />
     <Content Include="Content\Images\Train\hr\test\test1.jpg" />
     <Content Include="Content\Images\Train\hr\test\test2.jpg" />
+    <Content Include="Content\Images\Train\iframe\iframe_01.jpg" />
+    <Content Include="Content\Images\Train\iframe\iframe_02.jpg" />
+    <Content Include="Content\Images\Train\iframe\iframe_03.jpg" />
+    <Content Include="Content\Images\Train\iframe\iframe_04.jpg" />
+    <Content Include="Content\Images\Train\iframe\iframe_05.jpg" />
+    <Content Include="Content\Images\Train\iframe\iframe_06.jpg" />
+    <Content Include="Content\Images\Train\iframe\iframe_07.jpg" />
+    <Content Include="Content\Images\Train\iframe\iframe_08.jpg" />
+    <Content Include="Content\Images\Train\iframe\iframe_10.jpg" />
+    <Content Include="Content\Images\Train\iframe\iframe_11.jpg" />
+    <Content Include="Content\Images\Train\iframe\iframe_12.jpg" />
+    <Content Include="Content\Images\Train\iframe\iframe_13.jpg" />
+    <Content Include="Content\Images\Train\iframe\iframe_14.jpg" />
+    <Content Include="Content\Images\Train\iframe\iframe_15.jpg" />
+    <Content Include="Content\Images\Train\iframe\test\test1.jpg" />
+    <Content Include="Content\Images\Train\iframe\test\test2.jpg" />
+    <Content Include="Content\Images\Train\image\image3_03.jpg" />
+    <Content Include="Content\Images\Train\image\image3_04.jpg" />
+    <Content Include="Content\Images\Train\image\image3_06.jpg" />
+    <Content Include="Content\Images\Train\image\image3_07.jpg" />
+    <Content Include="Content\Images\Train\image\image3_08.jpg" />
+    <Content Include="Content\Images\Train\image\image3_09.jpg" />
+    <Content Include="Content\Images\Train\image\image3_10.jpg" />
+    <Content Include="Content\Images\Train\image\image3_11.jpg" />
+    <Content Include="Content\Images\Train\image\image3_12.jpg" />
+    <Content Include="Content\Images\Train\image\image3_13.jpg" />
+    <Content Include="Content\Images\Train\image\image3_14.jpg" />
+    <Content Include="Content\Images\Train\image\image3_15.jpg" />
+    <Content Include="Content\Images\Train\image\image3_16.jpg" />
+    <Content Include="Content\Images\Train\image\image4_01.jpg" />
+    <Content Include="Content\Images\Train\image\image4_02.jpg" />
+    <Content Include="Content\Images\Train\image\image4_03.jpg" />
+    <Content Include="Content\Images\Train\image\image4_06.jpg" />
+    <Content Include="Content\Images\Train\image\image4_08.jpg" />
+    <Content Include="Content\Images\Train\image\image4_10.jpg" />
+    <Content Include="Content\Images\Train\image\image4_11.jpg" />
+    <Content Include="Content\Images\Train\image\image4_12.jpg" />
+    <Content Include="Content\Images\Train\image\image4_13.jpg" />
+    <Content Include="Content\Images\Train\image\image4_14.jpg" />
+    <Content Include="Content\Images\Train\image\image4_15.jpg" />
+    <Content Include="Content\Images\Train\image\test\test1.jpg" />
+    <Content Include="Content\Images\Train\image\test\test2.jpg" />
     <Content Include="Content\Images\Train\label\test\test1.jpg" />
     <Content Include="Content\Images\Train\label\test\test2.jpg" />
     <Content Include="Content\Images\Train\label\text2_01.jpg" />
@@ -342,6 +384,38 @@
     <Content Include="Content\Images\Train\paragraph\area2_14.jpg" />
     <Content Include="Content\Images\Train\paragraph\area2_15.jpg" />
     <Content Include="Content\Images\Train\paragraph\test\test1.jpg" />
+    <Content Include="Content\Images\Train\password\password2_02.jpg" />
+    <Content Include="Content\Images\Train\password\password2_03.jpg" />
+    <Content Include="Content\Images\Train\password\password2_04.jpg" />
+    <Content Include="Content\Images\Train\password\password2_05.jpg" />
+    <Content Include="Content\Images\Train\password\password2_06.jpg" />
+    <Content Include="Content\Images\Train\password\password2_07.jpg" />
+    <Content Include="Content\Images\Train\password\password2_08.jpg" />
+    <Content Include="Content\Images\Train\password\password2_09.jpg" />
+    <Content Include="Content\Images\Train\password\password2_10.jpg" />
+    <Content Include="Content\Images\Train\password\password2_11.jpg" />
+    <Content Include="Content\Images\Train\password\password2_12.jpg" />
+    <Content Include="Content\Images\Train\password\password2_13.jpg" />
+    <Content Include="Content\Images\Train\password\password2_14.jpg" />
+    <Content Include="Content\Images\Train\password\password2_15.jpg" />
+    <Content Include="Content\Images\Train\password\password2_16.jpg" />
+    <Content Include="Content\Images\Train\password\password_05.jpg" />
+    <Content Include="Content\Images\Train\password\password_06.jpg" />
+    <Content Include="Content\Images\Train\password\password_07.jpg" />
+    <Content Include="Content\Images\Train\password\password_09.jpg" />
+    <Content Include="Content\Images\Train\password\password_10.jpg" />
+    <Content Include="Content\Images\Train\password\password_11.jpg" />
+    <Content Include="Content\Images\Train\password\password_12.jpg" />
+    <Content Include="Content\Images\Train\password\password_13.jpg" />
+    <Content Include="Content\Images\Train\password\password_14.jpg" />
+    <Content Include="Content\Images\Train\password\password_15.jpg" />
+    <Content Include="Content\Images\Train\password\password_16.jpg" />
+    <Content Include="Content\Images\Train\password\test\password_01.jpg" />
+    <Content Include="Content\Images\Train\password\test\password_02.jpg" />
+    <Content Include="Content\Images\Train\password\test\password_03.jpg" />
+    <Content Include="Content\Images\Train\password\test\password_04.jpg" />
+    <Content Include="Content\Images\Train\password\test\test1.jpg" />
+    <Content Include="Content\Images\Train\password\test\test2.jpg" />
     <Content Include="Content\Images\Train\radio\test\test1.jpg" />
     <Content Include="Content\Images\Train\range\range2_01.jpg" />
     <Content Include="Content\Images\Train\range\range2_02.jpg" />
@@ -373,6 +447,62 @@
     <Content Include="Content\Images\Train\range\range_15.jpg" />
     <Content Include="Content\Images\Train\range\range_16.jpg" />
     <Content Include="Content\Images\Train\range\test\test1.jpg" />
+    <Content Include="Content\Images\Train\text\symbol2_01.jpg" />
+    <Content Include="Content\Images\Train\text\symbol2_02.jpg" />
+    <Content Include="Content\Images\Train\text\symbol2_05.jpg" />
+    <Content Include="Content\Images\Train\text\symbol2_06.jpg" />
+    <Content Include="Content\Images\Train\text\symbol2_09.jpg" />
+    <Content Include="Content\Images\Train\text\symbol2_10.jpg" />
+    <Content Include="Content\Images\Train\text\symbol2_13.jpg" />
+    <Content Include="Content\Images\Train\text\symbol2_14.jpg" />
+    <Content Include="Content\Images\Train\text\test\test1.jpg" />
+    <Content Include="Content\Images\Train\text\test\test2.jpg" />
+    <Content Include="Content\Images\Train\text\text1_01.jpg" />
+    <Content Include="Content\Images\Train\text\text1_02.jpg" />
+    <Content Include="Content\Images\Train\text\text1_03.jpg" />
+    <Content Include="Content\Images\Train\text\text1_04.jpg" />
+    <Content Include="Content\Images\Train\text\text1_05.jpg" />
+    <Content Include="Content\Images\Train\text\text1_06.jpg" />
+    <Content Include="Content\Images\Train\text\text1_07.jpg" />
+    <Content Include="Content\Images\Train\text\text1_09.jpg" />
+    <Content Include="Content\Images\Train\text\text1_10.jpg" />
+    <Content Include="Content\Images\Train\text\text1_11.jpg" />
+    <Content Include="Content\Images\Train\text\text1_12.jpg" />
+    <Content Include="Content\Images\Train\text\text1_13.jpg" />
+    <Content Include="Content\Images\Train\text\text1_14.jpg" />
+    <Content Include="Content\Images\Train\text\text1_15.jpg" />
+    <Content Include="Content\Images\Train\text\text2_01.jpg" />
+    <Content Include="Content\Images\Train\text\text2_02.jpg" />
+    <Content Include="Content\Images\Train\text\text2_03.jpg" />
+    <Content Include="Content\Images\Train\text\text2_04.jpg" />
+    <Content Include="Content\Images\Train\text\text2_05.jpg" />
+    <Content Include="Content\Images\Train\text\text2_06.jpg" />
+    <Content Include="Content\Images\Train\text\text2_07.jpg" />
+    <Content Include="Content\Images\Train\text\text2_08.jpg" />
+    <Content Include="Content\Images\Train\text\text2_09.jpg" />
+    <Content Include="Content\Images\Train\text\text2_10.jpg" />
+    <Content Include="Content\Images\Train\text\text2_11.jpg" />
+    <Content Include="Content\Images\Train\text\text2_12.jpg" />
+    <Content Include="Content\Images\Train\text\text2_13.jpg" />
+    <Content Include="Content\Images\Train\text\text2_14.jpg" />
+    <Content Include="Content\Images\Train\text\text2_15.jpg" />
+    <Content Include="Content\Images\Train\text\text2_16.jpg" />
+    <Content Include="Content\Images\Train\text\text3_01.jpg" />
+    <Content Include="Content\Images\Train\text\text3_02.jpg" />
+    <Content Include="Content\Images\Train\text\text3_03.jpg" />
+    <Content Include="Content\Images\Train\text\text3_04.jpg" />
+    <Content Include="Content\Images\Train\text\text3_05.jpg" />
+    <Content Include="Content\Images\Train\text\text3_06.jpg" />
+    <Content Include="Content\Images\Train\text\text3_07.jpg" />
+    <Content Include="Content\Images\Train\text\text3_08.jpg" />
+    <Content Include="Content\Images\Train\text\text3_09.jpg" />
+    <Content Include="Content\Images\Train\text\text3_10.jpg" />
+    <Content Include="Content\Images\Train\text\text3_11.jpg" />
+    <Content Include="Content\Images\Train\text\text3_12.jpg" />
+    <Content Include="Content\Images\Train\text\text3_13.jpg" />
+    <Content Include="Content\Images\Train\text\text3_14.jpg" />
+    <Content Include="Content\Images\Train\text\text3_15.jpg" />
+    <Content Include="Content\Images\Train\text\text3_16.jpg" />
     <Content Include="Content\Images\upload.png" />
     <Content Include="Content\swf\jscam.swf" />
     <Content Include="Content\swf\jscam_canvas_only.swf" />
@@ -410,6 +540,7 @@
     <Content Include="Scripts\app\views\home\zebra.draw.js" />
     <Content Include="Scripts\app\views\home\magicurve.app.controller.main.js" />
     <Content Include="Content\toaster.scss" />
+    <Content Include="Content\Images\Train\machine.nn" />
     <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
     <None Include="Properties\PublishProfiles\localhost.pubxml" />
     <Content Include="Scripts\fx\angular\errors.json" />
@@ -489,6 +620,10 @@
       <Project>{b01199e0-cc8c-4f1e-b550-959543314908}</Project>
       <Name>Uximagine.Magicurve.Services.BusinessServices</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Services\Uximagine.Magicurve.Services.CloudStorage\Uximagine.Magicurve.Services.CloudStorage.csproj">
+      <Project>{6498e995-c760-4920-8ff8-4a3ee3842d20}</Project>
+      <Name>Uximagine.Magicurve.Services.CloudStorage</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Services\Uximagine.Magicurve.Services\Uximagine.Magicurve.Services.csproj">
       <Project>{e86af4c7-26b5-47df-9b28-23390b901b66}</Project>
       <Name>Uximagine.Magicurve.Services</Name>
@@ -539,8 +674,7 @@
           <IISUrl>http://localhost/Magicurve</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
-          <CustomServerUrl>
-          </CustomServerUrl>
+          <CustomServerUrl>http://chan4lkazuretest2.azurewebsites.net/</CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>

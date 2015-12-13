@@ -198,5 +198,20 @@ namespace Uximagine.Magicurve.Image.Processing
                 return load == "true";
             }
         }
+
+        /// <summary>
+        /// Gets the machine URL.
+        /// </summary>
+        /// <value>
+        /// The machine URL.
+        /// </value>
+        public static string MachineUrl
+        {
+            get
+            {
+                string url = ConfigurationManager.AppSettings["machineUrl"];
+                return url;
+            }
+        }
     }
 }

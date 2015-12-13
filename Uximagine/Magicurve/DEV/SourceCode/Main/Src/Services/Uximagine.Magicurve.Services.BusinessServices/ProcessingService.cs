@@ -17,17 +17,16 @@ namespace Uximagine.Magicurve.Services.BusinessServices
         /// <summary>
         /// Gets the processed image URL.
         /// </summary>
-        /// <param name="requestDto">
-        /// The requestDto.
-        /// </param>
+        /// <param name="requestDto">The requestDto.</param>
         /// <returns>
         /// The URL.
         /// </returns>
-        public ProcessResponseDto ProcessImage(ProcessRequestDto requestDto)
+        public async Task<ProcessResponseDto> ProcessImage(ProcessRequestDto requestDto)
         {
             DetectControlsUnitOfWork work = new DetectControlsUnitOfWork { ImagePath = requestDto.ImagePath };
+            work.IsAsync = true;
 
-            this.DoWork(work);
+            await this.DoWork(work);
 
             ProcessResponseDto response = new ProcessResponseDto
             {
@@ -60,7 +59,7 @@ namespace Uximagine.Magicurve.Services.BusinessServices
                 ImageHeight = request.ImageHeight
             };
 
-            this.DoWork(work);
+            this.DoWork(work).Wait();
 
             response.Code = work.Code;
 
@@ -70,9 +69,10 @@ namespace Uximagine.Magicurve.Services.BusinessServices
         /// <summary>
         /// Trains this instance.
         /// </summary>
-        /// <param name="request">
-        /// The request.
-        /// </param>
+        /// <param name="request">The request.</param>
+        /// <returns>
+        /// The task.
+        /// </returns>
         public async Task Train(TrainRequest request)
         {
             await Task.Run(() =>
@@ -82,7 +82,7 @@ namespace Uximagine.Magicurve.Services.BusinessServices
                     ForceTraining = request.ForceTraining
                 };
 
-                this.DoWork(work);
+                this.DoWork(work).Wait();
             });
         }
     }

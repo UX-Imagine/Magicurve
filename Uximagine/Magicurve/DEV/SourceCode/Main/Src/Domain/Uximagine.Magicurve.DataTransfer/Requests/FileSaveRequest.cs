@@ -2,9 +2,14 @@
 
 namespace Uximagine.Magicurve.DataTransfer.Requests
 {
+    using System.IO;
+    using System.Runtime.Serialization;
+    using System.Web;
+
     /// <summary>
     /// The file save request.
     /// </summary>
+    [DataContract]
     public class FileSaveRequest
     {
         /// <summary>
@@ -13,6 +18,17 @@ namespace Uximagine.Magicurve.DataTransfer.Requests
         /// <value>
         /// The image.
         /// </value>
-        public Bitmap Image { get; set; }
+        [DataMember]
+        public HttpPostedFileBase Image { get; set; }
+
+        /// <summary>
+        /// Gets or sets the name.
+        /// </summary>
+        /// <value>
+        /// The name.
+        /// </value>
+        [DataMember]
+        public string Name { get; set; }
+
     }
 }

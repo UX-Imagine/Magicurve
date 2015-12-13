@@ -84,7 +84,7 @@
 
             $scope.message = "Hello Magicurve";
 
-            $rootScope.rootUrl = "/Magicurve";
+            $rootScope.rootUrl = "";
 
             $rootScope.stage = window.stage;
 

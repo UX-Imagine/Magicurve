@@ -41,7 +41,9 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -52,6 +54,7 @@
   <ItemGroup>
     <Compile Include="ConfigurationData.cs" />
     <Compile Include="IFileService.cs" />
+    <Compile Include="IPhotoService.cs" />
     <Compile Include="IProcessingService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceFactory.cs" />
@@ -78,4 +81,3 @@
   </Target>
   -->
 </Project>
-

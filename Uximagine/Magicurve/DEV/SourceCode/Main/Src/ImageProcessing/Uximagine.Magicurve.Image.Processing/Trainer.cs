@@ -96,7 +96,7 @@ namespace Uximagine.Magicurve.Image.Processing
             {
                 this.LogOperation("Loading started.");
 
-                classifier.TrainMachine();
+                classifier.TrainMachine(HostingEnvironment.MapPath(ConfigurationData.MachineUrl));
 
                 this.LogOperation("Loading Finished.");
             }

@@ -3,6 +3,9 @@ using Uximagine.Magicurve.DataTransfer.Requests;
 
 namespace Uximagine.Magicurve.Services
 {
+    using System.Drawing;
+    using System.Threading.Tasks;
+
     /// <summary>
     /// The service to handle file save update or delete.
     /// </summary>
@@ -17,7 +20,27 @@ namespace Uximagine.Magicurve.Services
         /// <returns>
         /// Id of the file.
         /// </returns>
-        FileSaveResponse SaveFile(FileSaveRequest request);
+        Task<FileSaveResponse> SaveFile(FileSaveRequest request);
+
+        /// <summary>
+        /// The save file.
+        /// </summary>
+        /// <param name="text">The text.</param>
+        /// <param name="fileName">Name of the file.</param>
+        /// <returns>
+        /// The <see cref="Task" />.
+        /// </returns>
+        Task<FileSaveResponse> SaveFile(string text, string fileName);
+
+        /// <summary>
+        /// Saves the file.
+        /// </summary>
+        /// <param name="image">The image.</param>
+        /// <param name="fileName">Name of the file.</param>
+        /// <returns>
+        /// The URL.
+        /// </returns>
+        Task<FileSaveResponse> SaveFile(Bitmap image, string fileName);
 
         /// <summary>
         /// Updates the file.
@@ -40,5 +63,16 @@ namespace Uximagine.Magicurve.Services
         /// <c>true</c> if success otherwise <c>false</c>
         /// </returns>
         FileDeleteResponse DeleteFile(FileDeleteRequest request);
+
+        /// <summary>
+        /// The load file.
+        /// </summary>
+        /// <param name="imagePath">
+        /// The image path.
+        /// </param>
+        /// <returns>
+        /// The <see cref="Task"/>.
+        /// </returns>
+        Task<Bitmap> LoadImageFile(string imagePath);
     }
 }

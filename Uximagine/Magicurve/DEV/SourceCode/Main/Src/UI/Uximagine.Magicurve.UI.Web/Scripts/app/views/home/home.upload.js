@@ -1,5 +1,5 @@
-﻿var root = "/Magicurve";
-
+﻿var root = "";
+var uploadedImageUrl = "";
 $(document).ready(function () {
 
     $('#btnUploadFile').on('click', function () {
@@ -24,6 +24,7 @@ $(document).ready(function () {
 
         ajaxRequest.done(function (xhr, textStatus) {
             if (textStatus.message != 'error') {
+                uploadedImageUrl = xhr.path;
                 loadImage();
             }
         });
@@ -34,10 +35,11 @@ function loadImage() {
     $.ajax(
         {
             url: root + "/api/images/result",
-            type: "GET"
+            type: "POST",
+            data: { FileUrl: uploadedImageUrl }
         }).done(function (data) {
-            $("#img_blob").attr("src", root + data.url + "?" + new Date().getTime());
-            $("#img").attr("src", root + "/Content/Images/Upload/upload.jpg" + "?" + new Date().getTime());
+            $("#img_blob").attr("src", data.url + "?" + new Date().getTime());
+            $("#img").attr("src", uploadedImageUrl + "?" + new Date().getTime());
             window.controls = data.controls;
             window.imageWidth = data.imageWidth;
             window.imageHeight = data.imageHeight;

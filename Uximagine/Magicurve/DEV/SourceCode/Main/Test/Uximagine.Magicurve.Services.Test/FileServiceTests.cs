@@ -19,10 +19,8 @@ namespace Uximagine.Magicurve.Services.Test
         public void SaveTest()
         {
             IFileService service = ServiceFactory.GetFileService();
-            var result = service.SaveFile(new FileSaveRequest()
-            {
-                Image = new Bitmap("testimage")
-            });
+            var result = service.SaveFile(new FileSaveRequest());
+          
 
             result.Id.ShouldBeType(typeof(Guid));
         }

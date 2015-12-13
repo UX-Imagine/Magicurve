@@ -1,4 +1,4 @@
-﻿var root = "/Magicurve";
+﻿var root = "";
 
 var clickCount = 1;
 

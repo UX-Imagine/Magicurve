@@ -13,17 +13,17 @@
             /// <summary>
             /// The bootstrap CSS.
             /// </summary>
-            public const string BootstrapCss = "http://localhost/Magicurve/Content/bootstrap.min.css";
+            public const string BootstrapCss = "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css";
 
             /// <summary>
             /// The bootstrap min JS.
             /// </summary>
-            public const string BootstrapJs = "http://localhost/Magicurve/Scripts/bootstrap.min.js";
+            public const string BootstrapJs = "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js";
 
             /// <summary>
             /// The JQUERY JS.
             /// </summary>
-            public const string Jquery = "http://localhost/Magicurve/Scripts/jquery-1.10.2.min.js";
+            public const string Jquery = "https://code.jquery.com/ui/1.11.4/jquery-ui.min.js";
 
             /// <summary>
             /// The custom CSS.

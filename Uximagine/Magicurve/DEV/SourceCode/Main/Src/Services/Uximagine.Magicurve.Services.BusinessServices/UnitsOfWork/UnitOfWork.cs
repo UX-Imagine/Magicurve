@@ -9,6 +9,8 @@ using Uximagine.Magicurve.DataTransfer.Exceptions;
 
 namespace Uximagine.Magicurve.Services.BusinessServices.UnitsOfWork
 {
+    using System.Threading.Tasks;
+
     /// <summary>
     /// Defines the functionality of a Unit of Work.
     /// </summary>
@@ -124,6 +126,17 @@ namespace Uximagine.Magicurve.Services.BusinessServices.UnitsOfWork
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether this instance is asynchronous.
+        /// </summary>
+        /// <value>
+        /// <c>true</c> if this instance is asynchronous; otherwise, <c>false</c>.
+        /// </value>
+        public bool IsAsync
+        {
+            get; set;
+        }
+
+        /// <summary>
         /// Gets or sets the operations log.
         /// </summary>
         /// <value>
@@ -166,10 +179,11 @@ namespace Uximagine.Magicurve.Services.BusinessServices.UnitsOfWork
         /// <summary>
         /// Does the Work.
         /// </summary>
-        /// <exception cref="BusinessException">
-        /// An error occurs while doing the Work.
-        /// </exception>
-        public void DoWork()
+        /// <returns>
+        /// The task.
+        /// </returns>
+        /// <exception cref="BusinessException">An error occurs while doing the Work.</exception>
+        public async Task DoWork()
         {
             this.LogStart();
 
@@ -177,7 +191,7 @@ namespace Uximagine.Magicurve.Services.BusinessServices.UnitsOfWork
 
             try
             {
-                this.AttemptToDoWork();
+                await this.AttemptToDoWork();
             }
             catch (Exception ex)
             {
@@ -217,7 +231,10 @@ namespace Uximagine.Magicurve.Services.BusinessServices.UnitsOfWork
         /// <summary>
         /// Attempts to do the Work.
         /// </summary>
-        private void AttemptToDoWork()
+        /// <returns>
+        /// The task.
+        /// </returns>
+        private async Task AttemptToDoWork()
         {
             this.LogStartPreExecute();
             this.PreExecute();
@@ -227,16 +244,16 @@ namespace Uximagine.Magicurve.Services.BusinessServices.UnitsOfWork
             {
                 if (ConfigurationData.MustSerializeReadOperations)
                 {
-                    this.ExecuteTransaction();
+                    await this.ExecuteTransaction();
                 }
                 else
                 {
-                    this.ExecuteNonTransaction();
+                    await this.ExecuteNonTransaction();
                 }
             }
             else
             {
-                this.ExecuteTransaction();
+                await this.ExecuteTransaction();
             }
 
             this.LogStartPostExecute();
@@ -247,13 +264,21 @@ namespace Uximagine.Magicurve.Services.BusinessServices.UnitsOfWork
         /// <summary>
         /// Executes the Unit of Work in a transactional manner.
         /// </summary>
-        private void ExecuteTransaction()
+        private async Task ExecuteTransaction()
         {
             this.LogStartWork();
 
             using (TransactionScope transactionScope = new TransactionScope())
             {
-                this.Execute();
+                if (this.IsAsync)
+                {
+                    await this.ExecuteAsync();
+                }
+                else
+                {
+                    this.Execute();
+                }
+                
 
                 transactionScope.Complete();
             }
@@ -264,11 +289,21 @@ namespace Uximagine.Magicurve.Services.BusinessServices.UnitsOfWork
         /// <summary>
         /// Executes the Unit of Work in a non-transactional manner.
         /// </summary>
-        private void ExecuteNonTransaction()
+        /// <returns>
+        /// The <see cref="Task"/>.
+        /// </returns>
+        private async Task ExecuteNonTransaction()
         {
             this.LogStartWork();
 
-            this.Execute();
+            if (this.IsAsync)
+            {
+                await this.ExecuteAsync();
+            }
+            else
+            {
+                this.Execute();
+            }
 
             this.LogEndWork();
         }
@@ -277,6 +312,14 @@ namespace Uximagine.Magicurve.Services.BusinessServices.UnitsOfWork
         /// The actual Work to be done.
         /// </summary>
         protected abstract void Execute();
+
+        /// <summary>
+        /// Executes the asynchronous.
+        /// </summary>
+        /// <returns>
+        /// The task.
+        /// </returns>
+        protected abstract Task ExecuteAsync();
 
         /// <summary>
         /// Runs prior to the work being done.

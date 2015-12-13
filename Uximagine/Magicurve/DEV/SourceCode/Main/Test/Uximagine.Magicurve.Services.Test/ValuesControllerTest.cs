@@ -9,6 +9,7 @@ namespace Uximagine.Magicurve.Services.Test
     using System.Collections.Generic;
     using Uximagine.Magicurve.Core.Shapes;
     using Uximagine.Magicurve.DataTransfer.Common;
+    using Uximagine.Magicurve.DataTransfer.Requests;
 
     /// <summary>
     /// Values controller test.
@@ -28,7 +29,7 @@ namespace Uximagine.Magicurve.Services.Test
             controller.ControllerContext = controllerCtx.Object;
             
             //// Act
-            var image = controller.GetControls();
+            var image = controller.GetControls(new ControlsRequest());
 
             //// Assert
             Assert.IsNotNull(image);
@@ -38,13 +39,13 @@ namespace Uximagine.Magicurve.Services.Test
         /// Gets the test.
         /// </summary>
         [TestMethod]
-        public void GetTest()
+        public async void GetTest()
         {
             //// Arrange
             var imagesController = new ImagesController();
 
             //// Act
-            ControlsResult image = imagesController.GetControls();
+            ImagesResult image = await imagesController.GetControls(new ControlsRequest());
 
             //// Assert
             Assert.IsNotNull(image);

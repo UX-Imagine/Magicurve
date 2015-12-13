@@ -2,6 +2,8 @@
 
 namespace Uximagine.Magicurve.Services.BusinessServices
 {
+    using System.Threading.Tasks;
+
     /// <summary>
     /// The type from which all business services must be derived.
     /// </summary>
@@ -17,12 +19,13 @@ namespace Uximagine.Magicurve.Services.BusinessServices
         /// <summary>
         /// Does the given Unit of Work.
         /// </summary>
-        /// <param name="unitOfWork">
-        /// The unit of work.
-        /// </param>
-        protected virtual void DoWork(UnitOfWork unitOfWork)
+        /// <param name="unitOfWork">The unit of work.</param>
+        /// <returns>
+        /// The task.
+        /// </returns>
+        protected virtual async Task DoWork(UnitOfWork unitOfWork)
         {
-            unitOfWork.DoWork();
+            await unitOfWork.DoWork();
         }
 
         #endregion

@@ -45,6 +45,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Transactions" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -88,6 +89,10 @@
       <Project>{442acb2b-a562-4257-8187-11c42f9afbff}</Project>
       <Name>Uximagine.Magicurve.Neuro.Processing</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Uximagine.Magicurve.Services.CloudStorage\Uximagine.Magicurve.Services.CloudStorage.csproj">
+      <Project>{6498e995-c760-4920-8ff8-4a3ee3842d20}</Project>
+      <Name>Uximagine.Magicurve.Services.CloudStorage</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Uximagine.Magicurve.Services\Uximagine.Magicurve.Services.csproj">
       <Project>{e86af4c7-26b5-47df-9b28-23390b901b66}</Project>
       <Name>Uximagine.Magicurve.Services</Name>
@@ -106,4 +111,3 @@
   </Target>
   -->
 </Project>
-

@@ -1,4 +1,4 @@
-﻿var path = "/Magicurve";
+﻿var path = "";
 zebra.ready(function () {
     getControls();
 

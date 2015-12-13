@@ -4,6 +4,9 @@ using Uximagine.Magicurve.Core.Shapes;
 
 namespace Uximagine.Magicurve.Services.BusinessServices.UnitsOfWork
 {
+    using System;
+    using System.Threading.Tasks;
+
     /// <summary>
     /// Generate code unit of work.
     /// </summary>
@@ -72,7 +75,20 @@ namespace Uximagine.Magicurve.Services.BusinessServices.UnitsOfWork
         {
             IGenerator codeGenerator = CodeGeneratorFactory.GetCodeGenerator();
             this.Code = codeGenerator.CreateHtmlCode(this.Controls, this.ImageWidth, this.ImageHeight);
-        } 
+        }
+
+        /// <summary>
+        /// The execute async.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="Task"/>.
+        /// </returns>
+        /// <exception cref="NotImplementedException">
+        /// </exception>
+        protected override Task ExecuteAsync()
+        {
+            throw new System.NotImplementedException();
+        }
 
         #endregion
     }

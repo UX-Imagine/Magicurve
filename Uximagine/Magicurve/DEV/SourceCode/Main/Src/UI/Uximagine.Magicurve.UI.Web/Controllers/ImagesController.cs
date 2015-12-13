@@ -1,19 +1,17 @@
 ﻿#region Imports
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Web.Hosting;
+
 using System.Web.Http;
 using Uximagine.Magicurve.DataTransfer.Responses;
 using Uximagine.Magicurve.DataTransfer.Requests;
 using Uximagine.Magicurve.Services;
-using Uximagine.Magicurve.Core.Shapes;
 using Uximagine.Magicurve.UI.Web.Common;
 
 #endregion
 
 namespace Uximagine.Magicurve.UI.Web.Controllers
 {
+    using System.Threading.Tasks;
+
     using Uximagine.Magicurve.DataTransfer.Common;
 
     /// <summary>
@@ -24,28 +22,33 @@ namespace Uximagine.Magicurve.UI.Web.Controllers
         /// <summary>
         /// Gets the edges.
         /// </summary>
+        /// <param name="controlsRequest">The controls request.</param>
         /// <returns>
         /// The edge image.
         /// </returns>
         [Route("api/images/controls")]
         [HttpGet]
-        public ControlsResult GetControls()
+        public async Task<ImagesResult> GetControls(ControlsRequest controlsRequest)
         {
-            string imgPath = Path.Combine(HostingEnvironment.MapPath("~/Content/Images/Upload"), "upload.jpg");
+            string imgPath = controlsRequest.FileUrl;
 
             IProcessingService service = ServiceFactory.GetProcessingService();
             ProcessRequestDto request = new ProcessRequestDto { ImagePath = imgPath };
-            ProcessResponseDto response = service.ProcessImage(request);
+            ProcessResponseDto response = await service.ProcessImage(request);
 
-            var json = new ControlsResult()
+            IFileService fileService = ServiceFactory.GetFileService();
+
+            FileSaveResponse fileResponse = await fileService.SaveFile(response.ImageResult, "result.jpg");
+
+            response.ImageResult.Dispose();
+
+            var json = new ImagesResult()
             {
                 Controls = response.Controls,
-                ImageWidth = response.SourceImageWidth,
-                ImageHeight = response.SourceImageWidth
+                SourceImageWidth = response.SourceImageWidth,
+                SourceImageHeight = response.SourceImageWidth,
+                Url = fileResponse.Uri
             };
-
-            response.ImageResult.Save(filename: HostingEnvironment.MapPath("~/Content/images/test2.png"));
-            response.ImageResult.Dispose();
 
             return json;
         }
@@ -53,34 +56,35 @@ namespace Uximagine.Magicurve.UI.Web.Controllers
         /// <summary>
         /// Gets the image.
         /// </summary>
+        /// <param name="controlsRequest">The controls request.</param>
         /// <returns>
         /// The image path.
         /// </returns>
         [Route("api/images/result")]
-        [HttpGet]
-        public IHttpActionResult GetImage()
+        [HttpPost]
+        public async Task<IHttpActionResult> GetImage(ControlsRequest controlsRequest)
         {
-            var path = Path.Combine(HostingEnvironment.MapPath("~/Content/Images/Upload"), "upload.jpg");
+            string imgPath = controlsRequest.FileUrl;
 
             IProcessingService service = ServiceFactory.GetProcessingService();
-            ProcessRequestDto request = new ProcessRequestDto { ImagePath = path };
-            ProcessResponseDto response = service.ProcessImage(request);
-            
-            var savePath = HostingEnvironment.MapPath("~/Content/images/result.png");
+            ProcessRequestDto request = new ProcessRequestDto { ImagePath = imgPath };
+            ProcessResponseDto response = await service.ProcessImage(request);
 
-            if (savePath != null)
+            IFileService fileService = ServiceFactory.GetFileService();
+
+            FileSaveResponse fileResponse = await fileService.SaveFile(response.ImageResult, "result.jpg");
+
+            response.ImageResult.Dispose();
+
+            var json = new ImagesResult()
             {
-                response.ImageResult.Save(savePath);
-                response.ImageResult.Dispose();
-            }
+                Controls = response.Controls,
+                SourceImageWidth = response.SourceImageWidth,
+                SourceImageHeight = response.SourceImageHeight,
+                Url = fileResponse.Uri
+            };
 
-            return this.Json(new ImagesResult()
-                                {
-                                    Url = "/Content/images/result.png",
-                                    Controls = response.Controls,
-                                    SourceImageWidth = response.SourceImageWidth,
-                                    SourceImageHeight = response.SourceImageHeight
-            });
+            return this.Json(json);
         }
 
         /// <summary>
@@ -108,7 +112,7 @@ namespace Uximagine.Magicurve.UI.Web.Controllers
 
             return this.Json(new CodeResult()
             {
-               Code = response.Code
+                Code = response.Code
             });
         }
 
@@ -123,7 +127,7 @@ namespace Uximagine.Magicurve.UI.Web.Controllers
         /// </returns>
         [Route("api/images/download")]
         [HttpPost]
-        public IHttpActionResult DownloadCode(ControlsResult controlsResult)
+        public async Task<IHttpActionResult> DownloadCode(ControlsResult controlsResult)
         {
             if (controlsResult != null)
             {
@@ -139,73 +143,19 @@ namespace Uximagine.Magicurve.UI.Web.Controllers
 
                 string fileName = ConfigurationData.DownloadFileName;
 
-                var path = Path.Combine(HostingEnvironment.MapPath(ConfigurationData.DownloadDirectory), fileName);
+                IFileService fileService = ServiceFactory.GetFileService();
 
-                File.WriteAllText(@path, response.Code);
+                FileSaveResponse fileSaveResponse = await fileService.SaveFile(response.Code, fileName);
 
-                string url = Url.Content(ConfigurationData.DownloadDirectory + "/" + fileName);
+                string url = fileSaveResponse.Uri;
 
-                return this.Json(new 
+                return this.Json(new
                 {
                     url = url
                 });
             }
 
             return null;
-        }
-
-        /// <summary>
-        /// Gets the specified identifier.
-        /// </summary>
-        /// <param name="id">
-        /// The identifier.
-        /// </param>
-        /// <returns> 
-        /// Get API/values/5   
-        /// </returns>
-        [Route("api/images/{id}")]
-        public List<Control> GetById(int id)
-        {
-            var result = new List<Control>();
-            string imgPath;
-
-            switch (id)
-            {
-                case 1:
-                    imgPath = HostingEnvironment.MapPath(
-                       "~/Content/Images/Capture/capture.jpg");
-                    break;
-                case 2:
-                    imgPath = HostingEnvironment.MapPath(
-                        "~/Content/Images/Upload/upload.jpg");
-                    break;
-                default:
-                    imgPath = HostingEnvironment.MapPath(
-                        "~/Content/images/test.png");
-                    break;
-            }
-
-            try
-            {
-                if (imgPath != null)
-                {
-                    IProcessingService service = ServiceFactory.GetProcessingService();
-                    ProcessRequestDto request = new ProcessRequestDto
-                    {
-                        ImagePath = imgPath
-                    };
-
-                    ProcessResponseDto response = service.ProcessImage(request);
-                    result = response.Controls;
-                }
-
-            }
-            catch (System.Exception e)
-            {
-                Debug.WriteLine(e.Message);
-            }
-
-            return result;
         }
     }
 }

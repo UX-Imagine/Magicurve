@@ -2,6 +2,8 @@
 
 namespace Uximagine.Magicurve.Services.BusinessServices.UnitsOfWork
 {
+    using System.Threading.Tasks;
+
     /// <summary>
     /// This will train the data.
     /// </summary>
@@ -42,6 +44,11 @@ namespace Uximagine.Magicurve.Services.BusinessServices.UnitsOfWork
             };
 
             trainer.Train(ConfigurationData.MinControlSize, ConfigurationData.SampleSize);
+        }
+
+        protected override Task ExecuteAsync()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

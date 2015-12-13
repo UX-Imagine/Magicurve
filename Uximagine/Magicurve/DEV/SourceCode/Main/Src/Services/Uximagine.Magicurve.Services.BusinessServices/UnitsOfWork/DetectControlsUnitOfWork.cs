@@ -5,6 +5,9 @@ using Uximagine.Magicurve.Image.Processing;
 
 namespace Uximagine.Magicurve.Services.BusinessServices.UnitsOfWork
 {
+    using System;
+    using System.Threading.Tasks;
+
     /// <summary>
     /// This performs the unit of work for detecting the controls.
     /// </summary>
@@ -90,17 +93,32 @@ namespace Uximagine.Magicurve.Services.BusinessServices.UnitsOfWork
         #endregion
 
         /// <summary>
-        /// The actual Work to be done.
+        /// The execute.
         /// </summary>
+        /// <exception cref="NotImplementedException">
+        /// </exception>
         protected override void Execute()
         {
-            Processor processor = new Processor();
-            processor.ProcessImage(this.ImagePath);
-            List<Control> controls = processor.Controls;
-            this.Controls = controls;
-            this.ImageResult = processor.ImageResult;
-            ImageWidth = processor.ImageWidth;
-            ImageHeight = processor.ImageHeight;
+            throw new System.NotImplementedException();
+        }
+
+        /// <summary>
+        /// The actual Work to be done.
+        /// </summary>
+        protected override async Task ExecuteAsync()
+        {
+            IFileService fileService = ServiceFactory.GetFileService();
+            using (Bitmap image = await fileService.LoadImageFile(this.ImagePath))
+            {
+
+                Processor processor = new Processor();
+                processor.ProcessImage(image);
+                List<Control> controls = processor.Controls;
+                this.Controls = controls;
+                this.ImageResult = processor.ImageResult;
+                this.ImageWidth = processor.ImageWidth;
+                this.ImageHeight = processor.ImageHeight;
+            }
         }
     }
 }

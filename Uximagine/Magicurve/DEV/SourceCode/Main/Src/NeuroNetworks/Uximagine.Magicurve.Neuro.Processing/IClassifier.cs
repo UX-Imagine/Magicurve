@@ -25,6 +25,12 @@ namespace Uximagine.Magicurve.Neuro.Processing
         /// <summary>
         /// Trains the machine.
         /// </summary>
+        /// <param name="url">The URL.</param>
+        void TrainMachine(string url);
+
+        /// <summary>
+        /// Trains the machine.
+        /// </summary>
         /// <param name="features">The inputs.</param>
         /// <param name="outputs">The outputs.</param>
         void TrainMachine(double[][] features, int[] outputs);

@@ -111,6 +111,11 @@ namespace Uximagine.Magicurve.Neuro.Processing
             throw new NotImplementedException();
         }
 
+        public void TrainMachine(string url)
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         /// Trains the machine.
         /// </summary>

@@ -21,7 +21,7 @@ namespace Uximagine.Magicurve.Services
         ///     The URL.
         /// </returns>
         [OperationContract]
-        ProcessResponseDto ProcessImage(ProcessRequestDto requestDto);
+        Task<ProcessResponseDto> ProcessImage(ProcessRequestDto requestDto);
 
         /// <summary>
         /// Generates the code.

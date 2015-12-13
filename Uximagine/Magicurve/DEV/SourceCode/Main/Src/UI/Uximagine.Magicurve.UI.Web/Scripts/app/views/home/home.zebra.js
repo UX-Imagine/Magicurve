@@ -1,4 +1,4 @@
-﻿var domain = "/Magicurve";
+﻿var domain = "";
 //var canvasWidth = screen.width * 80 / 144;
 //var canvasHeight = screen.height * .6;
 

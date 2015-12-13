@@ -13,6 +13,6 @@ namespace Uximagine.Magicurve.DataTransfer.Responses
         /// <value>
         /// The identifier.
         /// </value>
-        public Guid Id { get; set; }
+        public string Uri { get; set; }
     }
 }

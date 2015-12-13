@@ -8,6 +8,8 @@ using Accord.Statistics.Kernels;
 
 namespace Uximagine.Magicurve.Neuro.Processing
 {
+    using System.Runtime.Remoting.Channels;
+
     /// <summary>
     /// The SVM classifier.
     /// </summary>
@@ -130,17 +132,28 @@ namespace Uximagine.Magicurve.Neuro.Processing
         /// <summary>
         /// Trains the machine.
         /// </summary>
-        public void TrainMachine()
+        /// <param name="url">
+        /// The URL.
+        /// </param>
+        public void TrainMachine(string url)
         {
             if (ConfigurationData.LoadMachineFromFile)
             {
-                this.Machine = MulticlassSupportVectorMachine.Load(ConfigurationData.MachineUrl);
+                this.Machine = MulticlassSupportVectorMachine.Load(url);
                 this.IsTrained = true;
             }
             else
             {
                 this.TrainMachine(this.Samples, this.ClassCount);
             }
+        }
+
+        /// <summary>
+        /// Trains the machine.
+        /// </summary>
+        public void TrainMachine()
+        {
+            this.TrainMachine(this.Samples, this.ClassCount);
         }
 
         /// <summary>

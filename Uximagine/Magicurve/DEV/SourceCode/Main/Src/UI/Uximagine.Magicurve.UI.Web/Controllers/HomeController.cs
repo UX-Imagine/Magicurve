@@ -13,6 +13,8 @@ using Uximagine.Magicurve.UI.Web.Common;
 
 namespace Uximagine.Magicurve.UI.Web.Controllers
 {
+    using System.Threading.Tasks;
+
     using Uximagine.Magicurve.DataTransfer.Common;
 
     /// <summary>
@@ -147,7 +149,7 @@ namespace Uximagine.Magicurve.UI.Web.Controllers
         /// <c>true</c> if [upload is success].
         /// </returns>
         [HttpPost]
-        public ActionResult UploadFile()
+        public async Task<ActionResult> UploadFile()
         {
             ActionResult result = null;
 
@@ -187,20 +189,12 @@ namespace Uximagine.Magicurve.UI.Web.Controllers
                         else
                         {
                             string fileName = ConfigurationData.UploadFileName;
-                            var path = Path.Combine(Server.MapPath(ConfigurationData.UploadDirectory), fileName);
+                            string path = string.Empty;
 
-                            try
-                            {
-                                this.SaveAs(path, file.InputStream);
-                            }
-                            catch (Exception exception)
-                            {
-                                throw exception;
-                            }
-                            
-                            ModelState.Clear();
-                            ViewBag.Message = "File uploaded successfully. File path :   ~/Content/Images/Upload/"
-                                              + fileName;
+                            IFileService fileService = ServiceFactory.GetFileService();
+                            FileSaveResponse response = await fileService.SaveFile(
+                                new FileSaveRequest() { Image = file, Name  = "upload.jpg" });
+                            path = response.Uri;
 
                             result = this.Json(new { path = path });
 
@@ -257,7 +251,7 @@ namespace Uximagine.Magicurve.UI.Web.Controllers
 
                 byte[] fileBytes = System.IO.File.ReadAllBytes(@path);
 
-                return this.File(fileBytes, System.Net.Mime.MediaTypeNames.Text.Html, fileName); 
+                return this.File(fileBytes, System.Net.Mime.MediaTypeNames.Text.Html, fileName);
             }
 
             return null;
@@ -333,24 +327,6 @@ namespace Uximagine.Magicurve.UI.Web.Controllers
 
             return bytes;
         }
-
-        /// <summary>
-        /// Saves as.
-        /// </summary>
-        /// <param name="filename">The filename.</param>
-        /// <param name="stream">The stream.</param>
-        private void SaveAs(string filename, Stream stream)
-        {
-            using (Bitmap src = Image.FromStream(stream) as Bitmap)
-            {
-                if (src != null)
-                {
-                    src.Save(filename);
-                    src.Dispose();
-                }
-            }
-        }
-
         #endregion
     }
 }

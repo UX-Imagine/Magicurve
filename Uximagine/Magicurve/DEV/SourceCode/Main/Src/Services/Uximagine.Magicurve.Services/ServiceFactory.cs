@@ -1,7 +1,8 @@
 ﻿namespace Uximagine.Magicurve.Services
 {
+    using System;
     using Uximagine.Magicurve.Core.Reflection;
-    
+
 
     /// <summary>
     /// Get the service instance.
@@ -29,6 +30,18 @@
         public static IFileService GetFileService()
         {
             return ObjectFactory.GetInstance<IFileService>(
+               ConfigurationData.ServiceImplementationPluginName);
+        }
+
+        /// <summary>
+        /// Gets the photo service.
+        /// </summary>
+        /// <returns>
+        /// The photo service.
+        /// </returns>
+        public static IPhotoService GetPhotoService()
+        {
+            return ObjectFactory.GetInstance<IPhotoService>(
                ConfigurationData.ServiceImplementationPluginName);
         }
     }
