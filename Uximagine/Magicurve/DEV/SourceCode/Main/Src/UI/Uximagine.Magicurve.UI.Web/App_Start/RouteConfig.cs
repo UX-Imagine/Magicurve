@@ -21,7 +21,7 @@ namespace Uximagine.Magicurve.UI.Web
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Upload", id = UrlParameter.Optional });
+                defaults: new { controller = "Home", action = "WelcomePage", id = UrlParameter.Optional });
         }
     }
 }
