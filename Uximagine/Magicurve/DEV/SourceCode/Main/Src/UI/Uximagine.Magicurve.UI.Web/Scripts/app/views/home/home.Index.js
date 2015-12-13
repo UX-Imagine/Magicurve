@@ -1,4 +1,4 @@
-﻿var path = "";
+﻿var path = "/Magicurve";
 zebra.ready(function () {
     getControls();
 
@@ -137,7 +137,7 @@ function genarateDesign(jsonObj) {
 
 //function for drawing i frame
 function drawIframe(dX, dY) {
-    var iframePic = zebra.ui.loadImage("/Magicurve/Content/Images/Icon/.png");
+    var iframePic = zebra.ui.loadImage("/Magicurve/Content/Images/Icon/iframe.png");
     var imageIframe = new zebra.ui.ImagePan(iframePic);
     imageIframe.setBounds(dX, dY, 100, 100);
 
@@ -161,7 +161,7 @@ function drawDatePic(dX, dY) {
 
 //function for drawing rang
 function drawRage(dX, dY) {
-    var rangePic = zebra.ui.loadImage("/Magicurve/Content/Images/Icon/range.png");
+    var rangePic = zebra.ui.loadImage("/Magicurve/Content/Images/Icon/rang.png");
     var imageRangePic = new zebra.ui.ImagePan(rangePic);
     imageRangePic.setBounds(dX, dY, 140, 30);
 
