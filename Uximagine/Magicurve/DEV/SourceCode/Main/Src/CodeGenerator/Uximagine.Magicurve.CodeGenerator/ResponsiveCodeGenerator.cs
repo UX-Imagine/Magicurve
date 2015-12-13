@@ -117,6 +117,10 @@ namespace Uximagine.Magicurve.CodeGenerator
                             builder.Append(this.GetHLine(item));
                             break;
 
+                        case ControlType.Range:
+                            builder.Append(this.GetRange(item));
+                            break;
+
                     }
 
                     //// close col div
@@ -134,6 +138,8 @@ namespace Uximagine.Magicurve.CodeGenerator
 
             return builder.ToString(); //// return generated HTML code as string
         }
+
+        
 
         /// <summary>
         /// The get footer.
@@ -350,11 +356,11 @@ namespace Uximagine.Magicurve.CodeGenerator
 
             if (content != null)
             {
-                paragraph = $@"<p style='width: 100%'>{content.Content}</p>";
+                paragraph = $"<p style='width: 100%'>{content.Content}</p>";
             }
             else
             {
-                paragraph = $@"<p style='width: 100%'>This is a sample paragraph. use the interactive tool to edit the content.</p>";
+                paragraph = $"<p style='width: 100%'>This is a sample paragraph. use the interactive tool to edit the content.</p>";
             }
             return paragraph;
         }
@@ -375,11 +381,11 @@ namespace Uximagine.Magicurve.CodeGenerator
 
             if (label?.Value != null)
             {
-                lbl = $@"<label class='control-label' style='width: 100%'>{label.Value}</label> {Environment.NewLine}";
+                lbl = $"<label class='control-label' style='width: 100%'>{label.Value}</label> {Environment.NewLine}";
             }
             else
             {
-                lbl = $@"<label class='control-label' style='width: 100%'>Label Value</label> {Environment.NewLine}";
+                lbl = $"<label class='control-label' style='width: 100%'>Label Value</label> {Environment.NewLine}";
             }
 
             return lbl;
@@ -448,6 +454,12 @@ namespace Uximagine.Magicurve.CodeGenerator
         public string GetHLine(Control hline)
         {
             return $"<div style='width: 100%'><hr></div>";
+        }
+
+        private string GetRange(Control range)
+        {
+            string inputRange = $"<input type='range' class='form-control' style='width: 100%'/>{Environment.NewLine}";
+            return inputRange;
         }
 
     }

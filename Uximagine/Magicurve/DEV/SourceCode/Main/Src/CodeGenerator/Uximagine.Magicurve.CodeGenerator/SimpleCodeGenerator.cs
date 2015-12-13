@@ -368,9 +368,9 @@ namespace Uximagine.Magicurve.CodeGenerator
             return pass;
         }
 
-        public string GetRange(Control password)
+        public string GetRange(Control range)
         {
-            string pass = $@"    <input type='range' style='left:{password.X}px;top:{password.Y}px;position:absolute;'/>";
+            string pass = $@"    <input type='range' style='left:{range.X}px;top:{range.Y}px;position:absolute;'/>";
             return pass;
         }
 
