@@ -1,56 +1,54 @@
-﻿<ul class="nav navbar-nav" >
+﻿
+<ul class="nav navbar-nav" >
 
     <li>
-        <a href="#"><span class="glyphicon glyphicon-home"></span> </a>
+        <a href="~/Home/WelcomePage"><span class="glyphicon glyphicon-home" data-toggle="tooltip" data-placement="right" title="Home"></span> </a>
     </li>
     <li >
-        <a href="#" class="btn-file"><span class="glyphicon glyphicon-folder-open ">
-                
-                       
-                           <input type="file" file-model="originaImage">
-                                         
+        <a href="~/Home/Upload" class="btn-file"><span class="glyphicon glyphicon-folder-open ">
+                                                   
             </span> 
         </a>
     </li>
     
     <li>
         <a href="#">
-            <span class="glyphicon glyphicon-download-alt" ng-click="download()">
+            <span class="glyphicon glyphicon-download-alt" data-toggle="tooltip" data-placement="right" title="Download" ng-click="download()">
 
             </span>
             </a>
 </li>
     <li>
-        <a href="#"><span class="glyphicon glyphicon-picture"></span> </a>
+        <a href="#"><span class="glyphicon glyphicon-picture" id= "addImage" data-toggle="tooltip" data-placement="right" title="Add Image"></span> </a>
     </li>
     <li>
-        <a href="#"><span class="glyphicon glyphicon-font"></span> </a>
+        <a href="#"><span class="glyphicon glyphicon-font" id = "addText" data-toggle="tooltip" data-placement="right" title="Add Text"></span> </a>
     </li>
     <li>
-        <a href="#"><span class="glyphicon glyphicon-pencil"></span> </a>
+        <a href="~/Home/Zebra"><span class="glyphicon glyphicon-pencil" data-toggle="tooltip" data-placement="right" title="Edit"></span> </a>
     </li>
    
 
     <li>
-        <a href="#"><span class="glyphicon glyphicon-refresh"></span> </a>
+        <a href="#"><span class="glyphicon glyphicon-refresh" onclick="location.reload()" data-toggle="tooltip" data-placement="right" title="Refresh"></span> </a>
     </li>
     <li>
-        <a href="#"><span class="glyphicon glyphicon-repeat"></span> </a>
+        <a href="#"><span class="glyphicon glyphicon-repeat" data-toggle="tooltip" data-placement="right" title="Undo"></span> </a>
     </li>
 
  
     <li>
-        <a href="#"><span class="glyphicon glyphicon-ok"></span> </a>
+        <a href="#"><span class="glyphicon glyphicon-ok" data-toggle="tooltip" data-placement="right" title="Append"></span> </a>
     </li>
 
      <li>
-        <a href="#"><span class="glyphicon glyphicon-remove"></span> </a>
+        <a href="#"><span class="glyphicon glyphicon-remove" data-toggle="tooltip" data-placement="right" title="Remove"></span> </a>
     </li>
     <li>
-        <a href="#"><span class="glyphicon glyphicon-resize-small"></span> </a>
+        <a href="#"><span class="glyphicon glyphicon-resize-small" data-toggle="tooltip" data-placement="right" title="Full Screen"> </span> </a>
     </li>
     <li>
-        <a href="#"><span class="glyphicon glyphicon-trash"></span> </a>
+        <a href="#"><span class="glyphicon glyphicon-trash" data-toggle="tooltip" data-placement="right" title="Delete All"></span> </a>
     </li>
 </ul>
 

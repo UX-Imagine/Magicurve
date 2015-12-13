@@ -182,6 +182,23 @@
     </Content>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Images\draw icon\buttonDraw.png" />
+    <Content Include="Content\Images\draw icon\check.png" />
+    <Content Include="Content\Images\draw icon\drop.png" />
+    <Content Include="Content\Images\draw icon\form_input_textarea.png" />
+    <Content Include="Content\Images\draw icon\hori.png" />
+    <Content Include="Content\Images\draw icon\iframe.png" />
+    <Content Include="Content\Images\draw icon\imageDraw.png" />
+    <Content Include="Content\Images\draw icon\lable.png" />
+    <Content Include="Content\Images\draw icon\Link.png" />
+    <Content Include="Content\Images\draw icon\nav.png" />
+    <Content Include="Content\Images\draw icon\para.png" />
+    <Content Include="Content\Images\draw icon\password.png" />
+    <Content Include="Content\Images\draw icon\picker.png" />
+    <Content Include="Content\Images\draw icon\radio.png" />
+    <Content Include="Content\Images\draw icon\rang.png" />
+    <Content Include="Content\Images\draw icon\text box.png" />
+    <Content Include="Content\Images\homepage\home.JPG" />
     <Content Include="Content\Images\Icon\button.jpg" />
     <Content Include="Content\Images\Icon\button.png" />
     <Content Include="Content\Images\Icon\Check.png" />
@@ -606,6 +623,7 @@
     <Content Include="Views\Home\_SideBar.cshtml" />
     <Content Include="Scripts\fx\angular\version.json" />
     <Content Include="Views\Home\_proBar.cshtml" />
+    <Content Include="Views\Home\WelcomePage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Common\Uximagine.Magicurve.Core\Uximagine.Magicurve.Core.csproj">
