@@ -2,9 +2,10 @@
 @height: 490;
 @clientHeight: `$(window).height()`;
 
-html, body
+html
 {
     height: 100% !important;
+   
 }
 
 #body {
@@ -12,6 +13,7 @@ html, body
     padding-left: 15px;
     background-color: lighten(@color, 90);
     height:100%;
+    
 }
     
 #menu-bar {
@@ -19,6 +21,7 @@ html, body
     height: 5%;
     margin-bottom: 5px;
     color: white;
+    background-color:dimgray;
 }
 
 
@@ -30,6 +33,7 @@ html, body
     margin-bottom: 8px;
     height: 5%;
     z-index: 999;
+    background-color:black;
 }
 
 #content {
@@ -61,9 +65,14 @@ html, body
     border-bottom-right-radius: 5px;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
-    border : solid;
-    border-color :black;
-    color: burlywood;
+   // border : solid;
+   // border-color :black;
+    border: 1px black solid;
+    padding: 20px;
+  border-radius: 4px;
+  box-shadow: 0 0 6px #ccc;
+  background-color: #fff;
+  color:black;
 }
 
 #propertyBar{
@@ -73,12 +82,11 @@ html, body
     border-bottom-right-radius: 5px;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
-    padding:-50px; 
-    border : solid;
-    border-color :black;
+    padding:0px; 
     color: black;
-
-
+    border: 1px black solid;  
+    border-radius: 4px; 
+    background-color: #fff;
 }
 
 #footer {
