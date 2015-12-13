@@ -119,10 +119,7 @@ function genarateDesign(jsonObj) {
         else if (jsonObj[i].Type === "DatePicker") {
             controls[controlsValid] = drawDatePic(jsonObj[i].X, jsonObj[i].Y);
             controlsValid++;
-        }
-        else if (jsonObj[i].Type === "Iframe") {
-
-        }
+        }     
         else if (jsonObj[i].Type === "Range") {
               controls[controlsValid] = drawRage(jsonObj[i].X, jsonObj[i].Y);
               controlsValid++;
