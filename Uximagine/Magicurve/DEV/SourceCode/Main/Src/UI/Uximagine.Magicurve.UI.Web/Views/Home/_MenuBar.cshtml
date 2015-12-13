@@ -4,25 +4,40 @@
             
             <li class="dropdown btn btn-xs">
                 <a href="#" db class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true" style="color:white">File <span></span></a>
+                <ul class="dropdown-menu" role="menu">
+                    <li ><a href="">New</a></li>
+                    <li><a href="">Open</a></li>
+                    <li><a href="">Close</a></li>
 
+                    <li><a href="">Save All</a></li>
+
+                </ul>
             </li>
             <li class="dropdown btn btn-xs">
                 <a href="#" db class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true" style="color:white">Edit <span></span></a>
+                <ul class="dropdown-menu" role="menu">
 
+                    <li><a href="">Undo</a></li>
+                    <li><a href="">Redo</a></li>
+                    <li><a href="">Cut</a></li>
+                    <li><a href="">Copy</a></li>
+                    <li><a href="">Delete</a></li>
+
+                </ul>
             </li>
             <li class="dropdown btn btn-xs">
                 <a href="#" db class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" style="color:white" >View <span></span></a>
                 <ul class="dropdown-menu" role="menu">
-                    <li><a href="@Url.Action("Design", "Home")">Design</a></li>
-                    <li><a href="@Url.Action("ToolBox", "Home")">Tool Box</a></li>
-                    <li><a href="@Url.Action("Properties", "Home")">Properties</a></li>
-
-                    
+                    <li><a href="@Url.Action("Index", "Home")">View Design</a></li>
+                    <li><a href="@Url.Action("Zebra", "Home")">Edit Design</a></li>                    
                 </ul>
             </li>
             <li class="dropdown btn btn-xs">
                 <a href="#" db class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true" style="color:white">Insert <span></span></a>
-
+                <ul class="dropdown-menu" role="menu">
+                    <li><a href="@Url.Action("", "Home")">File Upload</a></li>
+                   
+                </ul>
             </li>
             <li class="dropdown btn btn-xs">
                 <a href="#" db class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" style="color:white" >Navigate <span></span></a>
@@ -36,11 +51,17 @@
             </li>
             <li class="dropdown btn btn-xs">
                 <a href="#" db class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true" style="color:white">Table <span></span></a>
+                <ul class="dropdown-menu" role="menu">
+                  
+                    <li><a>Add Controller</a></li>
 
+                </ul>
             </li>
             <li class="dropdown btn btn-xs">
                 <a href="#" db class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true" style="color:white">Window <span></span></a>
                 <ul class="dropdown-menu" role="menu">
+
+                    <li><a >Full Screen</a></li>
                     <li><a href="@Url.Action("Testing", "Home")">Sample Testing</a></li>
                     
 
