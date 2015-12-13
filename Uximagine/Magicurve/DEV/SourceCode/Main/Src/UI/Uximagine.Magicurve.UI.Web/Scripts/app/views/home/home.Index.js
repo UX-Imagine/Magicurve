@@ -64,7 +64,7 @@ function genarateDesign(jsonObj) {
     var controlsValid = 0;
 
     for (var i = 0; i < jsonObj.length; i++) {
-        if (jsonObj[i].Type === "Button") {
+             if (jsonObj[i].Type === "Button") {
             controls[controlsValid] = drawButton(jsonObj[i].X, jsonObj[i].Y, 60, 30, "Button");
             controlsValid++;
         }
@@ -89,7 +89,7 @@ function genarateDesign(jsonObj) {
             controlsValid++;
         }
         else if (jsonObj[i].Type === "Label") {
-            controls[controlsValid] = drawLable(jsonObj[i].X, jsonObj[i].Y, jsonObj[i].Width, jsonObj[i].Height, "LableCaption");
+            controls[controlsValid] = drawLable(jsonObj[i].X, jsonObj[i].Y, jsonObj[i].Width, jsonObj[i].Height, "Lable Caption");
             controlsValid++;
         }
         else if (jsonObj[i].Type === "MenuBar") {
@@ -97,7 +97,7 @@ function genarateDesign(jsonObj) {
             controlsValid++;
         }
         else if (jsonObj[i].Type === "Paragraph") {
-            controls[controlsValid] = drawPanel(jsonObj[i].X, jsonObj[i].Y, jsonObj[i].Width, jsonObj[i].Height, "#E6E6E6");
+            controls[controlsValid] = drawPara(jsonObj[i].X, jsonObj[i].Y, jsonObj[i].Width, jsonObj[i].Height);
             controlsValid++;
         }
         else if (jsonObj[i].Type === "RadioButton") {
@@ -116,7 +116,6 @@ function genarateDesign(jsonObj) {
             controls[controlsValid] = drawTextBox(jsonObj[i].X, jsonObj[i].Y, jsonObj[i].Width, 30);
             controlsValid++;
         }
-
         else if (jsonObj[i].Type === "DatePicker") {
             controls[controlsValid] = drawDatePic(jsonObj[i].X, jsonObj[i].Y);
             controlsValid++;
@@ -124,8 +123,13 @@ function genarateDesign(jsonObj) {
         else if (jsonObj[i].Type === "Iframe") {
 
         }
-          else if (jsonObj[i].Type === "Range") {
-
+        else if (jsonObj[i].Type === "Range") {
+              controls[controlsValid] = drawRage(jsonObj[i].X, jsonObj[i].Y);
+              controlsValid++;
+        }
+        else if (jsonObj[i].Type === "Iframe") {
+            controls[controlsValid] = drawIframe(jsonObj[i].X, jsonObj[i].Y);
+            controlsValid++;
         }
     }
 
@@ -134,20 +138,53 @@ function genarateDesign(jsonObj) {
 
 //////////////// method drawing non editable ///////////
 
-//function for drawing button
-function drawDatePic(dX, dY) {
-    var datePic = zebra.ui.loadImage("/Magicurve/Content/Images/Icon/button.jpg");
-    var imageDatePic = new zebra.ui.ImagePan(datePic);
-    imageDatePic.setBounds(dX, dY, 70, 30);
+//function for drawing i fream
+function drawIframe(dX, dY) {
+    var iframePic = zebra.ui.loadImage("/Magicurve/Content/Images/Icon/picker.png");
+    var imageIframe = new zebra.ui.ImagePan(iframePic);
+    imageDatePic.setBounds(dX, dY, 140, 40);
 
-    var shperData = new zebra.ui.designer.ShaperPan(imageDatePic);
-   
-    return shperData;
+    // var shperData = new zebra.ui.designer.ShaperPan(imageDatePic);
+
+    return imageIframe;
 
 }
 
+//function for drawing date pic
+function drawDatePic(dX, dY) {
+    var datePic = zebra.ui.loadImage("/Magicurve/Content/Images/Icon/picker.png");
+    var imageDatePic = new zebra.ui.ImagePan(datePic);
+    imageDatePic.setBounds(dX, dY, 140, 40);
 
+   // var shperData = new zebra.ui.designer.ShaperPan(imageDatePic);
+   
+    return imageDatePic;
 
+}
+
+//function for drawing rang
+function drawRage(dX, dY) {
+    var rangePic = zebra.ui.loadImage("/Magicurve/Content/Images/Icon/range.png");
+    var imageRangePic = new zebra.ui.ImagePan(rangePic);
+    imageRangePic.setBounds(dX, dY, 140, 30);
+
+    // var shperData = new zebra.ui.designer.ShaperPan(imageRangePic);
+
+    return imageRangePic;
+
+}
+
+//function for drawing para
+function drawPara(dX, dY,paraWidth,paraHeight) {
+    var paraImage = zebra.ui.loadImage("/Magicurve/Content/Images/Icon/paragrap.png");
+    var imageParaImage = new zebra.ui.ImagePan(paraImage);
+    imageParaImage.setBounds(dX, dY, paraWidth, paraHeight);
+
+    // var shperData = new zebra.ui.designer.ShaperPan(imageParaImage);
+
+    return imageParaImage;
+
+}
 
 //function for drawing button
 function drawButton(bX, bY, bwidth, bheight, ButttonCaption) {
@@ -263,11 +300,13 @@ function drawMenuBar(menuX, menuY, menuW, menuH) {
 
 //function for drawing image
 function drawImageContent(imageX, imageY, imageW, imageH) {
-    var image = new zebra.ui.ImagePan();
+  
+    var image = zebra.ui.loadImage("/Magicurve/Content/Images/Icon/image.png");
+    var imageImage = new zebra.ui.ImagePan(image);
+    imageImage.setBounds(imageX, imageY, imageW, imageH);
 
-    image.setBounds(imageX, imageY, imageW, imageH);
+    // var shperData = new zebra.ui.designer.ShaperPan(imageImage);
 
-
-    return image;
+    return imageImage;
 }
 
