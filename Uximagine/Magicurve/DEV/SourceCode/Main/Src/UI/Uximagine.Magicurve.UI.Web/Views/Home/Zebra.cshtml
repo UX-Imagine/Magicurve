@@ -177,9 +177,9 @@
 
     function dragIframe(ix, iy) {
         zebra.ready(function () {
-            var iframePic = zebra.ui.loadImage("/Magicurve/Content/Images/Icon/picker.png");
+            var iframePic = zebra.ui.loadImage("/Magicurve/Content/Images/Icon/iframe.png");
             var imageIfreme = new zebra.ui.ImagePan(iframePic);
-            imageIfreme.setBounds(ix, iy, 100, 100);
+            imageIfreme.setBounds(ix, iy, 150, 150);
 
             var shperIframe = new zebra.ui.designer.ShaperPan(imageIfreme);
             window.root.add(shperIframe);
@@ -194,12 +194,11 @@
     function dragLink(lx, ly) {
         zebra.ready(function () {
 
-            var link = new zebra.ui.Line();
-            horizontal.setBounds(lx, ly, 150, 3);
-
-
-            var horiShaperPan = new zebra.ui.designer.ShaperPan(horizontal);
-            window.root.add(horiShaperPan);
+            var hyperlink = new zebra.ui.Link("Hyper Link");
+            hyperlink.setBounds(lx, ly, 60, 10);
+            hyperlink.setColor("#2E64FE");
+            var linkShaperPan = new zebra.ui.designer.ShaperPan(hyperlink);
+            window.root.add(linkShaperPan);
 
         });
     }
