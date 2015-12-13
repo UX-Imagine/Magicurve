@@ -34,9 +34,61 @@ function editable(control, index) {
     return shaperPan;
 }
 
+
+//////////////// method drawing non editable ///////////
+
+
+//function for drawing i frame
+function drawIframe(dX, dY) {
+    var iframePic = zebra.ui.loadImage("/Magicurve/Content/Images/Icon/picker.png");
+    var imageIframe = new zebra.ui.ImagePan(iframePic);
+    imageDatePic.setBounds(dX, dY, 100, 100);
+
+    // var shperData = new zebra.ui.designer.ShaperPan(imageDatePic);
+
+    return imageIframe;
+
+}
+
+//function for drawing date pic
+function drawDatePic(dX, dY) {
+    var datePic = zebra.ui.loadImage("/Magicurve/Content/Images/Icon/picker.png");
+    var imageDatePic = new zebra.ui.ImagePan(datePic);
+    imageDatePic.setBounds(dX, dY, 140, 40);
+
+   // var shperData = new zebra.ui.designer.ShaperPan(imageDatePic);
+   
+    return imageDatePic;
+
+}
+
+//function for drawing rang
+function drawRage(dX, dY) {
+    var rangePic = zebra.ui.loadImage("/Magicurve/Content/Images/Icon/range.png");
+    var imageRangePic = new zebra.ui.ImagePan(rangePic);
+    imageRangePic.setBounds(dX, dY, 140, 30);
+
+    // var shperData = new zebra.ui.designer.ShaperPan(imageRangePic);
+
+    return imageRangePic;
+
+}
+
+//function for drawing para
+function drawPara(dX, dY,paraWidth,paraHeight) {
+    var paraImage = zebra.ui.loadImage("/Magicurve/Content/Images/Icon/paragrap.png");
+    var imageParaImage = new zebra.ui.ImagePan(paraImage);
+    imageParaImage.setBounds(dX, dY, paraWidth, paraHeight);
+
+    // var shperData = new zebra.ui.designer.ShaperPan(imageParaImage);
+
+    return imageParaImage;
+
+}
+
 //function for drawing button
-function drawButton(bX, bY, bwidth, bheight, caption) {
-    var button = new zebra.ui.Button(caption);
+function drawButton(bX, bY, bwidth, bheight, ButttonCaption) {
+    var button = new zebra.ui.Button(ButttonCaption);
     button.setBounds(bX, bY, bwidth, bheight);
     return button;
 
@@ -52,32 +104,30 @@ function drawPanel(px, py, pw, ph, panelColor) {
 
 }
 
-//function for drawing label
+//function for drawing lable
 function drawLable(lx, ly, lw, lh, labaleCaption) {
-    var label = new zebra.ui.Label(labaleCaption);
-    label.setBounds(lx, ly, lw, lh);
-    label.setColor("black");
-    return label;
+    var lable = new zebra.ui.Label(labaleCaption);
+    lable.setBounds(lx, ly, lw, lh);
+    lable.setColor("black");
+
+    return lable;
+
 }
 
 //function for drawing text box
 function drawTextBox(tx, ty, tw, th) {
     var textBox = new zebra.ui.TextField("Type Here...");
     textBox.setBounds(tx, ty, tw, th);
+
     return textBox;
 }
 
-//function for drawing text box
-function drawRange(tx, ty, tw, th) {
-  
-}
-
-
-
 //function for drawing Horizontal Line
 function drawHorizontalLine(hx, hy, hw) {
+
     var horizontal = new zebra.ui.Line();
     horizontal.setBounds(hx, hy, hw, 3);
+
     return horizontal;
 }
 
@@ -150,8 +200,13 @@ function drawMenuBar(menuX, menuY, menuW, menuH) {
 
 //function for drawing image
 function drawImageContent(imageX, imageY, imageW, imageH) {
-    var bg = zebra.ui.loadImage("/Magicurve/Content/Images/Icon/button.jpg");
-    var image = new zebra.ui.ImagePan(bg);
-    image.setBounds(imageX, imageY, imageW, imageH);
-    return image;
+  
+    var image = zebra.ui.loadImage("/Magicurve/Content/Images/Icon/image.png");
+    var imageImage = new zebra.ui.ImagePan(image);
+    imageImage.setBounds(imageX, imageY, imageW, imageH);
+
+    // var shperData = new zebra.ui.designer.ShaperPan(imageImage);
+
+    return imageImage;
 }
+
