@@ -64,7 +64,7 @@ function drawDatePic(dX, dY) {
 
 //function for drawing rang
 function drawRage(dX, dY) {
-    var rangePic = zebra.ui.loadImage("/Magicurve/Content/Images/Icon/range.png");
+    var rangePic = zebra.ui.loadImage("/Magicurve/Content/Images/Icon/rang.png");
     var imageRangePic = new zebra.ui.ImagePan(rangePic);
     imageRangePic.setBounds(dX, dY, 140, 30);
 
