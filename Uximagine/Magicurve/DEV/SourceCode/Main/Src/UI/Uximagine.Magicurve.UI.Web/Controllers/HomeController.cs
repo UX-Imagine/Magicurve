@@ -35,6 +35,18 @@ namespace Uximagine.Magicurve.UI.Web.Controllers
         }
 
         /// <summary>
+        /// The welcome page of the Web Application.
+        /// </summary>
+        /// <returns>
+        /// The View.
+        /// </returns>
+        public ActionResult WelcomePage()
+        {
+            
+            return this.View();
+        }
+
+        /// <summary>
         /// Samples this instance.
         /// </summary>
         /// <returns>
