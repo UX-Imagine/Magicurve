@@ -26,12 +26,12 @@ namespace Uximagine.Magicurve.Core
         /// </returns>
         public static MemoryStream ToStream(this Bitmap image)
         {
-            MemoryStream stream = new MemoryStream();
+            MemoryStream newImageStream = new MemoryStream();
+            image.Save(newImageStream, System.Drawing.Imaging.ImageFormat.Png);
 
-            image.Save(stream, System.Drawing.Imaging.ImageFormat.Jpeg);
-            
-            stream.Close();
-            return stream;
+            // Reset the Stream to the Beginning before upload
+            newImageStream.Seek(0, SeekOrigin.Begin);
+            return newImageStream;
         }
     }
 }

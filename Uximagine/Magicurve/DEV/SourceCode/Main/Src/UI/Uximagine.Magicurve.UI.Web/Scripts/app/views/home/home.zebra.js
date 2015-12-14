@@ -17,7 +17,7 @@ zebra.ready(function () {
 });
 
 function getControls() {
-    stage.getControls(function() {
+    stage.getControls(function () {
         draw();
     });
 }
@@ -38,8 +38,7 @@ function onSelectItem(index) {
 }
 
 function draw() {
- root.removeAll();
-
+    root.removeAll();
     var p = new zebra.ui.Panel(); // create panel
     p.setBounds(5, 5, 960, 810); // shape panel
     p.setBackground("white");    // set yellow background
@@ -83,7 +82,7 @@ function ajustToCanvasSizeReverse(resObject, or_height, or_width) {
         control.Height = Math.round((resObject[i].Height * or_height) / canvasHeight);
         control.Width = Math.round((resObject[i].Width * or_width) / canvasWidth);
         ajustedControls.push(control);
-      
+
     }
 
     return ajustedControls;
@@ -185,7 +184,7 @@ function downloadSource() {
 
     stage.controls = ajustToCanvasSizeReverse(stage.controls, stage.imageHeight, stage.imageWidth);
 
-    stage.getCode(function() {
+    stage.getCode(function () {
         window.open(stage.sourceUrl, '_blank');
     });
 }

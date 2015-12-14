@@ -52,8 +52,6 @@
             }
             else
             {
-                fileName = $"task-photo-{Guid.NewGuid().ToString()}{Path.GetExtension(fileName)}";
-
                 path = Path.Combine(HostingEnvironment.MapPath(StorageUtils.UploadDirectory), fileName);
 
                 try
@@ -66,18 +64,21 @@
                 }
             }
 
-            return Task.Run(() => { return path; });
+            return Task.Run(() => $"{StorageUtils.UploadDirectory}/{fileName}");
         }
 
         public Task<string> UploadPhotoAsync(Bitmap photoToUpload, string fileName)
         {
-            fileName = $"task-photo-{Guid.NewGuid().ToString()}{Path.GetExtension(fileName)}";
-
-            string path = Path.Combine(HostingEnvironment.MapPath(StorageUtils.UploadDirectory), fileName);
+           string path = Path.Combine(HostingEnvironment.MapPath(StorageUtils.UploadDirectory), fileName);
 
             try
             {
-                this.SaveAs(path, photoToUpload.ToStream());
+                MemoryStream newImageStream = new MemoryStream();
+                photoToUpload.Save(newImageStream, System.Drawing.Imaging.ImageFormat.Png);
+                //// Reset the Stream to the Beginning before upload
+                newImageStream.Seek(0, SeekOrigin.Begin);
+
+                this.SaveAs(path, newImageStream);
             }
             catch (Exception exception)
             {
@@ -85,7 +86,7 @@
             }
         
 
-            return Task.Run(() => path);
+            return Task.Run(() => $"{StorageUtils.UploadDirectory}/{fileName}");
         }
 
         /// <summary>
@@ -104,7 +105,7 @@
 
             string url = path;
 
-            return Task.Run(() => url);
+            return Task.Run(() => $"{StorageUtils.UploadDirectory}/{fileName}");
         }
 
         /// <summary>

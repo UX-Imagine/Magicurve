@@ -99,7 +99,7 @@
             },
             
             getShapeInfo: function () {
-                var promise = $http.get("Magicurve/api/images/controls");
+                var promise = $http.get("/api/images/controls");
                 return promise;
             }
         }

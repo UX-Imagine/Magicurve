@@ -39,12 +39,12 @@ namespace Uximagine.Magicurve.UI.Web
 
             bundles.Add(new ScriptBundle("~/bundles/magicurveApp").Include(
                 "~/Scripts/app/views/home/magicurve.app.js",
-                "~/Scripts/app/views/home/magicurve.app.controller.home.js"));
+                "~/Scripts/app/views/home/magicurve.app.controller.main.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/toaster.css",
-                      "~/Content/site.css"));
+                      "~/Content/normalize.css",
+                      "~/Content/toaster.css"));
 
             bundles.Add(new LessBundle("~/Content/less").Include("~/Content/*.less"));
 

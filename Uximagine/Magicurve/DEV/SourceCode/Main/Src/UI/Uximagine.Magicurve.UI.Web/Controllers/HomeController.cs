@@ -196,6 +196,11 @@ namespace Uximagine.Magicurve.UI.Web.Controllers
                                 new FileSaveRequest() { Image = file, Name  = "upload.jpg" });
                             path = response.Uri;
 
+                            if (this.Request.IsLocal)
+                            {
+                                path = this.Url.Content(path);
+                            }
+
                             result = this.Json(new { path = path });
 
                             return result;

@@ -1,4 +1,4 @@
-﻿var root = "";
+﻿var root = "/Magicurve";
 var uploadedImageUrl = "";
 $(document).ready(function () {
 

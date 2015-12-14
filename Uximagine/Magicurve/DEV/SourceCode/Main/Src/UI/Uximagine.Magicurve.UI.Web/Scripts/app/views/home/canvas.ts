@@ -40,39 +40,17 @@ class ControlItem {
 }
 
 class Stage {
-    public controls: IControl[];
-    public orginalControls: IControl[];
+    public controls: Control[];
     public imageWidth: number;
     public imageHeight: number;
-    public imagesUrl: string;
-    public controlUrl: string;
-    public codeUrl: string;
-    public sourceUrl: string;
+    public canvasHeight: number;
+    public canvasWidth: number;
     public activeControlIndex: number;
+    public currentImage: string;
 
-    getControls(onSuccess: () => void): void {
-        $.getJSON(this.controlUrl, data => {
-            this.orginalControls = data.controls;
-            this.controls = data.controls;
-            this.imageWidth = data.imageWidth;
-            this.imageHeight = data.imageHeight;
-            onSuccess();
-        });
-    }
-
-    getCode(onSuccess: () => any) {
-        var self = this;
-        $.ajax(
-            {
-                url: this.codeUrl,
-                type: "POST",
-                data: { controls: self.controls, imageWidth: self.imageWidth, imageHeight: self.imageHeight }
-            }).done(data => {
-                self.sourceUrl = data.url;
-                onSuccess();
-            }).fail(error => {
-                console.log(error);
-            });
+    constructor(canvaswidth: number, canvasheight: number) {
+        this.canvasHeight = canvasheight;
+        this.canvasWidth = canvaswidth;
     }
 }
 

@@ -140,6 +140,14 @@ namespace Uximagine.Magicurve.Neuro.Processing
             this.IsTrained = true;
         }
 
+        /// <summary>
+        /// The train machine.
+        /// </summary>
+        /// <param name="url">
+        /// The url.
+        /// </param>
+        /// <exception cref="NotImplementedException">
+        /// </exception>
         public void TrainMachine(string url)
         {
             throw new NotImplementedException();

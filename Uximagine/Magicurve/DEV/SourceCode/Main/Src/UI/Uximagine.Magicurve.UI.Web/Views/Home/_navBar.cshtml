@@ -1,24 +1,26 @@
 ﻿
-<ul class="nav navbar-nav" >
+<ul class="nav navbar-nav">
 
     <li>
         <a href="~/Home/WelcomePage"><span class="glyphicon glyphicon-home" data-toggle="tooltip" data-placement="right" title="Home"></span> </a>
     </li>
-    <li >
-        <a href="~/Home/Upload" class="btn-file"><span class="glyphicon glyphicon-folder-open ">                                                 
-            </span> 
+    <li>
+        <a href="~/Home/Upload" class="btn-file">
+            <span class="glyphicon glyphicon-folder-open ">
+            </span>
         </a>
-    </li>    
+    </li>
     <li>
         <a href="#">
             <span class="glyphicon glyphicon-download-alt" data-toggle="tooltip" data-placement="right" title="Download" ng-click="download()">
 
             </span>
-            </a>
-</li>
+        </a>
+    </li>
+
     <li>
-        <a href="~/Home/index"><span class="glyphicon glyphicon-picture" id= "addImage" data-toggle="tooltip" data-placement="right" title="Add Image"></span> </a>
-    </li>  
+        <a href="~/Home/index"><span class="glyphicon glyphicon-picture" id="addImage" data-toggle="tooltip" data-placement="right" title="Add Image"></span> </a>
+    </li>
     <li>
         <a href="~/Home/Zebra"><span class="glyphicon glyphicon-pencil" data-toggle="tooltip" data-placement="right" title="Edit"></span> </a>
     </li>
@@ -30,7 +32,7 @@
     </li>
     <li>
         <a href="#"><span class="glyphicon glyphicon-repeat" data-toggle="tooltip" data-placement="right" title="Undo"></span> </a>
-    </li> 
+    </li>
     <li>
         <a href="#"><span class="glyphicon glyphicon-ok" data-toggle="tooltip" data-placement="right" title="Append"></span> </a>
     </li>
@@ -52,7 +54,14 @@
         <span class="glyphicon glyphicon-picture">
         </span> Pick Image <input type="file" file-model="originaImage">
     </span>
-
+    <span class="btn btn-primary" ng-click="draw()">
+        <i class="glyphicon glyphicon-draw-alt"></i>
+        Show
+    </span>
+    <span class="btn btn-primary" ng-click="edit()">
+        <i class="glyphicon glyphicon-edit-alt"></i>
+        Edit
+    </span>
 
     <span class="btn btn-primary" ng-click="download()">
         <i class="glyphicon glyphicon-download-alt"></i>
