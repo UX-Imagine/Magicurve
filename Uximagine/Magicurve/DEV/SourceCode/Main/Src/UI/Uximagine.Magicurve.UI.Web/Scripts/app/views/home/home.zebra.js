@@ -56,33 +56,34 @@ function draw() {
 /*
  * set the sizes according to the canvas size.
  */
-function ajustToCanvasSize(resObject, height, width) {
+function ajustToCanvasSize(resObject, or_height, or_width) {
     var ajustedControls = [];
 
     for (var i = 0 ; i < resObject.length ; i++) {
         var control = {};
-        control.X = Math.round((resObject[i].X * canvasWidth) / width);
-        control.Y = Math.round((resObject[i].Y * canvasHeight) / height);
+        stage.controls[i].X = control.X = Math.round((resObject[i].X * canvasWidth) / or_width);
+        stage.controls[i].Y = control.Y = Math.round((resObject[i].Y * canvasHeight) / or_height);
         control.Type = resObject[i].Type;
-        control.Height = Math.round((resObject[i].Height * canvasHeight) / height);
-        control.Width = Math.round((resObject[i].Width * canvasHeight) / width);
+        stage.controls[i].Height = control.Height = Math.round((resObject[i].Height * canvasHeight) / or_height);
+        stage.controls[i].Width = control.Width = Math.round((resObject[i].Width * canvasWidth) / or_width);
         ajustedControls.push(control);
     }
 
     return ajustedControls;
 }
 
-function ajustToCanvasSizeReverse(resObject, height, width) {
+function ajustToCanvasSizeReverse(resObject, or_height, or_width) {
     var ajustedControls = [];
 
     for (var i = 0 ; i < resObject.length ; i++) {
         var control = {};
-        control.X = Math.round((resObject[i].X * width) / canvasWidth);
-        control.Y = Math.round((resObject[i].Y * height ) / canvasHeight);
+        control.X = Math.round((resObject[i].X * or_width) / canvasWidth);
+        control.Y = Math.round((resObject[i].Y * or_height) / canvasHeight);
         control.Type = resObject[i].Type;
-        control.Height = Math.round((resObject[i].Height * height ) / canvasHeight);
-        control.Width = Math.round((resObject[i].Width * width ) / canvasHeight);
+        control.Height = Math.round((resObject[i].Height * or_height) / canvasHeight);
+        control.Width = Math.round((resObject[i].Width * or_width) / canvasWidth);
         ajustedControls.push(control);
+      
     }
 
     return ajustedControls;
@@ -172,7 +173,7 @@ function genarateDesign(sourceControls) {
         else if (sourceControls[i].Type === "InputPassword") {
             controls[controlsValid++] = new ControlItem(
                 i,
-                editable(drawTextArea(sourceControls[i].X, sourceControls[i].Y), i));
+                editable(drawTextArea(sourceControls[i].X, sourceControls[i].Y, sourceControls[i].Width, sourceControls[i].Height), i));
         }
 
     }
@@ -192,3 +193,166 @@ function downloadSource() {
 
 ///////////////////////////////// drag and drop from tool bar////////////////////////////////////
 
+function drop(ev) {
+    ev.preventDefault();
+    var offset = ev.dataTransfer.getData("text/plain").split(',');
+    var data = ev.dataTransfer.getData("Text");
+
+    // document.getElementById("desi").getContext("2d").drawImage(document.getElementById(data), ev.pageX - dx, ev.pageY - dy);
+
+    if (data == "button") {
+        var but = canvas = document.getElementById("button");
+        var dx = pos[0] - but.offsetLeft;
+        var dy = pos[1] - but.offsetTop;
+        var X = ev.pageX - dx;
+        var Y = ev.pageY - dy;
+        root.add(editable(drawButton(X, Y, 60, 30, "Button"), stage.controls.length));
+        stage.controls.push(new Control(X, Y, 60, 30, "Button"));
+    }
+    else if (data == "check") {
+
+        var but = canvas = document.getElementById("check");
+        var dx = pos[0] - but.offsetLeft;
+        var dy = pos[1] - but.offsetTop;
+        var X = ev.pageX - dx;
+        var Y = ev.pageY - dy;
+        root.add(editable(drawCheckBox(X, Y, 100, 30, "Checkbox"), stage.controls.length));
+        stage.controls.push(new Control(X, Y, 100, 30, "Checkbox"));
+    }
+    else if (data == "combo") {
+
+        var combo = canvas = document.getElementById("combo");
+        var dx = pos[0] - combo.offsetLeft;
+        var dy = pos[1] - combo.offsetTop;
+        var X = ev.pageX - dx;
+        var Y = ev.pageY - dy;
+        root.add(editable(drawComboBox(X, Y, 100, 30, "ComboBox"), stage.controls.length));
+        stage.controls.push(new Control(X, Y, 100, 30, "ComboBox"));
+    }
+    else if (data == "datepic") {
+        var datepic = canvas = document.getElementById("datepic");
+        var dx = pos[0] - datepic.offsetLeft;
+        var dy = pos[1] - datepic.offsetTop;
+        var X = ev.pageX - dx;
+        var Y = ev.pageY - dy;
+        root.add(editable(drawDatePic(X, Y, 100, 30, "DatePicker"), stage.controls.length));
+        stage.controls.push(new Control(X, Y, 100, 30, "DatePicker"));
+    }
+    else if (data == "image") {
+
+        var img = canvas = document.getElementById("image");
+        var dx = pos[0] - img.offsetLeft;
+        var dy = pos[1] - img.offsetTop;
+        var X = ev.pageX - dx;
+        var Y = ev.pageY - dy;
+        root.add(editable(drawImageContent(X, Y, 200, 100), stage.controls.length));
+        stage.controls.push(new Control(X, Y, 200, 100, "DatePicker"))
+    }
+    else if (data == "radio") {
+        var radi = canvas = document.getElementById("radio");
+        var dx = pos[0] - radi.offsetLeft;
+        var dy = pos[1] - radi.offsetTop;
+        var X = ev.pageX - dx;
+        var Y = ev.pageY - dy;
+        root.add(editable(drawRadioButton(X, Y, 120, 30), stage.controls.length));
+        stage.controls.push(new Control(X, Y, 120, 30, "RadioButton"))
+    }
+    else if (data == "inputtext") {
+        var text = canvas = document.getElementById("inputtext");
+        var dx = pos[0] - text.offsetLeft;
+        var dy = pos[1] - text.offsetTop;
+        var X = ev.pageX - dx;
+        var Y = ev.pageY - dy;
+        root.add(editable(drawTextBox(X, Y, 120, 30), stage.controls.length));
+        stage.controls.push(new Control(X, Y, 120, 30, "InputText"))
+    }
+    else if (data == "lable") {
+        var lab = canvas = document.getElementById("lable");
+        var dx = pos[0] - lab.offsetLeft;
+        var dy = pos[1] - lab.offsetTop;
+        var X = ev.pageX - dx;
+        var Y = ev.pageY - dy;
+        root.add(editable(drawLable(X, Y, 120, 30, "Label"), stage.controls.length));
+        stage.controls.push(new Control(X, Y, 120, 30, "Label"))
+    }
+    else if (data == "menu") {
+        var men = canvas = document.getElementById("menu");
+        var dx = pos[0] - men.offsetLeft;
+        var dy = pos[1] - men.offsetTop;
+        var X = ev.pageX - dx;
+        var Y = ev.pageY - dy;
+        root.add(editable(drawMenuBar(X, Y, 600, 50), stage.controls.length));
+        stage.controls.push(new Control(X, Y, 600, 50, "MenuBar"))
+    }
+    else if (data == "para") {
+        var parag = canvas = document.getElementById("para");
+        var dx = pos[0] - parag.offsetLeft;
+        var dy = pos[1] - parag.offsetTop;
+        var X = ev.pageX - dx;
+        var Y = ev.pageY - dy;
+        root.add(editable(drawMenuBar(X, Y, 600, 50), stage.controls.length));
+        stage.controls.push(new Control(X, Y, 600, 50, "MenuBar"))
+
+    }
+    else if (data == "rang") {
+
+        var ran = canvas = document.getElementById("rang");
+        var dx = pos[0] - ran.offsetLeft;
+        var dy = pos[1] - ran.offsetTop;
+        var X = ev.pageX - dx;
+        var Y = ev.pageY - dy;
+        root.add(editable(drawRage(X, Y), stage.controls.length));
+        stage.controls.push(new Control(X, Y, 140, 30, "Range"))
+    }
+    else if (data == "hori") {
+
+        var ran = canvas = document.getElementById("hori");
+        var dx = pos[0] - ran.offsetLeft;
+        var dy = pos[1] - ran.offsetTop;
+        var X = ev.pageX - dx;
+        var Y = ev.pageY - dy;
+        root.add(editable(drawHorizontalLine(X, Y, 40), stage.controls.length));
+        stage.controls.push(new Control(X, Y, 40, 3, "HLine"))
+    }
+    else if (data == "link") {
+
+        var ran = canvas = document.getElementById("link");
+        var dx = pos[0] - ran.offsetLeft;
+        var dy = pos[1] - ran.offsetTop;
+        var X = ev.pageX - dx;
+        var Y = ev.pageY - dy;
+        root.add(editable(drawHyperlink(X, Y, 60, 10, "Link"), stage.controls.length));
+        stage.controls.push(new Control(X, Y, 60, 10, "HyperLink"))
+    }
+    else if (data == "iframe") {
+
+        var ran = canvas = document.getElementById("iframe");
+        var dx = pos[0] - ran.offsetLeft;
+        var dy = pos[1] - ran.offsetTop;
+        var X = ev.pageX - dx;
+        var Y = ev.pageY - dy;
+        root.add(editable(drawIframe(X, Y), stage.controls.length));
+        stage.controls.push(new Control(X, Y, 150, 150, "Iframe"))
+    }
+    else if (data == "password") {
+
+        var ran = canvas = document.getElementById("password");
+        var dx = pos[0] - ran.offsetLeft;
+        var dy = pos[1] - ran.offsetTop;
+        var X = ev.pageX - dx;
+        var Y = ev.pageY - dy;
+        root.add(editable(drawTextBox(X, Y, 120, 30), stage.controls.length));
+        stage.controls.push(new Control(X, Y, 120, 30))
+    }
+    else if (data == "textArea") {
+
+        var ran = canvas = document.getElementById("textArea");
+        var dx = pos[0] - ran.offsetLeft;
+        var dy = pos[1] - ran.offsetTop;
+        var X = ev.pageX - dx;
+        var Y = ev.pageY - dy;
+        root.add(editable(drawTextArea(X, Y, 100, 40), stage.controls.length));
+        stage.controls.push(new Control(X, Y, 100, 40))
+    }
+
+}

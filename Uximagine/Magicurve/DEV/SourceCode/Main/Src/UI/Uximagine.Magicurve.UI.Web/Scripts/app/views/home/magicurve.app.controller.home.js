@@ -7,8 +7,8 @@
 
         $scope.changed = function() {
             console.log($scope.control);
-            $rootScope.stage.controls[$rootScope.stage.activeControlIndex].X = $scope.control.left;
-            draw();
+            //// $rootScope.stage.controls[$rootScope.stage.activeControlIndex].X = $scope.control.left;
+            //draw();
         }
         
         $scope.pop = function() {

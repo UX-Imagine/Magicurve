@@ -13,21 +13,34 @@
   };
 
 function editable(control, index) {
+    var offset = 7;
     var shaperPan = new zebra.ui.designer.ShaperPan(control, [
        function mousePressed(e) {
+           //console.log(e);
+           //root.remove(e.source);
            stage.activeControlIndex = index;
            if (typeof onSelectItem == "function") {
                onSelectItem(index);
            }
        },
        function mouseReleased(e) {
-           stage.controls[index].X = shaperPan.x;
-           stage.controls[index].Y = shaperPan.y;
+           stage.controls[index].X = shaperPan.x + offset;
+           stage.controls[index].Y = shaperPan.y + offset;
+           console.log(shaperPan);
+           console.log(e);
+           console.log(control);
            
        },
         function mouseDragEnded(e) {
-            stage.controls[index].Width = shaperPan.width;
-            stage.controls[index].Height = shaperPan.height;
+            stage.controls[index].X = shaperPan.x + offset;
+            stage.controls[index].Y = shaperPan.y + offset;
+            stage.controls[index].Width = control.width;
+            stage.controls[index].Height = control.height;
+           
+        }, function keyPressed(e) {
+            if (e.code === 46) {
+                root.remove(e.source);
+            }
         }
     ]);
 

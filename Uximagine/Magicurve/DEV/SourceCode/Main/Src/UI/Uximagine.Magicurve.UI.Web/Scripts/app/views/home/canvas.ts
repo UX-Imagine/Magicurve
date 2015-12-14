@@ -8,6 +8,21 @@ interface IControl {
     Type: string;
 }
 
+class Control implements IControl {
+    X: number;
+    Y: number;
+    Height: number;
+    Width: number;
+    Type: string;
+
+    constructor(x: number, y: number, height: number, width: number, shapeType: string) {
+        this.X = x;
+        this.Y = y;
+        this.Width = width;
+        this.Height = height;
+        this.Type = shapeType;
+    }
+}
 interface IControlResult {
     controls: IControl[];
     imageWidth: number;
