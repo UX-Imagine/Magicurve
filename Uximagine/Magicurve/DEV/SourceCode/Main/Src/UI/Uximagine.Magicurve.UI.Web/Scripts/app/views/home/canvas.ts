@@ -15,7 +15,7 @@ class Control implements IControl {
     Width: number;
     Type: string;
 
-    constructor(x: number, y: number, height: number, width: number, shapeType: string) {
+    constructor(x: number, y: number, width: number, height: number, shapeType: string) {
         this.X = x;
         this.Y = y;
         this.Width = width;

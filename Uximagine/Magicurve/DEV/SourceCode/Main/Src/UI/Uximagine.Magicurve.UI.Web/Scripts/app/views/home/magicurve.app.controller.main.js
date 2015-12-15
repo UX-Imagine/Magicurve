@@ -1,10 +1,11 @@
 ﻿magicurveApp
     .constant("urlConfig", {
-        "domain": "/Magicurve",
+        "domain": "",
         "controlUrl": "/api/images/result",
         "codeUrl": "/api/images/download",
         "uploadUrl": "/Home/UploadFile"
-    })
+    }
+    )
     .directive('fileModel', [
                 '$parse', 'httpService', 'toaster', '$rootScope', 'messagingService', 'canvasService',
         function ($parse, httpService, toaster, $rootScope, messagingService, canvasService) {
@@ -23,6 +24,7 @@
                         var file = element[0].files[0];
                         httpService.uploadFileToUrl(file, function (data) {
                             $rootScope.stage.currentImage = data.path;
+                            canvasService.clearAll();
                             messagingService.UploadSuccess();
                             messagingService.showMessage("Please click Draw or Edit on tool-bar to proceed...");
                         });
@@ -32,7 +34,8 @@
                 }
             };
         }
-    ])
+    ]
+    )
     .service('messagingService',
          function (toaster) {
              this.UploadSuccess = function () {
@@ -80,6 +83,13 @@
                 messagingService.showMessage("canvas initialized.");
             }
 
+            this.clearAll = function() {
+                if (root) {
+                    $rootScope.stage.controls = null;
+                    root.removeAll();
+                }
+            }
+            
             this.populateCanvas = function (isEditable) {
 
                 if ($rootScope.stage.controls === undefined) {
@@ -262,7 +272,7 @@
                     $rootScope.stage.controls.push(new Control(tx, ty, 100, 30, "DatePicker"));
                 }
                 else if (data === "image") {
-                    $rootScope.stage.controls.push(new Control(tx, ty, 200, 100, "DatePicker"));
+                    $rootScope.stage.controls.push(new Control(tx, ty, 200, 100, "Image"));
                 }
                 else if (data === "radio") {
                     $rootScope.stage.controls.push(new Control(tx, ty, 120, 30, "RadioButton"));
@@ -277,7 +287,7 @@
                     $rootScope.stage.controls.push(new Control(tx, ty, 600, 50, "MenuBar"));
                 }
                 else if (data === "para") {
-                    $rootScope.stage.controls.push(new Control(tx, ty, 600, 50, "MenuBar"));
+                    $rootScope.stage.controls.push(new Control(tx, ty, 600, 50, "Paragraph"));
 
                 }
                 else if (data === "rang") {
@@ -294,10 +304,10 @@
                     $rootScope.stage.controls.push(new Control(tx, ty, 150, 150, "Iframe"));
                 }
                 else if (data === "password") {
-                    $rootScope.stage.controls.push(new Control(tx, ty, 120, 30));
+                    $rootScope.stage.controls.push(new Control(tx, ty, 120, 30, "InputPassword"));
                 }
                 else if (data === "textArea") {
-                    $rootScope.stage.controls.push(new Control(tx, ty, 100, 40));
+                    $rootScope.stage.controls.push(new Control(tx, ty, 100, 40, "TextArea"));
                 }
 
                 canvasService.populateCanvas(true);
@@ -510,8 +520,8 @@
                 });
             }
         }
-    ])
-
+    ]
+    )
     .controller("mainController",
         function ($scope, $rootScope, messagingService, $http, httpService, canvasService) {
 
@@ -579,7 +589,16 @@
                 canvasService.editable();
             }
 
-        })
+            $scope.clear = function() {
+                canvasService.clearAll();
+                $scope.itemLeft = 0;
+                $scope.itemTop = 0;
+                $scope.itemWidth = 0;
+                $scope.itemHeight = 0;
+            }
+
+        }
+    )
     .controller("sideController", function ($rootScope, $scope, canvasService, messagingService) {
         $scope.testItem = "test";
         $scope.addItem = function (event) {
@@ -590,4 +609,5 @@
                 messagingService.fail("Please go to edit mode.");
             }
         }
-    });
+    }
+    );
