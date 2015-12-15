@@ -17,51 +17,25 @@
                 </h4>
             </div>
             <div id="collapse1" class="panel-collapse collapse">
-                <div class="panel-body" >
-                   <img data-toggle="tooltip" data-placement="left" title="Button" id="button" src="~/Content/Images/draw icon/buttonDraw.png" height="40" width="70" draggable="true" ng-click="addItem($event)" />
-                    &nbsp;&nbsp;&nbsp;&nbsp;
-                    <img data-toggle="tooltip" data-placement="left" title="Image" id="image" src="~/Content/Images/draw icon/imageDraw.png" height="40" width="40" draggable="true" ng-click="addItem($event)" />
-                    <br />
-                    <br />
-                    <img data-toggle="tooltip" data-placement="left" title="Check Box" id="check" src="~/Content/Images/draw icon/check.png" height="30" width="60" draggable="true" ng-click="addItem($event)" />
-                    &nbsp;&nbsp;
-                    <img data-toggle="tooltip" data-placement="left" title="Radio Group" id="radio" src="~/Content/Images/draw icon/radio.png" height="30" width="60" draggable="true" ng-click="addItem($event)" />
-                    <br />
-                    <br />
-                    <img data-toggle="tooltip" data-placement="left" title="Dropdown" id="combo" src="~/Content/Images/draw icon/drop.png" height="30" width="80" draggable="true" ng-click="addItem($event)" />
+                <ul class="list-group" style="cursor: pointer;">
+                    <li class="list-group-item btn-default" data-toggle="tooltip" data-placement="left" title="Button" id="Button" ng-click="addItem($event)">Button</li>
+                    <li class="list-group-item btn-default" data-toggle="tooltip" data-placement="left" title="Checkbox" id="Checkbox" ng-click="addItem($event)">Check Box </li>
+                    <li class="list-group-item btn-default" data-toggle="tooltip" data-placement="left" title="ComboBox" id="ComboBox" ng-click="addItem($event)">Dropdown </li>
+                    <li class="list-group-item btn-default" data-toggle="tooltip" data-placement="left" title="DatePicker" id="DatePicker" ng-click="addItem($event)"> Date Picker </li>
+                    <li class="list-group-item btn-default" data-toggle="tooltip" data-placement="left" title="Image" id="Image" ng-click="addItem($event)">Image</li>
+                    <li class="list-group-item btn-default" data-toggle="tooltip" data-placement="left" title="RadioButton" id="RadioButton" ng-click="addItem($event)">Radio Button</li>
+                    <li class="list-group-item btn-default" data-toggle="tooltip" data-placement="left" title="InputText" id="InputText" ng-click="addItem($event)">Text Box </li>
+                    <li class="list-group-item btn-default" data-toggle="tooltip" data-placement="left" title="Label" id="Label" ng-click="addItem($event)"> Lable </li>
+                    <li class="list-group-item btn-default" data-toggle="tooltip" data-placement="left" title="MenuBar" id="MenuBar" ng-click="addItem($event)"> Menu Bar </li>
+                    <li class="list-group-item btn-default" data-toggle="tooltip" data-placement="left" title="Paragraph" id="Paragraph" ng-click="addItem($event)">Paragraph</li>
+                    <li class="list-group-item btn-default" data-toggle="tooltip" data-placement="left" title="Range" id="Range" ng-click="addItem($event)">Rang </li>
+                    <li class="list-group-item btn-default" data-toggle="tooltip" data-placement="left" title="HLine" id="HLine" ng-click="addItem($event)">Horizontal Line</li>
+                    <li class="list-group-item btn-default" data-toggle="tooltip" data-placement="left" title="HyperLink" id="HyperLink" ng-click="addItem($event)">Hyperlink</li>
+                    <li class="list-group-item btn-default" data-toggle="tooltip" data-placement="left" title="Iframe" id="Iframe" ng-click="addItem($event)">Iframe</li>
+                    <li class="list-group-item btn-default" data-toggle="tooltip" data-placement="left" title="InputPassword" id="InputPassword" ng-click="addItem($event)">Password</li>
+                    <li class="list-group-item btn-default" data-toggle="tooltip" data-placement="left" title="TextArea" id="TextArea" ng-click="addItem($event)">Text Area</li>
+                </ul>
                    
-                    &nbsp;&nbsp;&nbsp;&nbsp;
-                    <img data-toggle="tooltip" data-placement="left" title="Date Picker" id="datepic" src="~/Content/Images/draw icon/picker.png" height="30" width="30" draggable="true" ng-click="addItem($event)" />
-                   
-                    <br />
-                    <br />
-                              
-                    <img data-toggle="tooltip" data-placement="left" title="Paragraph" id="para" src="~/Content/Images/draw icon/para.png" height="30" width="30" draggable="true" ng-click="addItem($event)" />                   
-                    
-                    <img data-toggle="tooltip" data-placement="left" title="Iframe" id="iframe" src="~/Content/Images/draw icon/iframe.png" height="30" width="30" draggable="true" ng-click="addItem($event)" />
-                    
-                    <img data-toggle="tooltip" data-placement="left" title="Text Area" id="textArea" src="~/Content/Images/draw icon/form_input_textarea.png" height="30" width="30" draggable="true" ng-click="addItem($event)" />
-                    
-                  
-                    <img data-toggle="tooltip" data-placement="left" title="Hyper Link" id="link" src="~/Content/Images/draw icon/Link.png" height="30" width="30" draggable="true" ng-click="addItem($event)" />
-                    <br />
-                    <br />
-                    <img data-toggle="tooltip" data-placement="left" title="Input Text" id="inputtext" src="~/Content/Images/draw icon/text box.png" height="30" width="150" draggable="true" ng-click="addItem($event)" />
-                    <br />
-                    <br />
-                    <img data-toggle="tooltip" data-placement="left" title="Input Password" id="password" src="~/Content/Images/draw icon/password.png" height="30" width="150" draggable="true" ng-click="addItem($event)" />
-                    <br />
-                    <br />
-                    <img data-toggle="tooltip" data-placement="left" title="Rang" id="rang" src="~/Content/Images/draw icon/rang.png" height="10" width="150" draggable="true" ng-click="addItem($event)" />
-                    <br />
-                    <br />
-                    <img data-toggle="tooltip" data-placement="left" title="Label" id="label" src="~/Content/Images/draw icon/lable.png" height="30" width="150" draggable="true" ng-click="addItem($event)" />
-                    <br />
-                    <br />
-                    <img data-toggle="tooltip" data-placement="left" title="Menu Bar" id="menu" src="~/Content/Images/draw icon/nav.png" height="30" width="150" draggable="true" ng-click="addItem($event)" />
-                    <br />
-                    <br />
-                </div>
               
             </div>
         </div>
