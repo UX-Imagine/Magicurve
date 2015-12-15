@@ -1,6 +1,6 @@
 ﻿magicurveApp
     .constant("urlConfig", {
-        "domain": "",
+        "domain": "/Magicurve",
         "controlUrl": "/api/images/result",
         "codeUrl": "/api/images/download",
         "uploadUrl": "/Home/UploadFile"
@@ -269,7 +269,7 @@
                     $rootScope.stage.controls.push(new Control(tx, ty, 100, 30, "ComboBox"));
                 }
                 else if (data === "DatePicker") {
-                    $rootScope.stage.controls.push(new Control(tx, ty, 100, 30, "DatePicker"));
+                    $rootScope.stage.controls.push(new Control(tx, ty, 50, 30, "DatePicker"));
                 }
                 else if (data === "Image") {
                     $rootScope.stage.controls.push(new Control(tx, ty, 400, 200, "Image"));
