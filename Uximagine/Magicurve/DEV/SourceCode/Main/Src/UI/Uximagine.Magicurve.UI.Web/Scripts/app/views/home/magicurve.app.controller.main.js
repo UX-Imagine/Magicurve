@@ -146,13 +146,13 @@
                     var source = sourceControls[i];
 
                     if (sourceControls[i].Type === "Button") {
-                        control = this.drawButton(source.X, source.Y, 60, 30, "Button");
+                        control = this.drawButton(source.X, source.Y, source.Width, source.Height, "Button");
                     }
                     else if (sourceControls[i].Type === "CheckBox") {
                         control = this.drawCheckBox(source.X, source.Y, 120, 30, "CheckBox");
                     }
                     else if (sourceControls[i].Type === "ComboBox") {
-                        control = this.drawComboBox(source.X, source.Y, source.Width, 30);
+                        control = this.drawComboBox(source.X, source.Y, 120, source.Height);
                     }
                     else if (sourceControls[i].Type === "HLine") {
                         control = this.drawHorizontalLine(source.X, source.Y, source.Width);
@@ -161,37 +161,37 @@
                         control = this.drawHyperlink(source.X, source.Y, source.Width, source.Height, "HyperLink");
                     }
                     else if (sourceControls[i].Type === "Image") {
-                        control = this.drawImageContent(sourceControls[i].X, sourceControls[i].Y, sourceControls[i].Width, sourceControls[i].Height);
+                        control = this.drawImageContent(source.X, source.Y, source.Width, source.Height);
                     }
                     else if (sourceControls[i].Type === "Label") {
-                        control = this.drawLabel(sourceControls[i].X, sourceControls[i].Y, sourceControls[i].Width, sourceControls[i].Height, "Label Caption");
+                        control = this.drawLabel(source.X, source.Y, source.Width, source.Height, "Label Caption");
                     }
                     else if (sourceControls[i].Type === "MenuBar") {
-                        control = this.drawMenuBar(sourceControls[i].X, sourceControls[i].Y, sourceControls[i].Width, sourceControls[i].Height);
+                        control = this.drawMenuBar(source.X, source.Y, source.Width, source.Height);
                     }
                     else if (sourceControls[i].Type === "Paragraph") {
-                        control = this.drawPara(sourceControls[i].X, sourceControls[i].Y, sourceControls[i].Width, sourceControls[i].Height);
+                        control = this.drawPara(source.X, source.Y, source.Width, source.Height);
                     }
                     else if (sourceControls[i].Type === "RadioButton") {
-                        control = this.drawRadioButton(sourceControls[i].X, sourceControls[i].Y, 120, 30, "RadioButton");
+                        control = this.drawRadioButton(source.X, source.Y, 120, 30, "RadioButton");
                     }
                     else if (sourceControls[i].Type === "TextArea") {
-                        control = this.drawTextArea(sourceControls[i].X, sourceControls[i].Y, sourceControls[i].Width, sourceControls[i].Height);
+                        control = this.drawTextArea(source.X, source.Y, source.Width, source.Height);
                     }
                     else if (sourceControls[i].Type === "InputText") {
-                        control = this.drawTextBox(sourceControls[i].X, sourceControls[i].Y, sourceControls[i].Width, 30);
+                        control = this.drawTextBox(source.X, source.Y, source.Width, 30);
                     }
                     else if (sourceControls[i].Type === "Iframe") {
-                        control = this.drawIframe(sourceControls[i].X, sourceControls[i].Y, sourceControls[i].Width, 30);
+                        control = this.drawIframe(source.X, source.Y, source.Width, source.Height);
                     }
                     else if (sourceControls[i].Type === "DatePicker") {
-                        control = this.drawDatePic(sourceControls[i].X, sourceControls[i].Y);
+                        control = this.drawDatePic(source.X, source.Y);
                     }
                     else if (sourceControls[i].Type === "Range") {
-                        control = this.drawRage(sourceControls[i].X, sourceControls[i].Y);
+                        control = this.drawRage(source.X, source.Y, source.Width, source.Height);
                     }
                     else if (sourceControls[i].Type === "InputPassword") {
-                        control = this.drawTextArea(sourceControls[i].X, sourceControls[i].Y, sourceControls[i].Width, sourceControls[i].Height);
+                        control = this.drawTextBox(source.X, source.Y, source.Width, source.Height);
                     }
 
                     if (control != null) {
@@ -259,55 +259,55 @@
                 var tx = $rootScope.stage.canvasWidth / 2;
                 var ty = $rootScope.stage.canvasHeight / 2;
 
-                if (data === "button") {
-                    $rootScope.stage.controls.push(new Control(tx, ty, 60, 30, "Button"));
+                if (data === "Button") {
+                    $rootScope.stage.controls.push(new Control(tx, ty, 150, 30, "Button"));
                 }
-                else if (data === "check") {
-                    $rootScope.stage.controls.push(new Control(tx, ty, 100, 30, "Checkbox"));
+                else if (data === "Checkbox") {
+                    $rootScope.stage.controls.push(new Control(tx, ty, 120, 30, "Checkbox"));
                 }
-                else if (data === "combo") {
+                else if (data === "ComboBox") {
                     $rootScope.stage.controls.push(new Control(tx, ty, 100, 30, "ComboBox"));
                 }
-                else if (data === "datepic") {
+                else if (data === "DatePicker") {
                     $rootScope.stage.controls.push(new Control(tx, ty, 100, 30, "DatePicker"));
                 }
-                else if (data === "image") {
-                    $rootScope.stage.controls.push(new Control(tx, ty, 200, 100, "Image"));
+                else if (data === "Image") {
+                    $rootScope.stage.controls.push(new Control(tx, ty, 400, 200, "Image"));
                 }
-                else if (data === "radio") {
+                else if (data === "RadioButton") {
                     $rootScope.stage.controls.push(new Control(tx, ty, 120, 30, "RadioButton"));
                 }
-                else if (data === "inputtext") {
+                else if (data === "InputText") {
                     $rootScope.stage.controls.push(new Control(tx, ty, 120, 30, "InputText"));
                 }
-                else if (data === "label") {
+                else if (data === "Label") {
                     $rootScope.stage.controls.push(new Control(tx, ty, 120, 30, "Label"));
                 }
-                else if (data === "menu") {
+                else if (data === "MenuBar") {
                     $rootScope.stage.controls.push(new Control(tx, ty, 600, 50, "MenuBar"));
                 }
-                else if (data === "para") {
-                    $rootScope.stage.controls.push(new Control(tx, ty, 600, 50, "Paragraph"));
+                else if (data === "Paragraph") {
+                    $rootScope.stage.controls.push(new Control(tx, ty, 150, 150, "Paragraph"));
 
                 }
-                else if (data === "rang") {
-                    $rootScope.stage.controls.push(new Control(tx, ty, 140, 30, "Range"));
+                else if (data === "Range") {
+                    $rootScope.stage.controls.push(new Control(tx, ty, 150, 20, "Range"));
                 }
-                else if (data === "hori") {
-                    $rootScope.stage.controls.push(new Control(tx, ty, 40, 3, "HLine"));
+                else if (data === "HLine") {
+                    $rootScope.stage.controls.push(new Control(tx, ty, 80, 3, "HLine"));
                 }
-                else if (data === "link") {
-                    $rootScope.stage.controls.push(new Control(tx, ty, 60, 10, "HyperLink"));
+                else if (data === "HyperLink") {
+                    $rootScope.stage.controls.push(new Control(tx, ty, 100, 20, "HyperLink"));
                 }
-                else if (data === "iframe") {
-                    root.add(editable(drawIframe(tx, ty), stage.controls.length));
-                    $rootScope.stage.controls.push(new Control(tx, ty, 150, 150, "Iframe"));
+                else if (data === "Iframe") {
+                    
+                    $rootScope.stage.controls.push(new Control(tx, ty, 200, 200, "Iframe"));
                 }
-                else if (data === "password") {
+                else if (data === "InputPassword") {
                     $rootScope.stage.controls.push(new Control(tx, ty, 120, 30, "InputPassword"));
                 }
-                else if (data === "textArea") {
-                    $rootScope.stage.controls.push(new Control(tx, ty, 100, 40, "TextArea"));
+                else if (data === "TextArea") {
+                    $rootScope.stage.controls.push(new Control(tx, ty, 150, 75,"TextArea"));
                 }
 
                 canvasService.populateCanvas(true);
@@ -315,10 +315,10 @@
             }
 
             //function for drawing i frame
-            this.drawIframe = function (dX, dY) {
+            this.drawIframe = function (dX, dY,ifraWidth,ifraHeight) {
                 var iframePic = zebra.ui.loadImage("/Magicurve/Content/Images/Icon/iframe.png");
                 var imageIframe = new zebra.ui.ImagePan(iframePic);
-                imageIframe.setBounds(dX, dY, 100, 100);
+                imageIframe.setBounds(dX, dY, ifraWidth, ifraHeight);
                 return imageIframe;
             }
 
@@ -331,10 +331,10 @@
             }
 
             //function for drawing rang
-            this.drawRage = function (dX, dY) {
+            this.drawRage = function (dX, dY,rangWidth,rangHeight) {
                 var rangePic = zebra.ui.loadImage("/Magicurve/Content/Images/Icon/rang.png");
                 var imageRangePic = new zebra.ui.ImagePan(rangePic);
-                imageRangePic.setBounds(dX, dY, 140, 30);
+                imageRangePic.setBounds(dX, dY, 150, 15);
                 return imageRangePic;
             }
 
