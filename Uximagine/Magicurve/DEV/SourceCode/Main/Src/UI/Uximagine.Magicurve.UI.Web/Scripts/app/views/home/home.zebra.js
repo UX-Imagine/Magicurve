@@ -193,14 +193,18 @@ function downloadSource() {
 ///////////////////////////////// drag and drop from tool bar////////////////////////////////////
 
 function drop(ev) {
-    ev.preventDefault();
+    
     var offset = ev.dataTransfer.getData("text/plain").split(',');
     var data = ev.dataTransfer.getData("Text");
+    if (data === "") {
+        return;
+    }
 
+    ev.preventDefault();
     // document.getElementById("desi").getContext("2d").drawImage(document.getElementById(data), ev.pageX - dx, ev.pageY - dy);
 
     if (data == "button") {
-        var but = canvas = document.getElementById("button");
+        var but = document.getElementById("button");
         var dx = pos[0] - but.offsetLeft;
         var dy = pos[1] - but.offsetTop;
         var X = ev.pageX - dx;
@@ -210,7 +214,7 @@ function drop(ev) {
     }
     else if (data == "check") {
 
-        var but = canvas = document.getElementById("check");
+        var but = document.getElementById("check");
         var dx = pos[0] - but.offsetLeft;
         var dy = pos[1] - but.offsetTop;
         var X = ev.pageX - dx;
@@ -220,7 +224,7 @@ function drop(ev) {
     }
     else if (data == "combo") {
 
-        var combo = canvas = document.getElementById("combo");
+        var combo =  document.getElementById("combo");
         var dx = pos[0] - combo.offsetLeft;
         var dy = pos[1] - combo.offsetTop;
         var X = ev.pageX - dx;
@@ -229,7 +233,7 @@ function drop(ev) {
         stage.controls.push(new Control(X, Y, 100, 30, "ComboBox"));
     }
     else if (data == "datepic") {
-        var datepic = canvas = document.getElementById("datepic");
+        var datepic =  document.getElementById("datepic");
         var dx = pos[0] - datepic.offsetLeft;
         var dy = pos[1] - datepic.offsetTop;
         var X = ev.pageX - dx;
@@ -239,13 +243,13 @@ function drop(ev) {
     }
     else if (data == "image") {
 
-        var img = canvas = document.getElementById("image");
+        var img = document.getElementById("image");
         var dx = pos[0] - img.offsetLeft;
         var dy = pos[1] - img.offsetTop;
         var X = ev.pageX - dx;
         var Y = ev.pageY - dy;
         root.add(editable(drawImageContent(X, Y, 200, 100), stage.controls.length));
-        stage.controls.push(new Control(X, Y, 200, 100, "DatePicker"))
+        stage.controls.push(new Control(X, Y, 200, 100, "DatePicker"));
     }
     else if (data == "radio") {
         var radi = canvas = document.getElementById("radio");
@@ -254,28 +258,28 @@ function drop(ev) {
         var X = ev.pageX - dx;
         var Y = ev.pageY - dy;
         root.add(editable(drawRadioButton(X, Y, 120, 30), stage.controls.length));
-        stage.controls.push(new Control(X, Y, 120, 30, "RadioButton"))
+        stage.controls.push(new Control(X, Y, 120, 30, "RadioButton"));
     }
     else if (data == "inputtext") {
-        var text = canvas = document.getElementById("inputtext");
+        var text =  document.getElementById("inputtext");
         var dx = pos[0] - text.offsetLeft;
         var dy = pos[1] - text.offsetTop;
         var X = ev.pageX - dx;
         var Y = ev.pageY - dy;
         root.add(editable(drawTextBox(X, Y, 120, 30), stage.controls.length));
-        stage.controls.push(new Control(X, Y, 120, 30, "InputText"))
+        stage.controls.push(new Control(X, Y, 120, 30, "InputText"));
     }
     else if (data == "lable") {
-        var lab = canvas = document.getElementById("lable");
+        var lab = document.getElementById("lable");
         var dx = pos[0] - lab.offsetLeft;
         var dy = pos[1] - lab.offsetTop;
         var X = ev.pageX - dx;
         var Y = ev.pageY - dy;
         root.add(editable(drawLable(X, Y, 120, 30, "Label"), stage.controls.length));
-        stage.controls.push(new Control(X, Y, 120, 30, "Label"))
+        stage.controls.push(new Control(X, Y, 120, 30, "Label"));
     }
     else if (data == "menu") {
-        var men = canvas = document.getElementById("menu");
+        var men = document.getElementById("menu");
         var dx = pos[0] - men.offsetLeft;
         var dy = pos[1] - men.offsetTop;
         var X = ev.pageX - dx;
@@ -284,74 +288,74 @@ function drop(ev) {
         stage.controls.push(new Control(X, Y, 600, 50, "MenuBar"))
     }
     else if (data == "para") {
-        var parag = canvas = document.getElementById("para");
+        var parag = document.getElementById("para");
         var dx = pos[0] - parag.offsetLeft;
         var dy = pos[1] - parag.offsetTop;
         var X = ev.pageX - dx;
         var Y = ev.pageY - dy;
         root.add(editable(drawMenuBar(X, Y, 600, 50), stage.controls.length));
-        stage.controls.push(new Control(X, Y, 600, 50, "MenuBar"))
+        stage.controls.push(new Control(X, Y, 600, 50, "MenuBar"));
 
     }
     else if (data == "rang") {
 
-        var ran = canvas = document.getElementById("rang");
+        var ran = document.getElementById("rang");
         var dx = pos[0] - ran.offsetLeft;
         var dy = pos[1] - ran.offsetTop;
         var X = ev.pageX - dx;
         var Y = ev.pageY - dy;
         root.add(editable(drawRage(X, Y), stage.controls.length));
-        stage.controls.push(new Control(X, Y, 140, 30, "Range"))
+        stage.controls.push(new Control(X, Y, 140, 30, "Range"));
     }
     else if (data == "hori") {
 
-        var ran = canvas = document.getElementById("hori");
+        var ran =  document.getElementById("hori");
         var dx = pos[0] - ran.offsetLeft;
         var dy = pos[1] - ran.offsetTop;
         var X = ev.pageX - dx;
         var Y = ev.pageY - dy;
         root.add(editable(drawHorizontalLine(X, Y, 40), stage.controls.length));
-        stage.controls.push(new Control(X, Y, 40, 3, "HLine"))
+        stage.controls.push(new Control(X, Y, 40, 3, "HLine"));
     }
     else if (data == "link") {
 
-        var ran = canvas = document.getElementById("link");
+        var ran = document.getElementById("link");
         var dx = pos[0] - ran.offsetLeft;
         var dy = pos[1] - ran.offsetTop;
         var X = ev.pageX - dx;
         var Y = ev.pageY - dy;
         root.add(editable(drawHyperlink(X, Y, 60, 10, "Link"), stage.controls.length));
-        stage.controls.push(new Control(X, Y, 60, 10, "HyperLink"))
+        stage.controls.push(new Control(X, Y, 60, 10, "HyperLink"));
     }
     else if (data == "iframe") {
 
-        var ran = canvas = document.getElementById("iframe");
+        var ran = document.getElementById("iframe");
         var dx = pos[0] - ran.offsetLeft;
         var dy = pos[1] - ran.offsetTop;
         var X = ev.pageX - dx;
         var Y = ev.pageY - dy;
         root.add(editable(drawIframe(X, Y), stage.controls.length));
-        stage.controls.push(new Control(X, Y, 150, 150, "Iframe"))
+        stage.controls.push(new Control(X, Y, 150, 150, "Iframe"));
     }
     else if (data == "password") {
 
-        var ran = canvas = document.getElementById("password");
+        var ran = document.getElementById("password");
         var dx = pos[0] - ran.offsetLeft;
         var dy = pos[1] - ran.offsetTop;
         var X = ev.pageX - dx;
         var Y = ev.pageY - dy;
         root.add(editable(drawTextBox(X, Y, 120, 30), stage.controls.length));
-        stage.controls.push(new Control(X, Y, 120, 30))
+        stage.controls.push(new Control(X, Y, 120, 30));
     }
     else if (data == "textArea") {
 
-        var ran = canvas = document.getElementById("textArea");
+        var ran = document.getElementById("textArea");
         var dx = pos[0] - ran.offsetLeft;
         var dy = pos[1] - ran.offsetTop;
         var X = ev.pageX - dx;
         var Y = ev.pageY - dy;
         root.add(editable(drawTextArea(X, Y, 100, 40), stage.controls.length));
-        stage.controls.push(new Control(X, Y, 100, 40))
+        stage.controls.push(new Control(X, Y, 100, 40));
     }
 
 }

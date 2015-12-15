@@ -24,6 +24,7 @@
                         httpService.uploadFileToUrl(file, function (data) {
                             $rootScope.stage.currentImage = data.path;
                             messagingService.UploadSuccess();
+                            messagingService.showMessage("Please click Draw or Edit on tool-bar to proceed...");
                         });
 
                         element.val(null);
@@ -61,17 +62,22 @@
             var orHeight;
             var canvasHeight;
             var canvasWidth;
+            var canvasService = this;
 
             this.init = function () {
 
                 canvasHeight = $rootScope.stage.canvasHeight;
                 canvasWidth = $rootScope.stage.canvasWidth;
 
+                messagingService.showMessage("Initializing canvas. Please upload an image to begin..");
+
                 zebra.ready(function () {
                     zCanvas = new zebra.ui.zCanvas("designer", canvasWidth, canvasHeight);
                     root = zCanvas.root;
                     messagingService.showMessage("canvas initialized.");
                 });
+
+                messagingService.showMessage("canvas initialized.");
             }
 
             this.populateCanvas = function (isEditable) {
@@ -198,7 +204,7 @@
 
                        $rootScope.stage.activeControlIndex = index;
                        self.onSelectItem(index);
-                      
+
                    },
                    function mouseReleased(e) {
                        $rootScope.stage.controls[index].X = shaperPan.x + offset;
@@ -212,7 +218,8 @@
 
                     }, function keyPressed(e) {
                         if (e.code === 46) { // on delete pressed.
-                            root.remove(e.source);
+                            $rootScope.stage.controls.splice(index, 1);
+                            self.populateCanvas(true);
                         }
                     }
                 ]);
@@ -236,6 +243,66 @@
             }
 
             //////////////// method drawing non editable ///////////
+
+            this.drop = function (data) {
+
+                var tx = $rootScope.stage.canvasWidth / 2;
+                var ty = $rootScope.stage.canvasHeight / 2;
+
+                if (data === "button") {
+                    $rootScope.stage.controls.push(new Control(tx, ty, 60, 30, "Button"));
+                }
+                else if (data === "check") {
+                    $rootScope.stage.controls.push(new Control(tx, ty, 100, 30, "Checkbox"));
+                }
+                else if (data === "combo") {
+                    $rootScope.stage.controls.push(new Control(tx, ty, 100, 30, "ComboBox"));
+                }
+                else if (data === "datepic") {
+                    $rootScope.stage.controls.push(new Control(tx, ty, 100, 30, "DatePicker"));
+                }
+                else if (data === "image") {
+                    $rootScope.stage.controls.push(new Control(tx, ty, 200, 100, "DatePicker"));
+                }
+                else if (data === "radio") {
+                    $rootScope.stage.controls.push(new Control(tx, ty, 120, 30, "RadioButton"));
+                }
+                else if (data === "inputtext") {
+                    $rootScope.stage.controls.push(new Control(tx, ty, 120, 30, "InputText"));
+                }
+                else if (data === "label") {
+                    $rootScope.stage.controls.push(new Control(tx, ty, 120, 30, "Label"));
+                }
+                else if (data === "menu") {
+                    $rootScope.stage.controls.push(new Control(tx, ty, 600, 50, "MenuBar"));
+                }
+                else if (data === "para") {
+                    $rootScope.stage.controls.push(new Control(tx, ty, 600, 50, "MenuBar"));
+
+                }
+                else if (data === "rang") {
+                    $rootScope.stage.controls.push(new Control(tx, ty, 140, 30, "Range"));
+                }
+                else if (data === "hori") {
+                    $rootScope.stage.controls.push(new Control(tx, ty, 40, 3, "HLine"));
+                }
+                else if (data === "link") {
+                    $rootScope.stage.controls.push(new Control(tx, ty, 60, 10, "HyperLink"));
+                }
+                else if (data === "iframe") {
+                    root.add(editable(drawIframe(tx, ty), stage.controls.length));
+                    $rootScope.stage.controls.push(new Control(tx, ty, 150, 150, "Iframe"));
+                }
+                else if (data === "password") {
+                    $rootScope.stage.controls.push(new Control(tx, ty, 120, 30));
+                }
+                else if (data === "textArea") {
+                    $rootScope.stage.controls.push(new Control(tx, ty, 100, 40));
+                }
+
+                canvasService.populateCanvas(true);
+
+            }
 
             //function for drawing i frame
             this.drawIframe = function (dX, dY) {
@@ -412,11 +479,11 @@
                     url: url,
                     method: "POST",
                     data: { 'FileUrl': imgUrl }
-                }).success(function (data, status, headers, config) {
+                }).success(function (data) {
                     if (typeof callback === "function") {
                         callback(data);
                     }
-                }).error(function (data, status, headers, config) {
+                }).error(function (data) {
                     messagingService.fail("Could Not receive data");
                 });
             }
@@ -434,11 +501,11 @@
                         imageWidth: $rootScope.stage.imageWidth,
                         imageHeight: $rootScope.stage.imageHeight
                     }
-                }).success(function (data, status, headers, config) {
+                }).success(function (data) {
                     if (typeof callback === "function") {
                         callback(data);
                     }
-                }).error(function (data, status, headers, config) {
+                }).error(function (data) {
                     messagingService.fail("Could Not receive data");
                 });
             }
@@ -453,10 +520,22 @@
             var canvasWidth = (screen.width * 8 / 12) - 50;
             var canvasHeight = screen.height * .65;
 
+            //// models for resizing using the text input.
+            $scope.itemLeft = 0;
+            $scope.itemTop = 0;
+            $scope.itemWidth = 0;
+            $scope.itemHeight = 0;
+
             $rootScope.stage = new Stage(canvasWidth, canvasHeight);
+
             canvasService.init();
 
             $scope.getControls = function () {
+                if ($rootScope.stage.currentImage === undefined) {
+                    messagingService.fail("Please upload the sketch.");
+                    return;
+                }
+
                 httpService.getControls($rootScope.stage.currentImage, function (data) {
                     $rootScope.stage.controls = data.controls;
                     $rootScope.stage.imageHeight = data.imageHeight;
@@ -490,7 +569,25 @@
                     window.open(data.url, '_blank');
                     canvasService.ajustSize();
                 });
-
             }
 
-        });
+            $scope.updateItem = function () {
+                $rootScope.stage.controls[$rootScope.stage.activeControlIndex].Height = $scope.itemHeight;
+                $rootScope.stage.controls[$rootScope.stage.activeControlIndex].Width = $scope.itemWidth;
+                $rootScope.stage.controls[$rootScope.stage.activeControlIndex].X = $scope.itemLeft;
+                $rootScope.stage.controls[$rootScope.stage.activeControlIndex].Y = $scope.itemTop;
+                canvasService.editable();
+            }
+
+        })
+    .controller("sideController", function ($rootScope, $scope, canvasService, messagingService) {
+        $scope.testItem = "test";
+        $scope.addItem = function (event) {
+            if ($rootScope.stage.controls != null) {
+                canvasService.drop(event.target.id);
+                messagingService.success("item added successfully");
+            } else {
+                messagingService.fail("Please go to edit mode.");
+            }
+        }
+    });

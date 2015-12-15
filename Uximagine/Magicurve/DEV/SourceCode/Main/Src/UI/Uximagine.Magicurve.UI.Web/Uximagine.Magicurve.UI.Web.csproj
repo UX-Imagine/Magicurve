@@ -583,6 +583,8 @@
     <None Include="Properties\PublishProfiles\chan4lkTest - Web Deploy.pubxml" />
     <Content Include="Scripts\fx\zebra\zebra.json" />
     <None Include="Properties\PublishProfiles\package.pubxml" />
+    <None Include="Properties\PublishProfiles\ux-imagine - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\ux-imagine - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\fx\webcam\jquery.webcam.js" />
     <Content Include="Scripts\fx\zebra\zebra.js" />
