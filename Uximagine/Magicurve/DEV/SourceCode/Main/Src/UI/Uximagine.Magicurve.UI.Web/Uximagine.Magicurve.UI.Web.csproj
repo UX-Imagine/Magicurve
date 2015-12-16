@@ -585,11 +585,14 @@
     <None Include="Properties\PublishProfiles\package.pubxml" />
     <None Include="Properties\PublishProfiles\ux-imagine - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\ux-imagine - Web Deploy.pubxml" />
+    <Content Include="Scripts\fx\zoom\elevatezoom.jquery.json" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\fx\webcam\jquery.webcam.js" />
     <Content Include="Scripts\fx\zebra\zebra.js" />
     <Content Include="Scripts\fx\zebra\zebra.min.js" />
     <Content Include="Scripts\fx\zebra\zebra.png" />
+    <Content Include="Scripts\fx\zoom\jquery.elevateZoom-3.0.8.min.js" />
+    <Content Include="Scripts\fx\zoom\jquery.elevatezoom.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <Content Include="Scripts\jquery-ui-1.8.14.js" />

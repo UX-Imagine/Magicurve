@@ -1,40 +1,43 @@
 ﻿@section scripts
 {
-
+    
 }
 
 <div id="propertyBar">
     <form class="form-horizontal">
         <div>
-            <label for="left" class="col-sm-4 control-label" style="padding-top:20px">Left</label>
-            <div class="col-sm-8" style="padding-top:20px">
-                <input type="number" class="form-control" id="left" placeholder="Left" ng-model="itemLeft">
+            <label for="left" class="col-sm-4 control-label" style="padding-top: 20px">Left</label>
+            <div class="col-sm-8" style="padding-top: 20px">
+                <input type="number" class="form-control" id="left" placeholder="Left" ng-model="properties.itemLeft">
             </div>
         </div>
 
         <div>
-            <label for="top" class="col-sm-4 control-label" style="padding-top:20px">Top</label>
-            <div class="col-sm-8" style="padding-top:20px">
-                <input type="number" class="form-control" id="top" placeholder="Top" ng-model="itemTop">
+            <label for="top" class="col-sm-4 control-label" style="padding-top: 20px">Top</label>
+            <div class="col-sm-8" style="padding-top: 20px">
+                <input type="number" class="form-control" id="top" placeholder="Top" ng-model="properties.itemTop">
             </div>
         </div>
         <div>
-            <label for="width" class="col-sm-4 control-label" style="padding-top:20px">Width</label>
-            <div class="col-sm-8" style="padding-top:20px">
-                <input type="number" class="form-control" id="width" placeholder="Width" ng-model="itemWidth">
+            <label for="width" class="col-sm-4 control-label" style="padding-top: 20px">Width</label>
+            <div class="col-sm-8" style="padding-top: 20px">
+                <input type="number" class="form-control" id="width" placeholder="Width" ng-model="properties.itemWidth">
             </div>
         </div>
         <div>
-            <label for="height" class="col-sm-4 control-label" style="padding-top:20px">Height</label>
-            <div class="col-sm-8" style="padding-top:20px">
-                <input type="number" class="form-control" id="height" placeholder="Height" ng-model="itemHeight">
+            <label for="height" class="col-sm-4 control-label" style="padding-top: 20px">Height</label>
+            <div class="col-sm-8" style="padding-top: 20px">
+                <input type="number" class="form-control" id="height" placeholder="Height" ng-model="properties.itemHeight">
             </div>
         </div>
-        @*<div>
-            <div class="col-sm-offset-4 col-sm-8" style="padding-top:20px;padding-bottom:20px">
-                <button class="btn btn-default" ng-click="alert();">Save</button>
+        <div>
+            <div class="col-sm-offset-4 col-sm-8" style="padding-top: 20px; padding-bottom: 20px">
+                @*<button class="btn btn-default" ng-click="update()">Save</button>*@
             </div>
-        </div>*@
+        </div>
     </form>
+    @*<div class="row">
+        <img ng-src="{{properties.uploadedImageUrl || '//:0'}}" class="img-responsive" />
+    </div>*@
 </div>
 

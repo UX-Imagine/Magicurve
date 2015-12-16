@@ -531,11 +531,13 @@
             var canvasHeight = screen.height * .65;
 
             //// models for resizing using the text input.
-            $scope.itemLeft = 0;
-            $scope.itemTop = 0;
-            $scope.itemWidth = 0;
-            $scope.itemHeight = 0;
-
+            $scope.properties = {};
+            $scope.properties.itemLeft = 0;
+            $scope.properties.itemTop = 0;
+            $scope.properties.itemWidth = 0;
+            $scope.properties.itemHeight = 0;
+            $scope.properties.showUploaded = false;
+            $scope.properties.uploadedImageUrl = '';
             $rootScope.stage = new Stage(canvasWidth, canvasHeight);
 
             canvasService.init();
@@ -552,6 +554,9 @@
                     $rootScope.stage.imageWidth = data.imageWidth;
                     canvasService.ajustSize();
                     $scope.draw();
+                    $scope.properties.uploadedImageUrl = $rootScope.stage.currentImage;
+                    $scope.properties.showUploaded = true;
+                    //$("#zoom_01").elevateZoom();
                 });
             }
 
@@ -581,20 +586,20 @@
                 });
             }
 
-            $scope.updateItem = function () {
-                $rootScope.stage.controls[$rootScope.stage.activeControlIndex].Height = $scope.itemHeight;
-                $rootScope.stage.controls[$rootScope.stage.activeControlIndex].Width = $scope.itemWidth;
-                $rootScope.stage.controls[$rootScope.stage.activeControlIndex].X = $scope.itemLeft;
-                $rootScope.stage.controls[$rootScope.stage.activeControlIndex].Y = $scope.itemTop;
-                canvasService.editable();
+            $scope.update = function () {
+                $rootScope.stage.controls[$rootScope.stage.activeControlIndex].Height = $scope.properties.itemHeight;
+                $rootScope.stage.controls[$rootScope.stage.activeControlIndex].Width = $scope.properties.itemWidth;
+                $rootScope.stage.controls[$rootScope.stage.activeControlIndex].X = $scope.properties.itemLeft;
+                $rootScope.stage.controls[$rootScope.stage.activeControlIndex].Y = $scope.properties.itemTop;
+                canvasService.populateCanvas(true);
             }
 
             $scope.clear = function() {
                 canvasService.clearAll();
-                $scope.itemLeft = 0;
-                $scope.itemTop = 0;
-                $scope.itemWidth = 0;
-                $scope.itemHeight = 0;
+                $scope.properties.itemLeft = 0;
+                $scope.properties.itemTop = 0;
+                $scope.properties.itemWidth = 0;
+                $scope.properties.itemHeight = 0;
             }
 
         }
