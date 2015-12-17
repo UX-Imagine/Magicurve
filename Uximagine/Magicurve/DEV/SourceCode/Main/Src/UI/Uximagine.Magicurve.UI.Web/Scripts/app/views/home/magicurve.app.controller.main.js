@@ -1,6 +1,6 @@
 ﻿magicurveApp
     .constant("urlConfig", {
-        "domain": "/Magicurve",
+        "domain": "",
         "controlUrl": "/api/images/result",
         "codeUrl": "/api/images/download",
         "uploadUrl": "/Home/UploadFile"
@@ -172,9 +172,12 @@
                     var text = "";
                     var color = "";
 
-                    if (source.Styles !== null) {
+                    if (typeof source.Styles !== "undefined" ) {
+                        if (source.Styles !== null) {
                         text = source.Styles[0].value;
                         color = source.Styles[1].value;
+                        }
+                       
                     }
                     
                     if (sourceControls[i].Type === "Button") {
@@ -302,10 +305,11 @@
 
                 var text = "";
                 var color = "#000";
-
-                if (source.Styles !== null) {
-                    text = source.Styles[0].value;
-                    color = source.Styles[1].value;
+                if (typeof source.Styles !== "undefined") {
+                    if (source.Styles !== null) {
+                        text = source.Styles[0].value;
+                        color = source.Styles[1].value;
+                    }
                 }
 
                 $rootScope.properties.itemText = text;

@@ -233,18 +233,15 @@ namespace Uximagine.Magicurve.CodeGenerator
 
         public string GetButton(Control control)
         {
-            Button button = control as Button;
-            string btn;
-            if (button?.Value != null)
+            string value = "Button";
+
+            var item = control.Styles?.FirstOrDefault(s => s.Key == "value");
+            if (item != null)
             {
-                 btn = $"<input type='button' class='btn btn-default' value='{button.Value}'/>{Environment.NewLine}";
-            }
-            else
-            {
-                btn = $"<input type='button' class='btn btn-default' value='Button'/>{Environment.NewLine}";
+                value = item.Value;
             }
 
-            return btn;
+            return $"<input type='button' class='btn btn-default' value='{value}'/>{Environment.NewLine}";
         }
 
         /// <summary>
@@ -271,7 +268,15 @@ namespace Uximagine.Magicurve.CodeGenerator
         /// </returns>
         public string GetRadio(Control radio)
         {
-            string radioBtn = $"<div style='width: 100%'><input type='radio'> Radio</input></div>{Environment.NewLine}";
+            string value = "Radio";
+
+            var item = radio.Styles?.FirstOrDefault(s => s.Key == "value");
+            if (item != null)
+            {
+                value = item.Value;
+            }
+
+            string radioBtn = $"<div style='width: 100%'><input type='radio'>{value} </input></div>{Environment.NewLine}";
             return radioBtn;
         }
 
@@ -308,13 +313,10 @@ namespace Uximagine.Magicurve.CodeGenerator
 
             string value = string.Empty;
 
-            if (text.Styles != null)
+            var item = text.Styles?.FirstOrDefault(s => s.Key == "value");
+            if (item != null)
             {
-                var item = text.Styles.FirstOrDefault(s => s.Key == "value");
-                if (item != null)
-                {
-                    value = item.Value;
-                }
+                value = item.Value;
             }
 
             string txt = $"<input type='text' class='form-control' style='width: 100%' placeholder='text input' value='{value}'/>{Environment.NewLine}";
@@ -362,18 +364,16 @@ namespace Uximagine.Magicurve.CodeGenerator
         /// </returns>
         public string GetPara(Control para) // for paragraph 
         {
-            string paragraph;
+            string value = "This is a sample paragraph. use the interactive tool to edit the content.";
 
-            Paragraph content = para as Paragraph;
+            var item = para.Styles?.FirstOrDefault(s => s.Key == "value");
+            if (item != null)
+            {
+                value = item.Value;
+            }
 
-            if (content != null)
-            {
-                paragraph = $"<p style='width: 100%'>{content.Content}</p>";
-            }
-            else
-            {
-                paragraph = $"<p style='width: 100%'>This is a sample paragraph. use the interactive tool to edit the content.</p>";
-            }
+            string paragraph = $"<p style='width: 100%'>{value}</p>";
+         
             return paragraph;
         }
 
@@ -388,18 +388,15 @@ namespace Uximagine.Magicurve.CodeGenerator
         /// </returns>
         public string GetLabel(Control control)
         {
-            string lbl;
-            Label label = control as Label;
+            string value = "Sample Label";
 
-            if (label?.Value != null)
+            var item = control.Styles?.FirstOrDefault(s => s.Key == "value");
+            if (item != null)
             {
-                lbl = $"<label class='control-label' style='width: 100%'>{label.Value}</label> {Environment.NewLine}";
-            }
-            else
-            {
-                lbl = $"<label class='control-label' style='width: 100%'>Label Value</label> {Environment.NewLine}";
+                value = item.Value;
             }
 
+            string lbl = $"<label class='control-label' style='width: 100%'>{value}</label> {Environment.NewLine}";
             return lbl;
         }
 
@@ -414,7 +411,15 @@ namespace Uximagine.Magicurve.CodeGenerator
         /// </returns>
         public string GetTextArea(Control textarea)
         {
-            return $"<textarea style='width: 100%'>The text area.</textarea>";
+            string value = "The text area.";
+
+            var item = textarea.Styles?.FirstOrDefault(s => s.Key == "value");
+            if (item != null)
+            {
+                value = item.Value;
+            }
+
+            return $"<textarea style='width: 100%'>{value}</textarea>";
         }
 
         /// <summary>
@@ -439,7 +444,15 @@ namespace Uximagine.Magicurve.CodeGenerator
         /// </returns>
         public string GetHyperLink(Control hyperlink)
         {
-            return $"<a href='#'>The Link</a>{Environment.NewLine}";
+            string value = "The Link";
+
+            var item = hyperlink.Styles?.FirstOrDefault(s => s.Key == "value");
+            if (item != null)
+            {
+                value = item.Value;
+            }
+
+            return $"<a href='#'>{value}</a>{Environment.NewLine}";
         }
 
         /// <summary>
