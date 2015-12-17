@@ -273,13 +273,13 @@
 
                    },
                    function mouseReleased(e) {
-                       $rootScope.stage.controls[index].X = shaperPan.x + offset;
-                       $rootScope.stage.controls[index].Y = shaperPan.y + offset;
+                       $rootScope.stage.controls[index].X = Math.round(shaperPan.x + offset);
+                       $rootScope.stage.controls[index].Y = Math.round(shaperPan.y + offset);
                        self.onSelectItem(index);
                    },
                     function mouseDragEnded(e) {
-                        $rootScope.stage.controls[index].X = shaperPan.x + offset;
-                        $rootScope.stage.controls[index].Y = shaperPan.y + offset;
+                        $rootScope.stage.controls[index].X = Math.round(shaperPan.x + offset);
+                        $rootScope.stage.controls[index].Y = Math.round(shaperPan.y + offset);
                         $rootScope.stage.controls[index].Width = control.width;
                         $rootScope.stage.controls[index].Height = control.height;
                         self.onSelectItem(index);
@@ -298,8 +298,8 @@
             this.onSelectItem = function (index) {
                 var source = $rootScope.stage.controls[index];
               
-                $rootScope.properties.itemLeft = source.X;
-                $rootScope.properties.itemTop = source.Y;
+                $rootScope.properties.itemLeft = Math.round(source.X);
+                $rootScope.properties.itemTop = Math.round(source.Y);
                 $rootScope.properties.itemWidth = source.Width;
                 $rootScope.properties.itemHeight = source.Height;
 

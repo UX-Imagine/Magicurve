@@ -242,6 +242,8 @@ namespace Uximagine.Magicurve.CodeGenerator
             color = colorItem?.Value;
             value = textItem?.Value;
 
+            if (string.IsNullOrEmpty(value)) { value = "Button"; }
+
             return $"<input type='button' class='btn btn-default' value='{value}' style='color:{color};'/>{Environment.NewLine}";
         }
 
