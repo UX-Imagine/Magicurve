@@ -125,20 +125,33 @@
 
                 List<Control> finalizeControlList = query.ToList();
 
-                finalizeControlList[0].Styles = new Dictionary<string, int>
+                if (finalizeControlList[0].Styles == null)
+                {
+                    finalizeControlList[0].Styles = new List<Style>()
                                                     {
-                                                        {
-                                                            "col-md-offset",
-                                                            finalizeControlList[0].X 
-                                                        }
+                                                        new Style()
+                                                            {
+                                                                Key = "col-md-offset",
+                                                                Value = finalizeControlList[0].X.ToString()
+                                                            }
                                                     };
+                }
+                else
+                {
+                    finalizeControlList[0].Styles.Add(new Style("col-md-offset", finalizeControlList[0].X.ToString()));
+                }
+                
 
                 for (int i = 1; i < finalizeControlList.Count; i++)
                 {
-                    finalizeControlList[i].Styles = new Dictionary<string, int>();
+                    if (finalizeControlList[i].Styles == null)
+                    {
+                        finalizeControlList[i].Styles = new List<Style>();
+                    }
+                    
                     int x = finalizeControlList[i].X - finalizeControlList[i - 1].X;
 
-                    finalizeControlList[i].Styles.Add("col-md-offset", x);
+                    finalizeControlList[i].Styles.Add(new Style("col-md-offset", x.ToString()));
 
                 }
 
@@ -161,9 +174,6 @@
         /// <param name="item">
         /// The item.
         /// </param>
-        /// <param name="pageWidth">
-        /// The page width.
-        /// </param>
         /// <returns>
         /// The <see cref="int"/>.
         /// </returns>
@@ -176,12 +186,12 @@
                 colSize = 2;
             }
 
-            double mappedWidth = (colSize /12.0) * ConfigurationData.DefaultPageWidth; 
-            int offset;
-            item.Styles.TryGetValue("col-md-offset", out offset);
-            double actualLeft =(offset - PreviousMapWidth)/ConfigurationData.DefaultPageWidth*12;
+            double mappedWidth = (colSize / 12.0) * ConfigurationData.DefaultPageWidth;
+
+            int offset = int.Parse(item.Styles.First(s => s.Key == "col-md-offset").Value);
+            double actualLeft = (offset - PreviousMapWidth) / ConfigurationData.DefaultPageWidth * 12;
             int roundOffset = (int)(Math.Round(actualLeft));
-            item.Styles["col-md-offset"] = roundOffset;
+            item.Styles.First(s => s.Key == "col-md-offset").Value = roundOffset.ToString();
             PreviousMapWidth = mappedWidth;
             return colSize;
         }

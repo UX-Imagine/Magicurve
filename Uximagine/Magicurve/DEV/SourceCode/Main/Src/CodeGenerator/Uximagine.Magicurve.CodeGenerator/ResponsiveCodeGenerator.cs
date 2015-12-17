@@ -8,6 +8,8 @@ using System;
 
 namespace Uximagine.Magicurve.CodeGenerator
 {
+    using System.Linq;
+
     /// <summary>
     /// The responsive code generator.
     /// </summary>
@@ -208,8 +210,7 @@ namespace Uximagine.Magicurve.CodeGenerator
 
         public string OpenColDiv(int colSize, Control item)
         {
-            int value; 
-            item.Styles.TryGetValue("col-md-offset", out value);
+            string value = item.Styles.First(s => s.Key == "col-md-offset").Value;
 
             string colDiv = $"<div class='col-md-{colSize} col-md-offset-{value}'>";
             ////string colDiv = $"<div class='col-md-{colSize}'>";
@@ -304,8 +305,19 @@ namespace Uximagine.Magicurve.CodeGenerator
         /// </returns>
         public string GetText(Control text)
         {
-            string txt = $"<input type='text' class='form-control' style='width: 100%' placeholder='text input'/>{Environment.NewLine}";
 
+            string value = string.Empty;
+
+            if (text.Styles != null)
+            {
+                var item = text.Styles.FirstOrDefault(s => s.Key == "value");
+                if (item != null)
+                {
+                    value = item.Value;
+                }
+            }
+
+            string txt = $"<input type='text' class='form-control' style='width: 100%' placeholder='text input' value='{value}'/>{Environment.NewLine}";
             return txt;
         }
 

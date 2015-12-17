@@ -1,11 +1,27 @@
 /// <reference path="../../../typings/jquery/jquery.d.ts" />
 
+interface IStyle {
+    key: string;
+    value: string;
+}
+
+class Style implements IStyle {
+    key: string;
+    value: string;
+
+    constructor(key: string, value: string) {
+        this.key = key;
+        this.value = value;
+    }
+}
+
 interface IControl {
     X: number;
     Y: number;
     Height: number;
     Width: number;
     Type: string;
+    Styles:IStyle[];
 }
 
 class Control implements IControl {
@@ -14,6 +30,7 @@ class Control implements IControl {
     Height: number;
     Width: number;
     Type: string;
+    Styles: Style[];
 
     constructor(x: number, y: number, width: number, height: number, shapeType: string) {
         this.X = x;

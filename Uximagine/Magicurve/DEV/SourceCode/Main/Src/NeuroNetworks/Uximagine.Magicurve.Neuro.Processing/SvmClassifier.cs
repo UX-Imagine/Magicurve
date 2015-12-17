@@ -8,8 +8,6 @@ using Accord.Statistics.Kernels;
 
 namespace Uximagine.Magicurve.Neuro.Processing
 {
-    using System.Runtime.Remoting.Channels;
-
     /// <summary>
     /// The SVM classifier.
     /// </summary>

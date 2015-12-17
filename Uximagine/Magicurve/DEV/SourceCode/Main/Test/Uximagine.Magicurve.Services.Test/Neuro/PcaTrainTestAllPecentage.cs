@@ -64,7 +64,7 @@ namespace Uximagine.Magicurve.Services.Test.Neuro
         [TestCase(@"D:/Data/test/inputs/link", ControlType.HyperLink)]
         [TestCase(@"D:/Data/test/inputs/image", ControlType.Image)]
         [TestCase(@"D:/Data/test/inputs/radio", ControlType.RadioButton)]
-        public void TestButton(string directory, ControlType type)
+        public void TestAccurcy(string directory, ControlType type)
         {
             string[] files = Directory.GetFiles(directory);
 
@@ -179,7 +179,7 @@ namespace Uximagine.Magicurve.Services.Test.Neuro
 
             Control control = controls.Where(t => t.Width > minSize && t.Height > minSize).ToList()[0];
 
-            Bitmap cropped = image.Vectorize(control.EdgePoints, 1);
+            Bitmap cropped = image.Vectorize(control.EdgePoints, 1, SampleSize);
 
             return cropped;
         }

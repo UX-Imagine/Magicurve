@@ -93,6 +93,7 @@
     <Compile Include="Models\IControl.cs" />
     <Compile Include="Models\ControlType.cs" />
     <Compile Include="Models\Row.cs" />
+    <Compile Include="Models\Style.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reflection\ObjectFactory.cs" />
     <Compile Include="Reflection\ReflectionException.cs" />

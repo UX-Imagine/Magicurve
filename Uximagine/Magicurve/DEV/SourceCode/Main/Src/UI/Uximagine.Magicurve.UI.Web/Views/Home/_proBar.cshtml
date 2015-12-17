@@ -3,8 +3,8 @@
     
 }
 
-<div id="propertyBar">
-    <form class="form-horizontal">
+<div id="propertyBar" data-ng-controller="propController">
+    <form class="form-horizontal" ng-if="activeIndex !== -1">
         <div>
             <label for="left" class="col-sm-4 control-label" style="padding-top: 20px">Left</label>
             <div class="col-sm-8" style="padding-top: 20px">
@@ -31,8 +31,20 @@
             </div>
         </div>
         <div>
+            <label for="height" class="col-sm-4 control-label" style="padding-top: 20px">Text</label>
+            <div class="col-sm-8" style="padding-top: 20px">
+                <input type="text" class="form-control" id="text" placeholder="Text" ng-model="properties.itemText">
+            </div>
+        </div>
+        <div>
+            <label for="height" class="col-sm-4 control-label" style="padding-top: 20px">Color</label>
+            <div class="col-sm-8" style="padding-top: 20px">
+                <input type="color" class="form-control" id="color" placeholder="Height" ng-model="properties.itemColor">
+            </div>
+        </div>
+        <div>
             <div class="col-sm-offset-4 col-sm-8" style="padding-top: 20px; padding-bottom: 20px">
-                @*<button class="btn btn-default" ng-click="update()">Save</button>*@
+                <button class="btn btn-default" ng-click="update()">Save</button>
             </div>
         </div>
     </form>

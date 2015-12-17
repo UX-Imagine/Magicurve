@@ -6,6 +6,18 @@
         "uploadUrl": "/Home/UploadFile"
     }
     )
+    .run(function ($rootScope) {
+        $rootScope.mymodel = 'search.name';
+        $rootScope.activeIndex = -1;
+        $rootScope.properties = {};
+        $rootScope.properties.show = false;
+        $rootScope.properties.itemLeft = 0;
+        $rootScope.properties.itemTop = 0;
+        $rootScope.properties.itemWidth = 0;
+        $rootScope.properties.itemHeight = 0;
+        $rootScope.properties.itemText = 0;
+        $rootScope.properties.itemColor = "#000";
+    })
     .directive('fileModel', [
                 '$parse', 'httpService', 'toaster', '$rootScope', 'messagingService', 'canvasService',
         function ($parse, httpService, toaster, $rootScope, messagingService, canvasService) {
@@ -36,6 +48,19 @@
         }
     ]
     )
+    .directive('inputFilter', function ($rootScope) {
+        return {
+            restrict: 'E',
+            replace: true,
+            controller: function ($scope) {
+                console.log($scope.mymodel);
+                console.log($rootScope.mymodel);
+
+            },
+            template: '<input class="filter" type="text" ng-model="' + $rootScope.mymodel + '" placeholder="Nach filtern">'
+        }
+
+    })
     .service('messagingService',
          function (toaster) {
              this.UploadSuccess = function () {
@@ -83,13 +108,13 @@
                 messagingService.showMessage("canvas initialized.");
             }
 
-            this.clearAll = function() {
+            this.clearAll = function () {
                 if (root) {
                     $rootScope.stage.controls = null;
                     root.removeAll();
                 }
             }
-            
+
             this.populateCanvas = function (isEditable) {
 
                 if ($rootScope.stage.controls === undefined) {
@@ -144,12 +169,25 @@
                 for (var i = 0; i < sourceControls.length; i++) {
                     var control = null;
                     var source = sourceControls[i];
+                    var text = "";
+                    var color = "";
 
+                    if (source.Styles !== null) {
+                        text = source.Styles[0].value;
+                        color = source.Styles[1].value;
+                    }
+                    
                     if (sourceControls[i].Type === "Button") {
-                        control = this.drawButton(source.X, source.Y, source.Width, source.Height, "Button");
+                        if (text.length === 0) {
+                            text = "Button";
+                        }
+                        control = this.drawButton(source.X, source.Y, source.Width, source.Height, text);
                     }
                     else if (sourceControls[i].Type === "CheckBox") {
-                        control = this.drawCheckBox(source.X, source.Y, 120, 30, "CheckBox");
+                        if (text.length === 0) {
+                            text = "CheckBox";
+                        }
+                        control = this.drawCheckBox(source.X, source.Y, 120, 30, text);
                     }
                     else if (sourceControls[i].Type === "ComboBox") {
                         control = this.drawComboBox(source.X, source.Y, 120, source.Height);
@@ -158,13 +196,19 @@
                         control = this.drawHorizontalLine(source.X, source.Y, source.Width);
                     }
                     else if (sourceControls[i].Type === "HyperLink") {
-                        control = this.drawHyperlink(source.X, source.Y, source.Width, source.Height, "HyperLink");
+                        if (text.length === 0) {
+                            text = "HyperLink";
+                        }
+                        control = this.drawHyperlink(source.X, source.Y, source.Width, source.Height, text);
                     }
                     else if (sourceControls[i].Type === "Image") {
                         control = this.drawImageContent(source.X, source.Y, source.Width, source.Height);
                     }
                     else if (sourceControls[i].Type === "Label") {
-                        control = this.drawLabel(source.X, source.Y, source.Width, source.Height, "Label Caption");
+                        if (text.length === 0) {
+                            text = "Label Caption";
+                        }
+                        control = this.drawLabel(source.X, source.Y, source.Width, source.Height, text);
                     }
                     else if (sourceControls[i].Type === "MenuBar") {
                         control = this.drawMenuBar(source.X, source.Y, source.Width, source.Height);
@@ -173,13 +217,21 @@
                         control = this.drawPara(source.X, source.Y, source.Width, source.Height);
                     }
                     else if (sourceControls[i].Type === "RadioButton") {
-                        control = this.drawRadioButton(source.X, source.Y, 120, 30, "RadioButton");
+                        if (text.length === 0) {
+                            text = "RadioButton";
+                        }
+
+                        control = this.drawRadioButton(source.X, source.Y, 120, 30, text);
                     }
                     else if (sourceControls[i].Type === "TextArea") {
                         control = this.drawTextArea(source.X, source.Y, source.Width, source.Height);
                     }
                     else if (sourceControls[i].Type === "InputText") {
-                        control = this.drawTextBox(source.X, source.Y, source.Width, 30);
+                        if (text.length === 0) {
+                            text = "Type Here...";
+                        }
+                       
+                        control = this.drawTextBox(source.X, source.Y, source.Width, 30, text);
                     }
                     else if (sourceControls[i].Type === "Iframe") {
                         control = this.drawIframe(source.X, source.Y, source.Width, source.Height);
@@ -213,18 +265,21 @@
                    function mousePressed(e) {
 
                        $rootScope.stage.activeControlIndex = index;
+                       $rootScope.activeIndex = index;
                        self.onSelectItem(index);
 
                    },
                    function mouseReleased(e) {
                        $rootScope.stage.controls[index].X = shaperPan.x + offset;
                        $rootScope.stage.controls[index].Y = shaperPan.y + offset;
+                       self.onSelectItem(index);
                    },
                     function mouseDragEnded(e) {
                         $rootScope.stage.controls[index].X = shaperPan.x + offset;
                         $rootScope.stage.controls[index].Y = shaperPan.y + offset;
                         $rootScope.stage.controls[index].Width = control.width;
                         $rootScope.stage.controls[index].Height = control.height;
+                        self.onSelectItem(index);
 
                     }, function keyPressed(e) {
                         if (e.code === 46) { // on delete pressed.
@@ -238,17 +293,25 @@
             }
 
             this.onSelectItem = function (index) {
-                var x = document.getElementById("left");
-                x.value = $rootScope.stage.controls[index].X;
+                var source = $rootScope.stage.controls[index];
+              
+                $rootScope.properties.itemLeft = source.X;
+                $rootScope.properties.itemTop = source.Y;
+                $rootScope.properties.itemWidth = source.Width;
+                $rootScope.properties.itemHeight = source.Height;
 
-                var y = document.getElementById("top");
-                y.value = $rootScope.stage.controls[index].Y;
+                var text = "";
+                var color = "#000";
 
-                var width = document.getElementById("width");
-                width.value = $rootScope.stage.controls[index].Width;
+                if (source.Styles !== null) {
+                    text = source.Styles[0].value;
+                    color = source.Styles[1].value;
+                }
 
-                var height = document.getElementById("height");
-                height.value = $rootScope.stage.controls[index].Height;
+                $rootScope.properties.itemText = text;
+                $rootScope.properties.itemColor = color;
+
+                $rootScope.$apply();
 
             }
 
@@ -300,14 +363,14 @@
                     $rootScope.stage.controls.push(new Control(tx, ty, 100, 20, "HyperLink"));
                 }
                 else if (data === "Iframe") {
-                    
+
                     $rootScope.stage.controls.push(new Control(tx, ty, 200, 200, "Iframe"));
                 }
                 else if (data === "InputPassword") {
                     $rootScope.stage.controls.push(new Control(tx, ty, 120, 30, "InputPassword"));
                 }
                 else if (data === "TextArea") {
-                    $rootScope.stage.controls.push(new Control(tx, ty, 150, 75,"TextArea"));
+                    $rootScope.stage.controls.push(new Control(tx, ty, 150, 75, "TextArea"));
                 }
 
                 canvasService.populateCanvas(true);
@@ -315,7 +378,7 @@
             }
 
             //function for drawing i frame
-            this.drawIframe = function (dX, dY,ifraWidth,ifraHeight) {
+            this.drawIframe = function (dX, dY, ifraWidth, ifraHeight) {
                 var iframePic = zebra.ui.loadImage("/Magicurve/Content/Images/Icon/iframe.png");
                 var imageIframe = new zebra.ui.ImagePan(iframePic);
                 imageIframe.setBounds(dX, dY, ifraWidth, ifraHeight);
@@ -331,7 +394,7 @@
             }
 
             //function for drawing rang
-            this.drawRage = function (dX, dY,rangWidth,rangHeight) {
+            this.drawRage = function (dX, dY, rangWidth, rangHeight) {
                 var rangePic = zebra.ui.loadImage("/Magicurve/Content/Images/Icon/rang.png");
                 var imageRangePic = new zebra.ui.ImagePan(rangePic);
                 imageRangePic.setBounds(dX, dY, 150, 15);
@@ -370,8 +433,8 @@
             }
 
             //function for drawing text box
-            this.drawTextBox = function (tx, ty, tw, th) {
-                var textBox = new zebra.ui.TextField("Type Here...");
+            this.drawTextBox = function (tx, ty, tw, th, text) {
+                var textBox = new zebra.ui.TextField(text);
                 textBox.setBounds(tx, ty, tw, th);
                 return textBox;
             }
@@ -530,14 +593,7 @@
             var canvasWidth = (screen.width * 8 / 12) - 50;
             var canvasHeight = screen.height * .65;
 
-            //// models for resizing using the text input.
-            $scope.properties = {};
-            $scope.properties.itemLeft = 0;
-            $scope.properties.itemTop = 0;
-            $scope.properties.itemWidth = 0;
-            $scope.properties.itemHeight = 0;
-            $scope.properties.showUploaded = false;
-            $scope.properties.uploadedImageUrl = '';
+
             $rootScope.stage = new Stage(canvasWidth, canvasHeight);
 
             canvasService.init();
@@ -554,9 +610,6 @@
                     $rootScope.stage.imageWidth = data.imageWidth;
                     canvasService.ajustSize();
                     $scope.draw();
-                    $scope.properties.uploadedImageUrl = $rootScope.stage.currentImage;
-                    $scope.properties.showUploaded = true;
-                    //$("#zoom_01").elevateZoom();
                 });
             }
 
@@ -586,20 +639,8 @@
                 });
             }
 
-            $scope.update = function () {
-                $rootScope.stage.controls[$rootScope.stage.activeControlIndex].Height = $scope.properties.itemHeight;
-                $rootScope.stage.controls[$rootScope.stage.activeControlIndex].Width = $scope.properties.itemWidth;
-                $rootScope.stage.controls[$rootScope.stage.activeControlIndex].X = $scope.properties.itemLeft;
-                $rootScope.stage.controls[$rootScope.stage.activeControlIndex].Y = $scope.properties.itemTop;
-                canvasService.populateCanvas(true);
-            }
-
-            $scope.clear = function() {
+            $scope.clear = function () {
                 canvasService.clearAll();
-                $scope.properties.itemLeft = 0;
-                $scope.properties.itemTop = 0;
-                $scope.properties.itemWidth = 0;
-                $scope.properties.itemHeight = 0;
             }
 
         }
@@ -615,4 +656,45 @@
             }
         }
     }
-    );
+    )
+    .controller("propController", function ($rootScope, $scope, canvasService, messagingService) {
+        $scope.testItem = "test";
+        //// models for resizing using the text input.
+  
+        $scope.properties.showUploaded = false;
+        $scope.properties.uploadedImageUrl = '';
+
+        $rootScope.activeIndex = -1;
+
+        var scope = $rootScope;
+
+        scope.$watch('activeIndex', function (index) {
+            if (typeof index !== "undefined") {
+                $scope.properties.show = true;
+            }
+        });
+
+        $scope.update = function () {
+            if ($rootScope.stage.controls.length !== 0) {
+                $rootScope.stage.controls[$rootScope.stage.activeControlIndex].Height = $rootScope.properties.itemHeight;
+                $rootScope.stage.controls[$rootScope.stage.activeControlIndex].Width = $rootScope.properties.itemWidth;
+                $rootScope.stage.controls[$rootScope.stage.activeControlIndex].X = $rootScope.properties.itemLeft;
+                $rootScope.stage.controls[$rootScope.stage.activeControlIndex].Y = $rootScope.properties.itemTop;
+                $rootScope.stage.controls[$rootScope.stage.activeControlIndex].Styles = [];
+                $rootScope.stage.controls[$rootScope.stage.activeControlIndex].Styles.push(new Style("value", $rootScope.properties.itemText));
+                $rootScope.stage.controls[$rootScope.stage.activeControlIndex].Styles.push(new Style("color", $rootScope.properties.itemColor));
+                canvasService.populateCanvas(true);
+            }
+
+        }
+
+        $scope.clear = function () {
+            canvasService.clearAll();
+            $rootScope.properties.itemLeft = 0;
+            $rootScope.properties.itemTop = 0;
+            $rootScope.properties.itemWidth = 0;
+            $rootScope.properties.itemHeight = 0;
+            $rootScope.properties.itemText = "";
+            $rootScope.properties.itemColor = 0;
+        }
+    });

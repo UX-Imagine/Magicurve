@@ -82,7 +82,7 @@ namespace Uximagine.Magicurve.Core.Shapes
         /// The styles.
         /// </value>
         [DataMember]
-        public Dictionary<string, int> Styles
+        public List<Style> Styles
         {
             get;
             set;
