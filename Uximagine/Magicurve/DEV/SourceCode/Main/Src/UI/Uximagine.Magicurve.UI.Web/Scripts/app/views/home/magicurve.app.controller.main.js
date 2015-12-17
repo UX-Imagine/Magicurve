@@ -1,6 +1,6 @@
 ﻿magicurveApp
     .constant("urlConfig", {
-        "domain": "",
+        "domain": "/Magicurve",
         "controlUrl": "/api/images/result",
         "codeUrl": "/api/images/download",
         "uploadUrl": "/Home/UploadFile"

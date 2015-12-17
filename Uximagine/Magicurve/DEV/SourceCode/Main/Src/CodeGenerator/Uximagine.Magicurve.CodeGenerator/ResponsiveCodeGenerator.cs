@@ -234,14 +234,15 @@ namespace Uximagine.Magicurve.CodeGenerator
         public string GetButton(Control control)
         {
             string value = "Button";
+            string color = "";
 
-            var item = control.Styles?.FirstOrDefault(s => s.Key == "value");
-            if (item != null)
-            {
-                value = item.Value;
-            }
+            var textItem = control.Styles?.FirstOrDefault(s => s.Key == "value");
+            var colorItem = control.Styles?.FirstOrDefault(s => s.Key == "color");
 
-            return $"<input type='button' class='btn btn-default' value='{value}'/>{Environment.NewLine}";
+            color = colorItem?.Value;
+            value = textItem?.Value;
+
+            return $"<input type='button' class='btn btn-default' value='{value}' style='color:{color};'/>{Environment.NewLine}";
         }
 
         /// <summary>
@@ -312,14 +313,15 @@ namespace Uximagine.Magicurve.CodeGenerator
         {
 
             string value = string.Empty;
+            string color = string.Empty;
 
             var item = text.Styles?.FirstOrDefault(s => s.Key == "value");
-            if (item != null)
-            {
-                value = item.Value;
-            }
+            var colorItem = text.Styles?.FirstOrDefault(s => s.Key == "color");
 
-            string txt = $"<input type='text' class='form-control' style='width: 100%' placeholder='text input' value='{value}'/>{Environment.NewLine}";
+            color = colorItem?.Value;
+            value = item?.Value;
+
+            string txt = $"<input type='text' class='form-control' style='width: 100%;color:{color}' placeholder='text input' value='{value}'/>{Environment.NewLine}";
             return txt;
         }
 
