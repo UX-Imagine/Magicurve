@@ -246,7 +246,7 @@
                         control = this.drawRage(source.X, source.Y, source.Width, source.Height);
                     }
                     else if (sourceControls[i].Type === "InputPassword") {
-                        control = this.drawTextBox(source.X, source.Y, source.Width, source.Height);
+                        control = this.drawTextBox(source.X, source.Y, source.Width, source.Height, "...");
                     }
 
                     if (control != null) {
